@@ -1,7 +1,20 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+"use client";
+import Image from "next/image";
+import styles from "./page.module.css";
+import { useEffect } from "react";
 
 export default function Home() {
+  useEffect(() => {
+    if ("serviceWorker" in navigator) {
+      const registInit = async () => {
+        const registration = await navigator.serviceWorker.register("sw.js");
+
+        registration.waiting?.postMessage("SKIP_WAITING");
+      };
+
+      registInit();
+    }
+  }, []);
   return (
     <main className={styles.main}>
       <div className={styles.description}>
@@ -15,7 +28,7 @@ export default function Home() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            By{' '}
+            By{" "}
             <Image
               src="/vercel.svg"
               alt="Vercel Logo"
@@ -91,5 +104,5 @@ export default function Home() {
         </a>
       </div>
     </main>
-  )
+  );
 }

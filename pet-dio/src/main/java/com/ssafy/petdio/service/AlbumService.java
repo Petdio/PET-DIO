@@ -24,5 +24,7 @@ public class AlbumService {
         return albumRepository.AlbumDetail(album_id);
     }
 
+    //gkgk
+
 }
 

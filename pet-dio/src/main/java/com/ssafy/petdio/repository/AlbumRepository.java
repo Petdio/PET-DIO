@@ -22,4 +22,6 @@ public class AlbumRepository {
                 .getResultList();
     }
 
+    //gkgk
+
 }

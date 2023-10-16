@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class User {
+
     @Id
     @Column(name = "user_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)

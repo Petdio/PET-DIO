@@ -1,6 +1,7 @@
 package com.ssafy.petdio.service;
 
 
+import com.ssafy.petdio.model.dto.AlbumDetailDto;
 import com.ssafy.petdio.model.dto.AlbumDto;
 import com.ssafy.petdio.model.entity.Album;
 import com.ssafy.petdio.repository.AlbumRepository;
@@ -24,8 +25,14 @@ public class AlbumServiceImpl implements AlbumService{
                 .collect(Collectors.toList());
     }
     @Override
-    public Album albumDetail(Long album_id){
-        return albumRepository.AlbumDetail(album_id);
+    public AlbumDetailDto albumDetail(Long album_id){
+
+        Album albumDetail = albumRepository.AlbumDetail(album_id);
+
+        AlbumDetailDto result = new AlbumDetailDto(albumDetail.getAlbumId(), albumDetail.getAlbumImgUrl(), albumDetail.getAlbumConceptId(), albumDetail.getAlbumCreated());
+
+        return result;
+
     }
 
     //gkgk

@@ -5,11 +5,11 @@ import com.ssafy.petdio.model.dto.UserResponseDto;
 
 public interface UserService {
 
-    public UserResponseDto getUserProfile(int id);
+    public UserResponseDto getUserProfile(Long id);
 
-    public UserResponseDto updateUserProfile(int id, UserProfileUpdateDto userProfileUpdateDto);
+    public UserResponseDto updateUserProfile(Long id, UserProfileUpdateDto userProfileUpdateDto);
 
-    public void deleteUser(int id);
+    public void deleteUser(Long id);
 
 
 }

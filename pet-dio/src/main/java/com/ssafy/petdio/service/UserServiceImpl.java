@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public UserResponseDto getUserProfile(int id) {
+    public UserResponseDto getUserProfile(Long id) {
         User user = findUserById(id);
         return new UserResponseDto().toUserResponseDto(user);
     }
@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public UserResponseDto updateUserProfile(int id, UserProfileUpdateDto userProfileUpdateDto) {
+    public UserResponseDto updateUserProfile(Long id, UserProfileUpdateDto userProfileUpdateDto) {
         User user = userRepository.save(findUserById(id).updateUser(userProfileUpdateDto));
         return new UserResponseDto().toUserResponseDto(user);
     }
@@ -44,14 +44,14 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public void deleteUser(int id) {
+    public void deleteUser(Long id) {
         User user = findUserById(id);
         user.deleted();
         userRepository.saveAndFlush(user);
     }
 
     // userId로 유저를 찾고, 없으면 throw Exception
-    public User findUserById(int id) {
+    public User findUserById(Long id) {
         return userRepository.findByIdAndIsDeleted(id, 0)
                 .orElseThrow(() -> new RuntimeException("해당하는 유저를 찾을 수 없습니다"));
     }

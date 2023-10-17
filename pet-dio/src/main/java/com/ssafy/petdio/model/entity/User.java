@@ -20,8 +20,8 @@ public class User {
 
     @Id
     @Column(name = "user_id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name = "user_email", nullable = false)
     private String email;

@@ -42,8 +42,8 @@ public class User {
 
 
     public User updateUser(UserProfileUpdateDto userProfileUpdateDto) {
-        if (userProfileUpdateDto.getUser_nickname() != null)
-            this.userNickname = userProfileUpdateDto.getUser_nickname();
+        if (userProfileUpdateDto.getNickname() != null)
+            this.userNickname = userProfileUpdateDto.getNickname();
         return this;
     }
 

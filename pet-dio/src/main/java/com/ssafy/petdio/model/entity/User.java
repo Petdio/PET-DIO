@@ -1,6 +1,7 @@
 package com.ssafy.petdio.model.entity;
 
 import com.ssafy.petdio.model.Enum.SocialType;
+import com.ssafy.petdio.model.dto.UserProfileUpdateDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -39,5 +40,15 @@ public class User {
 
     @Column(name = "user_isDelete")
     private int isDeleted;
+
+    public User updateUser(UserProfileUpdateDto userProfileUpdateDto) {
+        if (userProfileUpdateDto.getNickname() != null)
+            this.nickname = userProfileUpdateDto.getNickname();
+        return this;
+    }
+
+    public void deleted() {
+        this.isDeleted = 1;
+    }
 
 }

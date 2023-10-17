@@ -44,6 +44,7 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
+    @Transactional
     public void deleteUser(Long id) {
         User user = findUserById(id);
         user.deleted();
@@ -51,8 +52,8 @@ public class UserServiceImpl implements UserService {
     }
 
     // userId로 유저를 찾고, 없으면 throw Exception
-    public User findUserById(Long id) {
-        return userRepository.findByIdAndIsDeleted(id, 0)
+    private User findUserById(Long id) {
+        return userRepository.findByIdAndDelete(id, 0)
                 .orElseThrow(() -> new RuntimeException("해당하는 유저를 찾을 수 없습니다"));
     }
 

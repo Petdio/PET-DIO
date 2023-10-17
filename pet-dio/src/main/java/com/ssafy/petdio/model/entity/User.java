@@ -38,8 +38,8 @@ public class User {
     @Column(name = "user_createdAt")
     private LocalDateTime createdAt;
 
-    @Column(name = "user_isDelete")
-    private int isDeleted;
+    @Column(name = "user_delete")
+    private int deleted;
 
     public User updateUser(UserProfileUpdateDto userProfileUpdateDto) {
         if (userProfileUpdateDto.getNickname() != null)
@@ -48,7 +48,7 @@ public class User {
     }
 
     public void deleted() {
-        this.isDeleted = 1;
+        this.deleted = 1;
     }
 
 }

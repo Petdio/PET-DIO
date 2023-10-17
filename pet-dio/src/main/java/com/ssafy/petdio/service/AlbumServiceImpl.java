@@ -20,7 +20,7 @@ public class AlbumServiceImpl implements AlbumService{
 
     @Override
     public List<AlbumDto> albumList(Long album_user_id){
-        return albumRepository.AlbumList(album_user_id).stream().map(a -> new AlbumDto(a.getAlbum_id(), a.getAlbum_user_id(), a.getAlbum_imgURL()))
+        return albumRepository.AlbumList(album_user_id).stream().map(a -> new AlbumDto(a.getAlbumId(), a.getUser().getUserId(), a.getAlbumImgUrl()))
                 .collect(Collectors.toList());
     }
     @Override

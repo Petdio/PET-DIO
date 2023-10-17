@@ -1,5 +1,6 @@
 package com.ssafy.petdio.model.entity;
 
+import com.ssafy.petdio.model.dto.UserProfileUpdateDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,12 +10,13 @@ import lombok.NoArgsConstructor;
 import java.sql.Timestamp;
 
 @Getter
+@Entity
+@Table(name = "user")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity
-@Table(name = "user")
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
@@ -37,4 +39,16 @@ public class User {
 
     @Column(name = "user_delete", columnDefinition = "TINYINT(1) NULL DEFAULT '0'")
     private Boolean userDelete;
+
+
+    public User updateUser(UserProfileUpdateDto userProfileUpdateDto) {
+        if (userProfileUpdateDto.getUser_nickname() != null)
+            this.userNickname = userProfileUpdateDto.getUser_nickname();
+        return this;
+    }
+
+    public void deleted() {
+        this.userDelete = true;
+    }
+
 }

@@ -17,8 +17,8 @@ public class UserResponseDto {
 
     public UserResponseDto toUserResponseDto(User user) {
         return UserResponseDto.builder()
-                .email(user.getEmail())
-                .nickname(user.getNickname())
+                .email(user.getUserEmail())
+                .nickname(user.getUserNickname())
                 .build();
     }
 }

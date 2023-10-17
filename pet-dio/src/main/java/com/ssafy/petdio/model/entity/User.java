@@ -1,6 +1,5 @@
 package com.ssafy.petdio.model.entity;
 
-import com.ssafy.petdio.model.Enum.SocialType;
 import com.ssafy.petdio.model.dto.UserProfileUpdateDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -8,7 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 @Getter
 @Entity
@@ -19,36 +18,37 @@ import java.time.LocalDateTime;
 public class User {
 
     @Id
-    @Column(name = "user_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "user_id")
+    private Long userId;
 
     @Column(name = "user_email", nullable = false)
-    private String email;
+    private String userEmail;
 
     @Column(name = "user_nickname", nullable = false)
-    private String nickname;
+    private String userNickname;
 
-    @Column(name = "user_socialType", nullable = false)
-    private SocialType socialType;
+    @Column(name = "user_social_type", nullable = false)
+    private int userSocialType;
 
-    @Column(name = "user_socialId", nullable = false)
-    private String socialId;
+    @Column(name = "user_social_id", nullable = false)
+    private String userSocialId;
 
-    @Column(name = "user_createdAt")
-    private LocalDateTime createdAt;
+    @Column(name = "user_created", columnDefinition = "TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP")
+    private Timestamp userCreated;
 
-    @Column(name = "user_delete")
-    private int deleted;
+    @Column(name = "user_delete", columnDefinition = "TINYINT(1) NULL DEFAULT '0'")
+    private Boolean userDelete;
+
 
     public User updateUser(UserProfileUpdateDto userProfileUpdateDto) {
-        if (userProfileUpdateDto.getNickname() != null)
-            this.nickname = userProfileUpdateDto.getNickname();
+        if (userProfileUpdateDto.getUser_nickname() != null)
+            this.userNickname = userProfileUpdateDto.getUser_nickname();
         return this;
     }
 
     public void deleted() {
-        this.deleted = 1;
+        this.userDelete = true;
     }
 
 }

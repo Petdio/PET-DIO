@@ -2,37 +2,43 @@ package com.ssafy.petdio.model.entity;
 
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
-import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
-import static jakarta.persistence.FetchType.LAZY;
+import java.sql.Timestamp;
 
 
-@Entity
 @Getter
-@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Entity
+@Table(name = "album")
 public class Album {
-
     @Id
-    @GeneratedValue
-    private Long album_id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "album_id")
+    private Long albumId;
 
-    @OneToMany(fetch = LAZY)
-    @JoinColumn(name = "user_id")
-    private User album_user_id;
+    @Column(name = "album_user_id", nullable = false)
+    private Long albumUserId;
 
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "concept_id")
-    private Concept album_concept_id;
+    @Column(name = "album_concept_id", nullable = false)
+    private Long albumConceptId;
 
-    private String album_imgURL;
+    @Column(name = "album_imgurl", nullable = false)
+    private String albumImgUrl;
 
-    private ZonedDateTime createdat;
+    @Column(name = "album_created", columnDefinition = "TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP")
+    private Timestamp albumCreated;
 
-    //gkgk
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "album_user_id", insertable = false, updatable = false)
+    private User user;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "album_concept_id", insertable = false, updatable = false)
+    private Concept concept;
 }

@@ -1,4 +1,5 @@
 import "./globals.css";
+import ServiceWorker from "./ServiceWorker";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
@@ -19,6 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <ServiceWorker />
       <body className={inter.className}>{children}</body>
     </html>
   );

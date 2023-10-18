@@ -1,36 +1,20 @@
-import { Typography } from '@mui/material';
-import { Concert_One } from 'next/font/google';
-import { theme } from '@/styles/ThemeRegistry';
-
-const concertOne = Concert_One({ subsets: ['latin'], weight: '400' });
+import Image from "next/image";
+import { theme } from "@/styles/ThemeRegistry";
 
 interface Props {
-  size?: 'large' | 'small';
+  size?: "large" | "small";
 }
 
-function Logo({ size = 'small', ...props }) {
-  const logoName = 'PET:DIO';
+function Logo({ size = "small", ...props }: Props) {
   const primaryColor = theme.palette.primary.main;
   switch (size) {
-    case 'small':
+    case "small":
       return (
-        <Typography
-          className={concertOne.className}
-          color={primaryColor}
-          fontSize={16}
-        >
-          {logoName}
-        </Typography>
+        <Image src="/assets/PETDIO.svg" alt="logo" width={52} height={12} />
       );
-    case 'large':
+    case "large":
       return (
-        <Typography
-          className={concertOne.className}
-          color={primaryColor}
-          fontSize={64}
-        >
-          {logoName}
-        </Typography>
+        <Image src="/assets/PETDIO.svg" alt="logo" width={296} height={94} />
       );
   }
 }

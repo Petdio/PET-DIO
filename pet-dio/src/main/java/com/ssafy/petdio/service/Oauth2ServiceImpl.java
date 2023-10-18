@@ -72,6 +72,7 @@ public class Oauth2ServiceImpl implements Oauth2Service{
         return sendPost(new HttpEntity<>(parameters, makeHttpHeader(httpHeaders)), Oauth2DTO.KakaoTokenResponse.class, oauth2Client.getTokenUri());
     }
 
+    //유저 정보 받기
     private Oauth2DTO.KakaoUserResponse kakaoGetUser(final Oauth2DTO.KakaoTokenResponse response) {
         log.info("kakao get user");
         HttpHeaders httpHeaders = new HttpHeaders();

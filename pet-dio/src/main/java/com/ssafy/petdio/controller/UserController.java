@@ -22,10 +22,4 @@ public class UserController {
         log.info("get user profile");
         return ResponseEntity.status(HttpStatus.OK).body(userService.getUserProfile(id));
     }
-
-//    @PostMapping
-//    public ResponseEntity logout() {
-//
-//    }
-
 }

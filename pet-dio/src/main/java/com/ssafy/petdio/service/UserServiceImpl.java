@@ -8,13 +8,13 @@ import com.ssafy.petdio.repository.UserRepository;
 import com.ssafy.petdio.util.TokenProvider;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Service
 @Transactional
 @AllArgsConstructor
+@Slf4j
 public class UserServiceImpl implements UserService {
 //    private final RedisTemplate<String, String> redisTemplate;
     private final UserRepository userRepository;
@@ -77,7 +77,12 @@ public class UserServiceImpl implements UserService {
                 build();
     }
 
-    public void logout() {
-
+    @Override
+    public void logout(Long userId) {
+//        ValueOperations<String, String> ops = redisTemplate.opsForValue();
+        String token = null;
+//        token = ops.getAndDelete(userId.toString());
+        if (token != null) log.info("logout!! " + userId);
+        else log.error("redis 에 로그아웃할 id가 저장되어있지 않음 " + userId);
     }
 }

@@ -3,10 +3,9 @@
 import * as React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeOptions, ThemeProvider } from '@mui/material/styles';
-import { Roboto } from 'next/font/google';
 import { NextAppDirEmotionCacheProvider } from './EmotionCache';
 
-/**여기서 앱 테마를 설정하면 된다 */
+/** 여기서 앱 테마를 설정하면 된다 */
 
 const themeOptions: ThemeOptions = {
   typography: {

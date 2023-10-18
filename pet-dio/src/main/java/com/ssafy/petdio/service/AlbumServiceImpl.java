@@ -5,6 +5,7 @@ import com.ssafy.petdio.model.dto.AlbumDetailDto;
 import com.ssafy.petdio.model.dto.AlbumDto;
 import com.ssafy.petdio.model.entity.Album;
 import com.ssafy.petdio.repository.AlbumRepository;
+import com.ssafy.petdio.repository.AlbumRepository2;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 public class AlbumServiceImpl implements AlbumService{
 
     private final AlbumRepository albumRepository;
+    private final AlbumRepository2 albumRepository2;
 
     @Override
     public List<AlbumDto> albumList(Long album_user_id){
@@ -33,6 +35,13 @@ public class AlbumServiceImpl implements AlbumService{
 
         return result;
 
+    }
+
+    @Override
+    @Transactional
+    public void AlbumDelete(Long album_id){
+
+        albumRepository2.deleteAlbumByAlbumId(album_id);
     }
 
     //gkgk

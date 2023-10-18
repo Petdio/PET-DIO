@@ -2,15 +2,13 @@ package com.ssafy.petdio.model.entity;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.sql.Timestamp;
 
 
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -41,4 +39,7 @@ public class Album {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "album_concept_id", insertable = false, updatable = false)
     private Concept concept;
+
+//----------------------------------------------------------------------------------
+
 }

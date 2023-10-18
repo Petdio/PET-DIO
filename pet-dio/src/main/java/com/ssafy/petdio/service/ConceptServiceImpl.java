@@ -26,7 +26,7 @@ public class ConceptServiceImpl implements ConceptService{
                 .map(concept -> ConceptDTO.Response.builder()
                         .id(concept.getConceptId())
                         .name(concept.getConceptName())
-                        .imgURL(imgRepository.findImgURLByConcept_ConceptIdAndImgType(concept.getConceptId(), ImgType.list.ordinal()))
+                        .imgURL(imgRepository.findImgURLByConcept_ConceptIdAndImgType(concept.getConceptId(), ImgType.list.getTypeId()))
                         .build())
                 .collect(Collectors.toList());
     }

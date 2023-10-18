@@ -1,19 +1,24 @@
 package com.ssafy.petdio.service;
 
+import com.ssafy.petdio.model.dto.UserDTO;
 import com.ssafy.petdio.model.dto.UserProfileUpdateDto;
 import com.ssafy.petdio.model.dto.UserResponseDto;
 import com.ssafy.petdio.model.entity.User;
 import com.ssafy.petdio.repository.UserRepository;
+import com.ssafy.petdio.util.TokenProvider;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 
 @Service
 @Transactional
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
-
+//    private final RedisTemplate<String, String> redisTemplate;
     private final UserRepository userRepository;
+    private final TokenProvider tokenProvider;
 
     /**
      * 유저 정보 반환하는 메서드
@@ -53,8 +58,26 @@ public class UserServiceImpl implements UserService {
 
     // userId로 유저를 찾고, 없으면 throw Exception
     private User findUserById(Long id) {
-        return userRepository.findByIdAndDelete(id, false)
+        return userRepository.findByUserIdAndUserDelete(id, false)
                 .orElseThrow(() -> new RuntimeException("해당하는 유저를 찾을 수 없습니다"));
     }
 
+    @Override
+    public UserDTO.LoginResponse login(User user) {
+        //redis refreshToken 저장
+//        ValueOperations<String, String> ops = redisTemplate.opsForValue();
+        String refreshToken = tokenProvider.createRefreshToken(user.getUserId());
+        String accessToken = tokenProvider.createAccessToken(user.getUserId());
+//        ops.set(user.getUserId().toString(), refreshToken);
+
+        return UserDTO.LoginResponse.builder().
+                userId(user.getUserId()).
+                accessToken(accessToken).
+                refreshToken(refreshToken).
+                build();
+    }
+
+    public void logout() {
+
+    }
 }

@@ -10,10 +10,10 @@ import java.util.Optional;
 @Repository
 public interface UserRepository  extends JpaRepository<User, Integer> {
 
-    Optional<User> findByIdAndDelete(Long id, boolean delete);
+    Optional<User> findByUserIdAndUserDelete(Long id, boolean delete);
 
-    Optional<User> findByEmail(String email);
+    Optional<User> findByUserEmail(String email);
 
-    Optional<User> findBySocialTyoeAndSocialId(SocialType socialType, String socialId);
+    Optional<User> findByUserSocialTypeAndUserSocialId(SocialType socialType, String socialId);
 
 }

@@ -2,19 +2,19 @@ package com.ssafy.petdio.model.entity;
 
 import com.ssafy.petdio.model.dto.UserProfileUpdateDto;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
 
 import java.sql.Timestamp;
 
 @Getter
+@DynamicInsert
 @Entity
 @Table(name = "user")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString
 public class User {
 
     @Id

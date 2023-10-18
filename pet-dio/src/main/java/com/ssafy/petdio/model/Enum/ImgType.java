@@ -1,5 +1,8 @@
 package com.ssafy.petdio.model.Enum;
 
+import lombok.Getter;
+
+@Getter
 public enum ImgType {
     list(1, "컨셉 리스트 사진");
 

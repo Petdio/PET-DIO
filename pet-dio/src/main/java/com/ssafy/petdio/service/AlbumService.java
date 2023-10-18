@@ -9,4 +9,7 @@ public interface AlbumService {
     List<AlbumDto> albumList(Long album_user_id);
 
     AlbumDetailDto albumDetail(Long album_id);
+
+    void AlbumDelete(Long album_id);
+
 }

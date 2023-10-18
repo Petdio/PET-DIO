@@ -1,3 +1,4 @@
+import './globals.css';
 import ThemeRegistry from '../styles/ThemeRegistry';
 
 import ServiceWorker from './ServiceWorker';

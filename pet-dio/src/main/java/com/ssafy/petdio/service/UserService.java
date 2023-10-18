@@ -15,4 +15,6 @@ public interface UserService {
 
 
     UserDTO.LoginResponse login(User user);
+
+    void logout(Long userId);
 }

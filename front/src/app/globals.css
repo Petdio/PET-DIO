@@ -116,11 +116,3 @@ li {
     url('../../public/fonts/woff2/Pretendard-Thin.woff2') format('woff2'),
     url('../../public/fonts/woff/Pretendard-Thin.woff') format('woff');
 }
-
-@font-face {
-  font-family: 'ConcertOne';
-  font-weight: 400;
-  font-display: swap;
-  src: local('ConcertOne'),
-    url('../../public/fonts/logo/ConcertOne-Regular.ttf') format('ttf');
-}

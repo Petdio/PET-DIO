@@ -35,6 +35,10 @@ public class User {
     @Column(name = "user_social_id", nullable = false)
     private String userSocialId;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="user_id")
+    private Token token;
+
     @Column(name = "user_created", columnDefinition = "TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP")
     private Timestamp userCreated;
 

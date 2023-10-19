@@ -2,6 +2,7 @@ import "./globals.css";
 import ThemeRegistry from "../styles/ThemeRegistry";
 import Header from "@/components/layout/header/Header";
 import { Box } from "@mui/material";
+import BottomNav from "@/components/layout/bottom-nav/BottomNav";
 
 import ServiceWorker from "./ServiceWorker";
 import type { Metadata } from "next";
@@ -30,6 +31,7 @@ export default function RootLayout({
           <Header></Header>
           <Box sx={{ mt: "70px" }}></Box>
           {children}
+          <BottomNav activeNum={0}></BottomNav>
         </body>
       </ThemeRegistry>
     </html>

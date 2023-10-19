@@ -10,7 +10,6 @@ import { NextAppDirEmotionCacheProvider } from "./EmotionCache";
 const themeOptions: ThemeOptions = {
   typography: {
     fontSize: 16,
-    fontFamily: "Pretendard",
   },
   palette: {
     background: {

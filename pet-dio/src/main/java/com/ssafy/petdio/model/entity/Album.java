@@ -22,23 +22,17 @@ public class Album {
     @Column(name = "album_id")
     private Long albumId;
 
-    @Column(name = "album_user_id", nullable = false)
-    private Long albumUserId;
-
-    @Column(name = "album_concept_id", nullable = false)
-    private Long albumConceptId;
-
-    @Column(name = "album_imgurl", nullable = false)
+    @Column(name = "album_imgurl", length = 255, nullable = false)
     private String albumImgUrl;
 
-    @Column(name = "album_created", columnDefinition = "TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "album_created")
     private Timestamp albumCreated;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "album_user_id", insertable = false, updatable = false)
+    @ManyToOne
+    @JoinColumn(name = "album_user_id", referencedColumnName = "user_id")
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "album_concept_id", insertable = false, updatable = false)
+    @ManyToOne
+    @JoinColumn(name = "album_concept_id", referencedColumnName = "concept_id")
     private Concept concept;
 }

@@ -40,6 +40,9 @@ public class User {
     @Column(name = "user_delete", columnDefinition = "TINYINT(1) NULL DEFAULT '0'")
     private Boolean userDelete;
 
+    @Column(name = "user_token")
+    private String userToken;
+
 
     public User updateUser(UserProfileUpdateDto userProfileUpdateDto) {
         if (userProfileUpdateDto.getNickname() != null)

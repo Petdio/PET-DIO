@@ -17,7 +17,7 @@ public class AlbumRepository {
     }
 
     public List<Album> AlbumList(Long album_user_id){
-        return em.createQuery("select a from Album a where a.albumUserId = :album_user_id", Album.class)
+        return em.createQuery("select a from Album a where a.user.userId = :album_user_id", Album.class)
                 .setParameter("album_user_id", album_user_id )
                 .getResultList();
     }

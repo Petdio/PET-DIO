@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 @Slf4j
 public class UserServiceImpl implements UserService {
-//    private final RedisTemplate<String, String> redisTemplate;
     private final UserRepository userRepository;
     private final TokenProvider tokenProvider;
 
@@ -64,11 +63,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO.LoginResponse login(User user) {
-        //redis refreshToken 저장
-//        ValueOperations<String, String> ops = redisTemplate.opsForValue();
         String refreshToken = tokenProvider.createRefreshToken(user.getUserId());
         String accessToken = tokenProvider.createAccessToken(user.getUserId());
-//        ops.set(user.getUserId().toString(), refreshToken);
 
         return UserDTO.LoginResponse.builder().
                 userId(user.getUserId()).

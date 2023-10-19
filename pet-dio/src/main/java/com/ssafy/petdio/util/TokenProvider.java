@@ -22,7 +22,7 @@ public class TokenProvider implements InitializingBean {
     private  String secret;
 
     @Value("${jwt.token-validity-in-milliseconds}")
-    private  long tokenValidityInMilliseconds; // AccessToken
+    private long tokenValidityInMilliseconds; // AccessToken
 
     @Value("${jwt.refresh-token}")
     private long refreshTokenTime;
@@ -89,5 +89,14 @@ public class TokenProvider implements InitializingBean {
             log.info("JWT 토큰이 잘못되었습니다.");
         }
         return false;
+    }
+
+    public Claims parse(String token) {
+        return Jwts
+                .parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
     }
 }

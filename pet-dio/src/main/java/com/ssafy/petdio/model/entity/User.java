@@ -45,6 +45,9 @@ public class User {
     @Column(name = "user_delete", columnDefinition = "TIMESTAMP NULL DEFAULT NULL")
     private Timestamp userDelete;
 
+    @Column(name = "user_token")
+    private String userToken;
+
 
     public User updateUser(UserProfileUpdateDto userProfileUpdateDto) {
         if (userProfileUpdateDto.getNickname() != null)

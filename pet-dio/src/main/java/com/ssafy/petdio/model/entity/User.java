@@ -6,6 +6,7 @@ import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 
 import java.sql.Timestamp;
+import java.time.Instant;
 
 @Getter
 @DynamicInsert
@@ -34,11 +35,15 @@ public class User {
     @Column(name = "user_social_id", nullable = false)
     private String userSocialId;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="user_id")
+    private Token token;
+
     @Column(name = "user_created", columnDefinition = "TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP")
     private Timestamp userCreated;
 
-    @Column(name = "user_delete", columnDefinition = "TINYINT(1) NULL DEFAULT '0'")
-    private Boolean userDelete;
+    @Column(name = "user_delete", columnDefinition = "TIMESTAMP NULL DEFAULT NULL")
+    private Timestamp userDelete;
 
 
     public User updateUser(UserProfileUpdateDto userProfileUpdateDto) {
@@ -48,7 +53,7 @@ public class User {
     }
 
     public void deleted() {
-        this.userDelete = true;
+        this.userDelete = Timestamp.from(Instant.now());
     }
 
 }

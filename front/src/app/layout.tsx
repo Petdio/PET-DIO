@@ -1,5 +1,7 @@
 import "./globals.css";
 import ThemeRegistry from "../styles/ThemeRegistry";
+import Header from "@/components/layout/header/Header";
+import { Box } from "@mui/material";
 
 import ServiceWorker from "./ServiceWorker";
 import type { Metadata } from "next";
@@ -24,7 +26,11 @@ export default function RootLayout({
     <html lang="en">
       <ServiceWorker />
       <ThemeRegistry>
-        <body className={inter.className}>{children}</body>
+        <body className={inter.className}>
+          <Header></Header>
+          <Box sx={{ mt: "70px" }}></Box>
+          {children}
+        </body>
       </ThemeRegistry>
     </html>
   );

@@ -26,6 +26,9 @@ const StyledAppBar = styled(AppBar)`
     background-color: #fff;
     color: #757575;
     position: fixed;
+    display: flex;
+    justify-content: center;
+    height: 72px;
   }
 `;
 
@@ -47,21 +50,21 @@ export default function Header() {
                 aria-label="back"
                 size="large"
               >
-                <ArrowBackIcon sx={{ fontSize: "20px" }} />
+                <ArrowBackIcon sx={{ fontSize: "30px" }} />
               </IconButton>
             </Grid>
             <Grid item xs={4} container justifyContent="center">
               <Logo />
             </Grid>
-            <Grid
-              item
-              xs={4}
-              container
-              justifyContent="flex-end"
-              paddingRight={1}
-            >
-              <IconButton edge="end" color="inherit" aria-label="user-info">
-                <AccountCircleIcon />
+            <Grid item xs={4} container justifyContent="flex-end">
+              <IconButton
+                edge="end"
+                color="inherit"
+                aria-label="user-info"
+                size="large"
+              >
+                <AccountCircleIcon sx={{ fontSize: "30px" }} />
+                {/* <AccountCircleIcon /> */}
               </IconButton>
             </Grid>
           </Grid>

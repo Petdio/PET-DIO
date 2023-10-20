@@ -8,7 +8,7 @@ function Logo({ size = "small" }: Props) {
   switch (size) {
     case "small":
       return (
-        <Image src="/assets/PETDIO.svg" alt="logo" width={60} height={20} />
+        <Image src="/assets/PETDIO.svg" alt="logo" width={100} height={28} />
       );
     case "large":
       return (

@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import Subtitle from './Subtitle';
 
 const meta = {
-  title: 'common/Subtitle',
+  title: 'studio/Subtitle',
   component: Subtitle,
   parameters: {
     layout: 'centered',

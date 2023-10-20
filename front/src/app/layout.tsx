@@ -1,7 +1,7 @@
 import "./globals.css";
 import ThemeRegistry from "../styles/ThemeRegistry";
 import Header from "@/components/layout/header/Header";
-import { Box } from "@mui/material";
+import { Box, makeStyles } from "@mui/material";
 import BottomNav from "@/components/layout/bottom-nav/BottomNav";
 
 import ServiceWorker from "./ServiceWorker";
@@ -29,8 +29,15 @@ export default function RootLayout({
       <ThemeRegistry>
         <body className={inter.className}>
           <Header></Header>
-          <Box sx={{ mt: "70px" }}></Box>
-          {children}
+          <Box
+            sx={{
+              height: "100vh",
+              paddingTop: "72px",
+              paddingBottom: "64px",
+            }}
+          >
+            {children}
+          </Box>
           <BottomNav activeNum={0}></BottomNav>
         </body>
       </ThemeRegistry>

@@ -4,7 +4,6 @@ import {
   Grid,
   Toolbar,
   IconButton,
-  Typography,
   useScrollTrigger,
 } from "@mui/material";
 import Logo from "../../common/logo/Logo";
@@ -41,26 +40,15 @@ export default function Header() {
             justifyContent="space-between"
             alignItems="center"
           >
-            <Grid
-              item
-              xs={4}
-              container
-              justifyContent="flex-start"
-              paddingTop={1}
-            >
-              <Toolbar>
-                <IconButton edge="start" color="inherit" aria-label="back">
-                  <ArrowBackIcon sx={{ fontSize: "14px" }} />
-                </IconButton>
-                <Typography
-                  fontSize={14}
-                  fontWeight="regular"
-                  flexGrow={1}
-                  textAlign="center"
-                >
-                  이전으로
-                </Typography>
-              </Toolbar>
+            <Grid item xs={4} container justifyContent="flex-start">
+              <IconButton
+                edge="start"
+                color="inherit"
+                aria-label="back"
+                size="large"
+              >
+                <ArrowBackIcon sx={{ fontSize: "20px" }} />
+              </IconButton>
             </Grid>
             <Grid item xs={4} container justifyContent="center">
               <Logo />
@@ -70,7 +58,6 @@ export default function Header() {
               xs={4}
               container
               justifyContent="flex-end"
-              marginTop={1}
               paddingRight={1}
             >
               <IconButton edge="end" color="inherit" aria-label="user-info">

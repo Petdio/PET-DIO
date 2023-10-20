@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import ThemeCard from './ThemeCard';
 
 const meta = {
-  title: 'common/ThemeCard',
+  title: 'studio/ThemeCard',
   component: ThemeCard,
   parameters: {
     layout: 'centered',

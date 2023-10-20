@@ -4,7 +4,6 @@ import {
   Grid,
   Toolbar,
   IconButton,
-  Typography,
   useScrollTrigger,
 } from "@mui/material";
 import Logo from "../../common/logo/Logo";
@@ -12,7 +11,6 @@ import { styled } from "@mui/material/styles";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Slide from "@mui/material/Slide";
-import zIndex from "@mui/material/styles/zIndex";
 
 function HideOnScroll({ children }: { children: React.ReactElement }) {
   const trigger = useScrollTrigger();
@@ -41,25 +39,27 @@ export default function Header() {
             direction="row"
             justifyContent="space-between"
             alignItems="center"
-            margin={1}
           >
             <Grid item xs={4} container justifyContent="flex-start">
-              <IconButton edge="start" color="inherit" aria-label="back">
-                <ArrowBackIcon sx={{ fontSize: "14px", marginRight: "5px" }} />
-                <Typography
-                  fontSize={14}
-                  fontWeight="regular"
-                  flexGrow={1}
-                  textAlign="center"
-                >
-                  이전으로
-                </Typography>
+              <IconButton
+                edge="start"
+                color="inherit"
+                aria-label="back"
+                size="large"
+              >
+                <ArrowBackIcon sx={{ fontSize: "20px" }} />
               </IconButton>
             </Grid>
             <Grid item xs={4} container justifyContent="center">
               <Logo />
             </Grid>
-            <Grid item xs={4} container justifyContent="flex-end">
+            <Grid
+              item
+              xs={4}
+              container
+              justifyContent="flex-end"
+              paddingRight={1}
+            >
               <IconButton edge="end" color="inherit" aria-label="user-info">
                 <AccountCircleIcon />
               </IconButton>

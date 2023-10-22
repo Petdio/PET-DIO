@@ -64,7 +64,6 @@ export default function Header() {
                 size="large"
               >
                 <AccountCircleIcon sx={{ fontSize: "30px" }} />
-                {/* <AccountCircleIcon /> */}
               </IconButton>
             </Grid>
           </Grid>

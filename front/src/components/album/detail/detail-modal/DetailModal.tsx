@@ -12,6 +12,7 @@ import {
   Slide,
   styled,
   Typography,
+  Tooltip,
 } from '@mui/material';
 import { TransitionProps } from '@mui/material/transitions/transition';
 import { downloadImage } from './../../../../utils/downLoadImage';
@@ -121,14 +122,20 @@ function DetailModal({ imgInfo, isOpen }: Props) {
             display="flex"
             width="100%"
           >
-            <ActionButton
-              variant="contained"
-              color="secondary"
-              endIcon={<ShareIcon />}
-              fullWidth
+            <Tooltip
+              title="아직 준비중인 기능이에요."
+              placement="top"
+              arrow
             >
-              공유
-            </ActionButton>
+              <ActionButton
+                variant="contained"
+                color="secondary"
+                endIcon={<ShareIcon />}
+                fullWidth
+              >
+                공유
+              </ActionButton>
+            </Tooltip>
             <Box width="1em" />
             <ActionButton
               variant="contained"

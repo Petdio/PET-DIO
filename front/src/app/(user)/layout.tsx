@@ -13,11 +13,24 @@ export default function UserLayout({
       <Box
         sx={{
           height: "100vh",
+          width: "100%",
           paddingTop: "72px",
           paddingBottom: "64px",
+          backgroundColor: "#fff",
+          position: "fixed",
+          maxWidth: "480px",
         }}
       >
-        {children}
+        <Box
+          sx={{
+            width: "100%",
+            height: "100%",
+            overflow: "scroll",
+            overflowX: "hidden",
+          }}
+        >
+          {children}
+        </Box>
       </Box>
       <BottomNav activeNum={0}></BottomNav>
     </>

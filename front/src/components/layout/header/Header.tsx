@@ -25,18 +25,19 @@ const StyledAppBar = styled(AppBar)`
   && {
     background-color: #fff;
     color: #757575;
-    position: absolute;
+    position: fixed;
     display: flex;
     justify-content: center;
     height: 72px;
     width: 100%;
+    max-width: 480px;
   }
 `;
 
 export default function Header() {
   return (
     <HideOnScroll>
-      <StyledAppBar position="static" sx={{ zIndex: "modal" }}>
+      <StyledAppBar position="static" sx={{ zIndex: "modal" }} elevation={0}>
         <Toolbar>
           <Grid
             container

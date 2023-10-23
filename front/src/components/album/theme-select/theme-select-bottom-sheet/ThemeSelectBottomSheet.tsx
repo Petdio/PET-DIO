@@ -8,7 +8,7 @@ interface Props {
   isOpen: boolean;
   onOpen: React.ReactEventHandler<{}>;
   onClose: React.ReactEventHandler<{}>;
-  onClick?: () => void;
+  onThemeChange?: () => void;
 }
 
 const Puller = styled(Box)(({ theme }) => ({
@@ -26,6 +26,7 @@ function ThemeSelectBottomSheet({
   isOpen,
   onOpen,
   onClose,
+  onThemeChange,
 }: Props) {
   const themeList = () => (
     <Grid
@@ -35,6 +36,7 @@ function ThemeSelectBottomSheet({
       {themeNameList.map((themeName) => (
         <Grid
           key={themeName}
+          onClick={onThemeChange}
           item
           xs={6}
           display="flex"

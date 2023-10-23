@@ -1,5 +1,4 @@
-package com.ohgood.newstocks.auth.jwt.controller;
-
+package com.ssafy.petdio.auth.jwt.controller;
 
 import com.ohgood.newstocks.auth.jwt.Mapper.JwtMapper;
 import com.ohgood.newstocks.auth.jwt.service.JwtService;

@@ -2,7 +2,7 @@ package com.ssafy.petdio.model.dto;
 
 import lombok.*;
 
-public class ConceptDTO {
+public class ConceptDto {
     @Getter
     @Setter
     @ToString

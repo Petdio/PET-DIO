@@ -35,19 +35,14 @@ public class User {
     @Column(name = "user_social_id", nullable = false)
     private String userSocialId;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="user_id")
-    private Token token;
+    @Column(name = "user_token")
+    private String userToken;
 
     @Column(name = "user_created", columnDefinition = "TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP")
     private Timestamp userCreated;
 
     @Column(name = "user_delete", columnDefinition = "TIMESTAMP NULL DEFAULT NULL")
     private Timestamp userDelete;
-
-    @Column(name = "user_token")
-    private String userToken;
-
 
     public User updateUser(UserProfileUpdateDto userProfileUpdateDto) {
         if (userProfileUpdateDto.getNickname() != null)

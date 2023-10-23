@@ -1,5 +1,5 @@
 import Loading from "./page";
-import RootLayout from "../../layout";
+import UserLayout from "../layout";
 
 export default {
   title: "Pages/Loading",
@@ -7,7 +7,7 @@ export default {
 };
 
 export const LoadingPage = () => (
-  <RootLayout>
+  <UserLayout>
     <Loading />
-  </RootLayout>
+  </UserLayout>
 );

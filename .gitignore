@@ -178,6 +178,7 @@ gradle-app.setting
 .idea/
 HELP.md
 pet-dio.iml
-
+.env
+build.gradle
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,gradle,intellij

@@ -18,7 +18,7 @@ public class Leonardo {
 
     OkHttpClient client = new OkHttpClient();
 
-    public void test2() throws IOException {
+    public void test2(String prompt) throws IOException {
 
         // Get a presigned URL for uploading an image
         RequestBody requestBody = new FormBody.Builder()
@@ -51,12 +51,12 @@ public class Leonardo {
                 builderUploadImageRequest.addFormDataPart(key, fieldsJson.getString(key));
             }
 
-            Path imagePath=Paths.get("C:\\Users\\SSAFY\\Desktop\\dog.jpg");
+            Path imagePath=Paths.get("C:\\Users\\SSAFY\\Desktop\\dog2.jpg");
             byte[] imageData=Files.readAllBytes(imagePath);
 
             builderUploadImageRequest.addFormDataPart(
                     "file",
-                    "dog.jpg",
+                    "dog2.jpg",
                     RequestBody.create(MediaType.parse(Files.probeContentType(imagePath)), imageData)
             );
 
@@ -83,7 +83,7 @@ public class Leonardo {
                     );
                     generationPayload.put(
                             "prompt",
-                            "An oil painting of a cat"
+                            prompt
                     );
                     generationPayload.put("width", 512);
                     generationPayload.put(

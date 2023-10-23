@@ -3,10 +3,7 @@ package com.ssafy.petdio.controller;
 import com.ssafy.petdio.util.Leonardo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
@@ -19,9 +16,9 @@ public class TestController {
     private final Leonardo leonardo;
 
     @GetMapping("/health-check")
-    public String getHealth() throws IOException {
+    public String getHealth(@RequestParam("prompt") String prompt) throws IOException {
         log.info("Leonardo test");
-        leonardo.test2();
+        leonardo.test2(prompt);
         return "Hello Leonardo";
     }
 

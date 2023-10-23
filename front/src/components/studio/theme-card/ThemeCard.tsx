@@ -4,12 +4,15 @@ import { Typography, Box } from "@mui/material";
 interface Props {
   imgSrc: string;
   themeName: string;
-  onClick?: () => {};
 }
 
 function ThemeCard({ imgSrc, themeName }: Props) {
   return (
-    <div>
+    <div
+      style={{
+        cursor: "pointer",
+      }}
+    >
       <Box
         sx={{
           position: "relative",

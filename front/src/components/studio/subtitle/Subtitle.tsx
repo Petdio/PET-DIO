@@ -4,9 +4,10 @@ import { theme } from "@/styles/ThemeRegistry";
 
 interface Props {
   content: string;
+  mode?: "page" | "modal";
 }
 
-function Subtitle({ content }: Props) {
+function Subtitle({ content, mode = "page" }: Props) {
   return (
     <Box sx={{ display: "flex", alignItems: "center", width: "100%" }}>
       <Box
@@ -17,7 +18,11 @@ function Subtitle({ content }: Props) {
           backgroundColor: theme.palette.primary.main,
         }}
       />
-      <Typography variant="h6">{content}</Typography>
+      {mode === "page" ? (
+        <Typography variant="h6">{content}</Typography>
+      ) : (
+        <Typography variant="body2">{content}</Typography>
+      )}
     </Box>
   );
 }

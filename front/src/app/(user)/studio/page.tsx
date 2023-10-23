@@ -3,7 +3,6 @@ import { Box } from "@mui/system";
 
 import Subtitle from "@/components/studio/subtitle/Subtitle";
 import ThemeList from "@/components/studio/theme-list/ThemeList";
-import ThemeCard from "@/components/studio/theme-card/ThemeCard";
 
 export default function Studio() {
   return (

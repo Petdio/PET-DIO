@@ -10,7 +10,7 @@ interface Props {
 function BottomNav({ activeNum }: Props) {
   return (
     <BottomNavigation
-      sx={{ width: "100%", height: "64px", position: "fixed", bottom: 0 }}
+      sx={{ width: "100%", height: "64px", position: "absolute", bottom: 0 }}
       value={activeNum}
       showLabels
     >

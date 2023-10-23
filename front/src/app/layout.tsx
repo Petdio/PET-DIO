@@ -25,7 +25,22 @@ export default function RootLayout({
     <html lang="en">
       <ServiceWorker />
       <ThemeRegistry>
-        <body className={inter.className}>{children}</body>
+        <body
+          className={inter.className}
+          style={{ backgroundColor: "#f2f2f2" }}
+        >
+          <Box
+            sx={{
+              height: "100vh",
+              maxWidth: "480px",
+              margin: "auto",
+              backgroundColor: "#fff",
+              position: "relative",
+            }}
+          >
+            {children}
+          </Box>
+        </body>
       </ThemeRegistry>
     </html>
   );

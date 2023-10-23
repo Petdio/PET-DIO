@@ -34,12 +34,13 @@ public class SecurityConfig {
                 )
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(requests -> requests
-                        .requestMatchers("/stock/**").permitAll()
-                        .requestMatchers("/news/**").permitAll()
-                        .requestMatchers("/notice/insert/**").hasAuthority("ADMIN")
-                        .requestMatchers("/notice/update/**").hasAuthority("ADMIN")
-                        .requestMatchers("/notice/delete/**").hasAuthority("ADMIN")
-                        .requestMatchers("/review-note/**").authenticated()
+                        // 우리 END Point에 맞게 수정 필요
+//                        .requestMatchers("/stock/**").permitAll()
+//                        .requestMatchers("/news/**").permitAll()
+//                        .requestMatchers("/notice/insert/**").hasAuthority("ADMIN")
+//                        .requestMatchers("/notice/update/**").hasAuthority("ADMIN")
+//                        .requestMatchers("/notice/delete/**").hasAuthority("ADMIN")
+//                        .requestMatchers("/review-note/**").authenticated()
                         .anyRequest().permitAll()
                 )
                 .headers(headers -> headers.frameOptions(FrameOptionsConfig::disable));

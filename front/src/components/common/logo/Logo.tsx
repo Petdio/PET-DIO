@@ -1,16 +1,14 @@
 import Image from "next/image";
-import { theme } from "@/styles/ThemeRegistry";
 
 interface Props {
   size?: "large" | "small";
 }
 
-function Logo({ size = "small", ...props }: Props) {
-  const primaryColor = theme.palette.primary.main;
+function Logo({ size = "small" }: Props) {
   switch (size) {
     case "small":
       return (
-        <Image src="/assets/PETDIO.svg" alt="logo" width={52} height={12} />
+        <Image src="/assets/PETDIO.svg" alt="logo" width={100} height={28} />
       );
     case "large":
       return (

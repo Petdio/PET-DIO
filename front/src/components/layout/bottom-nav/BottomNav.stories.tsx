@@ -1,19 +1,18 @@
 import type { Meta, StoryObj } from "@storybook/react";
-
-import Logo from "./Logo";
+import BottomNav from "./BottomNav";
 
 const meta = {
-  title: "common/Logo",
-  component: Logo,
+  title: "layout/BottomNav",
+  component: BottomNav,
   parameters: {
-    layout: "centered",
+    layout: "fullscreen",
   },
   tags: ["autodocs"],
-} satisfies Meta<typeof Logo>;
+} satisfies Meta<typeof BottomNav>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
-  args: { size: "large" },
+  args: { activeNum: 0 },
 };

@@ -3,7 +3,7 @@ import Home from "./page";
 
 export default {
   title: "Pages/Home",
-  component: RootLayout,
+  component: Home,
 };
 
 export const HomePage = () => (

@@ -10,20 +10,25 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
-@RequestMapping("/kakao")
+@RequestMapping("/oauth2")
 @RequiredArgsConstructor
 public class Oauth2Controller {
-    private final Oauth2Service oauth2Service;
-    private final UserService userService;
+    private final KakaoService kakaoService;
+    private final GoogleService googleService;
 
-    @GetMapping("/login")
-    public ResponseEntity kakaoLogin(@RequestParam("code") String code) {
-        return ResponseEntity.status(HttpStatus.OK).body(oauth2Service.kakaoLogin(code));
+    @PostMapping("/login/kakao")
+    public ResponseEntity<MemberLoginDto> kakaoLogin(@RequestBody OAuthReqDto oAuthReqDto) {
+        KakaoTokenDto kakaoTokenDto = kakaoService.getKakaoAccessToken(oAuthReqDto.getCode());
+        KakaoUserDto kakaoUserDto = kakaoService.getKakaoUser(kakaoTokenDto.getAccessToken());
+        Member loginMember = kakaoService.loginKakao(kakaoUserDto);
+        return new ResponseEntity<>(kakaoService.getMemberLoginDto(loginMember), HttpStatus.OK);
     }
 
-    @GetMapping("/logout")
-    public ResponseEntity kakaoLogout(@RequestParam("state") String userId) {
-        userService.logout(Long.valueOf(userId));
-        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+    @PostMapping("/login/google")
+    public ResponseEntity<MemberLoginDto> googleLogin(@RequestBody OAuthReqDto oAuthReqDto) {
+        GoogleTokenDto googleTokenDto = googleService.getGoogleAccessToken(oAuthReqDto.getCode());
+        GoogleUserDto googleUserDto = googleService.getGoogleUser(googleTokenDto.getAccessToken());
+        Member loginMember = googleService.loginGoogle(googleUserDto);
+        return new ResponseEntity<>(kakaoService.getMemberLoginDto(loginMember), HttpStatus.OK);
     }
 }

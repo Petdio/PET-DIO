@@ -2,6 +2,7 @@
 import { Grid, Box, SwipeableDrawer, Typography, styled } from '@mui/material';
 import { theme } from '@/styles/ThemeRegistry';
 import { grey } from '@mui/material/colors';
+import React from 'react';
 
 interface Props {
   themeNameList: string[];

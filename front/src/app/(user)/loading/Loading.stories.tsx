@@ -1,5 +1,5 @@
 import Loading from "./page";
-import RootLayout from "../layout";
+import RootLayout from "../../layout";
 
 export default {
   title: "Pages/Loading",

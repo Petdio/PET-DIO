@@ -1,10 +1,8 @@
 import "./globals.css";
 import ThemeRegistry from "../styles/ThemeRegistry";
-import Header from "@/components/layout/header/Header";
-import { Box, makeStyles } from "@mui/material";
-import BottomNav from "@/components/layout/bottom-nav/BottomNav";
-
 import ServiceWorker from "./ServiceWorker";
+
+import { Box } from "@mui/material";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
@@ -27,19 +25,7 @@ export default function RootLayout({
     <html lang="en">
       <ServiceWorker />
       <ThemeRegistry>
-        <body className={inter.className}>
-          {/* <Header></Header> */}
-          <Box
-            sx={{
-              height: "100vh",
-              paddingTop: "72px",
-              paddingBottom: "64px",
-            }}
-          >
-            {children}
-          </Box>
-          {/* <BottomNav activeNum={0}></BottomNav> */}
-        </body>
+        <body className={inter.className}>{children}</body>
       </ThemeRegistry>
     </html>
   );

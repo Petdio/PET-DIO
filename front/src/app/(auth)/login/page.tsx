@@ -8,7 +8,7 @@ const KakaoLogInButton = styled(Button)`
   && {
     background-color: #fee500;
     color: #000;
-    margin-top: 30%;
+    margin-top: 20%;
   }
 `;
 
@@ -42,7 +42,7 @@ export default function LogIn() {
     <>
       <Box
         sx={{
-          height: "100%",
+          height: "100vh",
           display: "flex",
           alignItems: "center",
           flexDirection: "column",
@@ -50,7 +50,7 @@ export default function LogIn() {
       >
         <Box
           sx={{
-            height: "50%",
+            height: "60%",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",

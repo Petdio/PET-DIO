@@ -1,5 +1,11 @@
 package com.ssafy.petdio.auth.controller;
 
+import com.ssafy.petdio.auth.oauth2.common.OAuthReqDto;
+import com.ssafy.petdio.auth.oauth2.kakao.KakaoService;
+import com.ssafy.petdio.auth.oauth2.kakao.KakaoTokenDto;
+import com.ssafy.petdio.auth.oauth2.kakao.KakaoUserDto;
+import com.ssafy.petdio.model.dto.UserLoginDto;
+import com.ssafy.petdio.model.entity.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -12,21 +18,13 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class AuthController {
     private final KakaoService kakaoService;
-    private final GoogleService googleService;
 
     @PostMapping("/login/kakao")
-    public ResponseEntity<MemberLoginDto> kakaoLogin(@RequestBody OAuthReqDto oAuthReqDto) {
+    public ResponseEntity<UserLoginDto> kakaoLogin(@RequestBody OAuthReqDto oAuthReqDto) {
         KakaoTokenDto kakaoTokenDto = kakaoService.getKakaoAccessToken(oAuthReqDto.getCode());
         KakaoUserDto kakaoUserDto = kakaoService.getKakaoUser(kakaoTokenDto.getAccessToken());
-        Member loginMember = kakaoService.loginKakao(kakaoUserDto);
-        return new ResponseEntity<>(kakaoService.getMemberLoginDto(loginMember), HttpStatus.OK);
+        User loginUser = kakaoService.loginKakao(kakaoUserDto);
+        return new ResponseEntity<>(kakaoService.getUserLoginDto(loginUser), HttpStatus.OK);
     }
 
-    @PostMapping("/login/google")
-    public ResponseEntity<MemberLoginDto> googleLogin(@RequestBody OAuthReqDto oAuthReqDto) {
-        GoogleTokenDto googleTokenDto = googleService.getGoogleAccessToken(oAuthReqDto.getCode());
-        GoogleUserDto googleUserDto = googleService.getGoogleUser(googleTokenDto.getAccessToken());
-        Member loginMember = googleService.loginGoogle(googleUserDto);
-        return new ResponseEntity<>(kakaoService.getMemberLoginDto(loginMember), HttpStatus.OK);
-    }
 }

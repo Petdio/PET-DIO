@@ -1,5 +1,9 @@
 package com.ssafy.petdio.auth.oauth2.kakao;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.NotNull;
+import lombok.*;
+
 @Getter
 @ToString
 @EqualsAndHashCode

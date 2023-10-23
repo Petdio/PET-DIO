@@ -1,5 +1,9 @@
 package com.ssafy.petdio.auth.jwt.service;
 
+import com.ssafy.petdio.auth.jwt.dto.JwtDto;
+import io.jsonwebtoken.Claims;
+import org.springframework.security.core.Authentication;
+
 public interface JwtService {
 
     String createAccessToken(JwtDto jwtDto);
@@ -14,7 +18,7 @@ public interface JwtService {
 
     boolean checkToken(String jwt);
 
-    long getMemberIdFromAccessToken(String accessToken);
+    long getUserIdFromAccessToken(String accessToken);
 
     public Claims parseClaims(String accessToken);
 }

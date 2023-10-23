@@ -1,11 +1,30 @@
 package com.ssafy.petdio.auth.oauth2.kakao;
 
+import com.ssafy.petdio.auth.jwt.service.JwtService;
+import com.ssafy.petdio.model.Enum.SocialType;
+import com.ssafy.petdio.model.dto.UserDto;
+import com.ssafy.petdio.model.dto.UserLoginDto;
+import com.ssafy.petdio.model.entity.User;
+import com.ssafy.petdio.repository.UserRepository;
+import com.ssafy.petdio.model.mapper.UserMapper;
+import com.ssafy.petdio.auth.jwt.mapper.JwtMapper;
+import lombok.RequiredArgsConstructor;
+
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.reactive.function.client.WebClient;
+
+import java.util.Optional;
+
+@Slf4j
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class KakaoService {
 
-    private final MemberRepository memberRepository;
+    private final UserRepository userRepository;
     private final JwtService jwtService;
 
 
@@ -38,46 +57,40 @@ public class KakaoService {
                 .block();
     }
 
-    // TODO
-    //  1. Google 로그인 사용 시 AuthService에 합치기
-    //  2. JWT 사용할 때 Member 대신 Token Return
     @Transactional
-    public Member loginKakao(KakaoUserDto kakaoUserDto) {
+    public User loginKakao(KakaoUserDto kakaoUserDto) {
         log.info(kakaoUserDto.getAuthenticationCode(), "회원 카카오 로그인");
 
-        Optional<Member> member = memberRepository.findBySocialIdAndDeletedFalse(
+        Optional<User> user = userRepository.findByUserSocialIdAndUserDeleteFalse(
                 kakaoUserDto.getAuthenticationCode());
 
-        if (member.isPresent()) {
+        if (user.isPresent()) {
             log.info("회원가입 된 멤버입니다.");
             // TODO
             //  JWT Return Code Need
-            return member.orElseThrow();
+            return user.orElseThrow();
         }
         if (kakaoUserDto.getProperties() != null) {
-            return memberRepository.save(Member.builder()
-                    .name(kakaoUserDto.getProperties().getName())
-                    .email(kakaoUserDto.getKakaoAccount().getEmail())
-                    .profileImage(kakaoUserDto.getProperties().getProfileImage())
-                    .socialType(SocialType.KAKAO)
-                    .socialId(kakaoUserDto.getAuthenticationCode())
+            return userRepository.save(User.builder()
+                    .userNickname(kakaoUserDto.getProperties().getName())
+                    .userEmail(kakaoUserDto.getKakaoAccount().getEmail())
+                    .userSocialType(SocialType.KAKAO)
+                    .userSocialId(kakaoUserDto.getAuthenticationCode())
                     .build());
         }
-        return memberRepository.save(Member.builder()
-                .name(null)
-                .email(null)
-                .profileImage(null)
-                .socialType(SocialType.KAKAO)
-                .socialId(kakaoUserDto.getAuthenticationCode())
+        return userRepository.save(User.builder()
+                .userNickname(null)
+                .userEmail(null)
+                .userSocialType(SocialType.KAKAO)
+                .userSocialId(kakaoUserDto.getAuthenticationCode())
                 .build());
     }
 
-    public MemberLoginDto getMemberLoginDto(Member member) {
-        MemberDto memberDto = MemberMapper.INSTANCE.entityToMemberDto(member);
-//        List<FavoriteStock> favoriteStockList = member.getFavoriteStockList();
-        return MemberLoginDto.builder().memberDto(memberDto).favoriteStockList(null)
+    public UserLoginDto getUserLoginDto(User user) {
+        UserDto userDto = UserMapper.INSTANCE.entityToUserDto(user);
+        return UserLoginDto.builder().userDto(userDto)
                 .accessToken(
-                        jwtService.createAccessToken(JwtMapper.INSTANCE.MemberDtoToJwtDto(memberDto)))
+                        jwtService.createAccessToken(JwtMapper.INSTANCE.userDtoToJwtDto(userDto)))
                 .build();
     }
 }

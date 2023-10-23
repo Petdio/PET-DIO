@@ -1,5 +1,37 @@
 package com.ssafy.petdio.auth.jwt.service;
 
+import com.ssafy.petdio.auth.jwt.dto.JwtDto;
+import com.ssafy.petdio.exceptions.UnAuthorizedException;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.SignatureException;
+import io.jsonwebtoken.UnsupportedJwtException;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.Jwts;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.Base64;
+import java.util.Collection;
+import java.util.Date;
+import java.util.stream.Collectors;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
+import org.springframework.security.core.authority.mapping.NullAuthoritiesMapper;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
+@Slf4j
 @Service
 public class JwtServiceImpl implements JwtService {
 
@@ -32,16 +64,14 @@ public class JwtServiceImpl implements JwtService {
                 .setSubject(subject)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expire));
-        claims.put("memberId", jwtDto.getId());
-        claims.put("memberName", jwtDto.getName());
-        claims.put("role", jwtDto.getRole());
+        claims.put("userId", jwtDto.getId());
+        claims.put("userNickname", jwtDto.getNickname());
         System.out.println("토큰 생성 중!!!");
         System.out.println(jwtDto.getId());
         System.out.println(claims);
         UserDetails userDetails = User.builder()
                 .username(String.valueOf(jwtDto.getId()))
-                .password(jwtDto.getName() + SALT)
-                .authorities(String.valueOf(jwtDto.getRole()))
+                .password(jwtDto.getNickname() + SALT)
                 .build();
         Authentication authentication = new UsernamePasswordAuthenticationToken(
                 userDetails, null, authoritiesMapper.mapAuthorities(userDetails.getAuthorities())
@@ -119,7 +149,7 @@ public class JwtServiceImpl implements JwtService {
     }
 
     @Override
-    public long getMemberIdFromAccessToken(String accessToken) {
+    public long getUserIdFromAccessToken(String accessToken) {
         Jws<Claims> claims;
         try {
             claims = Jwts.parser().setSigningKey(this.generateKey()).parseClaimsJws(accessToken);

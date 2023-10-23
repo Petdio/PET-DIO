@@ -1,5 +1,10 @@
 package com.ssafy.petdio.auth.oauth2.kakao;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
+
+import java.sql.Timestamp;
+
 @Getter
 @ToString
 @EqualsAndHashCode
@@ -27,7 +32,7 @@ public class KakaoUserDto {
     @Getter
     @ToString
     public static class Properties {
-        @JsonProperty("nickname")
+        @JsonProperty("name")
         private String name;
         @JsonProperty("profile_image")
         private String profileImage;

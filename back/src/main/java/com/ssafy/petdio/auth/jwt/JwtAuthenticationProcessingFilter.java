@@ -2,6 +2,19 @@ package com.ssafy.petdio.auth.jwt;
 
 import com.ssafy.petdio.auth.jwt.service.JwtService;
 
+import com.ssafy.petdio.exceptions.UnAuthorizedException;
+import io.micrometer.common.util.StringUtils;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+@Slf4j
 @RequiredArgsConstructor
 @Component
 public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
@@ -57,8 +70,8 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
 
     private boolean isTokenUserInfoMatching(Authentication authentication, String jwt) {
         String authName = authentication.getName();
-        String memberId = jwtService.get(jwt).get("memberId").toString();
-        return authName.equals(memberId);
+        String userId = jwtService.get(jwt).get("userId").toString();
+        return authName.equals(userId);
     }
 
     private String resolveToken(HttpServletRequest request) {

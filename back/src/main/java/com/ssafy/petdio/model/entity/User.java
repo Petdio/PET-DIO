@@ -1,5 +1,6 @@
 package com.ssafy.petdio.model.entity;
 
+import com.ssafy.petdio.model.Enum.SocialType;
 import com.ssafy.petdio.model.dto.UserProfileUpdateDto;
 import jakarta.persistence.*;
 import lombok.*;
@@ -30,7 +31,7 @@ public class User {
     private String userNickname;
 
     @Column(name = "user_social_type", nullable = false)
-    private int userSocialType;
+    private SocialType userSocialType;
 
     @Column(name = "user_social_id", nullable = false)
     private String userSocialId;
@@ -43,6 +44,14 @@ public class User {
 
     @Column(name = "user_delete", columnDefinition = "TIMESTAMP NULL DEFAULT NULL")
     private Timestamp userDelete;
+
+    @Builder
+    public User(String userNickname, String userEmail, SocialType userSocialType, String userSocialId){
+        this.userNickname = userNickname == null ? "별명" : userNickname;
+        this.userEmail = userEmail == null ? "이메일" : userEmail;
+        this.userSocialType = userSocialType;
+        this.userSocialId = userSocialId;
+    }
 
     public User updateUser(UserProfileUpdateDto userProfileUpdateDto) {
         if (userProfileUpdateDto.getNickname() != null)

@@ -1,17 +1,19 @@
 package com.ssafy.petdio.auth.jwt.dto;
 
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+
 @Getter
 @Setter
 public class JwtDto {
 
     private Long id;
-    private String name;
-    private Role role;
+    private String nickname;
 
     @Builder
-    public JwtDto(Long id, String name, Role role) {
+    public JwtDto(Long id, String nickname) {
         this.id = id;
-        this.name = name;
-        this.role = role;
+        this.nickname = nickname;
     }
 }

@@ -29,7 +29,7 @@ const themeOptions: ThemeOptions = {
       contrastText: "#fff",
     },
     text: {
-      primary: "#18181887",
+      primary: "#181818",
       secondary: "#18181860",
       disabled: "#18181838",
     },

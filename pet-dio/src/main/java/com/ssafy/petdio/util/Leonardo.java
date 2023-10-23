@@ -79,17 +79,19 @@ public class Leonardo {
                     generationPayload.put("height", 512);
                     generationPayload.put(
                             "modelId",
-                            "6bef9f1b-29cb-40c7-b9df-32b51c1f67d3"
+                            "2b13def2-2369-4bc5-afe7-f38b515d74e2"
                     );
                     generationPayload.put(
                             "prompt",
-                            "An oil painting of a cat"
+                            "cute tiny hyperrealistic Anime Animals in images provided from pokemon, chibi, adorable and fluffy, logo design, cartoon, cinematic lighting effect, charming, 3D vector art, cute and quirky, fantasy art, bokeh, hand-drawn, digital painting, soft lighting, isometric style, 4K resolution, photorealistic rendering, highly detailed clean, vector image, photorealistic masterpiece, professional photography, simple space backdrop, flat white background, isometric, vibrant vector"
                     );
                     generationPayload.put("width", 512);
                     generationPayload.put(
                             "imagePrompts",
                             new JSONArray().put(imageId)
                     );
+
+
 
                     RequestBody generationRequestBody=RequestBody.create(
                             MediaType.parse("application/json"),

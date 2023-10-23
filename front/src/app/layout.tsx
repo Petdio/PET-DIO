@@ -28,7 +28,7 @@ export default function RootLayout({
       <ServiceWorker />
       <ThemeRegistry>
         <body className={inter.className}>
-          <Header></Header>
+          {/* <Header></Header> */}
           <Box
             sx={{
               height: "100vh",
@@ -38,7 +38,7 @@ export default function RootLayout({
           >
             {children}
           </Box>
-          <BottomNav activeNum={0}></BottomNav>
+          {/* <BottomNav activeNum={0}></BottomNav> */}
         </body>
       </ThemeRegistry>
     </html>

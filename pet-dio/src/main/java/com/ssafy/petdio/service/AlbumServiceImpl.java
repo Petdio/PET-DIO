@@ -31,7 +31,7 @@ public class AlbumServiceImpl implements AlbumService{
 
         Album albumDetail = albumRepository.AlbumDetail(album_id);
 
-        AlbumDetailDto result = new AlbumDetailDto(albumDetail.getAlbumId(), albumDetail.getAlbumImgUrl(), albumDetail.getAlbumConceptId(), albumDetail.getAlbumCreated());
+        AlbumDetailDto result = new AlbumDetailDto(albumDetail.getAlbumId(), albumDetail.getAlbumImgUrl(), albumDetail.getConcept().getConceptId(), albumDetail.getAlbumCreated());
 
         return result;
 

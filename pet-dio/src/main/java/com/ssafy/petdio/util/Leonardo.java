@@ -18,7 +18,7 @@ public class Leonardo {
 
     OkHttpClient client = new OkHttpClient();
 
-    public void test2() throws IOException, InterruptedException {
+    public void test2() throws IOException {
 
         // Get a presigned URL for uploading an image
         RequestBody requestBody = new FormBody.Builder()
@@ -30,7 +30,7 @@ public class Leonardo {
                 .post(requestBody)
                 .addHeader("accept", "application/json")
                 .addHeader("content-type", "application/json")
-                .addHeader("authorization", AUTHORIZATION)  // 실제 API 키로 변경하세요.
+                .addHeader("authorization", AUTHORIZATION)
                 .build();
 
         try (Response response = client.newCall(request).execute()) {
@@ -41,7 +41,7 @@ public class Leonardo {
 
             String urlUploadImage = jsonResponse.getJSONObject("uploadInitImage").getString("url");
 
-            String imageId = jsonResponse.getJSONObject("uploadInitImage").getString("id");  // For getting the image later
+            String imageId = jsonResponse.getJSONObject("uploadInitImage").getString("id");
 
             // Upload image via presigned URL
             MultipartBody.Builder builderUploadImageRequest =
@@ -101,7 +101,7 @@ public class Leonardo {
                             .post(generationRequestBody)
                             .addHeader("accept", "application/json")
                             .addHeader("content-type", "application/json")
-                            .addHeader("authorization", AUTHORIZATION)  // 실제 API 키로 변경하세요.
+                            .addHeader("authorization", AUTHORIZATION)
                             .build();
 
                     try(Response generationResponse=client.newCall(generationRequest).execute()){
@@ -131,7 +131,7 @@ public class Leonardo {
                                     .url(urlGetGeneration)
                                     .get()
                                     .addHeader("accept", "application/json")
-                                    .addHeader("authorization", AUTHORIZATION)  // 실제 API 키로 변경하세요.
+                                    .addHeader("authorization", AUTHORIZATION)
                                     .build();
 
                             try (Response getGenerationResponse = client.newCall(getGenerationRequest).execute()) {
@@ -152,7 +152,7 @@ public class Leonardo {
                 .url(urlGetGeneration)
                 .get()
                 .addHeader("accept", "application/json")
-                .addHeader("authorization", AUTHORIZATION)  // 실제 API 키로 변경하세요.
+                .addHeader("authorization", AUTHORIZATION)
                 .build();
 
         try (Response getGenerationResponse = client.newCall(getGenerationRequest).execute()) {

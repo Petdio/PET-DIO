@@ -19,14 +19,14 @@ public class TestController {
     private final Leonardo leonardo;
 
     @GetMapping("/health-check")
-    public String getHealth() throws IOException, InterruptedException {
+    public String getHealth() throws IOException {
         log.info("Leonardo test");
         leonardo.test2();
         return "Hello Leonardo";
     }
 
     @GetMapping("/get/{id}")
-    public String getImage(@PathVariable("id") String id) throws IOException, InterruptedException {
+    public String getImage(@PathVariable("id") String id) throws IOException{
         log.info("Leonardo get image");
         leonardo.getImage(id);
         return "success";

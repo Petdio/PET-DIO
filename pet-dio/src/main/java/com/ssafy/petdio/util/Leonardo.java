@@ -1,118 +1,163 @@
 package com.ssafy.petdio.util;
 
+import java.io.*;
+import java.net.*;
+import java.nio.file.*;
+import javax.net.ssl.HttpsURLConnection;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import okhttp3.*;
+import org.json.*;
 import org.springframework.stereotype.Component;
-
-import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 @Component
 @Slf4j
 public class Leonardo {
+    private static final String API_KEY = "bba9b4a2-b3f0-467a-a3d3-89a99a7833c1";
+    private static final String AUTHORIZATION = "Bearer " + API_KEY;
 
-    public void requestTest() throws IOException, InterruptedException {
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://cloud.leonardo.ai/api/rest/v1/generations"))
-                .header("accept", "application/json")
-                .header("content-type", "application/json")
-                .header("authorization", "Bearer bba9b4a2-b3f0-467a-a3d3-89a99a7833c1")
-                .method("POST", HttpRequest.BodyPublishers.ofString("{\"height\":512,\"modelId\":\"6bef9f1b-29cb-40c7-b9df-32b51c1f67d3\",\"prompt\":\"An oil painting of a cat\",\"width\":512}"))
-                .build();
-        HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-        System.out.println(response.body());
-    }
+    OkHttpClient client = new OkHttpClient();
 
     public void test2() throws IOException, InterruptedException {
-        String api_key = "bba9b4a2-b3f0-467a-a3d3-89a99a7833c1";
-        String authorization = "Bearer " + api_key;
-
-        Map<String, String> headers = new HashMap<>();
-        headers.put("accept", "application/json");
-        headers.put("content-type", "application/json");
-        headers.put("authorization", authorization);
 
         // Get a presigned URL for uploading an image
-        String url = "https://cloud.leonardo.ai/api/rest/v1/init-image";
-
-        String payload = "{\"extension\": \"jpg\"}";
-
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(url))
-                .POST(HttpRequest.BodyPublishers.ofString(payload))
-                .headers("accept", "application/json", "content-type", "application/json", "authorization", authorization)
+        RequestBody requestBody = new FormBody.Builder()
+                .add("extension", "jpg")
                 .build();
 
-        HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-
-        System.out.println(response.statusCode());
-
-        // Parse the response JSON
-        ObjectMapper objectMapper = new ObjectMapper();
-        Map<String, Object> responseJson = objectMapper.readValue(response.body(), Map.class);
-
-        Map<String, String> fields = (Map<String, String>) responseJson.get("uploadInitImage");
-        String uploadUrl = fields.get("url");
-        String imageId = fields.get("id"); // For getting the image later
-        System.out.println("uploadUrl " + uploadUrl);
-        System.out.println("imageId " + imageId);
-
-        String imageFilePath = "C:\\Users\\SSAFY\\Desktop\\dog.jpg";
-        Path imageFile = Paths.get(imageFilePath);
-
-        // Upload image via presigned URL
-        HttpRequest uploadRequest = HttpRequest.newBuilder()
-                .uri(URI.create(uploadUrl))
-                .POST(HttpRequest.BodyPublishers.ofFile(imageFile))
-                .headers("accept", "application/json", "content-type", "application/json", "authorization", authorization)
+        Request request = new Request.Builder()
+                .url("https://cloud.leonardo.ai/api/rest/v1/init-image")
+                .post(requestBody)
+                .addHeader("accept", "application/json")
+                .addHeader("content-type", "application/json")
+                .addHeader("authorization", AUTHORIZATION)  // 실제 API 키로 변경하세요.
                 .build();
 
-        HttpResponse<String> uploadResponse = HttpClient.newHttpClient().send(uploadRequest, HttpResponse.BodyHandlers.ofString());
+        try (Response response = client.newCall(request).execute()) {
+            JSONObject jsonResponse = new JSONObject(response.body().string());
 
-        System.out.println(uploadResponse.statusCode());
+            String fieldsString = jsonResponse.getJSONObject("uploadInitImage").getString("fields");
+            JSONObject fieldsJson = new JSONObject(fieldsString);
 
-        // Generate with an image prompt
-        url = "https://cloud.leonardo.ai/api/rest/v1/generations";
+            String urlUploadImage = jsonResponse.getJSONObject("uploadInitImage").getString("url");
 
-        String promptPayload = "{\"height\": 512, \"modelId\": \"6bef9f1b-29cb-40c7-b9df-32b51c1f67d3\", " +
-                "\"prompt\": \"An oil painting of a cat\", \"width\": 512, \"imagePrompts\": [" + imageId + "]}";
+            String imageId = jsonResponse.getJSONObject("uploadInitImage").getString("id");  // For getting the image later
 
-        HttpRequest promptRequest = HttpRequest.newBuilder()
-                .uri(URI.create(url))
-                .POST(HttpRequest.BodyPublishers.ofString(promptPayload))
-                .headers("accept", "application/json", "content-type", "application/json", "authorization", authorization)
+            // Upload image via presigned URL
+            MultipartBody.Builder builderUploadImageRequest =
+                    new MultipartBody.Builder().setType(MultipartBody.FORM);
+
+            for (String key : fieldsJson.keySet()) {
+                builderUploadImageRequest.addFormDataPart(key, fieldsJson.getString(key));
+            }
+
+            Path imagePath=Paths.get("C:\\Users\\SSAFY\\Desktop\\dog.jpg");
+            byte[] imageData=Files.readAllBytes(imagePath);
+
+            builderUploadImageRequest.addFormDataPart(
+                    "file",
+                    "dog.jpg",
+                    RequestBody.create(MediaType.parse(Files.probeContentType(imagePath)), imageData)
+            );
+
+            MultipartBody uploadRequestBody=builderUploadImageRequest.build();
+
+            Request uploadRequest=new Request.Builder()
+                    .url(urlUploadImage)
+                    .post(uploadRequestBody)
+                    .build();
+
+            try(Response uploadResponse=client.newCall(uploadRequest).execute()){
+                System.out.println(uploadResponse.code());
+                System.out.println(uploadResponse.body().string());
+
+                if (uploadResponse.isSuccessful()) {
+                    System.out.println(imageId + " uploaded successfully.");
+
+                    // Generate with an image prompt
+                    JSONObject generationPayload=new JSONObject();
+                    generationPayload.put("height", 512);
+                    generationPayload.put(
+                            "modelId",
+                            "6bef9f1b-29cb-40c7-b9df-32b51c1f67d3"
+                    );
+                    generationPayload.put(
+                            "prompt",
+                            "An oil painting of a cat"
+                    );
+                    generationPayload.put("width", 512);
+                    generationPayload.put(
+                            "imagePrompts",
+                            new JSONArray().put(imageId)
+                    );
+
+                    RequestBody generationRequestBody=RequestBody.create(
+                            MediaType.parse("application/json"),
+                            generationPayload.toString()
+                    );
+
+                    Request generationRequest=new Request.Builder()
+                            .url("https://cloud.leonardo.ai/api/rest/v1/generations")
+                            .post(generationRequestBody)
+                            .addHeader("accept", "application/json")
+                            .addHeader("content-type", "application/json")
+                            .addHeader("authorization", AUTHORIZATION)  // 실제 API 키로 변경하세요.
+                            .build();
+
+                    try(Response generationResponse=client.newCall(generationRequest).execute()){
+                        System.out.println(generationResponse.code());
+                        String generationResponseBody = generationResponse.body().string();
+                        System.out.println(generationResponseBody);
+
+                        if (generationResponse.isSuccessful()) {
+                            JSONObject jsonGenerationResponse=new JSONObject(
+                                    generationResponseBody
+                            );
+                            String generationId=jsonGenerationResponse
+                                    .getJSONObject("sdGenerationJob")
+                                    .getString("generationId");
+                            System.out.println(generationId + " generated successfully.");
+                            // Get the generation of images
+                            String urlGetGeneration = "https://cloud.leonardo.ai/api/rest/v1/generations/" + generationId;
+
+                            // Sleep for 20 seconds to wait for the image generation
+                            try {
+                                Thread.sleep(20000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+
+                            Request getGenerationRequest = new Request.Builder()
+                                    .url(urlGetGeneration)
+                                    .get()
+                                    .addHeader("accept", "application/json")
+                                    .addHeader("authorization", AUTHORIZATION)  // 실제 API 키로 변경하세요.
+                                    .build();
+
+                            try (Response getGenerationResponse = client.newCall(getGenerationRequest).execute()) {
+                                System.out.println(getGenerationResponse.code());
+                                System.out.println(getGenerationResponse.body().string());
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void getImage(String generationId) throws IOException {
+        String urlGetGeneration = "https://cloud.leonardo.ai/api/rest/v1/generations/" + generationId;
+
+        Request getGenerationRequest = new Request.Builder()
+                .url(urlGetGeneration)
+                .get()
+                .addHeader("accept", "application/json")
+                .addHeader("authorization", AUTHORIZATION)  // 실제 API 키로 변경하세요.
                 .build();
 
-        HttpResponse<String> promptResponse = HttpClient.newHttpClient().send(promptRequest, HttpResponse.BodyHandlers.ofString());
-
-        System.out.println(promptResponse.statusCode());
-        System.out.println(objectMapper.readTree(promptResponse.body()));
-
-        // Get the generation of images
-        String generationId = objectMapper.readTree(promptResponse.body()).get("sdGenerationJob").get("generationId").asText();
-
-        url = "https://cloud.leonardo.ai/api/rest/v1/generations/" + generationId;
-
-        TimeUnit.SECONDS.sleep(20);
-
-        HttpRequest getResultRequest = HttpRequest.newBuilder()
-                .uri(URI.create(url))
-                .GET()
-                .headers("accept", "application/json", "content-type", "application/json", "authorization", authorization)
-                .build();
-
-        HttpResponse<String> resultResponse = HttpClient.newHttpClient().send(getResultRequest, HttpResponse.BodyHandlers.ofString());
-
-        System.out.println(resultResponse.body());
+        try (Response getGenerationResponse = client.newCall(getGenerationRequest).execute()) {
+            System.out.println(getGenerationResponse.code());
+            System.out.println(getGenerationResponse.body().string());
+        }
     }
 }

@@ -4,6 +4,7 @@ import com.ssafy.petdio.util.Leonardo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,5 +23,12 @@ public class TestController {
         log.info("Leonardo test");
         leonardo.test2();
         return "Hello Leonardo";
+    }
+
+    @GetMapping("/get/{id}")
+    public String getImage(@PathVariable("id") String id) throws IOException, InterruptedException {
+        log.info("Leonardo get image");
+        leonardo.getImage(id);
+        return "success";
     }
 }

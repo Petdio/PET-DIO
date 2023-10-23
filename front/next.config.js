@@ -9,4 +9,20 @@ const runtimeCaching = require("next-pwa/cache");
 module.exports = withPWA({
   reactStrictMode: true,
   runtimeCaching,
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "static.displate.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "t3.ftcdn.net",
+        port: "",
+        pathname: "/**",
+      },
+    ],
+  },
 });

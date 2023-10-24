@@ -79,17 +79,22 @@ public class Leonardo {
                     generationPayload.put("height", 512);
                     generationPayload.put(
                             "modelId",
-                            "2b13def2-2369-4bc5-afe7-f38b515d74e2"
+                            "2067ae52-33fd-4a82-bb92-c2c55e7d2786"
                     );
                     generationPayload.put(
                             "prompt",
-                            "cute tiny hyperrealistic Anime Animals in images provided from pokemon, chibi, adorable and fluffy, logo design, cartoon, cinematic lighting effect, charming, 3D vector art, cute and quirky, fantasy art, bokeh, hand-drawn, digital painting, soft lighting, isometric style, 4K resolution, photorealistic rendering, highly detailed clean, vector image, photorealistic masterpiece, professional photography, simple space backdrop, flat white background, isometric, vibrant vector"
+                            "animal in picture that provided head logo"
                     );
                     generationPayload.put("width", 512);
                     generationPayload.put(
                             "imagePrompts",
                             new JSONArray().put(imageId)
                     );
+                    generationPayload.put("alchemy", true);
+                    generationPayload.put("seed", 830339840);
+                    generationPayload.put("presetStyle", "ILLUSTRATION");
+
+
 
 
 
@@ -124,7 +129,7 @@ public class Leonardo {
 
                             // Sleep for 20 seconds to wait for the image generation
                             try {
-                                Thread.sleep(20000);
+                                Thread.sleep(1000000);
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }

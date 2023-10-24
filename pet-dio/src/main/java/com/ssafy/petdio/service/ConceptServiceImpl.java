@@ -4,6 +4,7 @@ import com.ssafy.petdio.model.Enum.ImgType;
 import com.ssafy.petdio.model.dto.ConceptDTO;
 import com.ssafy.petdio.repository.ConceptRepository;
 import com.ssafy.petdio.repository.ImgRepository;
+//import com.ssafy.petdio.util.Leonardo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 public class ConceptServiceImpl implements ConceptService{
     private final ConceptRepository conceptRepository;
     private final ImgRepository imgRepository;
+//    private final Leonardo leonardo;
 
     @Override
     public List<ConceptDTO.Response> getConceptList() {
@@ -30,4 +32,9 @@ public class ConceptServiceImpl implements ConceptService{
                         .build())
                 .collect(Collectors.toList());
     }
+
+//    @Override
+//    public String getLeonardoImage() {
+//        leonardo.initImage();
+//    }
 }

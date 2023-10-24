@@ -28,10 +28,12 @@ function ThemeCard({ imgSrc, themeName }: Props) {
           src={imgSrc}
           alt={themeName}
           fill
-          objectFit="cover"
-          objectPosition="center center"
           placeholder="empty"
-          style={{ borderRadius: "0.5rem" }}
+          style={{
+            borderRadius: "0.5rem",
+            objectFit: "cover",
+            objectPosition: "center center",
+          }}
         />
       </Box>
       <div>

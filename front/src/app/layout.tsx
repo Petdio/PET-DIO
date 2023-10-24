@@ -35,7 +35,6 @@ export default function RootLayout({
               maxWidth: "480px",
               margin: "auto",
               backgroundColor: "#fff",
-              position: "relative",
             }}
           >
             {children}

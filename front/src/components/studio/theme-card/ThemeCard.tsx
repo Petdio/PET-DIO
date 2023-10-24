@@ -1,5 +1,6 @@
-import Image from "next/image";
-import { Typography, Box } from "@mui/material";
+import Image from 'next/image';
+import { Typography, Box } from '@mui/material';
+import { theme } from '@/styles/ThemeRegistry';
 
 interface Props {
   imgSrc: string;
@@ -8,20 +9,27 @@ interface Props {
 
 function ThemeCard({ imgSrc, themeName }: Props) {
   return (
-    <div
-      style={{
-        cursor: "pointer",
+    <Box
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      borderRadius="0.5rem"
+      sx={{
+        cursor: 'pointer',
+        ':active': {
+          backgroundColor: theme.palette.grey[200],
+        },
       }}
     >
       <Box
         sx={{
-          position: "relative",
-          marginBottom: "0.25rem",
+          position: 'relative',
+          marginBottom: '0.25rem',
           aspectRatio: 1 / 1,
           // 기기 가로 길이에 따라 달라져야 할 것
           minWidth: 150,
           maxWidth: 200,
-          width: "40vw",
+          width: '40vw',
         }}
       >
         <Image
@@ -30,16 +38,21 @@ function ThemeCard({ imgSrc, themeName }: Props) {
           fill
           placeholder="empty"
           style={{
-            borderRadius: "0.5rem",
-            objectFit: "cover",
-            objectPosition: "center center",
+            borderRadius: '0.5rem',
+            objectFit: 'cover',
+            objectPosition: 'center center',
           }}
         />
       </Box>
-      <div>
-        <Typography fontWeight={700}>{themeName}</Typography>
-      </div>
-    </div>
+      <Box textAlign="center">
+        <Typography
+          fontSize={18}
+          fontWeight={700}
+        >
+          {themeName}
+        </Typography>
+      </Box>
+    </Box>
   );
 }
 

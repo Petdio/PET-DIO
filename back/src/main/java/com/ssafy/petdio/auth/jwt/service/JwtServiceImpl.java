@@ -66,6 +66,7 @@ public class JwtServiceImpl implements JwtService {
                 .setExpiration(new Date(System.currentTimeMillis() + expire));
         claims.put("userId", jwtDto.getId());
         claims.put("userNickname", jwtDto.getNickname());
+        claims.put("role", jwtDto.getRole());
         System.out.println("토큰 생성 중!!!");
         System.out.println(jwtDto.getId());
         System.out.println(claims);
@@ -78,7 +79,7 @@ public class JwtServiceImpl implements JwtService {
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
         System.out.println(authentication);
-
+        System.out.println("액세스 토큰 빌드");
         final String accessToken = Jwts.builder()
                 .setHeaderParam("typ", "JWT")
                 .setClaims(claims)
@@ -119,9 +120,9 @@ public class JwtServiceImpl implements JwtService {
     public Authentication getAuthentication(String accessToken) {
         Claims claims = parseClaims(accessToken);
 
-        if (claims.get("role") == null) {
-            throw new UnAuthorizedException();
-        }
+//        if (claims.get("role") == null) {
+//            throw new UnAuthorizedException();
+//        }
 
         //권한 정보 가져오기
         Collection<? extends GrantedAuthority> authorities =

@@ -32,8 +32,8 @@ public class KakaoUserDto {
     @Getter
     @ToString
     public static class Properties {
-        @JsonProperty("name")
-        private String name;
+        @JsonProperty("nickname")
+        private String nickname;
         @JsonProperty("profile_image")
         private String profileImage;
     }

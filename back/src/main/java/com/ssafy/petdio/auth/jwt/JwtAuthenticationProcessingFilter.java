@@ -76,6 +76,7 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
 
     private String resolveToken(HttpServletRequest request) {
         String bearerToken = request.getHeader("access-token");
+        System.out.println("헤더에서 토큰 가져오기 : " + bearerToken);
         if (StringUtils.isNotEmpty(bearerToken) && bearerToken.startsWith("Bearer ")) {
             return bearerToken.substring("Bearer ".length());
         }

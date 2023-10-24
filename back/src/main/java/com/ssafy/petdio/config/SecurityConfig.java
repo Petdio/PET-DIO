@@ -55,6 +55,7 @@ public class SecurityConfig {
     }
 
     private Filter jwtAuthenticationProcessingFilter() {
+
         return new JwtAuthenticationProcessingFilter(jwtService);
     }
 }

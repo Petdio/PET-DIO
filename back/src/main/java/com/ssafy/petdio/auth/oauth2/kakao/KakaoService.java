@@ -40,6 +40,8 @@ public class KakaoService {
                 "https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id="
                         + KAKAO_RESTPAPI_KEY + "&redirect_uri=" + KAKAO_REDIRECT_URL + "&code="
                         + code;
+
+        System.out.println("토큰 URL 생성");
         return webClient.post()
                 .uri(getTokenURL)
                 .retrieve()
@@ -72,15 +74,18 @@ public class KakaoService {
         }
         if (kakaoUserDto.getProperties() != null) {
             return userRepository.save(User.builder()
-                    .userNickname(kakaoUserDto.getProperties().getName())
+                    .userNickname(kakaoUserDto.getProperties().getNickname())
                     .userEmail(kakaoUserDto.getKakaoAccount().getEmail())
+                    .profileImage(kakaoUserDto.getProperties().getProfileImage())
                     .userSocialType(SocialType.KAKAO)
                     .userSocialId(kakaoUserDto.getAuthenticationCode())
+//                    .userToken()
                     .build());
         }
         return userRepository.save(User.builder()
                 .userNickname(null)
                 .userEmail(null)
+                .profileImage(null)
                 .userSocialType(SocialType.KAKAO)
                 .userSocialId(kakaoUserDto.getAuthenticationCode())
                 .build());

@@ -30,14 +30,19 @@ public class User {
     @Column(name = "user_nickname", nullable = false)
     private String userNickname;
 
+    @Column(name = "profile_image", nullable = false)
+    private String profileImage;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false)
+    private Role role;
+
+    @Enumerated(EnumType.STRING)
     @Column(name = "user_social_type", nullable = false)
     private SocialType userSocialType;
 
     @Column(name = "user_social_id", nullable = false)
     private String userSocialId;
-
-    @Column(name = "user_token")
-    private String userToken;
 
     @Column(name = "user_created", columnDefinition = "TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP")
     private Timestamp userCreated;

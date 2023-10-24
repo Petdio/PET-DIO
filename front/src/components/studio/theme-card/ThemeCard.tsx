@@ -16,8 +16,11 @@ function ThemeCard({ imgSrc, themeName }: Props) {
       borderRadius="0.5rem"
       sx={{
         cursor: 'pointer',
+        ':hover': {
+          backgroundColor: theme.palette.grey[50],
+        },
         ':active': {
-          backgroundColor: theme.palette.grey[200],
+          backgroundColor: theme.palette.grey[300],
         },
       }}
     >

@@ -1,19 +1,26 @@
-interface ImgInfoProps {
-  imgSrc: string;
-  themeName: string;
-  date: string;
+import { Box, Typography } from '@mui/material';
+
+function Album() {
+  return (
+    <>
+      <Box
+        sx={{
+          height: '50px',
+          display: 'flex',
+          alignItems: 'center',
+          padding: '0 1rem 0 1rem',
+        }}
+      >
+        <Typography
+          variant="h6"
+          color="text"
+          fontWeight="bold"
+        >
+          앨범
+        </Typography>
+      </Box>
+    </>
+  );
 }
 
-interface ThemeImgListProps {
-  [themeName: string]: ImgInfoProps[];
-}
-
-interface Props {
-  albumList: ThemeImgListProps[];
-}
-
-function AlbumPage({ albumList }: Props) {
-  return <>dd</>;
-}
-
-export default AlbumPage;
+export default Album;

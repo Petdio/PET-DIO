@@ -1,6 +1,7 @@
 import { Box, Typography } from '@mui/material';
 import Image from 'next/image';
 
+// ImgInfoProps가 공통으로 재사용된다면 interface로 따로 빼서 export해줄 것
 interface ImgInfoProps {
   imgSrc: string;
   themeName: string;

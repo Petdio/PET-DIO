@@ -14,7 +14,7 @@ function Subtitle({ content, mode = "common" }: Props) {
         display: "flex",
         alignItems: "center",
         width: "100%",
-        margin: "10px 0 10px 0",
+        margin: "1rem 0 1rem 0",
       }}
     >
       <Box

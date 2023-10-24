@@ -165,6 +165,7 @@ export default function ThemeList() {
         keepMounted
         onClose={handleClose}
         aria-describedby="select-theme"
+        maxWidth="xs"
       >
         <DialogTitle textAlign="center">{modalTitle}</DialogTitle>
         <DialogContent sx={{ padding: 0 }}>

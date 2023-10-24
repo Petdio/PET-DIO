@@ -18,7 +18,7 @@ public class TestController {
     @GetMapping("/health-check")
     public String getHealth(@RequestParam("prompt") String prompt) throws IOException {
         log.info("Leonardo test");
-        leonardo.test2(prompt);
+        leonardo.initImage(prompt);
         return "Hello Leonardo";
     }
 

@@ -1,9 +1,7 @@
 package com.ssafy.petdio.util;
 
 import java.io.*;
-import java.net.*;
 import java.nio.file.*;
-import javax.net.ssl.HttpsURLConnection;
 
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
@@ -18,9 +16,7 @@ public class Leonardo {
 
     OkHttpClient client = new OkHttpClient();
 
-    public void test2(String prompt) throws IOException {
-
-        // Get a presigned URL for uploading an image
+    public void initImage(String prompt, String image) throws IOException {
         RequestBody requestBody = new FormBody.Builder()
                 .add("extension", "jpg")
                 .build();

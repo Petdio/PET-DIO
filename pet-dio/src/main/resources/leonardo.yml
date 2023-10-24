@@ -1,0 +1,5 @@
+leonardo:
+  key: bba9b4a2-b3f0-467a-a3d3-89a99a7833c1
+  url:
+    init-image: https://cloud.leonardo.ai/api/rest/v1/init-image
+    generation-image: https://cloud.leonardo.ai/api/rest/v1/generations

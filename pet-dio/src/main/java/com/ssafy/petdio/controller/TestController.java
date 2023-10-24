@@ -18,14 +18,31 @@ public class TestController {
     @GetMapping("/health-check")
     public String getHealth(@RequestParam("prompt") String prompt) throws IOException {
         log.info("Leonardo test");
-        leonardo.initImage(prompt);
+
+//        String prompt = "Your image description here";
+        String imagePath = "C:\\Users\\SSAFY\\Desktop\\dog2.jpg";
+
+        try {
+            leonardo.initImage(prompt, imagePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return "Hello Leonardo";
     }
 
+    //이미지 url 안나왔을때 쓰는 api
     @GetMapping("/get/{id}")
     public String getImage(@PathVariable("id") String id) throws IOException{
         log.info("Leonardo get image");
         leonardo.getImage(id);
+        return "success";
+    }
+
+    @GetMapping("/init")
+    public String getImage() throws IOException{
+        log.info("이미지 올리기");
+        String path = "C:\\Users\\SSAFY\\Desktop\\test.jpg";
+        leonardo.init(path);
         return "success";
     }
 }

@@ -4,12 +4,19 @@ import { theme } from "@/styles/ThemeRegistry";
 
 interface Props {
   content: string;
-  mode?: "page" | "modal";
+  mode?: "common" | "small";
 }
 
-function Subtitle({ content, mode = "page" }: Props) {
+function Subtitle({ content, mode = "common" }: Props) {
   return (
-    <Box sx={{ display: "flex", alignItems: "center", width: "100%" }}>
+    <Box
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        width: "100%",
+        margin: "10px 0 10px 0",
+      }}
+    >
       <Box
         sx={{
           width: "2rem",
@@ -18,10 +25,14 @@ function Subtitle({ content, mode = "page" }: Props) {
           backgroundColor: theme.palette.primary.main,
         }}
       />
-      {mode === "page" ? (
-        <Typography variant="h6">{content}</Typography>
+      {mode === "common" ? (
+        <Typography variant="body1" fontWeight="medium">
+          {content}
+        </Typography>
       ) : (
-        <Typography variant="body2">{content}</Typography>
+        <Typography variant="body2" fontWeight="medium">
+          {content}
+        </Typography>
       )}
     </Box>
   );

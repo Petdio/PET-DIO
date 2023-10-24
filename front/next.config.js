@@ -23,6 +23,18 @@ module.exports = withPWA({
         port: "",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "preview.redd.it",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "prompthero.com",
+        port: "",
+        pathname: "/**",
+      },
     ],
   },
 });

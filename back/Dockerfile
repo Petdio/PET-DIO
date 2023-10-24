@@ -6,7 +6,6 @@ COPY setting.gradle .
 COPY src src
 
 RUN gradle build
-RUN rm -f build/libs/*-plain.jar
 
 # Runtime Stage
 FROM openjdk:17-alpine

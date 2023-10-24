@@ -1,7 +1,6 @@
 'use client';
 import { useState, forwardRef, ReactElement, Ref } from 'react';
 import Image from 'next/image';
-import { theme } from '@/styles/ThemeRegistry';
 import {
   Box,
   Dialog,
@@ -48,6 +47,7 @@ interface ImgInfoProps {
 
 interface Props {
   imgInfo: ImgInfoProps;
+
   isOpen: boolean;
 }
 
@@ -57,6 +57,7 @@ function DetailModal({ imgInfo, isOpen }: Props) {
   const handleClose = () => {
     setOpen(false);
   };
+  if (!isOpen) return null;
   return (
     <Dialog
       fullWidth={true}

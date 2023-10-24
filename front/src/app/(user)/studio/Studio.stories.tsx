@@ -1,4 +1,5 @@
 import Studio from "./page";
+import RootLayout from "@/app/layout";
 import UserLayout from "../layout";
 
 export default {
@@ -7,7 +8,9 @@ export default {
 };
 
 export const StudioPage = () => (
-  <UserLayout>
-    <Studio />
-  </UserLayout>
+  <RootLayout>
+    <UserLayout>
+      <Studio />
+    </UserLayout>
+  </RootLayout>
 );

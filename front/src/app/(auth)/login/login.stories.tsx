@@ -1,5 +1,5 @@
 import LogIn from "./page";
-import ThemeRegistry from "@/styles/ThemeRegistry";
+import RootLayout from "@/app/layout";
 
 export default {
   title: "Pages/LogIn",
@@ -7,7 +7,7 @@ export default {
 };
 
 export const LogInPage = () => (
-  <ThemeRegistry>
+  <RootLayout>
     <LogIn />
-  </ThemeRegistry>
+  </RootLayout>
 );

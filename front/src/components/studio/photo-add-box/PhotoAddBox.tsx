@@ -1,16 +1,46 @@
 "use client";
 
-import { useState, useRef, ChangeEvent } from "react";
+import { forwardRef, useState, useRef, ChangeEvent } from "react";
 import Image from "next/image";
-import { Box, Typography, IconButton } from "@mui/material";
+import {
+  Box,
+  Typography,
+  IconButton,
+  Slide,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  Button,
+} from "@mui/material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { theme } from "@/styles/ThemeRegistry";
 import ButtonWithTooltip from "../Tooltip/button-with-tooltip/ButtonWithTooltip";
+import { Cropper, ReactCropperElement } from "react-cropper";
+import "cropperjs/dist/cropper.css";
+import { TransitionProps } from "@mui/material/transitions";
 
-function PhotoAddBox() {
+interface Props {
+  onCrop: (image: string) => void;
+  aspectRatio: number;
+  children: React.ReactNode;
+}
+
+const Transition = forwardRef(function Transition(
+  props: TransitionProps & {
+    children: React.ReactElement<any, any>;
+  },
+  ref: React.Ref<unknown>
+) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+
+function PhotoAddBox({ onCrop, aspectRatio, children }: Props) {
   const [image, setImage] = useState<string | ArrayBuffer | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const cropperRef = useRef<ReactCropperElement>(null);
 
   const handleFileUploadClick = () => {
     if (fileInputRef.current) {
@@ -27,6 +57,23 @@ function PhotoAddBox() {
       };
       reader.readAsDataURL(file);
     }
+  };
+
+  const getCropData = () => {
+    if (typeof cropperRef.current?.cropper !== "undefined") {
+      onCrop(cropperRef.current?.cropper.getCroppedCanvas().toDataURL());
+      setImage(null);
+    }
+  };
+
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   return (
@@ -131,13 +178,72 @@ function PhotoAddBox() {
         alignItems="center"
       >
         <Box style={{ flex: 1 }}>
-          <ButtonWithTooltip mode="crop" disabled={!image} />
+          <ButtonWithTooltip
+            mode="crop"
+            disabled={!image}
+            onClick={handleClickOpen}
+          />
         </Box>
         <Box style={{ width: "0.5rem" }}></Box>
         <Box style={{ flex: 1 }}>
           <ButtonWithTooltip mode="upload" disabled={!image} />
         </Box>
       </Box>
+      <Dialog
+        open={open}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={handleClose}
+        aria-describedby="crop-uploaded-image"
+        maxWidth="xs"
+      >
+        <DialogTitle textAlign="center">사진 크롭</DialogTitle>
+        <DialogContent>
+          <div>
+            <Cropper
+              ref={cropperRef}
+              aspectRatio={1 / 1}
+              src={image as string}
+              viewMode={1}
+              width={800}
+              height={500}
+              background={false}
+              responsive
+              autoCropArea={1}
+              checkOrientation={false}
+              guides
+            />
+            <div>
+              <button onClick={() => setImage(null)}>취소</button>
+              <button onClick={getCropData}>적용하기</button>
+            </div>
+          </div>
+        </DialogContent>
+        <DialogActions
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            padding: "0rem 1rem 3.5rem 1rem",
+          }}
+        >
+          <Button
+            sx={{ width: "50%" }}
+            variant="contained"
+            color="inherit"
+            onClick={handleClose}
+          >
+            취소
+          </Button>
+          <Button
+            sx={{ width: "50%" }}
+            variant="contained"
+            onClick={handleClose}
+          >
+            확인
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }

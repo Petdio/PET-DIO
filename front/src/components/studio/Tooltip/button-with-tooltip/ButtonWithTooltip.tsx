@@ -42,6 +42,7 @@ export default function ButtonWithTooltip({ mode, disabled, onClick }: Props) {
             size="large"
             disabled={disabled}
             sx={{ width: "100%" }}
+            onClick={onClick}
           >
             {mode === "crop" ? "사진 크롭" : "확인"}
           </Button>

@@ -72,15 +72,15 @@ public class Leonardo {
                 RequestBody.create(MediaType.parse(Files.probeContentType(Paths.get(imagePath))), imageData)
         );
 
-        MultipartBody uploadRequestBody=builderUploadImageRequest.build();
+        MultipartBody uploadRequestBody = builderUploadImageRequest.build();
 
-        Request uploadRequest=new Request.Builder()
+        Request uploadRequest = new Request.Builder()
                 .url(urlUploadImage)
                 .post(uploadRequestBody)
                 .build();
 
 
-        try(Response uploadResponse=client.newCall(uploadRequest).execute()){
+        try (Response uploadResponse = client.newCall(uploadRequest).execute()) {
             if (!uploadResponse.isSuccessful()) {
                 System.out.println("Failed to upload image: " + uploadResponse.body().string());
                 return false;
@@ -96,27 +96,44 @@ public class Leonardo {
 
         // Generate with an image prompt
         JSONObject generationPayload = new JSONObject();
-        generationPayload.put("height", 512);
+        generationPayload.put("height",  832 );
         generationPayload.put(
                 "modelId",
-                "f3296a34-9aef-4370-ad18-88daf26862c3"
+                "458ecfff-f76c-402c-8b85-f09f6fb198de"
         );
         generationPayload.put(
                 "prompt",
                 prompt
         );
 
-        generationPayload.put("width", 512);
+        generationPayload.put("width", 640 );
 
-        generationPayload.put("seed", Integer.valueOf("130472704"));
-        generationPayload.put("presetStyle", "LEONARDO");
-        generationPayload.put("promptMagicVersion", "v2");
-        generationPayload.put("guidance_scale", 7);
+        generationPayload.put("guidance_scale", 10);
+
+        generationPayload.put("num_inference_steps", 50);
+
+        generationPayload.put("scheduler", "EULER_DISCRETE");
 
 
-//        generationPayload.put("promptMagicStrength", 0.55);
 //        generationPayload.put("alchemy", true);
 
+//        generationPayload.put("contrastRatio", 0.5);
+
+//        generationPayload.put("presetStyle", "LEONARDO");
+
+//        generationPayload.put("promptMagicVersion", "v2");
+
+//        generationPayload.put("promptMagicStrength", 0.4);
+
+        generationPayload.put("seed", 194024320);
+
+        generationPayload.put("init_strength", 0.3);
+//        generationPayload.put("highContrast", true);
+//        generationPayload.put("promptMagic", true);
+
+        generationPayload.put("num_images", 1);
+
+        generationPayload.put("negative_prompt", "Multiple heads, multiple faces, double, cropped image, out of frame, draft, copy, deformed hands, signatures, twisted fingers, double image, long neck, malformed hands, multiple heads, extra limb, ugly, poorly drawn hands, missing limb, disfigured, cut-off, kitsch, oversaturated, grain, low-res, deformed, blurry, bad anatomy, disfigured, poorly drawn face, mutation, mutated, floating limbs, disconnected limbs, out of focus, long body, disgusting, poorly drawn, mutilated, mangled, surreal, extra fingers, duplicate artefacts, morbid, gross proportions, missing arms, mutated hands, mutilated hands, cloned face, maformed limbs, missing legs, signature, watermark, heterochromia, ugly, tiling, poorly drawn hands, poorly drawn feet, poorly drawn face, out of frame, extra limbs, disfigured, deformed, body out of frame, blurry, bad anatomy, blurred, watermark, grainy, signature, cut off, draft");
 
         generationPayload.put(
                 "init_image_id",
@@ -138,8 +155,8 @@ public class Leonardo {
                 generationRequestBody)).execute()) {
             String responseBody = null;
 
-            if(generationResponse.body() != null){
-                responseBody = 	generationResponse.body().string();
+            if (generationResponse.body() != null) {
+                responseBody = generationResponse.body().string();
             }
 
             if (!generationResponse.isSuccessful()) {
@@ -163,7 +180,7 @@ public class Leonardo {
     }
 
     private byte[] readImageData(String imagePath) throws IOException {
-        Path path=Paths.get(imagePath);
+        Path path = Paths.get(imagePath);
 
         return Files.readAllBytes(path);
     }
@@ -189,8 +206,8 @@ public class Leonardo {
 
 
     private void fetchGeneratedImages(String responseBody) throws IOException {
-        JSONObject jsonGenerationResponse=new JSONObject(responseBody);
-        String generationId=jsonGenerationResponse
+        JSONObject jsonGenerationResponse = new JSONObject(responseBody);
+        String generationId = jsonGenerationResponse
                 .getJSONObject("sdGenerationJob")
                 .getString("generationId");
         log.info(generationId + " generated successfully.");

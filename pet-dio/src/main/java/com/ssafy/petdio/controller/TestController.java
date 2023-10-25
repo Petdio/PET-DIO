@@ -20,7 +20,7 @@ public class TestController {
         log.info("Leonardo test");
 
 //        String prompt = "Your image description here";
-        String imagePath = "C:\\Users\\SSAFY\\Desktop\\dog2.jpg";
+        String imagePath = "C:\\Users\\SSAFY\\Desktop\\dog.jpg";
 
         try {
             leonardo.initImage(prompt, imagePath);
@@ -41,7 +41,7 @@ public class TestController {
     @GetMapping("/init")
     public String getImage() throws IOException{
         log.info("이미지 올리기");
-        String path = "C:\\Users\\SSAFY\\Desktop\\test.jpg";
+        String path = "C:\\Users\\SSAFY\\Desktop\\dog.jpg";
         leonardo.init(path);
         return "success";
     }

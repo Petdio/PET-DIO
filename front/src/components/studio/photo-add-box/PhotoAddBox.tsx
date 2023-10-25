@@ -1,17 +1,33 @@
 "use client";
 
+import { useState, useRef, ChangeEvent } from "react";
 import Image from "next/image";
 import { Box, Typography, IconButton } from "@mui/material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { theme } from "@/styles/ThemeRegistry";
 
-interface Props {
-  imgSrc?: string;
-  onClick?: () => {};
-}
+function PhotoAddBox() {
+  const [image, setImage] = useState<string | ArrayBuffer | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
-function PhotoAddBox({ imgSrc, onClick }: Props) {
+  const handleFileUploadClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0]) {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <Box padding="1rem">
       <Box
@@ -27,36 +43,20 @@ function PhotoAddBox({ imgSrc, onClick }: Props) {
           backgroundColor: theme.palette.grey[200],
           cursor: "pointer",
         }}
+        onClick={handleFileUploadClick}
       >
-        {!imgSrc ? (
-          <>
-            <Box
-              display="flex"
-              flexDirection="column"
-              position="absolute"
-              top="50%"
-              left="50%"
-              alignItems="center"
-              sx={{ transform: "translate(-50%, -50%)" }}
-              fontSize="3.5rem"
-            >
-              <AddCircleIcon
-                fontSize="inherit"
-                sx={{
-                  color: theme.palette.grey[400],
-                  marginBottom: "0.25rem",
-                }}
-              />
-              <Typography color={theme.palette.text.secondary} fontSize="1rem">
-                사진첩에서 업로드
-              </Typography>
-            </Box>
-          </>
+        {!image ? (
+          <input
+            type="file"
+            ref={fileInputRef}
+            style={{ display: "none" }}
+            onChange={handleFileChange}
+          />
         ) : (
           <>
             <Image
-              src={imgSrc}
-              alt={imgSrc}
+              src={image as string}
+              alt={image as string}
               fill
               objectFit="cover"
               objectPosition="center center"
@@ -94,6 +94,29 @@ function PhotoAddBox({ imgSrc, onClick }: Props) {
               />
             </IconButton>
           </>
+        )}
+        {!image && (
+          <Box
+            display="flex"
+            flexDirection="column"
+            position="absolute"
+            top="50%"
+            left="50%"
+            alignItems="center"
+            sx={{ transform: "translate(-50%, -50%)" }}
+            fontSize="3.5rem"
+          >
+            <AddCircleIcon
+              fontSize="inherit"
+              sx={{
+                color: theme.palette.grey[400],
+                marginBottom: "0.25rem",
+              }}
+            />
+            <Typography color={theme.palette.text.secondary} fontSize="1rem">
+              사진첩에서 업로드
+            </Typography>
+          </Box>
         )}
       </Box>
     </Box>

@@ -3,6 +3,7 @@ import Subtitle from "@/components/studio/subtitle/Subtitle";
 import PhotoAddBox from "@/components/studio/photo-add-box/PhotoAddBox";
 import PhotoTooltip from "@/components/studio/Tooltip/photo-tooltip/PhotoTooltip";
 import AddPhotoButtons from "@/components/studio/Tooltip/add-photo-buttons/AddPhotoButtons";
+import Bar from "@/components/studio/bar/bar";
 
 export default function AddPhoto() {
   return (
@@ -19,6 +20,7 @@ export default function AddPhoto() {
       <PhotoTooltip />
       <PhotoAddBox />
       <AddPhotoButtons />
+      <Bar />
     </>
   );
 }

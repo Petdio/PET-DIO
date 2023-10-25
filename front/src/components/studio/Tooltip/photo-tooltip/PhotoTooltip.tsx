@@ -1,0 +1,80 @@
+"use client";
+import { useState } from "react";
+import {
+  Tooltip,
+  IconButton,
+  ClickAwayListener,
+  Box,
+  Grid,
+} from "@mui/material";
+import HelpIcon from "@mui/icons-material/Help";
+import Image from "next/image";
+
+export default function PhotoTooltip() {
+  const [open, setOpen] = useState(false);
+
+  const handleTooltipClose = () => {
+    setOpen(false);
+    console.log("close");
+  };
+
+  const handleTooltipOpen = () => {
+    setOpen(true);
+    console.log("open");
+  };
+
+  return (
+    <ClickAwayListener onClickAway={handleTooltipClose}>
+      <Tooltip
+        PopperProps={{
+          disablePortal: true,
+        }}
+        onClose={handleTooltipClose}
+        open={open}
+        arrow
+        disableFocusListener
+        disableHoverListener
+        disableTouchListener
+        title={
+          <>
+            <Box width={300}>
+              <div>AI가 잘 인식할 수 있도록,</div>
+              <div>아래와 같이 잘 찍힌 사진을 업로드해주세요.</div>
+
+              <Grid container spacing={1} marginTop="0.5rem">
+                <Grid item>
+                  <Image
+                    src="/assets/Dog1.png"
+                    alt="Dog1"
+                    width={85}
+                    height={85}
+                  />
+                </Grid>
+                <Grid item>
+                  <Image
+                    src="/assets/Dog2.png"
+                    alt="Dog2"
+                    width={85}
+                    height={85}
+                  />
+                </Grid>
+                <Grid item>
+                  <Image
+                    src="/assets/Dog3.png"
+                    alt="Dog3"
+                    width={85}
+                    height={85}
+                  />
+                </Grid>
+              </Grid>
+            </Box>
+          </>
+        }
+      >
+        <IconButton onClick={handleTooltipOpen} size="medium">
+          <HelpIcon fontSize="small" />
+        </IconButton>
+      </Tooltip>
+    </ClickAwayListener>
+  );
+}

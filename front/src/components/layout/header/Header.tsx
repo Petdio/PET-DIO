@@ -4,7 +4,6 @@ import Logo from "../../common/logo/Logo";
 import { styled } from "@mui/material/styles";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import Slide from "@mui/material/Slide";
 
 const StyledAppBar = styled(AppBar)`
   && {
@@ -22,7 +21,7 @@ const StyledAppBar = styled(AppBar)`
 export default function Header() {
   return (
     <StyledAppBar position="static" sx={{ zIndex: "modal" }} elevation={0}>
-      <Toolbar>
+      <Toolbar sx={{ padding: "0 1rem 0 1rem" }}>
         <Grid
           container
           direction="row"

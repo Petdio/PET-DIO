@@ -179,9 +179,14 @@ export default function ThemeList() {
         aria-describedby="select-theme"
         maxWidth="xs"
       >
-        <DialogTitle textAlign="center">{modalTitle}</DialogTitle>
+        <DialogTitle textAlign="center" fontWeight="bold">
+          {modalTitle}
+        </DialogTitle>
         <DialogContent sx={{ padding: 0 }}>
-          <Subtitle content="이런 이미지를 만들 수 있어요."></Subtitle>
+          <Subtitle
+            content="이런 이미지를 만들 수 있어요."
+            mode="small"
+          ></Subtitle>
           <Container
             ref={scrollRef}
             onMouseDown={onDragStart}

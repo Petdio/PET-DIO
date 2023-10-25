@@ -1,5 +1,6 @@
 package com.ssafy.petdio.controller;
 
+import com.ssafy.petdio.model.dto.UserResponseDto;
 import com.ssafy.petdio.repository.UserRepository;
 import com.ssafy.petdio.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -17,9 +18,9 @@ public class UserController {
 
     private final UserService userService;
 
-    @GetMapping
-    public ResponseEntity getUserProfile(Long id) {
-        log.info("get user profile");
-        return ResponseEntity.status(HttpStatus.OK).body(userService.getUserProfile(id));
+    @GetMapping({"", "/{userId}"})
+    public ResponseEntity<UserResponseDto> findMember(@PathVariable(required = false) Long userId) {
+        return new ResponseEntity<>(userService.getUserProfile(userId), HttpStatus.OK);
     }
+
 }

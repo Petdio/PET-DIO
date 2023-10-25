@@ -174,11 +174,8 @@ gradle-app.setting
 # Java heap dump
 *.hprof
 
-../.idea/
-.idea/
-HELP.md
-pet-dio.iml
+# End of https://www.toptal.com/developers/gitignore/api/macos,gradle,intellij
+/.gradle/
+/.gradle/*
 .env
 build.gradle
-
-# End of https://www.toptal.com/developers/gitignore/api/macos,gradle,intellij

@@ -96,17 +96,21 @@ public class Leonardo {
 
         // Generate with an image prompt
         JSONObject generationPayload = new JSONObject();
-        generationPayload.put("height", 512);
+        generationPayload.put("height", 832);
         generationPayload.put(
                 "modelId",
                 "f3296a34-9aef-4370-ad18-88daf26862c3"
         );
+        log.info(prompt);
         generationPayload.put(
                 "prompt",
                 prompt
         );
+        generationPayload.put("negative_prompt", "low quality, Bad anatomy, Bad eyes, Disfigured, Crossed eyes, Poorly drawn face, mutation, mutated" +
+                "((extra limb)), ugly, missing limb, floating limbs, disconnected limbs,  malformed hands, blur, out of focus, long neck," +
+                "long body, two face, out of frame, text, error, cropped, 3 shoes, 3 legs, 2 ears, ");
 
-        generationPayload.put("width", 512);
+        generationPayload.put("width", 640);
 
         generationPayload.put("seed", Integer.valueOf("130472704"));
         generationPayload.put("presetStyle", "LEONARDO");
@@ -118,11 +122,9 @@ public class Leonardo {
 //        generationPayload.put("alchemy", true);
 
 
-        generationPayload.put(
-                "init_image_id",
-//                new JSONArray().put(imageId)
-                imageId
-        );
+        generationPayload.put("init_image_id", imageId);
+        generationPayload.put("init_strength", 0.25);
+        generationPayload.put("num_images", 1);
 
 //        generationPayload.put("init_generation_image_id", "eaac59af-881a-4713-b0a7-2afbc0160141");
         //위에 왜 안되는지 모르겠음

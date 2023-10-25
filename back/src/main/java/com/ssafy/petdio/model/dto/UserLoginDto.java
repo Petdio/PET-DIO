@@ -6,12 +6,12 @@ import lombok.Data;
 @Data
 public class UserLoginDto {
 
-    private UserDto userDTO;
+    private UserDto userDto;
     private String accessToken;
 
     @Builder
     public UserLoginDto(UserDto userDto, String accessToken){
-        this.userDTO = userDto;
+        this.userDto = userDto;
         this.accessToken = accessToken;
     }
 

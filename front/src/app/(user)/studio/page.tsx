@@ -1,7 +1,7 @@
 import { Typography } from "@mui/material";
 
-import Subtitle from "@/components/studio/subtitle/Subtitle";
-import ThemeList from "@/components/studio/theme-list/ThemeList";
+import Subtitle from '@/components/studio/subtitle/Subtitle';
+import ThemeList from '@/components/studio/theme-list/ThemeList';
 
 export default function Studio() {
   return (

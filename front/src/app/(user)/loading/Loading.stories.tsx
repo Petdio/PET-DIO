@@ -1,5 +1,6 @@
 import Loading from "./page";
-import RootLayout from "../layout";
+import RootLayout from "@/app/layout";
+import UserLayout from "../layout";
 
 export default {
   title: "Pages/Loading",
@@ -8,6 +9,8 @@ export default {
 
 export const LoadingPage = () => (
   <RootLayout>
-    <Loading />
+    <UserLayout>
+      <Loading />
+    </UserLayout>
   </RootLayout>
 );

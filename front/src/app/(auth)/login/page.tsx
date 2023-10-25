@@ -8,7 +8,7 @@ const KakaoLogInButton = styled(Button)`
   && {
     background-color: #fee500;
     color: #000;
-    margin-top: 30%;
+    margin-top: 30vh;
   }
 `;
 
@@ -42,7 +42,7 @@ export default function LogIn() {
     <>
       <Box
         sx={{
-          height: "100%",
+          height: "100vh",
           display: "flex",
           alignItems: "center",
           flexDirection: "column",
@@ -50,7 +50,7 @@ export default function LogIn() {
       >
         <Box
           sx={{
-            height: "50%",
+            paddingTop: "20vh",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
@@ -69,11 +69,7 @@ export default function LogIn() {
         </Box>
         <KakaoLogInButton variant="contained">
           <KakaoSymbol fontSize="small" />
-          <Typography
-            fontSize="15px"
-            // paddingLeft="40px" paddingRight="40px"
-            padding="5px 40px 5px 60px"
-          >
+          <Typography fontSize="15px" padding="5px 40px 5px 60px">
             카카오 로그인
           </Typography>
         </KakaoLogInButton>

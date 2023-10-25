@@ -10,6 +10,22 @@ body {
   overflow-x: hidden;
 }
 
+/* 스크롤바의 너비를 조정합니다. */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* 스크롤바의 스크롤 가능한 영역을 스타일링합니다. */
+::-webkit-scrollbar-thumb {
+  background: #999;
+  border-radius: 10px;
+}
+
+/* 마우스 오버 시 스크롤바의 스크롤 가능한 영역을 스타일링합니다. */
+::-webkit-scrollbar-thumb:hover {
+  background: #777;
+}
+
 h1,
 h2,
 h3,

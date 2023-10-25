@@ -181,10 +181,7 @@ export default function ThemeList() {
       >
         <DialogTitle textAlign="center">{modalTitle}</DialogTitle>
         <DialogContent sx={{ padding: 0 }}>
-          <Subtitle
-            content="이런 이미지를 만들 수 있어요."
-            mode="small"
-          ></Subtitle>
+          <Subtitle content="이런 이미지를 만들 수 있어요."></Subtitle>
           <Container
             ref={scrollRef}
             onMouseDown={onDragStart}
@@ -204,7 +201,7 @@ export default function ThemeList() {
               display: "flex",
               justifyContent: "flex-start",
               alignItems: "center",
-              margin: "20px 0 20px 0",
+              margin: "0",
             }}
           >
             <Box
@@ -239,7 +236,12 @@ export default function ThemeList() {
               })}
             </Box>
           </Container>
-          <DialogContentText color="text" textAlign="center" id="select-theme">
+          <DialogContentText
+            color="text"
+            textAlign="center"
+            id="select-theme"
+            margin="2rem"
+          >
             이 테마로 진행할까요?
           </DialogContentText>
         </DialogContent>
@@ -248,7 +250,7 @@ export default function ThemeList() {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            padding: "20px 17px 56px 17px",
+            padding: "0rem 1rem 3.5rem 1rem",
           }}
         >
           <Button

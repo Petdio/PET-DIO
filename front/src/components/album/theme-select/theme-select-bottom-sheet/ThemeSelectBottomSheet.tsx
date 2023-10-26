@@ -1,5 +1,6 @@
 'use client';
-import { Grid, Box, SwipeableDrawer, Typography, styled } from '@mui/material';
+import { Grid, Box, SwipeableDrawer, Typography } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import { theme } from '@/styles/ThemeRegistry';
 import { grey } from '@mui/material/colors';
 import React from 'react';
@@ -9,7 +10,8 @@ interface Props {
   isOpen: boolean;
   onOpen: React.ReactEventHandler<{}>;
   onClose: React.ReactEventHandler<{}>;
-  onThemeChange?: () => void;
+  themeIdx: number;
+  onThemeChange: (idx: number) => void;
 }
 
 const Puller = styled(Box)(({ theme }) => ({
@@ -27,6 +29,7 @@ function ThemeSelectBottomSheet({
   isOpen,
   onOpen,
   onClose,
+  themeIdx,
   onThemeChange,
 }: Props) {
   const themeList = () => (
@@ -34,10 +37,10 @@ function ThemeSelectBottomSheet({
       container
       spacing={1}
     >
-      {themeNameList.map((themeName) => (
+      {themeNameList.map((themeName, idx) => (
         <Grid
           key={themeName}
-          onClick={onThemeChange}
+          onClick={() => onThemeChange(idx)}
           item
           xs={6}
           display="flex"
@@ -68,7 +71,9 @@ function ThemeSelectBottomSheet({
       swipeAreaWidth={16}
       sx={{
         '& .MuiPaper-root': {
-          borderRadius: '2rem 2rem 0 0', // Apply borderRadius to the paper content
+          margin: '0 auto 0 auto',
+          borderRadius: '2rem 2rem 0 0',
+          maxWidth: 480,
         },
       }}
     >

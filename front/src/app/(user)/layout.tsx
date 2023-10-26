@@ -9,7 +9,7 @@ export default function UserLayout({
 }) {
   return (
     <>
-      <Header></Header>
+      <Header />
       <Box
         sx={{
           height: '100vh',

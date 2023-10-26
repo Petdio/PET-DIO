@@ -27,5 +27,6 @@ export const Primary: Story = {
       '캐주얼',
     ],
     isOpen: true,
+    themeIdx: 0,
   },
 };

@@ -9,10 +9,10 @@ import {
   DialogContentText,
   Button,
   Slide,
-  styled,
   Typography,
   Tooltip,
 } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import { TransitionProps } from '@mui/material/transitions/transition';
 import { downloadImage } from './../../../../utils/downLoadImage';
 import ShareIcon from '@mui/icons-material/Share';

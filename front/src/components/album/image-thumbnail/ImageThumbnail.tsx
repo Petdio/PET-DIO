@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { Box } from '@mui/material';
-import { ImgInfoProps, ModalInfoProps } from '@/Interfaces/ImgInfoProps';
+import { ImgInfoProps, ModalInfoProps } from '@/interfaces/ImgInfoProps';
 
 interface Props extends ModalInfoProps {
   idx: number;

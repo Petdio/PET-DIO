@@ -19,7 +19,7 @@ import ShareIcon from '@mui/icons-material/Share';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import CameraIcon from '@mui/icons-material/Camera';
 import CloseIcon from '@mui/icons-material/Close';
-import { ImgInfoProps } from '@/Interfaces/ImgInfoProps';
+import { ImgInfoProps } from '@/interfaces/ImgInfoProps';
 
 const ActionButton = styled(Button)({
   // margin: '0.25rem',

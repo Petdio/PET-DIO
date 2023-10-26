@@ -1,3 +1,4 @@
+# build stage
 FROM node:20.8.1 AS build
 WORKDIR /app
 COPY package*.json ./
@@ -6,6 +7,7 @@ RUN pnpm install
 COPY . ./
 RUN pnpm run build
 
+# run stage
 # nginx의 안정 버전의 Alpine Linux 기반 이미지를 사용합니다.
 FROM nginx:stable-alpine
 # 컨테이너의 작업 디렉터리를 '/app'으로 설정합니다.
@@ -14,7 +16,7 @@ WORKDIR /app
 RUN mkdir ./build
 # 호스트의 '.next' 폴더 내용을 컨테이너의 '/app/build'에 추가합니다.
 # 이 폴더는 일반적으로 React 빌드 결과물을 포함합니다.
-COPY ./.next ./build
+COPY --from=build ./.next ./build
 # 기존의 nginx 설정 파일을 삭제합니다.
 RUN rm /etc/nginx/conf.d/default.conf
 # 호스트의 'front.conf' 파일을 nginx 설정으로 복사합니다.

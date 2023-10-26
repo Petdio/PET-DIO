@@ -19,6 +19,7 @@ import ShareIcon from '@mui/icons-material/Share';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import CameraIcon from '@mui/icons-material/Camera';
 import CloseIcon from '@mui/icons-material/Close';
+import { ImgInfoProps } from '@/Interfaces/ImgInfoProps';
 
 const ActionButton = styled(Button)({
   // margin: '0.25rem',
@@ -39,30 +40,21 @@ const Transition = forwardRef(function Transition(
   );
 });
 
-interface ImgInfoProps {
-  imgSrc: string;
-  themeName: string;
-  date: string;
-}
-
 interface Props {
   imgInfo: ImgInfoProps;
-
+  themeName: string;
   isOpen: boolean;
+  handleClose: () => void;
 }
 
-function DetailModal({ imgInfo, isOpen }: Props) {
-  const { imgSrc, themeName, date } = imgInfo;
-  const [open, setOpen] = useState(isOpen);
-  const handleClose = () => {
-    setOpen(false);
-  };
+function DetailModal({ imgInfo, themeName, isOpen, handleClose }: Props) {
+  const { imgSrc, date } = imgInfo;
   if (!isOpen) return null;
   return (
     <Dialog
       fullWidth={true}
       maxWidth="xl"
-      open={open}
+      open={isOpen}
       TransitionComponent={Transition}
       onClose={handleClose}
       sx={{

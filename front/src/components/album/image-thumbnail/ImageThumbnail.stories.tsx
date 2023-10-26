@@ -19,5 +19,7 @@ export const Primary: Story = {
     imgSrc:
       'https://i.etsystatic.com/43024071/r/il/c8edcb/4861314808/il_fullxfull.4861314808_amys.jpg',
     idx: 0,
+    themeName: '우주복',
+    date: '2023년 10월 26일',
   },
 };

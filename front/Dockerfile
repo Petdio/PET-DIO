@@ -1,9 +1,9 @@
-# build stage
 FROM node:20.8.1 AS build
 WORKDIR /app
 COPY package*.json ./
 RUN npm install -g pnpm
 RUN pnpm install
+COPY . ./
 RUN pnpm run build
 
 # nginx의 안정 버전의 Alpine Linux 기반 이미지를 사용합니다.

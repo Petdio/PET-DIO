@@ -19,9 +19,9 @@ export const Primary: Story = {
     imgInfo: {
       imgSrc:
         'https://ih1.redbubble.net/image.4687883701.0033/flat,750x,075,f-pad,750x1000,f8f8f8.jpg',
-      themeName: '우주복',
       date: '2023년 10월 23일',
     },
+    themeName: '우주복',
     isOpen: true,
   },
 };

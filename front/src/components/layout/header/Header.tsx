@@ -26,7 +26,7 @@ export default function Header() {
       sx={{ zIndex: 1000 }}
       elevation={0}
     >
-      <Toolbar>
+      <Toolbar sx={{ padding: '0 1rem 0 1rem' }}>
         <Grid
           container
           direction="row"

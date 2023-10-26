@@ -12,13 +12,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserResponseDto {
 
-    private String email;
     private String nickname;
+    private String email;
+    private int coin;
 
     public UserResponseDto toUserResponseDto(User user) {
         return UserResponseDto.builder()
-                .email(user.getUserEmail())
                 .nickname(user.getUserNickname())
+                .email(user.getUserEmail())
+                .coin(user.getUserCoin())
                 .build();
     }
 }

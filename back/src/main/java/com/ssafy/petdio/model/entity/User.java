@@ -27,6 +27,9 @@ public class User {
     @Column(name = "user_email", nullable = false)
     private String userEmail;
 
+    @Column(name = "user_coin", nullable = false)
+    private int userCoin;
+
     @Column(name = "user_nickname", nullable = false)
     private String userNickname;
 

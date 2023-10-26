@@ -12,5 +12,6 @@ import lombok.NoArgsConstructor;
 public class UserProfileUpdateDto {
 
     private String nickname;
+    private int coin;
 
 }

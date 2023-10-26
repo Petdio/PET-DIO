@@ -15,12 +15,10 @@ export default function PhotoTooltip() {
 
   const handleTooltipClose = () => {
     setOpen(false);
-    console.log("close");
   };
 
   const handleTooltipOpen = () => {
     setOpen(true);
-    console.log("open");
   };
 
   return (

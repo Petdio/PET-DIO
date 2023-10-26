@@ -13,12 +13,10 @@ export default function ButtonWithTooltip({ mode, disabled, onClick }: Props) {
 
   const handleTooltipClose = () => {
     setOpen(false);
-    console.log("close");
   };
 
   const handleTooltipOpen = () => {
     setOpen(true);
-    console.log("open");
   };
 
   return (

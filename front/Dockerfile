@@ -1,3 +1,4 @@
+# build stage
 FROM node:20.8.1 AS build
 WORKDIR /app
 COPY package*.json ./

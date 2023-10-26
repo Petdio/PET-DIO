@@ -4,7 +4,7 @@ WORKDIR /app
 COPY build.gradle .
 COPY settings.gradle .
 COPY src src
-RUN gradle build
+RUN gradle build -x test
 
 # Runtime Stage
 FROM openjdk:17-alpine

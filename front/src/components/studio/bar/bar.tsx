@@ -11,6 +11,7 @@ export default function Bar() {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          paddingBottom: "1rem",
         }}
       >
         <Box

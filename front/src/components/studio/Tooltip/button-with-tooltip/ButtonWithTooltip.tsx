@@ -13,12 +13,10 @@ export default function ButtonWithTooltip({ mode, disabled, onClick }: Props) {
 
   const handleTooltipClose = () => {
     setOpen(false);
-    console.log("close");
   };
 
   const handleTooltipOpen = () => {
     setOpen(true);
-    console.log("open");
   };
 
   return (
@@ -42,6 +40,7 @@ export default function ButtonWithTooltip({ mode, disabled, onClick }: Props) {
             size="large"
             disabled={disabled}
             sx={{ width: "100%" }}
+            onClick={onClick}
           >
             {mode === "crop" ? "사진 크롭" : "확인"}
           </Button>

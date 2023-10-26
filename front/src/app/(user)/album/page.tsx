@@ -5,11 +5,8 @@ import { Box, Typography } from '@mui/material';
 import ThemeSection from '@/components/album/theme-section/ThemeSection';
 import ThemeSelectButton from '@/components/album/theme-select/theme-select-button/ThemeSelectButton';
 import ThemeSelectBottomSheet from '@/components/album/theme-select/theme-select-bottom-sheet/ThemeSelectBottomSheet';
-
-interface ImgInfoProps {
-  imgSrc: string;
-  date: string;
-}
+import DetailModal from '@/components/album/detail/detail-modal/DetailModal';
+import { ImgInfoProps, ModalInfoProps } from '@/interfaces/ImgInfoProps';
 
 interface Props {
   [themeName: string]: ImgInfoProps[];
@@ -96,6 +93,21 @@ function Album() {
   const handleFilterIdx = (idx: number) => {
     setFilteredThemeIdx(idx);
   };
+
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalInfo, setModalInfo] = useState<ModalInfoProps>({
+    imgSrc: '',
+    themeName: '',
+    date: '',
+  });
+  const handleModalOpen = (modalInfo: ModalInfoProps) => {
+    setModalOpen(true);
+    setModalInfo(modalInfo);
+  };
+  const handleModalClose = () => {
+    setModalOpen(false);
+  };
+
   return (
     <>
       <Box
@@ -114,6 +126,7 @@ function Album() {
           앨범
         </Typography>
       </Box>
+      {/** @todo 둘을 하나로 통합할 것 */}
       {filteredThemeIdx === -1 ? (
         <Box>
           {dummyData.map((data, idx) => {
@@ -126,6 +139,7 @@ function Album() {
                 <ThemeSection
                   themeName={themeName}
                   imgList={data[themeName]}
+                  onClickFn={handleModalOpen}
                 />
                 <Box height="1rem" />
               </Box>
@@ -144,6 +158,7 @@ function Album() {
                 <ThemeSection
                   themeName={themeName}
                   imgList={data[themeName]}
+                  onClickFn={handleModalOpen}
                 />
                 <Box height="1rem" />
               </Box>
@@ -151,6 +166,12 @@ function Album() {
           })}
         </Box>
       )}
+      <DetailModal
+        isOpen={modalOpen}
+        themeName={modalInfo.themeName}
+        imgInfo={modalInfo}
+        handleClose={handleModalClose}
+      />
       <ThemeSelectButton
         isFiltered={filteredThemeIdx === -1 ? false : true}
         onClick={

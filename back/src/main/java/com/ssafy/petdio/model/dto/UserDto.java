@@ -5,6 +5,7 @@ import lombok.*;
 
 @Data
 @NoArgsConstructor
+@ToString
 public class UserDto {
 
     private Long userId;

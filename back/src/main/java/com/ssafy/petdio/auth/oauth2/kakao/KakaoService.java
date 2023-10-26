@@ -4,6 +4,7 @@ import com.ssafy.petdio.auth.jwt.service.JwtService;
 import com.ssafy.petdio.model.Enum.SocialType;
 import com.ssafy.petdio.model.dto.UserDto;
 import com.ssafy.petdio.model.dto.UserLoginDto;
+import com.ssafy.petdio.model.entity.Role;
 import com.ssafy.petdio.model.entity.User;
 import com.ssafy.petdio.repository.UserRepository;
 import com.ssafy.petdio.model.mapper.UserMapper;
@@ -77,6 +78,7 @@ public class KakaoService {
                     .userNickname(kakaoUserDto.getProperties().getNickname())
                     .userEmail(kakaoUserDto.getKakaoAccount().getEmail())
                     .profileImage(kakaoUserDto.getProperties().getProfileImage())
+                    .role(Role.USER)
                     .userSocialType(SocialType.KAKAO)
                     .userSocialId(kakaoUserDto.getAuthenticationCode())
 //                    .userToken()
@@ -86,6 +88,7 @@ public class KakaoService {
                 .userNickname(null)
                 .userEmail(null)
                 .profileImage(null)
+                .role(Role.USER)
                 .userSocialType(SocialType.KAKAO)
                 .userSocialId(kakaoUserDto.getAuthenticationCode())
                 .build());

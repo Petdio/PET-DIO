@@ -1,20 +1,35 @@
 package com.ssafy.petdio.model.dto;
 
-import com.ssafy.petdio.model.entity.User;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
+import lombok.*;
 
 import java.sql.Timestamp;
+import java.util.List;
 
-@Data
-@AllArgsConstructor
-@Getter
 public class AlbumDto {
 
-    private Long albumId;
-    private Long albumUserId;
-    private String albumImgUrl;
+    @Getter
+    @Setter
+    @ToString
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class Inventory {
+        private String conceptName;
+        private Long conceptId;
+        private List<Detail> detail;
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class Detail {
+        private Long albumId;
+        private String albumURL;
+        private Timestamp albumCreated;
+    }
 
 }
 

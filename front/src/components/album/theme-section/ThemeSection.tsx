@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Box, Typography } from '@mui/material';
 import ImageThumbnail from '../image-thumbnail/ImageThumbnail';
-import { ModalInfoProps } from '@/Interfaces/ImgInfoProps';
+import { ModalInfoProps } from '@/interfaces/ImgInfoProps';
 
 // ImgInfoProps가 공통으로 재사용된다면 interface로 따로 빼서 export해줄 것
 interface ImgInfoProps {

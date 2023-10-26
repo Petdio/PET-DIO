@@ -6,7 +6,7 @@ import ThemeSection from '@/components/album/theme-section/ThemeSection';
 import ThemeSelectButton from '@/components/album/theme-select/theme-select-button/ThemeSelectButton';
 import ThemeSelectBottomSheet from '@/components/album/theme-select/theme-select-bottom-sheet/ThemeSelectBottomSheet';
 import DetailModal from '@/components/album/detail/detail-modal/DetailModal';
-import { ImgInfoProps, ModalInfoProps } from '@/Interfaces/ImgInfoProps';
+import { ImgInfoProps, ModalInfoProps } from '@/interfaces/ImgInfoProps';
 
 interface Props {
   [themeName: string]: ImgInfoProps[];

@@ -1,10 +1,9 @@
-'use client';
-import { AppBar, Grid, Toolbar, IconButton } from '@mui/material';
-import Logo from '../../common/logo/Logo';
-import { styled } from '@mui/material/styles';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import Slide from '@mui/material/Slide';
+"use client";
+import { AppBar } from "@mui/material";
+import Logo from "../../common/logo/Logo";
+import { styled } from "@mui/material/styles";
+import MyPage from "@/components/common/my-page/MyPage";
+import BackButton from "@/components/common/back-button/BackButton";
 
 const StyledAppBar = styled(AppBar)`
   && {
@@ -13,6 +12,7 @@ const StyledAppBar = styled(AppBar)`
     position: fixed;
     display: flex;
     justify-content: center;
+    align-items: center;
     height: 72px;
     width: 100%;
     max-width: 480px;
@@ -21,58 +21,12 @@ const StyledAppBar = styled(AppBar)`
 
 export default function Header() {
   return (
-    <StyledAppBar
-      position="static"
-      sx={{ zIndex: 1000 }}
-      elevation={0}
-    >
-      <Toolbar sx={{ padding: '0 1rem 0 1rem' }}>
-        <Grid
-          container
-          direction="row"
-          justifyContent="space-between"
-          alignItems="center"
-        >
-          <Grid
-            item
-            xs={4}
-            container
-            justifyContent="flex-start"
-          >
-            <IconButton
-              edge="start"
-              color="inherit"
-              aria-label="back"
-              size="large"
-            >
-              <ArrowBackIcon sx={{ fontSize: '30px' }} />
-            </IconButton>
-          </Grid>
-          <Grid
-            item
-            xs={4}
-            container
-            justifyContent="center"
-          >
-            <Logo />
-          </Grid>
-          <Grid
-            item
-            xs={4}
-            container
-            justifyContent="flex-end"
-          >
-            <IconButton
-              edge="end"
-              color="inherit"
-              aria-label="user-info"
-              size="large"
-            >
-              <AccountCircleIcon sx={{ fontSize: '30px' }} />
-            </IconButton>
-          </Grid>
-        </Grid>
-      </Toolbar>
-    </StyledAppBar>
+    <>
+      <StyledAppBar position="static" sx={{ zIndex: 1000 }} elevation={0}>
+        <Logo />
+        <MyPage />
+      </StyledAppBar>
+      <BackButton />
+    </>
   );
 }

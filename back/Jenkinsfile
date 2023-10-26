@@ -13,15 +13,15 @@ pipeline {
         stage('Docker Build') {
             steps {
                 dir('back/') {
-                    sh 'docker build -t petdio_backend:latest .'
+                    sh 'docker build -t back_img:latest .'
                 }
             }
         }
 
         stage('Deploy') {
             steps {
-                sh 'docker rm -f petdio_backend'
-                sh 'docker run -d --name petdio_backend -p 8080:8080 -u root petdio_backend:latest'
+                sh 'docker rm -f back_container'
+                sh 'docker run -d --name back_container -p 8080:8080 -u root back_img:latest'
             }
         }
 

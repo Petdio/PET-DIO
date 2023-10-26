@@ -23,4 +23,10 @@ public class Concept {
 
     @Column(name = "concept_delete")
     private boolean conceptDelete;
+
+    @Column(name = "concept_img")
+    private String conceptImg;
+
+    @Column(name = "concept_path")
+    private String conceptPath;
 }

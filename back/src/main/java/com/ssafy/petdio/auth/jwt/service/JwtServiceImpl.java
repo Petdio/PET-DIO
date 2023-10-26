@@ -124,6 +124,7 @@ public class JwtServiceImpl implements JwtService {
 //            throw new UnAuthorizedException();
 //        }
 
+        System.out.println("claims : " + claims);
         //권한 정보 가져오기
         Collection<? extends GrantedAuthority> authorities =
                 Arrays.stream(claims.get("role").toString().split(","))

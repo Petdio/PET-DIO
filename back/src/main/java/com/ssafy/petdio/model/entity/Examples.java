@@ -11,20 +11,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "img")
-public class Img {
+@Table(name = "examples")
+public class Examples {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "img_id")
+    @Column(name = "example_id")
     private Long imgId;
 
     @ManyToOne
-    @JoinColumn(name = "img_concept_id", referencedColumnName = "concept_id")
+    @JoinColumn(name = "example_concept_id", referencedColumnName = "concept_id")
     private Concept concept;
 
-    @Column(name = "img_type", nullable = false)
-    private int imgType;
-
-    @Column(name = "img_imgURL", nullable = false)
+    @Column(name = "example_imgurl", nullable = false)
     private String imgURL;
 }

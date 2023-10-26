@@ -2,8 +2,10 @@ package com.ssafy.petdio.model.dto;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.ToString;
 
 @Data
+@ToString
 public class UserLoginDto {
 
     private UserDto userDto;

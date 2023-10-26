@@ -1,4 +1,3 @@
-# build stage
 FROM node:20.8.1 AS build
 WORKDIR /app
 COPY package*.json ./
@@ -6,7 +5,6 @@ RUN npm install -g pnpm
 RUN pnpm install
 RUN pnpm run build
 
-# Runtime Stage
 # nginx의 안정 버전의 Alpine Linux 기반 이미지를 사용합니다.
 FROM nginx:stable-alpine
 # 컨테이너의 작업 디렉터리를 '/app'으로 설정합니다.

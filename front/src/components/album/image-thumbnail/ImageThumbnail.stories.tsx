@@ -18,5 +18,6 @@ export const Primary: Story = {
   args: {
     imgSrc:
       'https://i.etsystatic.com/43024071/r/il/c8edcb/4861314808/il_fullxfull.4861314808_amys.jpg',
+    idx: 0,
   },
 };

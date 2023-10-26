@@ -1,7 +1,7 @@
 "use client";
 
-import { forwardRef, useState, useRef, ChangeEvent } from "react";
-import Image from "next/image";
+import { forwardRef, useState, useRef, ChangeEvent, useEffect } from "react";
+import NextImage from "next/image";
 import {
   Box,
   Typography,
@@ -22,12 +22,6 @@ import { Cropper, ReactCropperElement } from "react-cropper";
 import "cropperjs/dist/cropper.css";
 import { TransitionProps } from "@mui/material/transitions";
 
-interface Props {
-  onCrop: (image: string) => void;
-  aspectRatio: number;
-  children: React.ReactNode;
-}
-
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {
     children: React.ReactElement<any, any>;
@@ -37,8 +31,10 @@ const Transition = forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-function PhotoAddBox({ onCrop, aspectRatio, children }: Props) {
+function PhotoAddBox() {
   const [image, setImage] = useState<string | ArrayBuffer | null>(null);
+  const [imageWidth, setImageWidth] = useState(1);
+  const [imageHeight, setImageHeight] = useState(1);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const cropperRef = useRef<ReactCropperElement>(null);
 
@@ -53,17 +49,39 @@ function PhotoAddBox({ onCrop, aspectRatio, children }: Props) {
       const file = event.target.files[0];
       const reader = new FileReader();
       reader.onloadend = () => {
+        const img = new Image();
+        img.src = reader.result as string;
+        img.onload = function () {
+          if (img.width && img.height) {
+            setImageWidth(img.width);
+            setImageHeight(img.height);
+          }
+        };
         setImage(reader.result);
       };
       reader.readAsDataURL(file);
     }
   };
 
+  /** 크롭한 데이터로 할 작업 */
+  const onCrop = (croppedImgURL: string) => {
+    console.log(croppedImgURL);
+    setImage(croppedImgURL);
+    const img = new Image();
+    img.src = croppedImgURL;
+    img.onload = function () {
+      if (img.width && img.height) {
+        setImageWidth(img.width);
+        setImageHeight(img.height);
+      }
+    };
+  };
+
   const getCropData = () => {
     if (typeof cropperRef.current?.cropper !== "undefined") {
       onCrop(cropperRef.current?.cropper.getCroppedCanvas().toDataURL());
-      setImage(null);
     }
+    handleClose();
   };
 
   const [open, setOpen] = useState(false);
@@ -74,6 +92,12 @@ function PhotoAddBox({ onCrop, aspectRatio, children }: Props) {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const deleteImage = () => {
+    setImage(null);
+    setImageHeight(1);
+    setImageWidth(1);
   };
 
   return (
@@ -87,7 +111,7 @@ function PhotoAddBox({ onCrop, aspectRatio, children }: Props) {
           position="relative"
           borderRadius="0.5rem"
           sx={{
-            aspectRatio: 1 / 1,
+            aspectRatio: imageWidth / imageHeight,
             borderRadius: "0.5rem",
             backgroundColor: theme.palette.grey[200],
             cursor: "pointer",
@@ -103,9 +127,9 @@ function PhotoAddBox({ onCrop, aspectRatio, children }: Props) {
             />
           ) : (
             <>
-              <Image
+              <NextImage
                 src={image as string}
-                alt={image as string}
+                alt="업로드 이미지"
                 fill
                 objectFit="cover"
                 objectPosition="center center"
@@ -126,6 +150,7 @@ function PhotoAddBox({ onCrop, aspectRatio, children }: Props) {
                     },
                   },
                 }}
+                onClick={deleteImage}
               >
                 <Box
                   sx={{
@@ -165,6 +190,9 @@ function PhotoAddBox({ onCrop, aspectRatio, children }: Props) {
               <Typography color={theme.palette.text.secondary} fontSize="1rem">
                 사진첩에서 업로드
               </Typography>
+              <Typography color={theme.palette.text.secondary} fontSize="1rem">
+                (이미지 파일만 올려주세요!)
+              </Typography>
             </Box>
           )}
         </Box>
@@ -189,6 +217,7 @@ function PhotoAddBox({ onCrop, aspectRatio, children }: Props) {
           <ButtonWithTooltip mode="upload" disabled={!image} />
         </Box>
       </Box>
+      {/* 모달 */}
       <Dialog
         open={open}
         TransitionComponent={Transition}
@@ -199,25 +228,17 @@ function PhotoAddBox({ onCrop, aspectRatio, children }: Props) {
       >
         <DialogTitle textAlign="center">사진 크롭</DialogTitle>
         <DialogContent>
-          <div>
-            <Cropper
-              ref={cropperRef}
-              aspectRatio={1 / 1}
-              src={image as string}
-              viewMode={1}
-              width={800}
-              height={500}
-              background={false}
-              responsive
-              autoCropArea={1}
-              checkOrientation={false}
-              guides
-            />
-            <div>
-              <button onClick={() => setImage(null)}>취소</button>
-              <button onClick={getCropData}>적용하기</button>
-            </div>
-          </div>
+          <Cropper
+            ref={cropperRef}
+            src={image as string}
+            viewMode={1}
+            width="auto"
+            height="auto"
+            background={false}
+            responsive
+            autoCropArea={1}
+            checkOrientation={false}
+          />
         </DialogContent>
         <DialogActions
           sx={{
@@ -238,7 +259,7 @@ function PhotoAddBox({ onCrop, aspectRatio, children }: Props) {
           <Button
             sx={{ width: "50%" }}
             variant="contained"
-            onClick={handleClose}
+            onClick={getCropData}
           >
             확인
           </Button>

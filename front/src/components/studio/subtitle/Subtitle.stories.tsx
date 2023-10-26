@@ -1,19 +1,19 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from '@storybook/react';
 
-import Subtitle from "./Subtitle";
+import Subtitle from './Subtitle';
 
 const meta = {
-  title: "studio/Subtitle",
+  title: 'studio/Subtitle',
   component: Subtitle,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
 } satisfies Meta<typeof Subtitle>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
-  args: { content: "이미지를 저장해요.", mode: "page" },
+  args: { content: '이미지를 저장해요.', mode: 'common' },
 };

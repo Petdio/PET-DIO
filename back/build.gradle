@@ -49,9 +49,12 @@ dependencies {
 	implementation 'javax.xml.bind:jaxb-api:2.4.0-b180830.0359'
 
 	// aws
-	implementation 'org.springframework.cloud:spring-cloud-starter-aws'
-	implementation 'org.springframework.cloud:spring-cloud-starter-aws-messaging'
-	implementation 'org.springframework.cloud:spring-cloud-starter-aws-parameter-store-config'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation "software.amazon.awssdk:s3:2.13.0"
+	implementation platform('com.amazonaws:aws-java-sdk-bom:1.12.529')
+	implementation 'com.amazonaws:aws-java-sdk-s3'
+
 }
 
 tasks.named('test') {

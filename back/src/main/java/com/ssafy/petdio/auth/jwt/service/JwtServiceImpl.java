@@ -120,11 +120,9 @@ public class JwtServiceImpl implements JwtService {
     public Authentication getAuthentication(String accessToken) {
         Claims claims = parseClaims(accessToken);
 
-//        if (claims.get("role") == null) {
-//            throw new UnAuthorizedException();
-//        }
-
         System.out.println("claims : " + claims);
+        System.out.println("claims.getSubject(): " + claims.getSubject());
+        System.out.println(claims.get("role"));
         //권한 정보 가져오기
         Collection<? extends GrantedAuthority> authorities =
                 Arrays.stream(claims.get("role").toString().split(","))

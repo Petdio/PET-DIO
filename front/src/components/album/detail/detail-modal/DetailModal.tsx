@@ -21,9 +21,7 @@ import CameraIcon from '@mui/icons-material/Camera';
 import CloseIcon from '@mui/icons-material/Close';
 import { ImgInfoProps } from '@/interfaces/ImgInfoProps';
 
-const ActionButton = styled(Button)({
-  // margin: '0.25rem',
-});
+const ActionButton = styled(Button)({});
 
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {

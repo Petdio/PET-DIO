@@ -9,10 +9,11 @@ export default function KakaoLogInPage() {
     if (code) {
       axios({
         method: "post",
-        url: `https://www.petdio.co.kr/api/oauth2/login/kakao`,
+        url: `http://k9a206.p.ssafy.io:8080/oauth2/login/kakao`,
         data: { code },
       })
         .then((res) => {
+          console.log(res);
           localStorage.setItem("access-token", res.data.accessToken);
           window.location.href = "/";
         })

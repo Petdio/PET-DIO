@@ -1,7 +1,11 @@
 import Logo from "@/components/common/logo/Logo";
 import { Typography, Box, LinearProgress } from "@mui/material";
 
-export default function LoginLayout() {
+export default function LoginLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <>
       <Box
@@ -48,6 +52,7 @@ export default function LoginLayout() {
           <LinearProgress />
         </Box>
       </Box>
+      {children}
     </>
   );
 }

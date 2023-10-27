@@ -39,8 +39,8 @@ const KakaoSymbol = createSvgIcon(
 export default function KakaoLogIn() {
   const kakaoLoginHandler = () => {
     const REST_API_KEY = "0b72da3fb2ff2db53044fd52b82ec11b";
-    const REDIRECT_URI = "http://k9a206.p.ssafy.io:8080/oauth2/login/kakao";
-    // const REDIRECT_URI = "http://localhost:3000/oauth2/login/kakao";
+    // const REDIRECT_URI = "http://k9a206.p.ssafy.io:8080/oauth2/login/kakao";
+    const REDIRECT_URI = "http://localhost:3000/oauth2/login/kakao";
     const link = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
     window.location.href = link;
   };

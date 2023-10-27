@@ -11,7 +11,7 @@ pipeline {
 
 		stage('Deploy') {
 			steps{
-				sh 'docker rm -f petdio_frontend'
+				sh 'docker rm -f front_container'
 				sh 'docker run -d --name front_container -p 3000:3000 -u root	front_img:latest'
 				}
 		}

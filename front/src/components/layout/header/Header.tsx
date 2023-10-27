@@ -4,6 +4,7 @@ import Logo from "../../common/logo/Logo";
 import { styled } from "@mui/material/styles";
 import MyPage from "@/components/common/my-page/MyPage";
 import BackButton from "@/components/common/back-button/BackButton";
+import { usePathname } from "next/navigation";
 
 const StyledAppBar = styled(AppBar)`
   && {
@@ -20,13 +21,17 @@ const StyledAppBar = styled(AppBar)`
 `;
 
 export default function Header() {
+  const pathname = usePathname();
+
   return (
     <>
       <StyledAppBar position="static" sx={{ zIndex: 1000 }} elevation={0}>
+        {pathname !== "/studio" && !pathname.includes("/album") && (
+          <BackButton />
+        )}
         <Logo />
         <MyPage />
       </StyledAppBar>
-      <BackButton />
     </>
   );
 }

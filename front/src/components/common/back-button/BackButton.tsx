@@ -9,7 +9,7 @@ export default function BackButton() {
         color="inherit"
         aria-label="back"
         size="large"
-        sx={{ position: "absolute", zIndex: 1001, left: "1rem", top: "22px" }}
+        sx={{ position: "absolute", zIndex: 1001, left: "1rem" }}
       >
         <ArrowBackIcon sx={{ fontSize: "30px" }} />
       </IconButton>

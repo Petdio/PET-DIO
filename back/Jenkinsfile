@@ -21,7 +21,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh 'docker rm -f back_container'
-                sh 'docker run -d --env-file ./back/.env --name back_container -p 8080:8080 -u root back_img:latest'
+                sh 'docker run -d --env-file ./back/.env --network deploy --name back_container -p 8080:8080 -u root back_img:latest'
             }
         }
 

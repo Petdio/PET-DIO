@@ -21,7 +21,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh 'docker rm -f back_container'
-                sh 'docker run -e SALT=a206 -d --name back_container -p 8080:8080 -u root back_img:latest'
+                sh 'docker run -e SALT=a206 -e DB_URL=jdbc:mariadb://k9a206.p.ssafy.io:3306/petdio -d --name back_container -p 8080:8080 -u root back_img:latest'
             }
         }
 

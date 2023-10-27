@@ -10,7 +10,6 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
-  DialogContentText,
   DialogActions,
   Button,
 } from "@mui/material";
@@ -21,6 +20,7 @@ import ButtonWithTooltip from "../Tooltip/button-with-tooltip/ButtonWithTooltip"
 import { Cropper, ReactCropperElement } from "react-cropper";
 import "cropperjs/dist/cropper.css";
 import { TransitionProps } from "@mui/material/transitions";
+import { useRouter, usePathname } from "next/navigation";
 
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {
@@ -37,6 +37,8 @@ function PhotoAddBox() {
   const [imageHeight, setImageHeight] = useState(1);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const cropperRef = useRef<ReactCropperElement>(null);
+  const router = useRouter();
+  const pathname = usePathname();
 
   const handleFileUploadClick = () => {
     if (fileInputRef.current) {
@@ -98,6 +100,10 @@ function PhotoAddBox() {
     setImage(null);
     setImageHeight(1);
     setImageWidth(1);
+  };
+
+  const handleUpload = () => {
+    router.push(`${pathname.replace("add-photo", "/setting")}`);
   };
 
   return (
@@ -214,7 +220,11 @@ function PhotoAddBox() {
         </Box>
         <Box style={{ width: "0.5rem" }}></Box>
         <Box style={{ flex: 1 }}>
-          <ButtonWithTooltip mode="upload" disabled={!image} />
+          <ButtonWithTooltip
+            mode="upload"
+            disabled={!image}
+            onClick={handleUpload}
+          />
         </Box>
       </Box>
       {/* 모달 */}

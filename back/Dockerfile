@@ -4,7 +4,6 @@ WORKDIR /app
 COPY build.gradle .
 COPY setting.gradle .
 COPY src src
-ENV SALT=a206
 RUN gradle build
 
 # Runtime Stage

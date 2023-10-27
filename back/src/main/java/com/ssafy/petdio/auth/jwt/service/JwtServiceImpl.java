@@ -139,9 +139,6 @@ public class JwtServiceImpl implements JwtService {
 
     @Override
     public Claims get(String key) {
-//        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
-//            .getRequest();
-//        String jwt = request.getHeader("access-token");
         Claims claim = parseClaims(key);
         System.out.println("토큰 받은거 해석");
         System.out.println(claim);

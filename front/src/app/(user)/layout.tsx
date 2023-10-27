@@ -1,6 +1,7 @@
-import Header from '@/components/layout/header/Header';
-import { Box } from '@mui/material';
-import BottomNav from '@/components/layout/bottom-nav/BottomNav';
+import Header from "@/components/layout/header/Header";
+import { Box } from "@mui/material";
+import BottomNav from "@/components/layout/bottom-nav/BottomNav";
+import BackButton from "@/components/common/back-button/BackButton";
 
 export default function UserLayout({
   children,
@@ -12,21 +13,21 @@ export default function UserLayout({
       <Header />
       <Box
         sx={{
-          height: '100vh',
-          width: '100%',
-          paddingTop: '72px',
-          paddingBottom: '64px',
-          backgroundColor: '#fff',
-          position: 'fixed',
-          maxWidth: '480px',
+          height: "100vh",
+          width: "100%",
+          paddingTop: "72px",
+          paddingBottom: "64px",
+          backgroundColor: "#fff",
+          position: "fixed",
+          maxWidth: "480px",
         }}
       >
         <Box
           sx={{
-            width: '100%',
-            height: '100%',
-            overflow: 'scroll',
-            overflowX: 'hidden',
+            width: "100%",
+            height: "100%",
+            overflow: "scroll",
+            overflowX: "hidden",
           }}
         >
           {children}

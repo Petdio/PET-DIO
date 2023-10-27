@@ -25,9 +25,9 @@ pipeline {
             }
         }
 
-        stage('Finish') {
+        stage('Docker clear') {
             steps {
-                sh 'docker images -qf dangling=true | xargs -I{} docker rmi {}'
+                sh 'docker system prune -f'
             }
         }
     }

@@ -29,10 +29,7 @@ function ThemeCard({ imgSrc, themeName }: Props) {
           position: 'relative',
           marginBottom: '0.25rem',
           aspectRatio: 1 / 1,
-          // 기기 가로 길이에 따라 달라져야 할 것
-          minWidth: 150,
-          maxWidth: 200,
-          width: '40vw',
+          width: '100%',
         }}
       >
         <Image

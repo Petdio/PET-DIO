@@ -19,14 +19,13 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
     private final KakaoService kakaoService;
 
-    @GetMapping("/login/kakao")
-    public ResponseEntity<UserLoginDto> kakaoLogin(@RequestParam("code") String code) {
+    @PostMapping("/login/kakao")
+    public ResponseEntity<UserLoginDto> kakaoLogin(@RequestBody OAuthReqDto oAuthReqDto) {
         log.info("카카오 로그인");
-        KakaoTokenDto kakaoTokenDto = kakaoService.getKakaoAccessToken(code);
+        KakaoTokenDto kakaoTokenDto = kakaoService.getKakaoAccessToken(oAuthReqDto.getCode());
         KakaoUserDto kakaoUserDto = kakaoService.getKakaoUser(kakaoTokenDto.getAccessToken());
         User loginUser = kakaoService.loginKakao(kakaoUserDto);
         System.out.println("loginUser : " + loginUser);
         return new ResponseEntity<>(kakaoService.getUserLoginDto(loginUser), HttpStatus.OK);
     }
-
 }

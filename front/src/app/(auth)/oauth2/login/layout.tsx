@@ -1,8 +1,11 @@
 import Logo from "@/components/common/logo/Logo";
-import { Typography, Box } from "@mui/material";
-import KakaoLogIn from "@/components/common/login/kakao-login/KakaoLogin";
+import { Typography, Box, LinearProgress } from "@mui/material";
 
-export default function LogIn() {
+export default function LoginLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <>
       <Box
@@ -32,8 +35,24 @@ export default function LogIn() {
             우리집 멍냥이를 위한 이색 사진관
           </Typography>
         </Box>
-        <KakaoLogIn />
+        <Box
+          sx={{
+            width: "50%",
+            paddingTop: "30vh",
+            justifyContent: "space-around",
+          }}
+        >
+          <Typography
+            variant="body1"
+            color="black"
+            sx={{ textAlign: "center", mb: "20px" }}
+          >
+            로그인 중...
+          </Typography>
+          <LinearProgress />
+        </Box>
       </Box>
+      {children}
     </>
   );
 }

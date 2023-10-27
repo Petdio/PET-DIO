@@ -6,6 +6,7 @@ import ThemeSection from '@/components/album/theme-section/ThemeSection';
 import ThemeSelectButton from '@/components/album/theme-select/theme-select-button/ThemeSelectButton';
 import ThemeSelectBottomSheet from '@/components/album/theme-select/theme-select-bottom-sheet/ThemeSelectBottomSheet';
 import DetailModal from '@/components/album/detail/detail-modal/DetailModal';
+import PageTitle from '@/components/common/page-title/PageTitle';
 import { ImgInfoProps } from '@/interfaces/ImgInfoProps';
 import { ModalInfoProps } from '@/interfaces/ModalInfoProps';
 
@@ -111,25 +112,10 @@ function Album() {
 
   return (
     <>
-      <Box
-        sx={{
-          height: '50px',
-          display: 'flex',
-          alignItems: 'center',
-          padding: '0 1rem 0 1rem',
-        }}
-      >
-        <Typography
-          variant="h6"
-          color="text"
-          fontWeight="bold"
-        >
-          앨범
-        </Typography>
-      </Box>
+      <PageTitle pageTitleContent="앨범" />
       {/** @todo 둘을 하나로 통합할 것 */}
       {filteredThemeIdx === -1 ? (
-        <Box>
+        <Box marginTop="1rem">
           {dummyData.map((data, idx) => {
             const themeName = Object.keys(data)[0];
             return (
@@ -148,7 +134,7 @@ function Album() {
           })}
         </Box>
       ) : (
-        <Box>
+        <Box marginTop="1rem">
           {dummyData.map((data, idx) => {
             const themeName = Object.keys(data)[0];
             return (

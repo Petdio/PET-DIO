@@ -51,7 +51,7 @@ function DetailModal({ imgInfo, themeName, isOpen, handleClose }: Props) {
   return (
     <Dialog
       fullWidth={true}
-      maxWidth="xl"
+      maxWidth="xs"
       open={isOpen}
       TransitionComponent={Transition}
       onClose={handleClose}

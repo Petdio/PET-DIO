@@ -26,11 +26,11 @@ function Subtitle({ content, mode = "common" }: Props) {
         }}
       />
       {mode === "common" ? (
-        <Typography variant="subtitle1" fontWeight="light">
+        <Typography variant="subtitle1" fontWeight="medium">
           {content}
         </Typography>
       ) : (
-        <Typography variant="body1" fontWeight="light">
+        <Typography variant="subtitle2" fontWeight="medium">
           {content}
         </Typography>
       )}

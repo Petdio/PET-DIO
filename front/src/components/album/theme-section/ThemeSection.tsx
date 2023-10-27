@@ -3,23 +3,16 @@
 import { useState } from 'react';
 import { Box, Typography } from '@mui/material';
 import ImageThumbnail from '../image-thumbnail/ImageThumbnail';
-import DetailModal from '../detail/detail-modal/DetailModal';
-
-// ImgInfoProps가 공통으로 재사용된다면 interface로 따로 빼서 export해줄 것
-interface ImgInfoProps {
-  imgSrc: string;
-  date: string;
-}
+import { ImgInfoProps } from '@/interfaces/ImgInfoProps';
+import { ModalInfoProps } from '@/interfaces/ModalInfoProps';
 
 interface Props {
   themeName: string;
   imgList: ImgInfoProps[];
+  onClickFn?: (imgInfo: ModalInfoProps) => void;
 }
 
-function ThemeSection({ themeName, imgList }: Props) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const openModal = () => setIsModalOpen(true);
+function ThemeSection({ themeName, imgList, onClickFn }: Props) {
   return (
     <>
       <Box
@@ -44,14 +37,15 @@ function ThemeSection({ themeName, imgList }: Props) {
               <ImageThumbnail
                 key={imgSrc}
                 imgSrc={imgSrc}
+                date={date}
                 idx={idx}
-                onClick={openModal}
+                onClickFn={onClickFn}
+                themeName={themeName}
               />
             );
           })}
         </Box>
       </Box>
-      {/* <DetailModal isOpen={isModalOpen} /> */}
     </>
   );
 }

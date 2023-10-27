@@ -6,7 +6,7 @@ import com.ssafy.petdio.model.dto.AlbumDto;
 import java.util.List;
 
 public interface AlbumService {
-    List<AlbumDto> albumList(Long album_user_id);
+    List<AlbumDto.Inventory> albumList(Long album_user_id);
 
     AlbumDetailDto albumDetail(Long album_id);
 

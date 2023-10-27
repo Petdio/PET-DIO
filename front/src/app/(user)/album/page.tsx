@@ -5,11 +5,10 @@ import { Box, Typography } from '@mui/material';
 import ThemeSection from '@/components/album/theme-section/ThemeSection';
 import ThemeSelectButton from '@/components/album/theme-select/theme-select-button/ThemeSelectButton';
 import ThemeSelectBottomSheet from '@/components/album/theme-select/theme-select-bottom-sheet/ThemeSelectBottomSheet';
-
-interface ImgInfoProps {
-  imgSrc: string;
-  date: string;
-}
+import DetailModal from '@/components/album/detail/detail-modal/DetailModal';
+import PageTitle from '@/components/common/page-title/PageTitle';
+import { ImgInfoProps } from '@/interfaces/ImgInfoProps';
+import { ModalInfoProps } from '@/interfaces/ModalInfoProps';
 
 interface Props {
   [themeName: string]: ImgInfoProps[];
@@ -96,26 +95,27 @@ function Album() {
   const handleFilterIdx = (idx: number) => {
     setFilteredThemeIdx(idx);
   };
+
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalInfo, setModalInfo] = useState<ModalInfoProps>({
+    imgSrc: '',
+    themeName: '',
+    date: '',
+  });
+  const handleModalOpen = (modalInfo: ModalInfoProps) => {
+    setModalOpen(true);
+    setModalInfo(modalInfo);
+  };
+  const handleModalClose = () => {
+    setModalOpen(false);
+  };
+
   return (
     <>
-      <Box
-        sx={{
-          height: '50px',
-          display: 'flex',
-          alignItems: 'center',
-          padding: '0 1rem 0 1rem',
-        }}
-      >
-        <Typography
-          variant="h6"
-          color="text"
-          fontWeight="bold"
-        >
-          앨범
-        </Typography>
-      </Box>
+      <PageTitle pageTitleContent="앨범" />
+      {/** @todo 둘을 하나로 통합할 것 */}
       {filteredThemeIdx === -1 ? (
-        <Box>
+        <Box marginTop="1rem">
           {dummyData.map((data, idx) => {
             const themeName = Object.keys(data)[0];
             return (
@@ -126,6 +126,7 @@ function Album() {
                 <ThemeSection
                   themeName={themeName}
                   imgList={data[themeName]}
+                  onClickFn={handleModalOpen}
                 />
                 <Box height="1rem" />
               </Box>
@@ -133,7 +134,7 @@ function Album() {
           })}
         </Box>
       ) : (
-        <Box>
+        <Box marginTop="1rem">
           {dummyData.map((data, idx) => {
             const themeName = Object.keys(data)[0];
             return (
@@ -144,6 +145,7 @@ function Album() {
                 <ThemeSection
                   themeName={themeName}
                   imgList={data[themeName]}
+                  onClickFn={handleModalOpen}
                 />
                 <Box height="1rem" />
               </Box>
@@ -151,6 +153,12 @@ function Album() {
           })}
         </Box>
       )}
+      <DetailModal
+        isOpen={modalOpen}
+        themeName={modalInfo.themeName}
+        imgInfo={modalInfo}
+        handleClose={handleModalClose}
+      />
       <ThemeSelectButton
         isFiltered={filteredThemeIdx === -1 ? false : true}
         onClick={

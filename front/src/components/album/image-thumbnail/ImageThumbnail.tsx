@@ -1,16 +1,17 @@
 import Image from 'next/image';
 import { Box } from '@mui/material';
+import { ModalInfoProps } from '@/interfaces/ModalInfoProps';
 
-interface Props {
-  imgSrc: string;
+interface Props extends ModalInfoProps {
   idx: number;
-  onClick?: () => void;
+  onClickFn?: (imgInfo: ModalInfoProps) => void;
 }
 
-function ImageThumbnail({ imgSrc, idx, onClick }: Props) {
+function ImageThumbnail({ imgSrc, date, themeName, idx, onClickFn }: Props) {
+  const imgInfo = { imgSrc: imgSrc, date: date, themeName: themeName };
   return (
     <Box
-      onClick={onClick}
+      onClick={() => onClickFn?.(imgInfo)}
       sx={{
         position: 'relative',
         marginBottom: '0.5rem',

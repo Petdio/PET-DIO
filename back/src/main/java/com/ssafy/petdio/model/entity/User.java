@@ -59,6 +59,7 @@ public class User {
         this.userEmail = userEmail == null ? "이메일" : userEmail;
         this.userSocialType = userSocialType;
         this.userSocialId = userSocialId;
+        this.role = Role.USER;
     }
 
     public User updateUser(UserProfileUpdateDto userProfileUpdateDto) {

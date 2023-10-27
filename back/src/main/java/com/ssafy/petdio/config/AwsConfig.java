@@ -13,7 +13,7 @@ public class AwsConfig {
     @Value("${cloud.aws.credentials.S3accessKey}")
     private String S3AccessKey;
 
-    @Value("${cloud.aws.credentials.S3SecretKey}")
+    @Value("${cloud.aws.credentials.S3secretKey}")
     private String S3SecretKey;
 
     @Value("${cloud.aws.region.static}")

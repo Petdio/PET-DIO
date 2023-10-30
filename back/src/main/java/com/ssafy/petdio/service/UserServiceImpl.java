@@ -1,8 +1,10 @@
 package com.ssafy.petdio.service;
 
+import com.ssafy.petdio.model.dto.UserDto;
 import com.ssafy.petdio.model.dto.UserProfileUpdateDto;
 import com.ssafy.petdio.model.dto.UserResponseDto;
 import com.ssafy.petdio.model.entity.User;
+import com.ssafy.petdio.model.mapper.UserMapper;
 import com.ssafy.petdio.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -18,13 +20,17 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 유저 정보 반환하는 메서드
-     * @param id
+     * @param findUserId, myUserId
      * @return
      */
     @Override
-    public UserResponseDto getUserProfile(Long id) {
-        User user = findUserById(id);
-        return new UserResponseDto().toUserResponseDto(user);
+    public UserDto getUserProfile(Long findUserId, Long myUserId) {
+        System.out.println(myUserId);
+        if(findUserId==null){
+            return UserMapper.INSTANCE.entityToUserDto(findUserById(myUserId));
+        }
+
+        return UserMapper.INSTANCE.entityToUserDto(findUserById(findUserId));
     }
 
     /**
@@ -54,7 +60,7 @@ public class UserServiceImpl implements UserService {
 
     // userId로 유저를 찾고, 없으면 throw Exception
     private User findUserById(Long id) {
-        return userRepository.findByUserIdAndUserDeleteFalse(id)
+        return userRepository.findByUserIdAndUserDeleteIsNull(id)
                 .orElseThrow(() -> new RuntimeException("해당하는 유저를 찾을 수 없습니다"));
     }
 

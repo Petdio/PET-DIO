@@ -1,7 +1,6 @@
 import Header from "@/components/layout/header/Header";
 import { Box } from "@mui/material";
 import BottomNav from "@/components/layout/bottom-nav/BottomNav";
-import BackButton from "@/components/common/back-button/BackButton";
 
 export default function UserLayout({
   children,

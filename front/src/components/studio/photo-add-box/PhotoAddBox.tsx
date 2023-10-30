@@ -20,7 +20,7 @@ import ButtonWithTooltip from "../Tooltip/button-with-tooltip/ButtonWithTooltip"
 import { Cropper, ReactCropperElement } from "react-cropper";
 import "cropperjs/dist/cropper.css";
 import { TransitionProps } from "@mui/material/transitions";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {
@@ -38,7 +38,6 @@ function PhotoAddBox() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const cropperRef = useRef<ReactCropperElement>(null);
   const router = useRouter();
-  const pathname = usePathname();
 
   const handleFileUploadClick = () => {
     if (fileInputRef.current) {
@@ -53,7 +52,7 @@ function PhotoAddBox() {
       reader.onloadend = () => {
         const img = new Image();
         img.src = reader.result as string;
-        img.onload = function () {
+        img.onload = () => {
           if (img.width && img.height) {
             setImageWidth(img.width);
             setImageHeight(img.height);
@@ -137,10 +136,13 @@ function PhotoAddBox() {
                 src={image as string}
                 alt="업로드 이미지"
                 fill
-                objectFit="cover"
-                objectPosition="center center"
                 placeholder="empty"
-                style={{ borderRadius: "0.5rem", cursor: "default" }}
+                style={{
+                  borderRadius: "0.5rem",
+                  cursor: "default",
+                  objectFit: "cover",
+                  objectPosition: "center center",
+                }}
               />
               <IconButton
                 className="parentBtn"

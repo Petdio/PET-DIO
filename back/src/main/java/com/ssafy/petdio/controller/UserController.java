@@ -20,7 +20,7 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping({""})
-    public ResponseEntity<UserDto> findMember(@PathVariable(required = false) Authentication authentication) {
+    public ResponseEntity<UserDto> findMember(Authentication authentication) {
         return new ResponseEntity<>(userService.getUserProfile(null, Long.parseLong(authentication.getName())), HttpStatus.OK);
     }
 

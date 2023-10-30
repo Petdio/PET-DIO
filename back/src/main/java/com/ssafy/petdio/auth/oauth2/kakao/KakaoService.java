@@ -4,7 +4,7 @@ import com.ssafy.petdio.auth.jwt.service.JwtService;
 import com.ssafy.petdio.model.Enum.SocialType;
 import com.ssafy.petdio.model.dto.UserDto;
 import com.ssafy.petdio.model.dto.UserLoginDto;
-import com.ssafy.petdio.model.entity.Role;
+import com.ssafy.petdio.model.Enum.Role;
 import com.ssafy.petdio.model.entity.User;
 import com.ssafy.petdio.repository.UserRepository;
 import com.ssafy.petdio.model.mapper.UserMapper;

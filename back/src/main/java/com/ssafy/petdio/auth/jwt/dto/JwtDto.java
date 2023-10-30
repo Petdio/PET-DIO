@@ -1,6 +1,6 @@
 package com.ssafy.petdio.auth.jwt.dto;
 
-import com.ssafy.petdio.model.entity.Role;
+import com.ssafy.petdio.model.Enum.Role;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

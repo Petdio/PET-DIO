@@ -9,7 +9,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SettingRepository extends JpaRepository<Setting, Long> {
-//    List<Setting> findAllByConcept_ConceptId(Long conceptId);
-    @Query("SELECT new map(s.settingName as key, s.settingDetail as value) FROM Setting s WHERE s.concept.conceptId = :conceptId")
-    Map<String, String> findSettingNameAndDetailByConceptId(Long conceptId);
+    List<Setting> findAllByConcept_ConceptId(Long conceptId);
 }

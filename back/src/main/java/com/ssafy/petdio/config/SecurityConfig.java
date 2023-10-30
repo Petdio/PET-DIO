@@ -34,13 +34,9 @@ public class SecurityConfig {
                 )
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(requests -> requests
-                        // 우리 END Point에 맞게 수정 필요
-//                        .requestMatchers("/stock/**").permitAll()
-//                        .requestMatchers("/news/**").permitAll()
-//                        .requestMatchers("/notice/insert/**").hasAuthority("ADMIN")
-//                        .requestMatchers("/notice/update/**").hasAuthority("ADMIN")
-//                        .requestMatchers("/notice/delete/**").hasAuthority("ADMIN")
-//                        .requestMatchers("/review-note/**").authenticated()
+                        .requestMatchers("/album/**").hasAuthority("USER")
+                        .requestMatchers("/concept/**").hasAuthority("USER")
+                        .requestMatchers("/user/**").hasAuthority("USER")
                         .anyRequest().permitAll()
                 )
                 .headers(headers -> headers.frameOptions(FrameOptionsConfig::disable));

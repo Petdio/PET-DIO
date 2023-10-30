@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
 
     // userId로 유저를 찾고, 없으면 throw Exception
     private User findUserById(Long id) {
-        return userRepository.findByUserIdAndUserDeleteFalse(id)
+        return userRepository.findByUserIdAndUserDeleteIsNull(id)
                 .orElseThrow(() -> new RuntimeException("해당하는 유저를 찾을 수 없습니다"));
     }
 

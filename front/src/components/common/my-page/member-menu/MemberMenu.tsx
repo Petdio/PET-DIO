@@ -6,7 +6,8 @@ import {
   Box,
   Typography,
 } from '@mui/material';
-// import TollIcon from '@mui/icons-material/Toll';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import TollIcon from '@mui/icons-material/Toll';
 import TollTwoToneIcon from '@mui/icons-material/TollTwoTone';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
@@ -55,7 +56,15 @@ function MemberMenu({ isOpen, closeFn, anchorEl, coins }: Props) {
       transformOrigin={{ horizontal: 'right', vertical: 'top' }}
       anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
     >
-      <MenuItem sx={{ cursor: 'default' }}>
+      <MenuItem
+        sx={{
+          cursor: 'default',
+          ':hover': {
+            backgroundColor: 'inherit',
+          },
+          ':active': { backgroundColor: 'inherit' },
+        }}
+      >
         <Typography
           fontSize={12}
           color="text.primary"
@@ -71,6 +80,15 @@ function MemberMenu({ isOpen, closeFn, anchorEl, coins }: Props) {
           <Box width="0.25rem" />
           <TollTwoToneIcon htmlColor={amber[500]} />
         </Box>
+      </MenuItem>
+      <MenuItem
+        onClick={closeFn}
+        disabled
+      >
+        <ListItemIcon>
+          <ShoppingCartIcon fontSize="small" />
+        </ListItemIcon>
+        코인 충전
       </MenuItem>
 
       <Divider />

@@ -1,3 +1,32 @@
+#spring:
+#  config:
+#    import: optional:file:.env[.properties]
+#  datasource:
+#    driver-class-name: org.mariadb.jdbc.Driver
+#    url: ${DB_URL}
+#    username: ${DB_ID}
+#    password: ${DB_PWD}
+#    hikari:
+#      maximum-pool-size: 5
+#      minimum-idle: 5
+#      connection-timeout: 10000
+#      connection-init-sql: SELECT 1
+#      idle-timeout: 600000
+#      max-lifetime: 1800000
+#      auto-commit: true
+#  jpa:
+#    database: mysql
+#    database-platform: org.hibernate.dialect.MariaDBDialect
+#    hibernate:
+#      ddl-auto: update
+#    properties:
+#      hibernate:
+#        format_sql: true
+#        default_batch_fetch_size: 1000
+#
+#server:
+#  port: 8080
+
 spring:
   config:
     import: optional:file:.env[.properties]
@@ -25,4 +54,18 @@ spring:
         default_batch_fetch_size: 1000
 
 server:
-  port: 8080
+  port: 8081
+
+cloud:
+  aws:
+    credentials:
+      S3accessKey: ${S3_Access_Key}
+      S3secretKey: ${S3_Secret_Key}
+    stack:
+      auto: false
+    s3:
+      bucket: petdio-s3-bucket
+    region:
+      static: ap-northeast-2
+
+S3Url: https://petdio-s3-bucket.s3-ap-northeast-2.amazonaws.com

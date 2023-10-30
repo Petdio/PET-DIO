@@ -1,5 +1,6 @@
 package com.ssafy.petdio.model.entity;
 
+import com.ssafy.petdio.model.Enum.Role;
 import com.ssafy.petdio.model.Enum.SocialType;
 import com.ssafy.petdio.model.dto.UserProfileUpdateDto;
 import jakarta.persistence.*;

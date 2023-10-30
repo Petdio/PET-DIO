@@ -38,11 +38,11 @@ public class TestController {
         return "success";
     }
 
-    @GetMapping("/init")
-    public String getImage() throws IOException{
-        log.info("이미지 올리기");
-        String path = "C:\\Users\\SSAFY\\Desktop\\test.jpg";
-        leonardo.init(path);
-        return "success";
-    }
+//    @GetMapping("/init")
+//    public String getImage() throws IOException{
+//        log.info("이미지 올리기");
+//        String path = "C:\\Users\\SSAFY\\Desktop\\test.jpg";
+//        leonardo.init(path);
+//        return "success";
+//    }
 }

@@ -5,10 +5,16 @@ import { Tooltip, Button, ClickAwayListener } from "@mui/material";
 interface Props {
   mode: "crop" | "upload";
   disabled: boolean;
+  toolTipContent: string;
   onClick?: () => void;
 }
 
-export default function ButtonWithTooltip({ mode, disabled, onClick }: Props) {
+export default function ButtonWithTooltip({
+  mode,
+  disabled,
+  onClick,
+  toolTipContent,
+}: Props) {
   const [open, setOpen] = useState(false);
 
   const handleTooltipClose = () => {
@@ -31,7 +37,7 @@ export default function ButtonWithTooltip({ mode, disabled, onClick }: Props) {
         disableFocusListener
         disableHoverListener
         disableTouchListener
-        title="사진을 업로드해주세요!"
+        title={toolTipContent}
       >
         <span onClick={disabled ? handleTooltipOpen : undefined}>
           <Button

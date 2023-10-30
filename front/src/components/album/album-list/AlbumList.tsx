@@ -32,9 +32,10 @@ function AlbumList({ dummy }: Props) {
   const [filteredThemeIdx, setFilteredThemeIdx] = useState(-1);
   const handleFilterIdx = (idx: number) => {
     setFilteredThemeIdx(idx);
+    setFilterOpen(false);
   };
-
   const [modalOpen, setModalOpen] = useState(false);
+
   const [modalInfo, setModalInfo] = useState<ModalInfoProps>({
     imgSrc: '',
     themeName: '',

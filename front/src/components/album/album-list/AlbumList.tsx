@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import axios from 'axios';
 // components
 import { Box } from '@mui/material';
 import ThemeSection from '@/components/album/theme-section/ThemeSection';
@@ -23,7 +24,7 @@ function AlbumList({ dummy }: Props) {
     return key[0];
   });
   const themeNames = dummyTheme;
-  
+
   const [filterOpen, setFilterOpen] = useState(false);
   const handleFilterToggle = (open: boolean) => {
     setFilterOpen(open);
@@ -48,8 +49,20 @@ function AlbumList({ dummy }: Props) {
     setModalOpen(false);
   };
 
+  // async function getAlbumList() {
+  //   try {
+  //     const response = await axios.get(
+  //       `${process.env.BASE_URL}:8080/album/list`
+  //     );
+  //     console.log(response);
+  //   } catch (error) {
+  //     console.error('Failed to get album list:', error);
+  //   }
+  // }
+
   return (
     <>
+      {/* {getAlbumList()} */}
       <Box marginTop="1rem">
         {dummyData.map((data, idx) => {
           const themeName = Object.keys(data)[0];

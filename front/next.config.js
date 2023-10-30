@@ -9,6 +9,9 @@ const runtimeCaching = require('next-pwa/cache');
 module.exports = withPWA({
   reactStrictMode: true,
   runtimeCaching,
+  env: {
+    BASE_URL: process.env.BASE_URL,
+  },
   images: {
     remotePatterns: [
       {

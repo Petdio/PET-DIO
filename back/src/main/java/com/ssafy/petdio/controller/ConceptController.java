@@ -30,7 +30,7 @@ public class ConceptController {
         return ResponseEntity.status(HttpStatus.OK).body(conceptService.getConceptList());
     }
 
-    @GetMapping("/health-check")
+    @GetMapping("/image")
     public String makeAiImage() {
         log.info("make Ai Image");
         aiService.makeAiImage(Long.parseLong("2"));

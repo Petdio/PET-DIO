@@ -1,6 +1,6 @@
 import { LinearProgress, Box, Typography } from "@mui/material";
 
-export default function Loading() {
+export default function Generating() {
   return (
     <Box
       sx={{

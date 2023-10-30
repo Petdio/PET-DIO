@@ -1,6 +1,6 @@
 "use client";
 import { theme } from "@/styles/ThemeRegistry";
-import { Box } from "@mui/system";
+import { Box } from "@mui/material";
 
 export default function Bar() {
   return (

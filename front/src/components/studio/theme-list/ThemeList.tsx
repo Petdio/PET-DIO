@@ -15,7 +15,7 @@ import Image from "next/image";
 import { TransitionProps } from "@mui/material/transitions";
 import ThemeCard from "../theme-card/ThemeCard";
 import Subtitle from "../subtitle/Subtitle";
-import { Container } from "@mui/system";
+import { Container } from "@mui/material";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 

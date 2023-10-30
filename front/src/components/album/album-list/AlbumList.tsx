@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 // components
 import { Box } from '@mui/material';
@@ -83,6 +83,13 @@ const albumData: AlbumDataProps[] = [
 ];
 
 function AlbumList() {
+  const [accessToken, setAccessToken] = useState('');
+  useEffect(() => {
+    if (localStorage.getItem('access-token')) {
+      setAccessToken(localStorage.getItem('access-token') || '');
+    }
+  }, []);
+  console.log('액세스토큰' + accessToken);
   const dummyData = albumData;
   const dummyTheme = albumData.map((data) => {
     const key = Object.keys(data);
@@ -114,16 +121,21 @@ function AlbumList() {
     setModalOpen(false);
   };
 
-  // async function getAlbumList() {
-  //   try {
-  //     const response = await axios.get(
-  //       `${process.env.BASE_URL}:8080/album/list`
-  //     );
-  //     console.log(response);
-  //   } catch (error) {
-  //     console.error('Failed to get album list:', error);
-  //   }
-  // }
+  async function getAlbumList() {
+    try {
+      const response = await axios.get(
+        `${process.env.BASE_URL}:8080/album/list`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      console.log(response);
+    } catch (error) {
+      console.error('Failed to get album list:', error);
+    }
+  }
 
   return (
     <>

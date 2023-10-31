@@ -64,7 +64,7 @@ public class KakaoService {
     public User loginKakao(KakaoUserDto kakaoUserDto) {
         log.info(kakaoUserDto.getAuthenticationCode(), "회원 카카오 로그인");
 
-        Optional<User> user = userRepository.findByUserSocialIdAndUserDeleteFalse(
+        Optional<User> user = userRepository.findByUserSocialIdAndUserDeleteIsNull(
                 kakaoUserDto.getAuthenticationCode());
 
         if (user.isPresent()) {

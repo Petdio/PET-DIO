@@ -34,9 +34,10 @@ public class SecurityConfig {
                 )
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(requests -> requests
-                        .requestMatchers("/album/**").permitAll()
-                        .requestMatchers("/concept/**").permitAll()
-                        .requestMatchers("/user/**").permitAll()
+                        .requestMatchers("/album/**").authenticated()
+                        .requestMatchers("/concept/**").authenticated()
+                        .requestMatchers("/user/**").authenticated()
+                        .requestMatchers("/ai/**").authenticated()
                         .anyRequest().permitAll()
                 )
                 .headers(headers -> headers.frameOptions(FrameOptionsConfig::disable));

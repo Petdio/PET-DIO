@@ -1,8 +1,8 @@
 import { useRouter } from "next/navigation";
 import { IconButton } from "@mui/material";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import HomeIcon from "@mui/icons-material/Home";
 
-export default function BackButton() {
+export default function HomeButton() {
   const router = useRouter();
 
   return (
@@ -13,9 +13,9 @@ export default function BackButton() {
         aria-label="back"
         size="large"
         sx={{ position: "absolute", zIndex: 1001, left: "1rem" }}
-        onClick={() => router.back()}
+        onClick={() => router.push("/studio")}
       >
-        <ArrowBackIcon sx={{ fontSize: "30px" }} />
+        <HomeIcon sx={{ fontSize: "30px" }} />
       </IconButton>
     </>
   );

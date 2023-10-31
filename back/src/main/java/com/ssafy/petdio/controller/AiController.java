@@ -15,7 +15,7 @@ public class AiController {
     private final AiService aiService;
 
     @PostMapping("/create/{conceptId}")
-    public String createImages(@PathVariable Long conceptId, @RequestParam("image") MultipartFile imageFile){
+    public String createImages(@PathVariable("conceptId") Long conceptId, @RequestParam("imageFile") MultipartFile imageFile){
         try{
 
             aiService.makeAiImage(conceptId, imageFile);

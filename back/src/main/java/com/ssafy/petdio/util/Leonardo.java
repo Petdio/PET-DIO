@@ -108,7 +108,6 @@ public class Leonardo {
     public JSONObject putJsonPayload(List<Setting> settings, Prompt prompt, String imageId) {
         JSONObject generationPayload = new JSONObject();
         for (Setting setting : settings) {
-            log.info(setting.toString());
             switch (setting.getSettingType()) {
                 case "double" -> generationPayload.put(setting.getSettingName(), Double.valueOf(setting.getSettingDetail()));
                 case "integer" -> generationPayload.put(setting.getSettingName(), Integer.valueOf(setting.getSettingDetail()));
@@ -177,8 +176,6 @@ public class Leonardo {
 
             JSONObject response = new JSONObject(getGenerationResponse.body());
             log.info(response.toString());
-            log.info(response
-                    .getJSONObject("generated_images").toString());
             log.info(response
                     .getJSONObject("generations_by_pk").toString());
             log.info(response

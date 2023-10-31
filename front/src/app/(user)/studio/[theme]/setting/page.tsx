@@ -18,6 +18,7 @@ import {
 } from "@/app/(user)/studio/[theme]/setting/Breeds";
 import HelpIcon from "@mui/icons-material/Help";
 import { useRouter } from "next/navigation";
+import ButtonWithTooltip from "@/components/studio/Tooltip/button-with-tooltip/ButtonWithTooltip";
 
 export default function Setting() {
   const router = useRouter();
@@ -26,6 +27,7 @@ export default function Setting() {
   const [animalSelected, setAnimalSelected] = useState(false);
   const [animalIdx, setAnimalIdx] = useState(-1);
   const [breed, setBreed] = useState<string | undefined>();
+  const [inputComplete, setInputComplete] = useState(false);
 
   const animalType = ["개", "고양이"];
   const animalLabelSet = [
@@ -45,7 +47,10 @@ export default function Setting() {
   ): void => {
     setBreed(value?.label);
     if (value?.label) {
-      setToggle(true);
+      // setToggle(true);
+      setInputComplete(true);
+    } else {
+      setInputComplete(false);
     }
   };
 
@@ -92,6 +97,14 @@ export default function Setting() {
             <Typography color="grey">
               {animalLabelSet[animalIdx].comment}
             </Typography>
+            <Box paddingTop="1rem">
+              <ButtonWithTooltip
+                disabled={!inputComplete}
+                toolTipContent="세부 설정 입력을 완료해주세요!"
+                mode="upload"
+                onClick={sendSetting}
+              />
+            </Box>
           </Box>
         )}
       </Box>

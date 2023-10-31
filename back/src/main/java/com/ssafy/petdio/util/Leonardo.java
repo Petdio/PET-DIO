@@ -122,7 +122,7 @@ public class Leonardo {
         return generationPayload;
     }
 
-    public void generateAndFetchImages(JSONObject generationPayload) throws IOException {
+    public String generateAndFetchImages(JSONObject generationPayload) throws IOException {
         RequestBody generationRequestBody = RequestBody.create(
                 MediaType.parse("application/json"),
                 generationPayload.toString()
@@ -139,15 +139,15 @@ public class Leonardo {
 
             if (!generationResponse.isSuccessful()) {
                 log.error("Failed to generate images: " + responseBody);
-                return;
+                return null;
             }
             System.out.println(new JSONObject(responseBody).getJSONObject("sdGenerationJob")
                     .getString("generationId"));
-            fetchGeneratedImages(responseBody);
+            return fetchGeneratedImages(responseBody);
         }
     }
 
-    private void fetchGeneratedImages(String responseBody) throws IOException {
+    private String fetchGeneratedImages(String responseBody) throws IOException {
         JSONObject jsonGenerationResponse=new JSONObject(responseBody);
         String generationId=jsonGenerationResponse
                 .getJSONObject("sdGenerationJob")
@@ -174,6 +174,15 @@ public class Leonardo {
         try (Response getGenerationResponse = client.newCall(getGenerationRequest).execute()) {
             System.out.println(getGenerationResponse.code());
             System.out.println(getGenerationResponse.body().string());
+
+            JSONObject response = new JSONObject(getGenerationResponse.body());
+            log.info(response.toString());
+            String url = response
+                    .getJSONObject("generations_by_pk")
+                    .getJSONObject("generated_images")
+                    .getString("url");
+            log.info("url: " + url);
+            return url;
         }
     }
 

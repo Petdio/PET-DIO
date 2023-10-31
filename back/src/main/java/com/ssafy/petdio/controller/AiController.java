@@ -3,6 +3,8 @@ package com.ssafy.petdio.controller;
 import com.ssafy.petdio.service.AiService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,20 +17,18 @@ public class AiController {
     private final AiService aiService;
 
     @PostMapping("/create/{conceptId}")
-    public String createImages(@PathVariable("conceptId") Long conceptId, @RequestParam("imageFile") MultipartFile imageFile){
-        try{
-
-            aiService.makeAiImage(conceptId, imageFile);
-
-            String bucket = "${bucket}";
-            String key = "${cloud.aws.credentials.S3secretKey}";
-
-            aiService.S3ImageUpload(bucket,key,imageFile);
-
-            return "aiService.makeAiImage Success";
-
+    public ResponseEntity createImages(@PathVariable("conceptId") Long conceptId, @RequestParam("imageFile") MultipartFile imageFile){
+        try {
+            String url = aiService.makeAiImage(conceptId, imageFile);
+            if (url == null) {
+                log.info("ai 사진 만들기 실패");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            }
+            log.info("ai사진 만들기 성공 url : " + url);
+            return ResponseEntity.status(HttpStatus.OK).body(url);
         } catch (Exception e){
-            return "makeAiImage Exception" + e.getMessage();
+            log.error("ai 사진 만들기 에러");
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
     }
 }

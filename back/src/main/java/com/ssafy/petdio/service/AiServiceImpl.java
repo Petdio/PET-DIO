@@ -2,6 +2,7 @@ package com.ssafy.petdio.service;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.ssafy.petdio.config.AwsConfig;
 import com.ssafy.petdio.model.Enum.Prompt;
 import com.ssafy.petdio.model.entity.Setting;
 import com.ssafy.petdio.repository.SettingRepository;
@@ -22,25 +23,16 @@ public class AiServiceImpl implements AiService {
 
     private final SettingRepository settingRepository;
     private final Leonardo leonardo;
-    private final AmazonS3 amazonS3;
+    private final FileService fileService;
 
     @Override
-    public void makeAiImage(Long conceptId, MultipartFile multipartFile) throws IOException {
+    public String makeAiImage(Long conceptId, MultipartFile multipartFile) throws IOException {
         List<Setting> settings = settingRepository.findAllByConcept_ConceptId(conceptId);
         System.out.println(settings);
 
-        leonardo.generateAndFetchImages(leonardo.putJsonPayload(settings, Prompt.findEnumById(conceptId), leonardo.init(multipartFile)));
+        String url = leonardo.generateAndFetchImages(leonardo.putJsonPayload(settings, Prompt.findEnumById(conceptId), leonardo.init(multipartFile)));
+        if (url == null) return null;
+        return fileService.upload(url);
     }
 
-    @Override
-    public void S3ImageUpload(String bucket, String key, MultipartFile image) throws IOException {
-
-        ObjectMetadata metadata = new ObjectMetadata();
-        metadata.setContentLength(image.getSize());
-        metadata.setContentType(image.getContentType());
-
-        try(InputStream inputStream = image.getInputStream()){
-            amazonS3.putObject(bucket, key, inputStream, metadata);
-        }
-    }
 }

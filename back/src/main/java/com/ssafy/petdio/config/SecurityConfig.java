@@ -38,6 +38,7 @@ public class SecurityConfig {
                         .requestMatchers("/concept/**").authenticated()
                         .requestMatchers("/user/**").authenticated()
                         .requestMatchers("/ai/**").authenticated()
+                        .anyRequest().permitAll()
                 )
                 .headers(headers -> headers.frameOptions(FrameOptionsConfig::disable));
         return http.build();

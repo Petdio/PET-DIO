@@ -8,6 +8,7 @@ import MemberMenu from "@/components/common/my-page/member-menu/MemberMenu";
 import BackButton from "@/components/common/back-button/BackButton";
 import { usePathname } from "next/navigation";
 import axios from "axios";
+import HomeButton from "@/components/common/home-button/HomeButton";
 
 const StyledAppBar = styled(AppBar)`
   && {
@@ -50,8 +51,12 @@ export default function Header() {
       setProfile(response.data.profileImage);
     } catch (error) {
       console.error("에러 발생:", error);
+      alert("로그인 해주세요.");
+      window.location.href = "/login";
     }
   }
+
+  const noneBackButtonPathList = ["/album", "/generating", "/result"];
 
   useEffect(() => {
     getUserInfo();
@@ -60,9 +65,11 @@ export default function Header() {
   return (
     <>
       <StyledAppBar position="static" sx={{ zIndex: 1000 }} elevation={0}>
-        {pathname !== "/studio" && !pathname.includes("/album") && (
-          <BackButton />
-        )}
+        {pathname !== "/studio" &&
+          !noneBackButtonPathList.some((path) => pathname.includes(path)) && (
+            <BackButton />
+          )}
+        {pathname.includes("/result") && <HomeButton />}
         <Logo />
         <MyPage onClick={handleMyPageOpen} profile={profile} />
         <MemberMenu

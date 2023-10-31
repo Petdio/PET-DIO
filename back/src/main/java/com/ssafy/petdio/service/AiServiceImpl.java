@@ -28,6 +28,16 @@ public class AiServiceImpl implements AiService {
     public void makeAiImage(Long conceptId, MultipartFile multipartFile) throws IOException {
         List<Setting> settings = settingRepository.findAllByConcept_ConceptId(conceptId);
         System.out.println(settings);
+
+        Prompt prompt = Prompt.findEnumById(conceptId);
+        if(prompt == null){
+            log.error("Prompt가 null이다");
+            return;
+        }
+
+        String promptText = prompt.getPrompt();
+        String negativePrompt = prompt.getNegativePrompt();
+
         leonardo.generateAndFetchImages(leonardo.putJsonPayload(settings, Prompt.findEnumById(conceptId), leonardo.init(multipartFile)));
     }
 

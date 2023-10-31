@@ -30,17 +30,6 @@ public class AiServiceImpl implements AiService {
         System.out.println(settings);
 
         leonardo.generateAndFetchImages(leonardo.putJsonPayload(settings, Prompt.findEnumById(conceptId), leonardo.init(multipartFile)));
-
-        Prompt prompt = Prompt.findEnumById(conceptId);
-        if(prompt == null){
-            log.error("Prompt가 null이다");
-            return;
-        }
-
-        String promptText = prompt.getPrompt();
-        String negativePrompt = prompt.getNegativePrompt();
-
-        leonardo.generateAndFetchImages(leonardo.putJsonPayload(settings, Prompt.findEnumById(conceptId), leonardo.init(multipartFile)));
     }
 
     @Override

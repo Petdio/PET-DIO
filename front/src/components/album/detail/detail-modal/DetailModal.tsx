@@ -1,5 +1,5 @@
 'use client';
-import { useState, forwardRef, ReactElement, Ref } from 'react';
+import { forwardRef, ReactElement, Ref } from 'react';
 import Image from 'next/image';
 import {
   Box,
@@ -19,7 +19,7 @@ import ShareIcon from '@mui/icons-material/Share';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import CameraIcon from '@mui/icons-material/Camera';
 import CloseIcon from '@mui/icons-material/Close';
-import { ImgInfoProps } from '@/interfaces/ImgInfoProps';
+import { ImgInfoProps } from '@/interfaces/AlbumDataProps';
 
 const ActionButton = styled(Button)({});
 
@@ -46,7 +46,7 @@ interface Props {
 }
 
 function DetailModal({ imgInfo, themeName, isOpen, handleClose }: Props) {
-  const { imgSrc, date } = imgInfo;
+  const { albumURL, albumCreated } = imgInfo;
   if (!isOpen) return null;
   return (
     <Dialog
@@ -77,7 +77,9 @@ function DetailModal({ imgInfo, themeName, isOpen, handleClose }: Props) {
       </Button>
       <DialogContent sx={{ overflow: 'hidden', padding: '1rem' }}>
         <DialogContentText textAlign="end">
-          <Typography fontSize={14}>{themeName + ', ' + date}</Typography>
+          <Typography fontSize={14}>
+            {themeName + ', ' + albumCreated}
+          </Typography>
         </DialogContentText>
 
         <Box
@@ -87,8 +89,8 @@ function DetailModal({ imgInfo, themeName, isOpen, handleClose }: Props) {
           sx={{ aspectRatio: 1 / 1 }}
         >
           <Image
-            src={imgSrc}
-            alt={themeName + ', ' + date}
+            src={albumURL}
+            alt={themeName + ', ' + albumCreated}
             fill
             objectFit="cover"
             objectPosition="center center"
@@ -133,7 +135,7 @@ function DetailModal({ imgInfo, themeName, isOpen, handleClose }: Props) {
               color="primary"
               endIcon={<SaveAltIcon />}
               fullWidth
-              onClick={() => downloadImage(imgSrc, imgSrc)}
+              onClick={() => downloadImage(albumURL, albumURL)}
             >
               저장
             </ActionButton>

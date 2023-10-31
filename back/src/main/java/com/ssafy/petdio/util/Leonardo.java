@@ -108,7 +108,12 @@ public class Leonardo {
     public JSONObject putJsonPayload(List<Setting> settings, Prompt prompt, String imageId) {
         JSONObject generationPayload = new JSONObject();
         for (Setting setting : settings) {
-            generationPayload.put(setting.getSettingName(), setting.getSettingDetail());
+            switch (setting.getSettingType()) {
+                case "long" -> generationPayload.put(setting.getSettingName(), Long.valueOf(setting.getSettingDetail()));
+                case "integer" -> generationPayload.put(setting.getSettingName(), Integer.valueOf(setting.getSettingDetail()));
+                case "boolean" -> generationPayload.put(setting.getSettingName(), setting.getSettingDetail().equals("true"));
+                default -> generationPayload.put(setting.getSettingName(), setting.getSettingDetail());
+            }
         }
         generationPayload.put("prompt", prompt.getPrompt());
         generationPayload.put("negative_prompt", prompt.getNegativePrompt());

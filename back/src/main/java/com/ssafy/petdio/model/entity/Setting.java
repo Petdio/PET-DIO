@@ -27,6 +27,9 @@ public class Setting {
     @Column(name = "setting_detail", length = 500, nullable = false)
     private String settingDetail;
 
+    @Column(name = "setting_type", length = 500, nullable = false)
+    private String settingType;
+
     @ManyToOne
     @JoinColumn(name = "setting_concept_id", referencedColumnName = "concept_id", insertable = false, updatable = false)
     private Concept concept;

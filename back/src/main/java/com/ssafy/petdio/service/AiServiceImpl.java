@@ -23,6 +23,7 @@ public class AiServiceImpl implements AiService {
     public void makeAiImage(Long conceptId, MultipartFile multipartFile) throws IOException {
         List<Setting> settings = settingRepository.findAllByConcept_ConceptId(conceptId);
         System.out.println(settings);
+
         leonardo.generateAndFetchImages(leonardo.putJsonPayload(settings, Prompt.findEnumById(conceptId), leonardo.init(multipartFile)));
 
     }

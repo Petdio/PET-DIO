@@ -1,5 +1,7 @@
 package com.ssafy.petdio.util;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.petdio.model.Enum.Prompt;
 import com.ssafy.petdio.model.entity.Setting;
 import java.io.*;
@@ -172,21 +174,29 @@ public class Leonardo {
 
         try (Response getGenerationResponse = client.newCall(getGenerationRequest).execute()) {
             System.out.println(getGenerationResponse.code());
-            System.out.println(getGenerationResponse.body().string());
+            String jsonResponse = String.valueOf(getGenerationResponse.body());
+            System.out.println(jsonResponse);
+            ObjectMapper objectMapper = new ObjectMapper();
+            try {
+                // JSON 문자열을 JsonNode로 파싱
+                JsonNode jsonNode = objectMapper.readTree(jsonResponse);
 
-            JSONObject response = new JSONObject(getGenerationResponse.body());
-            log.info(response.toString());
-            log.info(response
-                    .getJSONObject("generations_by_pk").toString());
-            log.info(response
-                    .getJSONObject("generations_by_pk")
-                    .getJSONObject("generated_images").toString());
-            String url = response
-                    .getJSONObject("generations_by_pk")
-                    .getJSONObject("generated_images")
-                    .getString("url");
-            log.info("url: " + url);
-            return url;
+                // "url" 필드 값 추출
+                String imageUrl = jsonNode
+                        .path("generations_by_pk")
+                        .path("generated_images")
+                        .get(0)  // 이 부분은 배열의 첫 번째 요소를 가리킵니다.
+                        .path("url")
+                        .asText();
+
+                // imageUrl 값 출력
+                System.out.println("URL: " + imageUrl);
+                return imageUrl;
+            } catch (IOException e) {
+                // 파싱 중 오류가 발생한 경우 예외 처리
+                e.printStackTrace();
+            }
+            return null;
         }
     }
 

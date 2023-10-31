@@ -7,8 +7,20 @@ interface Props extends ModalInfoProps {
   onClickFn?: (imgInfo: ModalInfoProps) => void;
 }
 
-function ImageThumbnail({ imgSrc, date, themeName, idx, onClickFn }: Props) {
-  const imgInfo = { imgSrc: imgSrc, date: date, themeName: themeName };
+function ImageThumbnail({
+  albumId,
+  albumURL,
+  albumCreated,
+  themeName,
+  idx,
+  onClickFn,
+}: Props) {
+  const imgInfo = {
+    albumId: albumId,
+    albumURL: albumURL,
+    albumCreated: albumCreated,
+    themeName: themeName,
+  };
   return (
     <Box
       onClick={() => onClickFn?.(imgInfo)}
@@ -30,7 +42,7 @@ function ImageThumbnail({ imgSrc, date, themeName, idx, onClickFn }: Props) {
       }}
     >
       <Image
-        src={imgSrc}
+        src={albumURL}
         alt="이미지"
         fill
         objectPosition="center center"

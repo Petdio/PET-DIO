@@ -25,8 +25,8 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//        http.addFilterBefore(jwtAuthenticationProcessingFilter(),
-//                UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(jwtAuthenticationProcessingFilter(),
+                UsernamePasswordAuthenticationFilter.class);
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(sessionManagement ->
@@ -34,10 +34,10 @@ public class SecurityConfig {
                 )
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(requests -> requests
-                        .requestMatchers("/album/**").permitAll()
-                        .requestMatchers("/concept/**").permitAll()
-                        .requestMatchers("/user/**").permitAll()
-                        .anyRequest().permitAll()
+                        .requestMatchers("/album/**").authenticated()
+                        .requestMatchers("/concept/**").authenticated()
+                        .requestMatchers("/user/**").authenticated()
+                        .requestMatchers("/ai/**").authenticated()
                 )
                 .headers(headers -> headers.frameOptions(FrameOptionsConfig::disable));
         return http.build();

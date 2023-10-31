@@ -56,6 +56,12 @@ module.exports = withPWA({
         port: "",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "cdn.leonardo.ai",
+        port: "",
+        pathname: "/**",
+      },
     ],
   },
 });

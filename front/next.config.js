@@ -1,39 +1,42 @@
 /** @type {import('next').NextConfig} */
-const withPWA = require("next-pwa")({
-  dest: "public",
+const withPWA = require('next-pwa')({
+  dest: 'public',
   register: true,
   skipWaiting: true,
 });
-const runtimeCaching = require("next-pwa/cache");
+const runtimeCaching = require('next-pwa/cache');
 
 module.exports = withPWA({
   reactStrictMode: false,
   runtimeCaching,
+  env: {
+    BASE_URL: process.env.BASE_URL,
+  },
   images: {
     remotePatterns: [
       {
-        protocol: "https",
-        hostname: "static.displate.com",
-        port: "",
-        pathname: "/**",
+        protocol: 'https',
+        hostname: 'static.displate.com',
+        port: '',
+        pathname: '/**',
       },
       {
-        protocol: "https",
-        hostname: "t3.ftcdn.net",
-        port: "",
-        pathname: "/**",
+        protocol: 'https',
+        hostname: 't3.ftcdn.net',
+        port: '',
+        pathname: '/**',
       },
       {
-        protocol: "https",
-        hostname: "preview.redd.it",
-        port: "",
-        pathname: "/**",
+        protocol: 'https',
+        hostname: 'preview.redd.it',
+        port: '',
+        pathname: '/**',
       },
       {
-        protocol: "https",
-        hostname: "prompthero.com",
-        port: "",
-        pathname: "/**",
+        protocol: 'https',
+        hostname: 'prompthero.com',
+        port: '',
+        pathname: '/**',
       },
       {
         protocol: "https",

@@ -2,13 +2,18 @@ package com.ssafy.petdio.controller;
 
 import com.ssafy.petdio.service.AiService;
 import com.ssafy.petdio.service.ConceptService;
+import java.io.IOException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequiredArgsConstructor
@@ -30,10 +35,14 @@ public class ConceptController {
         return ResponseEntity.status(HttpStatus.OK).body(conceptService.getConceptList());
     }
 
-    @GetMapping("/image")
-    public String makeAiImage() {
+    @PostMapping("/image")
+    public String makeAiImage(@RequestParam(value = "file", required = false) MultipartFile file, Authentication authentication) {
         log.info("make Ai Image");
-        aiService.makeAiImage(Long.parseLong("2"));
+        try {
+            aiService.makeAiImage(Long.parseLong(authentication.getName()), file);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         return "Hello Concept-Service";
     }
 }

@@ -7,7 +7,7 @@ import com.ssafy.petdio.model.entity.User;
 
 public interface UserService {
 
-    public UserResponseDto getUserProfile(Long id);
+    public UserDto getUserProfile(Long findUserId, Long myUserId);
 
     public UserResponseDto updateUserProfile(Long id, UserProfileUpdateDto userProfileUpdateDto);
 

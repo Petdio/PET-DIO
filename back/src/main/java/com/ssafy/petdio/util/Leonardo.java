@@ -177,11 +177,11 @@ public class Leonardo {
 
             JSONObject response = new JSONObject(getGenerationResponse.body());
             log.info(response.toString());
-            System.out.println(response
-                    .getJSONObject("generations_by_pk"));
-            System.out.println(response
+            log.info(response
+                    .getJSONObject("generations_by_pk").toString());
+            log.info(response
                     .getJSONObject("generations_by_pk")
-                    .getJSONObject("generated_images"));
+                    .getJSONObject("generated_images").toString());
             String url = response
                     .getJSONObject("generations_by_pk")
                     .getJSONObject("generated_images")

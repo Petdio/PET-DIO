@@ -16,7 +16,7 @@ public class AiController {
 
     private final AiService aiService;
 
-    @PostMapping("/create/{conceptId}")
+    @PostMapping("/create")
     public ResponseEntity createImages(@RequestParam("conceptId") Long conceptId, @RequestParam("imageFile") MultipartFile imageFile){
         log.info("hello createImages");
         System.out.println("1231231231213dsfdsfdsfsdfsdsdsssxfdsv2");

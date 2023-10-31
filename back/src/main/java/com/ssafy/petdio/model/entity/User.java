@@ -55,9 +55,10 @@ public class User {
     private Timestamp userDelete;
 
     @Builder
-    public User(String userNickname, String userEmail, SocialType userSocialType, String userSocialId){
+    public User(String userNickname, String userEmail, int coin, SocialType userSocialType, String userSocialId){
         this.userNickname = userNickname == null ? "별명" : userNickname;
         this.userEmail = userEmail == null ? "이메일" : userEmail;
+        this.userCoin = coin;
         this.userSocialType = userSocialType;
         this.userSocialId = userSocialId;
         this.role = Role.USER;

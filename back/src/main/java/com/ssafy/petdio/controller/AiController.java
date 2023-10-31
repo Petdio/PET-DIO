@@ -19,7 +19,7 @@ public class AiController {
     @PostMapping("/create/{conceptId}")
     public ResponseEntity createImages(@RequestParam("conceptId") Long conceptId, @RequestParam("imageFile") MultipartFile imageFile){
         log.info("hello createImages");
-        System.out.println("1231231231213dsfdsfdsfsdfsxfdsv2");
+        System.out.println("1231231231213dsfdsfdsfsdfsdsdsssxfdsv2");
         try {
             String url = aiService.makeAiImage(conceptId, imageFile);
             if (url == null) {

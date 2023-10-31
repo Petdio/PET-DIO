@@ -174,7 +174,7 @@ public class Leonardo {
 
         try (Response getGenerationResponse = client.newCall(getGenerationRequest).execute()) {
             System.out.println(getGenerationResponse.code());
-            String jsonResponse = String.valueOf(getGenerationResponse.body());
+            String jsonResponse = getGenerationResponse.body().string();
             System.out.println(jsonResponse);
             ObjectMapper objectMapper = new ObjectMapper();
             try {

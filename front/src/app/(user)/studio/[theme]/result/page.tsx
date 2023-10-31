@@ -7,11 +7,24 @@ import PageTitle from "@/components/common/page-title/PageTitle";
 import { downloadImage } from "@/utils/downLoadImage";
 import ReplayIcon from "@mui/icons-material/Replay";
 import ShareIcon from "@mui/icons-material/Share";
+import { useRouter } from "next/navigation";
 
 export default function Result() {
+  const router = useRouter();
   const [image, setImage] = useState("");
   const [imageWidth, setImageWidth] = useState(1);
   const [imageHeight, setImageHeight] = useState(1);
+
+  const handleShare = () => {
+    if (navigator.share) {
+      navigator.share({
+        title: "Petdio: 우리집 멍냥이를 위한 이색 사진관",
+        url: "https://www.petdio.co.kr",
+      });
+    } else {
+      alert("공유하기가 지원되지 않는 환경입니다.");
+    }
+  };
 
   useEffect(() => {
     setImage(
@@ -94,6 +107,7 @@ export default function Result() {
             size="large"
             endIcon={<ReplayIcon />}
             sx={{ width: "100%" }}
+            onClick={() => router.push("add-photo")}
           >
             다시 생성
           </Button>
@@ -106,6 +120,7 @@ export default function Result() {
             size="large"
             endIcon={<ShareIcon />}
             sx={{ width: "100%" }}
+            onClick={handleShare}
           >
             공유
           </Button>

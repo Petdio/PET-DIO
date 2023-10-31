@@ -178,6 +178,8 @@ public class Leonardo {
             JSONObject response = new JSONObject(getGenerationResponse.body());
             log.info(response.toString());
             log.info(response
+                    .getJSONObject("generated_images").toString());
+            log.info(response
                     .getJSONObject("generations_by_pk").toString());
             log.info(response
                     .getJSONObject("generations_by_pk")

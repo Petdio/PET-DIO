@@ -17,13 +17,18 @@ public class AiController {
     @PostMapping("/create/{conceptId}")
     public String createImages(@PathVariable Long conceptId, @RequestParam("image") MultipartFile imageFile){
         try{
+
             aiService.makeAiImage(conceptId, imageFile);
+
+            String bucket = "${bucket}";
+            String key = "${cloud.aws.credentials.S3secretKey}";
+
+            aiService.S3ImageUpload(bucket,key,imageFile);
+
             return "aiService.makeAiImage Success";
+
         } catch (Exception e){
             return "makeAiImage Exception" + e.getMessage();
         }
     }
-
-
-
 }

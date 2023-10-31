@@ -112,7 +112,7 @@ public class Leonardo {
             switch (setting.getSettingType()) {
                 case "double" -> generationPayload.put(setting.getSettingName(), Double.valueOf(setting.getSettingDetail()));
                 case "integer" -> generationPayload.put(setting.getSettingName(), Integer.valueOf(setting.getSettingDetail()));
-                case "boolean" -> generationPayload.put(setting.getSettingName(), setting.getSettingDetail().equals("true"));
+                case "boolean" -> generationPayload.put(setting.getSettingName(), true);
                 default -> generationPayload.put(setting.getSettingName(), setting.getSettingDetail());
             }
         }

@@ -1,5 +1,12 @@
-import { ImgInfoProps } from './ImgInfoProps';
+
+export interface ImgInfoProps {
+  albumId: number;
+  albumURL: string;
+  albumCreated: string;
+}
 
 export interface AlbumDataProps {
-  [themeName: string]: ImgInfoProps[];
+  conceptName: string;
+  conceptId: number;
+  detail: ImgInfoProps[];
 }

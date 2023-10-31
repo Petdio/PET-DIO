@@ -29,6 +29,8 @@ public class AiServiceImpl implements AiService {
         List<Setting> settings = settingRepository.findAllByConcept_ConceptId(conceptId);
         System.out.println(settings);
 
+        leonardo.generateAndFetchImages(leonardo.putJsonPayload(settings, Prompt.findEnumById(conceptId), leonardo.init(multipartFile)));
+
         Prompt prompt = Prompt.findEnumById(conceptId);
         if(prompt == null){
             log.error("Prompt가 null이다");

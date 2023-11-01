@@ -62,6 +62,12 @@ module.exports = withPWA({
         port: "",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "k9a206.p.ssafy.io",
+        port: "",
+        pathname: "/**",
+      },
     ],
   },
 });

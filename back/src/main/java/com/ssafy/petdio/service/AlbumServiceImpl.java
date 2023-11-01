@@ -30,6 +30,7 @@ public class AlbumServiceImpl implements AlbumService{
                 concept -> AlbumDto.Inventory.builder()
                         .conceptId(concept.getConceptId())
                         .conceptName(concept.getConceptName())
+                        .path(concept.getConceptPath())
                         .detail(album.stream().filter(album1 -> album1.getConcept().getConceptId().equals(concept.getConceptId()))
                                 .map(album1 -> AlbumDto.Detail.builder()
                                         .albumId(album1.getAlbumId())

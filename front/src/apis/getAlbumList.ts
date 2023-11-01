@@ -3,7 +3,7 @@ import axios from "axios";
 export default async function getAlbumList(accessToken: string | null) {
   try {
     const response = await axios.get(
-      process.env.NEXT_PUBLIC_API_URL + `concept/list`,
+      process.env.NEXT_PUBLIC_API_URL + `album/list`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,

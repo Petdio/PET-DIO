@@ -13,6 +13,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,6 +21,9 @@ import org.springframework.web.multipart.MultipartFile;
 @RequiredArgsConstructor
 @Slf4j
 public class AiServiceImpl implements AiService {
+
+    @Value("${cloud.aws.url}")
+    private String defaultUrl;
 
     private final SettingRepository settingRepository;
     private final Leonardo leonardo;
@@ -32,7 +36,7 @@ public class AiServiceImpl implements AiService {
 
         String url = leonardo.generateAndFetchImages(leonardo.putJsonPayload(settings, Prompt.findEnumById(conceptId), leonardo.init(multipartFile)));
         if (url == null) return null;
-        return fileService.upload(url);
+        return defaultUrl + fileService.upload(url);
     }
 
 }

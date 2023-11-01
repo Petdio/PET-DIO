@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/ai")
 public class AiController {
 
@@ -29,7 +30,7 @@ public class AiController {
             log.info("ai사진 만들기 성공 url : " + url);
             return ResponseEntity.status(HttpStatus.OK).body(url);
         } catch (Exception e){
-            log.error("ai 사진 만들기 에러");
+            log.error("ai 사진 만들기 에러"+e.getMessage());
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
     }

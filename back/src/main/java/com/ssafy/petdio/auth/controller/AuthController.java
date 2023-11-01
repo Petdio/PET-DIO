@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/oauth2")
 @RequiredArgsConstructor
 public class AuthController {
@@ -28,4 +29,5 @@ public class AuthController {
         System.out.println("loginUser : " + loginUser);
         return new ResponseEntity<>(kakaoService.getUserLoginDto(loginUser), HttpStatus.OK);
     }
+
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/user")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
     private final UserRepository userRepository;
 

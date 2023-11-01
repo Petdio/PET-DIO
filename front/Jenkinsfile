@@ -1,6 +1,12 @@
 pipeline {
 	agent any
 	stages {
+        stage("Set environment") {
+            steps {
+                echo "Copy require file to pipeline folder"
+                sh 'cp /var/jenkins_home/util/front/.env.local ./front/.env.local'
+            }
+        }
 		stage('Docker Build') {
 			steps {
 				dir('front/') {

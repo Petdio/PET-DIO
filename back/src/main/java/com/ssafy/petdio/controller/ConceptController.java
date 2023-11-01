@@ -38,15 +38,16 @@ public class ConceptController {
         return ResponseEntity.status(HttpStatus.OK).body(conceptService.getConceptList());
     }
 
-    @PostMapping("/image")
-    public String makeAiImage(@RequestParam(value = "file", required = false) MultipartFile file, @RequestParam(value = "conceptId") Long conceptId, Authentication authentication) {
-        log.info("make Ai Image");
-        System.out.println("userId: " + Long.parseLong(authentication.getName()));
-        try {
-            aiService.makeAiImage(conceptId, file);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return "Hello Concept-Service";
-    }
+//    @PostMapping("/image")
+//    public String makeAiImage(@RequestParam(value = "file", required = false) MultipartFile file, @RequestParam(value = "conceptId") Long conceptId, Authentication authentication) {
+//        log.info("make Ai Image");
+//        System.out.println("userId: " + Long.parseLong(authentication.getName()));
+//        userId =
+//        try {
+//            aiService.makeAiImage(conceptId, file, userId);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//        return "Hello Concept-Service";
+//    }
 }

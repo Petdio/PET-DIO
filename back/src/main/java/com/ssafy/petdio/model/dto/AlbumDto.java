@@ -16,6 +16,7 @@ public class AlbumDto {
     public static class Inventory {
         private String conceptName;
         private Long conceptId;
+        private String path;
         private List<Detail> detail;
     }
 

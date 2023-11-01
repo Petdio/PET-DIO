@@ -37,7 +37,8 @@ public class SecurityConfig {
                         .requestMatchers("/album/**").authenticated()
                         .requestMatchers("/concept/**").authenticated()
                         .requestMatchers("/user/**").authenticated()
-                        .requestMatchers("/ai/**").authenticated()
+                        .requestMatchers("/ai/create").authenticated()
+                        .requestMatchers("/ai/webhook").permitAll()
                         .anyRequest().permitAll()
                 )
                 .headers(headers -> headers.frameOptions(FrameOptionsConfig::disable));

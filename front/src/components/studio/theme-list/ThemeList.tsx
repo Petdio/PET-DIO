@@ -78,7 +78,7 @@ export default function ThemeList() {
   async function getThemeList() {
     try {
       const response = await axios.get(
-        `http://k9a206.p.ssafy.io:8080/concept/list`,
+        process.env.NEXT_PUBLIC_API_URL + `concept/list`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("access-token")}`,

@@ -40,11 +40,14 @@ export default function Header() {
 
   async function getUserInfo() {
     try {
-      const response = await axios.get(`http://k9a206.p.ssafy.io:8080/user`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("access-token")}`,
-        },
-      });
+      const response = await axios.get(
+        process.env.NEXT_PUBLIC_API_URL + `user`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+          },
+        }
+      );
 
       console.log(response);
       setCoin(response.data.coin);

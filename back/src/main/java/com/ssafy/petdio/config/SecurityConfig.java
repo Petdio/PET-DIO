@@ -15,6 +15,7 @@ import org.springframework.security.config.annotation.web.configurers.HeadersCon
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -25,22 +26,19 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.addFilterBefore(jwtAuthenticationProcessingFilter(),
-                UsernamePasswordAuthenticationFilter.class);
         http
+                .addFilterBefore(jwtAuthenticationProcessingFilter(), UsernamePasswordAuthenticationFilter.class)
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(sessionManagement ->
-                        sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                )
+                        sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers("/album/**").authenticated()
                         .requestMatchers("/concept/**").authenticated()
                         .requestMatchers("/user/**").authenticated()
                         .requestMatchers("/ai/create").authenticated()
-                        .requestMatchers("/ai/webhook").permitAll()
-                        .anyRequest().permitAll()
-                )
+                        .requestMatchers(new AntPathRequestMatcher("/ai/webhook", "POST")).permitAll()
+                        .anyRequest().permitAll())
                 .headers(headers -> headers.frameOptions(FrameOptionsConfig::disable));
         return http.build();
     }

@@ -78,7 +78,8 @@ export default function ThemeList() {
   async function getThemeList() {
     try {
       const response = await axios.get(
-        process.env.NEXT_PUBLIC_API_URL + `concept/list`,
+        // process.env.NEXT_PUBLIC_API_URL + `concept/list`,
+        `concept/list`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("access-token")}`,

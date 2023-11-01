@@ -1,0 +1,31 @@
+pipeline {
+	agent any
+	stages {
+        stage("Set environment") {
+            steps {
+                echo "Copy require file to pipeline folder"
+                sh 'cp /var/jenkins_home/util/front/.env.local ./front/.env.local'
+            }
+        }
+		stage('Docker Build') {
+			steps {
+				dir('front/') {
+					sh 'docker build -t front_img:latest .'
+				}
+			}
+		}
+
+		stage('Deploy') {
+			steps{
+				sh 'docker rm -f front_container'
+				sh 'docker run -d --env-file ./front/.env.local --name front_container --network deploy -p 3000:3000 -u root	front_img:latest'
+				}
+		}
+
+		stage('Docker clear') {
+			steps{
+				sh 'docker system prune -f'
+			}
+		}
+	}
+}

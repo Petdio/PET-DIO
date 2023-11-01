@@ -7,8 +7,10 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectResult;
 import com.ssafy.petdio.model.dto.ImageInfo;
-import java.io.IOException;
-import java.io.InputStream;
+
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.UUID;
@@ -16,6 +18,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import javax.imageio.ImageIO;
 
 @Service
 @RequiredArgsConstructor
@@ -46,14 +50,35 @@ public class FileServiceImpl implements FileService{
         String fileName = getUUID() +"." + type[type.length-1];
         log.info(fileName);
         try {
+            // 원본 이미지 로드
+            BufferedImage originalImage = ImageIO.read(imageStream);
+
+            // 워터마크 이미지 로드
+            InputStream watermarkImageStream = getClass().getClassLoader().getResourceAsStream("watermark.png");
+            BufferedImage watermarkImage = ImageIO.read(watermarkImageStream);
+
+            // 워터마크 위치 설정
+            int watermarkX = originalImage.getWidth() - watermarkImage.getWidth() - 10;
+            int watermarkY = originalImage.getHeight() - watermarkImage.getHeight() - 10;
+
+            // 원본 이미지에 워터마크 삽입
+            Graphics2D graphics = originalImage.createGraphics();
+            graphics.drawImage(watermarkImage, watermarkX, watermarkY, null);
+            graphics.dispose();
+
+            // 삽입된 워터마크가 있는 이미지를 ByteArrayOutputStream에 쓰기
+            ByteArrayOutputStream os = new ByteArrayOutputStream();
+            ImageIO.write(originalImage, "jpg", os);
+
+            // ByteArrayOutputStream을 InputStream으로 변환
+            InputStream is = new ByteArrayInputStream(os.toByteArray());
+
             // 메타데이터 설정
-            // 해당 설정이 없으면 "application/octet-stream"으로 설정되어 객체에 접근할때 다운로드 페이지가 뜬다
-            // ContentType을 반드시 사진에서 추출해서 사용하도록 하자
             ObjectMetadata om = new ObjectMetadata();
             om.setContentType(imageInfo.getContentType());
-            om.setContentLength(imageStream.available());
+            om.setContentLength(is.available());
             PutObjectResult result = amazonS3.putObject(
-                    new PutObjectRequest(bucket, fileName, imageStream, om)
+                    new PutObjectRequest(bucket, fileName, is, om)
             );
         } catch (AmazonServiceException e){
             log.error(e.getMessage());
@@ -64,4 +89,5 @@ public class FileServiceImpl implements FileService{
         }
         return fileName;
     }
+
 }

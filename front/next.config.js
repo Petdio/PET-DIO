@@ -7,8 +7,11 @@ const withPWA = require("next-pwa")({
 const runtimeCaching = require("next-pwa/cache");
 
 module.exports = withPWA({
-  reactStrictMode: true,
+  reactStrictMode: false,
   runtimeCaching,
+  env: {
+    BASE_URL: process.env.BASE_URL,
+  },
   images: {
     remotePatterns: [
       {
@@ -32,6 +35,30 @@ module.exports = withPWA({
       {
         protocol: "https",
         hostname: "prompthero.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "img.freepik.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "source.unsplash.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "http",
+        hostname: "k.kakaocdn.net",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "cdn.leonardo.ai",
         port: "",
         pathname: "/**",
       },

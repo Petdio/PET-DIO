@@ -10,7 +10,6 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
-  DialogContentText,
   DialogActions,
   Button,
 } from "@mui/material";
@@ -21,6 +20,7 @@ import ButtonWithTooltip from "../Tooltip/button-with-tooltip/ButtonWithTooltip"
 import { Cropper, ReactCropperElement } from "react-cropper";
 import "cropperjs/dist/cropper.css";
 import { TransitionProps } from "@mui/material/transitions";
+import { useRouter } from "next/navigation";
 
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {
@@ -37,6 +37,7 @@ function PhotoAddBox() {
   const [imageHeight, setImageHeight] = useState(1);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const cropperRef = useRef<ReactCropperElement>(null);
+  const router = useRouter();
 
   const handleFileUploadClick = () => {
     if (fileInputRef.current) {
@@ -51,7 +52,7 @@ function PhotoAddBox() {
       reader.onloadend = () => {
         const img = new Image();
         img.src = reader.result as string;
-        img.onload = function () {
+        img.onload = () => {
           if (img.width && img.height) {
             setImageWidth(img.width);
             setImageHeight(img.height);
@@ -100,6 +101,10 @@ function PhotoAddBox() {
     setImageWidth(1);
   };
 
+  const handleUpload = () => {
+    router.push("setting");
+  };
+
   return (
     <>
       <Box padding="1rem">
@@ -131,10 +136,13 @@ function PhotoAddBox() {
                 src={image as string}
                 alt="업로드 이미지"
                 fill
-                objectFit="cover"
-                objectPosition="center center"
                 placeholder="empty"
-                style={{ borderRadius: "0.5rem", cursor: "default" }}
+                style={{
+                  borderRadius: "0.5rem",
+                  cursor: "default",
+                  objectFit: "cover",
+                  objectPosition: "center center",
+                }}
               />
               <IconButton
                 className="parentBtn"
@@ -210,11 +218,17 @@ function PhotoAddBox() {
             mode="crop"
             disabled={!image}
             onClick={handleClickOpen}
+            toolTipContent="사진을 업로드해주세요!"
           />
         </Box>
         <Box style={{ width: "0.5rem" }}></Box>
         <Box style={{ flex: 1 }}>
-          <ButtonWithTooltip mode="upload" disabled={!image} />
+          <ButtonWithTooltip
+            mode="upload"
+            disabled={!image}
+            onClick={handleUpload}
+            toolTipContent="사진을 업로드해주세요!"
+          />
         </Box>
       </Box>
       {/* 모달 */}

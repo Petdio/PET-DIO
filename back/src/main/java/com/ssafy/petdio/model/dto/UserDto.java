@@ -1,6 +1,6 @@
 package com.ssafy.petdio.model.dto;
 
-import com.ssafy.petdio.model.entity.Role;
+import com.ssafy.petdio.model.Enum.Role;
 import lombok.*;
 
 @Data

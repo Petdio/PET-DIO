@@ -10,5 +10,5 @@ RUN gradle build -x test
 FROM openjdk:17-alpine
 WORKDIR /app
 COPY --from=build /app/build/libs/*.jar app.jar
-EXPOSE 8080 8080
+EXPOSE 8081 8081
 ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=docker", "app.jar"]

@@ -1,14 +1,13 @@
 'use client';
 
-import { useState } from 'react';
 import { Box, Typography } from '@mui/material';
 import ImageThumbnail from '../image-thumbnail/ImageThumbnail';
-import { ImgInfoProps } from '@/interfaces/ImgInfoProps';
 import { ModalInfoProps } from '@/interfaces/ModalInfoProps';
+import { ImgInfoProps } from '@/interfaces/AlbumDataProps';
 
 interface Props {
   themeName: string;
-  imgList: ImgInfoProps[];
+  imgList?: ImgInfoProps[];
   onClickFn?: (imgInfo: ModalInfoProps) => void;
 }
 
@@ -31,19 +30,21 @@ function ThemeSection({ themeName, imgList, onClickFn }: Props) {
           display="flex"
           flexWrap="wrap"
         >
-          {imgList.map((img, idx) => {
-            const { imgSrc, date } = img;
-            return (
-              <ImageThumbnail
-                key={imgSrc}
-                imgSrc={imgSrc}
-                date={date}
-                idx={idx}
-                onClickFn={onClickFn}
-                themeName={themeName}
-              />
-            );
-          })}
+          {imgList &&
+            imgList.map((img, idx) => {
+              const { albumId, albumURL, albumCreated } = img;
+              return (
+                <ImageThumbnail
+                  albumId={albumId}
+                  key={albumURL}
+                  albumURL={albumURL}
+                  albumCreated={albumCreated}
+                  idx={idx}
+                  onClickFn={onClickFn}
+                  themeName={themeName}
+                />
+              );
+            })}
         </Box>
       </Box>
     </>

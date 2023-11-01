@@ -23,8 +23,13 @@ spring:
       hibernate:
         format_sql: true
         default_batch_fetch_size: 1000
+
+server:
+  port: 8080
+
 cloud:
   aws:
+    url: ${S3_URL}
     credentials:
       S3accessKey: ${S3_Access_Key}
       S3secretKey: ${S3_Secret_Key}
@@ -34,8 +39,5 @@ cloud:
       bucket: petdio-s3-bucket
     region:
       static: ap-northeast-2
-      
-S3Url: https://petdio-s3-bucket.s3-ap-northeast-2.amazonaws.com
 
-server:
-  port: 8080
+S3Url: https://petdio-s3-bucket.s3-ap-northeast-2.amazonaws.com

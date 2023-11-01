@@ -25,6 +25,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public UserDto getUserProfile(Long findUserId, Long myUserId) {
+        System.out.println(myUserId);
         if(findUserId==null){
             return UserMapper.INSTANCE.entityToUserDto(findUserById(myUserId));
         }

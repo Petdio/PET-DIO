@@ -4,7 +4,7 @@ export default async function getAlbumList(accessToken: string | null) {
   try {
     const response = await axios.get(
       // `${process.env.BASE_URL}:8080/album/list`,
-      `http://k9a206.p.ssafy.io:8080/concept/list`,
+      `http://k9a206.p.ssafy.io:8080/album/list`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,

@@ -58,6 +58,7 @@ server:
 
 cloud:
   aws:
+    url: ${S3_URL}
     credentials:
       S3accessKey: ${S3_Access_Key}
       S3secretKey: ${S3_Secret_Key}

@@ -173,9 +173,9 @@ public class Leonardo {
                 .build();
 
         try (Response getGenerationResponse = client.newCall(getGenerationRequest).execute()) {
-            System.out.println(getGenerationResponse.code());
+            log.info("generationResponseCode: " + getGenerationResponse.code());
             String jsonResponse = getGenerationResponse.body().string();
-            System.out.println(jsonResponse);
+            log.info("generationResponseBody: " + jsonResponse);
             ObjectMapper objectMapper = new ObjectMapper();
             try {
                 // JSON 문자열을 JsonNode로 파싱
@@ -190,7 +190,7 @@ public class Leonardo {
                         .asText();
 
                 // imageUrl 값 출력
-                System.out.println("URL: " + imageUrl);
+                log.info("URL: " + imageUrl);
                 return imageUrl;
             } catch (IOException e) {
                 // 파싱 중 오류가 발생한 경우 예외 처리

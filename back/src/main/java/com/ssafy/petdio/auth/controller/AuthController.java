@@ -29,4 +29,5 @@ public class AuthController {
         System.out.println("loginUser : " + loginUser);
         return new ResponseEntity<>(kakaoService.getUserLoginDto(loginUser), HttpStatus.OK);
     }
+
 }

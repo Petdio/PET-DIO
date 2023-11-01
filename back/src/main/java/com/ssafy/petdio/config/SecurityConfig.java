@@ -37,7 +37,7 @@ public class SecurityConfig {
                         .requestMatchers("/concept/**").authenticated()
                         .requestMatchers("/user/**").authenticated()
                         .requestMatchers("/ai/create").authenticated()
-                        .requestMatchers(new AntPathRequestMatcher("/ai/webhook", "POST")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/ai/webhook")).permitAll()
                         .anyRequest().permitAll())
                 .headers(headers -> headers.frameOptions(FrameOptionsConfig::disable));
         return http.build();

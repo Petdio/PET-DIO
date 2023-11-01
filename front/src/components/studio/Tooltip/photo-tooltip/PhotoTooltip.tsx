@@ -42,7 +42,7 @@ export default function PhotoTooltip() {
               <Grid container spacing={1} marginTop="0.5rem">
                 <Grid item>
                   <Image
-                    src="/assets/Dog1.png"
+                    src="/assets/Dog1.svg"
                     alt="Dog1"
                     width={85}
                     height={85}
@@ -50,7 +50,7 @@ export default function PhotoTooltip() {
                 </Grid>
                 <Grid item>
                   <Image
-                    src="/assets/Dog2.png"
+                    src="/assets/Dog2.svg"
                     alt="Dog2"
                     width={85}
                     height={85}
@@ -58,7 +58,7 @@ export default function PhotoTooltip() {
                 </Grid>
                 <Grid item>
                   <Image
-                    src="/assets/Dog3.png"
+                    src="/assets/Dog3.svg"
                     alt="Dog3"
                     width={85}
                     height={85}

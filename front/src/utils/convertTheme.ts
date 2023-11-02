@@ -1,18 +1,18 @@
 export default function convertTheme(themeEN: string) {
-  let themekO = '?';
+  let themeKO = '?';
   switch (themeEN) {
     case 'Sticker':
-      themekO = '스티커';
+      themeKO = '스티커';
       break;
     case 'Halloween':
-      themekO = '할로윈';
+      themeKO = '할로윈';
       break;
     case 'Ninja':
-      themekO = '닌자';
+      themeKO = '닌자';
       break;
     case 'Mini':
-      themekO = '미니';
+      themeKO = '미니';
       break;
   }
-  return themekO;
+  return themeKO;
 }

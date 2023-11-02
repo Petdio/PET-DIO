@@ -1,6 +1,7 @@
 package com.ssafy.petdio.controller;
 
 import com.ssafy.petdio.service.AiService;
+import java.util.Arrays;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -28,7 +29,6 @@ public class AiController {
             return ResponseEntity.status(HttpStatus.OK).build();
         } catch (Exception e){
             log.error("ai 사진 만들기 에러"+e.getMessage());
-            log.error("Error!!" + e.getStackTrace());
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
     }

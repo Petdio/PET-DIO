@@ -61,6 +61,10 @@ dependencies {
 	implementation "software.amazon.awssdk:s3:2.13.0"
 	implementation platform('com.amazonaws:aws-java-sdk-bom:1.12.529')
 	implementation 'com.amazonaws:aws-java-sdk-s3'
+
+	// prometheus용 metric
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
 }
 
 tasks.named('test') {

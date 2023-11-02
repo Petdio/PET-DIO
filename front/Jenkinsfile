@@ -7,6 +7,7 @@ pipeline {
                 sh 'cp /var/jenkins_home/util/front/.env.local ./front/.env.local'
             }
         }
+
 		stage('Docker Build') {
 			steps {
 				dir('front/') {

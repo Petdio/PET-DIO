@@ -1,11 +1,8 @@
 package com.ssafy.petdio.service;
 
-
-import com.ssafy.petdio.model.dto.AlbumDetailDto;
 import com.ssafy.petdio.model.dto.AlbumDto;
 import com.ssafy.petdio.model.entity.Album;
 import com.ssafy.petdio.repository.AlbumRepository;
-import com.ssafy.petdio.repository.AlbumRepository2;
 import com.ssafy.petdio.repository.ConceptRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,14 +15,12 @@ import java.util.stream.Collectors;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class AlbumServiceImpl implements AlbumService{
-
     private final AlbumRepository albumRepository;
-    private final AlbumRepository2 albumRepository2;
     private final ConceptRepository conceptRepository;
 
     @Override
     public List<AlbumDto.Inventory> albumList(Long user_id){
-        List<Album> album = albumRepository2.findAllByUser_UserId(user_id);
+        List<Album> album = albumRepository.findAllByUser_UserId(user_id);
         return conceptRepository.findByConceptDeleteFalse().stream().map(
                 concept -> AlbumDto.Inventory.builder()
                         .conceptId(concept.getConceptId())
@@ -39,25 +34,11 @@ public class AlbumServiceImpl implements AlbumService{
                                 .collect(Collectors.toList()))
                         .build()).collect(Collectors.toList());
     }
-    @Override
-    public AlbumDetailDto albumDetail(Long album_id){
-
-        Album albumDetail = albumRepository.AlbumDetail(album_id);
-
-        AlbumDetailDto result = new AlbumDetailDto(albumDetail.getAlbumId(), albumDetail.getAlbumImgUrl(), albumDetail.getConcept().getConceptId(), albumDetail.getAlbumCreated());
-
-        return result;
-
-    }
 
     @Override
     @Transactional
     public void AlbumDelete(Long album_id){
-
-        albumRepository2.deleteAlbumByAlbumId(album_id);
+        albumRepository.deleteAlbumByAlbumId(album_id);
     }
-
-    //gkgk
-
 }
 

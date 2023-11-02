@@ -15,7 +15,7 @@ module.exports = withPWA({
   async rewrites() {
     return [
       {
-        source: "/user",
+        source: "/:path*/user",
         destination: `${process.env.NEXT_PUBLIC_API_URL}user`,
       },
       {

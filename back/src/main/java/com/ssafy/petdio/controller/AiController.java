@@ -3,6 +3,7 @@ package com.ssafy.petdio.controller;
 import com.ssafy.petdio.service.AiService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -15,7 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/ai")
 public class AiController {
-
     private final AiService aiService;
 
     @PostMapping("/create")
@@ -23,22 +23,29 @@ public class AiController {
         log.info("hello createImages");
         try {
             Long userId = Long.valueOf(authentication.getName());
-            String url = aiService.makeAiImage(conceptId, imageFile, userId);
-            if (url == null) {
-                log.info("ai 사진 만들기 실패");
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-            }
-            log.info("ai사진 만들기 성공 url : " + url);
-            return ResponseEntity.status(HttpStatus.OK).body(url);
+            aiService.makeAiImage(conceptId, imageFile, userId);
+            log.info("ai사진 만들기 요청 성공 url : ");
+            return ResponseEntity.status(HttpStatus.OK).build();
         } catch (Exception e){
             log.error("ai 사진 만들기 에러"+e.getMessage());
+            log.error("Error!!" + e.getStackTrace());
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
     }
 
     @PostMapping("/webhook")
-    public ResponseEntity webhookAlarm(@RequestBody String payload) {
-        log.info("webhook!!! " + payload);
-        return ResponseEntity.status(HttpStatus.OK).build();
+    public void webhookAlarm(@RequestBody String url) {
+
+
+        log.info("webhook!!! " + url);
+        try {
+            log.info("결과!!!: " + aiService.getImage(url));
+//            return ResponseEntity.status(HttpStatus.OK).bo;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+//        return ResponseEntity.status(HttpStatus.OK).build();
     }
+
+
 }

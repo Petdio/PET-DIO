@@ -47,6 +47,7 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
                 log.error("인증 실패");
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 response.getWriter().write("Unauthorized: Invalid token.");
+                filterChain.doFilter(request, response);
                 return;
             }
 

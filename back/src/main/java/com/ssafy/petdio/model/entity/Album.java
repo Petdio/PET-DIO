@@ -5,10 +5,12 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.sql.Timestamp;
+import org.hibernate.annotations.DynamicInsert;
 
 
 @Getter
 @Setter
+@DynamicInsert
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

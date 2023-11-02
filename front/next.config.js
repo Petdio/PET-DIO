@@ -12,6 +12,22 @@ module.exports = withPWA({
   env: {
     BASE_URL: process.env.BASE_URL,
   },
+  async rewrites() {
+    return [
+      {
+        source: "/user",
+        destination: `${process.env.NEXT_PUBLIC_API_URL}user`,
+      },
+      {
+        source: "/concept/list",
+        destination: `${process.env.NEXT_PUBLIC_API_URL}concept/list`,
+      },
+      {
+        source: "/album/list",
+        destination: `${process.env.NEXT_PUBLIC_API_URL}album/list`,
+      },
+    ];
+  },
   images: {
     remotePatterns: [
       {
@@ -59,6 +75,12 @@ module.exports = withPWA({
       {
         protocol: "https",
         hostname: "cdn.leonardo.ai",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "k9a206.p.ssafy.io",
         port: "",
         pathname: "/**",
       },

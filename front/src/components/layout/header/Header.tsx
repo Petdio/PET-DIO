@@ -41,7 +41,8 @@ export default function Header() {
   async function getUserInfo() {
     try {
       const response = await axios.get(
-        process.env.NEXT_PUBLIC_API_URL + `user`,
+        // process.env.NEXT_PUBLIC_API_URL + `user`,
+        `user`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("access-token")}`,

@@ -11,6 +11,7 @@ import TollTwoToneIcon from "@mui/icons-material/TollTwoTone";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import { amber } from "@mui/material/colors";
+import { useRouter } from "next/navigation";
 
 interface Props {
   isOpen: boolean;
@@ -20,9 +21,11 @@ interface Props {
 }
 
 function MemberMenu({ isOpen, closeFn, anchorEl, coins }: Props) {
+  const router = useRouter();
   const handleLogOut = () => {
     localStorage.removeItem("access-token"); // access-token 제거
-    window.location.href = "/";
+    router.refresh();
+    window.location.href = "/login";
   };
 
   return (

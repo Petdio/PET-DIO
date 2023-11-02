@@ -17,11 +17,13 @@ public class AiController {
     private final AiService aiService;
 
     @PostMapping("/create")
-    public ResponseEntity createImages(@RequestParam("conceptId") Long conceptId, @RequestParam("imageFile") MultipartFile imageFile){
+    public ResponseEntity createImages(@RequestParam("conceptId") Long conceptId,
+                                       @RequestParam("imageFile") MultipartFile imageFile,
+                                       @RequestParam("breed") String breed){
         log.info("hello createImages");
         System.out.println("1231231231213dsfdsfdsfsdfsdsdsssxfdsv2");
         try {
-            String url = aiService.makeAiImage(conceptId, imageFile);
+            String url = aiService.makeAiImage(conceptId, imageFile, breed);
             if (url == null) {
                 log.info("ai 사진 만들기 실패");
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).build();

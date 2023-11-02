@@ -26,11 +26,11 @@ public class AiServiceImpl implements AiService {
     private final FileService fileService;
 
     @Override
-    public String makeAiImage(Long conceptId, MultipartFile multipartFile) throws IOException {
+    public String makeAiImage(Long conceptId, MultipartFile multipartFile, String breed) throws IOException {
         List<Setting> settings = settingRepository.findAllByConcept_ConceptId(conceptId);
         System.out.println(settings);
 
-        String url = leonardo.generateAndFetchImages(leonardo.putJsonPayload(settings, Prompt.findEnumById(conceptId), leonardo.init(multipartFile)));
+        String url = leonardo.generateAndFetchImages(leonardo.putJsonPayload(settings, Prompt.findEnumById(conceptId), leonardo.init(multipartFile),breed));
         if (url == null) return null;
         return fileService.upload(url);
     }

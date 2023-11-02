@@ -107,7 +107,7 @@ public class Leonardo {
         }
     }
 
-    public JSONObject putJsonPayload(List<Setting> settings, Prompt prompt, String imageId) {
+    public JSONObject putJsonPayload(List<Setting> settings, Prompt prompt, String imageId, String breed) {
         JSONObject generationPayload = new JSONObject();
         for (Setting setting : settings) {
             switch (setting.getSettingType()) {
@@ -117,7 +117,9 @@ public class Leonardo {
                 default -> generationPayload.put(setting.getSettingName(), setting.getSettingDetail());
             }
         }
-        generationPayload.put("prompt", prompt.getPrompt());
+
+        generationPayload.put("prompt", prompt.getPrompt().replace("breed", breed));
+        System.out.println(prompt.getPrompt().replace("breed", breed));
         generationPayload.put("negative_prompt", prompt.getNegativePrompt());
         generationPayload.put("init_image_id", imageId);
         return generationPayload;

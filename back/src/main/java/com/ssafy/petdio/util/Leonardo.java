@@ -49,14 +49,14 @@ public class Leonardo {
         return imageId;
     }
 
-    public String getFileExtension(String fileName) {
+    private String getFileExtension(String fileName) {
         if (fileName != null && fileName.lastIndexOf(".") != -1) {
             return fileName.substring(fileName.lastIndexOf(".") + 1);
         }
         return "";
     }
 
-    public Request getRequest(String url, RequestBody requestBody) {
+    private Request getRequest(String url, RequestBody requestBody) {
         return new Request.Builder()
                 .url(url)
                 .post(requestBody)
@@ -129,7 +129,6 @@ public class Leonardo {
                 generationPayload.toString()
         );
 
-
         try (Response generationResponse = client.newCall(getRequest(leonardoConfig.getGenerationImageURL(),
                 generationRequestBody)).execute()) {
             String responseBody = null;
@@ -144,29 +143,20 @@ public class Leonardo {
             }
             System.out.println(new JSONObject(responseBody).getJSONObject("sdGenerationJob")
                     .getString("generationId"));
-            return fetchGeneratedImages(responseBody);
+
+            JSONObject jsonGenerationResponse = new JSONObject(responseBody);
+            String generationId=jsonGenerationResponse
+                    .getJSONObject("sdGenerationJob")
+                    .getString("generationId");
+            log.info(generationId + " 사진 변환 요청 성공");
+
+            return generationId;
         }
     }
 
-    private String fetchGeneratedImages(String responseBody) throws IOException {
-        JSONObject jsonGenerationResponse=new JSONObject(responseBody);
-        String generationId=jsonGenerationResponse
-                .getJSONObject("sdGenerationJob")
-                .getString("generationId");
-        log.info(generationId + " generated successfully.");
-
-        // Get the generation of images
-        String urlGetGeneration = leonardoConfig.getGenerationImageURL() + "/" + generationId;
-
-        try {
-            Thread.sleep(20000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-
+    public String getImageByGenerationId(String generationId) {
         Request getGenerationRequest = new Request.Builder()
-                .url(urlGetGeneration)
+                .url(leonardoConfig.getGenerationImageURL() + "/" + generationId)
                 .get()
                 .addHeader("accept", "application/json")
                 .addHeader("authorization", AUTHORIZATION)
@@ -177,204 +167,22 @@ public class Leonardo {
             String jsonResponse = getGenerationResponse.body().string();
             log.info("generationResponseBody: " + jsonResponse);
             ObjectMapper objectMapper = new ObjectMapper();
-            try {
-                // JSON 문자열을 JsonNode로 파싱
-                JsonNode jsonNode = objectMapper.readTree(jsonResponse);
+            JsonNode jsonNode = objectMapper.readTree(jsonResponse);
 
-                // "url" 필드 값 추출
-                String imageUrl = jsonNode
-                        .path("generations_by_pk")
-                        .path("generated_images")
-                        .get(0)  // 이 부분은 배열의 첫 번째 요소를 가리킵니다.
-                        .path("url")
-                        .asText();
+            // "url" 필드 값 추출
+            String imageUrl = jsonNode
+                    .path("generations_by_pk")
+                    .path("generated_images")
+                    .get(0)
+                    .path("url")
+                    .asText();
 
-                // imageUrl 값 출력
-                log.info("URL: " + imageUrl);
-                return imageUrl;
-            } catch (IOException e) {
-                // 파싱 중 오류가 발생한 경우 예외 처리
-                e.printStackTrace();
-            }
-            return null;
+            // imageUrl 값 출력
+            log.info("URL: " + imageUrl);
+            return imageUrl;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
-
-//    public void initImage(String prompt, String imagePath) throws IOException {
-//        JSONObject uploadInitResponse = getUploadInitResponse();
-//        String imageId = uploadInitResponse.getJSONObject("uploadInitImage").getString("id");
-//
-//        // Upload image via presigned URL
-//        byte[] imageData = readImageData(imagePath);
-//
-//        if (uploadImage(uploadInitResponse, imagePath, imageData)) {
-//            log.info(imageId + " uploaded successfully.");
-//            generateAndFetchImages(prompt, imageId);
-//        }
-//    }
-
-//    private boolean uploadImage(JSONObject jsonResponse, String imagePath, byte[] imageData) throws IOException {
-//        String fieldsString = jsonResponse.getJSONObject("uploadInitImage").getString("fields");
-//        JSONObject fieldsJson = new JSONObject(fieldsString);
-//
-//        String urlUploadImage = jsonResponse.getJSONObject("uploadInitImage").getString("url");
-//
-//        System.out.println(jsonResponse.getJSONObject("uploadInitImage"));
-//
-//        MultipartBody.Builder builderUploadImageRequest =
-//                new MultipartBody.Builder().setType(MultipartBody.FORM);
-//
-//        for (String key : fieldsJson.keySet()) {
-//            builderUploadImageRequest.addFormDataPart(key, fieldsJson.getString(key));
-//        }
-//
-//        builderUploadImageRequest.addFormDataPart(
-//                "file",
-//                Paths.get(imagePath).getFileName().toString(),
-//                RequestBody.create(MediaType.parse(Files.probeContentType(Paths.get(imagePath))), imageData)
-//        );
-//
-//        MultipartBody uploadRequestBody=builderUploadImageRequest.build();
-//
-//        Request uploadRequest=new Request.Builder()
-//                .url(urlUploadImage)
-//                .post(uploadRequestBody)
-//                .build();
-//
-//
-//        try(Response uploadResponse=client.newCall(uploadRequest).execute()){
-//            if (!uploadResponse.isSuccessful()) {
-//                System.out.println("Failed to upload image: " + uploadResponse.body().string());
-//                return false;
-//            }
-//            System.out.println("upload");
-//            System.out.println(uploadResponse.body());
-//
-//            return true;
-//        }
-//    }
-
-//    private void generateAndFetchImages(String prompt, String imageId) throws IOException {
-//
-//        // Generate with an image prompt
-//        JSONObject generationPayload = new JSONObject();
-//        generationPayload.put("height", 832);
-//        generationPayload.put(
-//                "modelId",
-//                "f3296a34-9aef-4370-ad18-88daf26862c3"
-//        );
-//        log.info(prompt);
-//        generationPayload.put(
-//                "prompt",
-//                prompt
-//        );
-//        generationPayload.put("negative_prompt", "low quality, Bad anatomy, Bad eyes, Disfigured, Crossed eyes, Poorly drawn face, mutation, mutated" +
-//                "((extra limb)), ugly, missing limb, floating limbs, disconnected limbs,  malformed hands, blur, out of focus, long neck," +
-//                "long body, two face, out of frame, text, error, cropped, 3 shoes, 3 legs, 2 ears, ");
-//
-//        generationPayload.put("width", 640);
-//
-//        generationPayload.put("seed", Integer.valueOf("130472704"));
-//        generationPayload.put("presetStyle", "LEONARDO");
-//        generationPayload.put("promptMagicVersion", "v2");
-//        generationPayload.put("guidance_scale", 7);
-//
-//
-////        generationPayload.put("promptMagicStrength", 0.55);
-////        generationPayload.put("alchemy", true);
-//
-//
-//        generationPayload.put("init_image_id", imageId);
-//        generationPayload.put("init_strength", 0.25);
-//        generationPayload.put("num_images", 1);
-//
-////        generationPayload.put("init_generation_image_id", "eaac59af-881a-4713-b0a7-2afbc0160141");
-//        //위에 왜 안되는지 모르겠음
-//
-//
-//        RequestBody generationRequestBody = RequestBody.create(
-//                MediaType.parse("application/json"),
-//                generationPayload.toString()
-//        );
-//
-//
-//        try (Response generationResponse = client.newCall(getRequest(leonardoConfig.getGenerationImageURL(),
-//                generationRequestBody)).execute()) {
-//            String responseBody = null;
-//
-//            if(generationResponse.body() != null){
-//                responseBody = 	generationResponse.body().string();
-//            }
-//
-//            if (!generationResponse.isSuccessful()) {
-//                log.error("Failed to generate images: " + responseBody);
-//                return;
-//            }
-//            System.out.println(new JSONObject(responseBody).getJSONObject("sdGenerationJob")
-//                    .getString("generationId"));
-//            fetchGeneratedImages(responseBody);
-//        }
-//    }
-
-//    private JSONObject getUploadInitResponse() throws IOException {
-//        RequestBody requestBody = new FormBody.Builder()
-//                .add("extension", "jpg")
-//                .build();
-//
-//        try (Response response = client.newCall(getRequest(leonardoConfig.getInitImageURL(), requestBody)).execute()) {
-//            return new JSONObject(response.body().string());
-//        }
-//    }
-
-
-    public void getImage(String id) throws IOException {
-        log.info(id + " getImage");
-
-        // Get the generation of images
-        String urlGetGeneration = leonardoConfig.getGenerationImageURL() + "/" + id;
-
-        Request getGenerationRequest = new Request.Builder()
-                .url(urlGetGeneration)
-                .get()
-                .addHeader("accept", "application/json")
-                .addHeader("authorization", AUTHORIZATION)
-                .build();
-
-        try (Response getGenerationResponse = client.newCall(getGenerationRequest).execute()) {
-            System.out.println(getGenerationResponse.code());
-            System.out.println(getGenerationResponse.body().string());
-        }
-    }
-
-
-//    private void fetchGeneratedImages(String responseBody) throws IOException {
-//        JSONObject jsonGenerationResponse=new JSONObject(responseBody);
-//        String generationId=jsonGenerationResponse
-//                .getJSONObject("sdGenerationJob")
-//                .getString("generationId");
-//        log.info(generationId + " generated successfully.");
-//
-//        // Get the generation of images
-//        String urlGetGeneration = leonardoConfig.getGenerationImageURL() + "/" + generationId;
-//
-//        try {
-//            Thread.sleep(20000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//
-//
-//        Request getGenerationRequest = new Request.Builder()
-//                .url(urlGetGeneration)
-//                .get()
-//                .addHeader("accept", "application/json")
-//                .addHeader("authorization", AUTHORIZATION)
-//                .build();
-//
-//        try (Response getGenerationResponse = client.newCall(getGenerationRequest).execute()) {
-//            System.out.println(getGenerationResponse.code());
-//            System.out.println(getGenerationResponse.body().string());
-//        }
-//    }
 
 }

@@ -65,6 +65,9 @@ dependencies {
 	// prometheus용 metric
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
+	
+	//firebase
+	implementation 'com.google.firebase:firebase-admin:9.2.0'
 }
 
 tasks.named('test') {

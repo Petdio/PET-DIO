@@ -20,11 +20,13 @@ public class AiController {
     private final AiService aiService;
 
     @PostMapping("/create")
-    public ResponseEntity createImages(@RequestParam("conceptId") Long conceptId, @RequestParam("imageFile") MultipartFile imageFile, Authentication authentication){
+    public ResponseEntity createImages(@RequestParam("conceptId") Long conceptId,
+                                       @RequestParam("imageFile") MultipartFile imageFile,
+                                       @RequestParam("breed") String breed, Authentication authentication){
         log.info("hello createImages");
         try {
             Long userId = Long.valueOf(authentication.getName());
-            aiService.makeAiImage(conceptId, imageFile, userId);
+            aiService.makeAiImage(conceptId, imageFile, breed, userId);
             log.info("ai사진 만들기 요청 성공 url : ");
             return ResponseEntity.status(HttpStatus.OK).build();
         } catch (Exception e){

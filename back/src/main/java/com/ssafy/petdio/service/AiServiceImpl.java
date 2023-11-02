@@ -34,10 +34,10 @@ public class AiServiceImpl implements AiService {
     private final RedisTemplate<String, AiDto.Data> redisTemplate;
 
     @Override
-    public void makeAiImage(Long conceptId, MultipartFile multipartFile, Long userId) throws IOException {
+    public void makeAiImage(Long conceptId, MultipartFile multipartFile, String breed, Long userId) throws IOException {
         List<Setting> settings = settingRepository.findAllByConcept_ConceptId(conceptId);
 
-        String generationId = leonardo.generateAndFetchImages(leonardo.putJsonPayload(settings, Prompt.findEnumById(conceptId), leonardo.init(multipartFile)));
+        String generationId = leonardo.generateAndFetchImages(leonardo.putJsonPayload(settings, Prompt.findEnumById(conceptId), leonardo.init(multipartFile), breed));
         redisTemplate.opsForValue().set(generationId, AiDto.Data.builder().userId(userId).conceptId(conceptId).build());
     }
 

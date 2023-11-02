@@ -30,6 +30,16 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
                                     FilterChain filterChain) throws UnAuthorizedException {
+        // "/ai/webhook" 경로에 대한 요청은 검증하지 않음
+        if ("/ai/webhook".equals(request.getServletPath()) || "/actuator/prometheus".equals(request.getServletPath())) {
+            try {
+                filterChain.doFilter(request, response);
+            } catch (Exception ex) {
+                logger.error("Could not process the request", ex);
+                throw new UnAuthorizedException();
+            }
+            return;
+        }
         try {
             Enumeration<String> authorizationHeaders = request.getHeaders(HttpHeaders.AUTHORIZATION);
 

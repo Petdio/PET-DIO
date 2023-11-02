@@ -1,3 +1,4 @@
+# Spring
 spring:
   config:
     import: optional:file:.env[.properties]
@@ -24,9 +25,11 @@ spring:
         format_sql: true
         default_batch_fetch_size: 1000
 
+# Backend Port
 server:
   port: 8080
 
+# S3
 cloud:
   aws:
     url: ${S3_URL}
@@ -39,5 +42,12 @@ cloud:
       bucket: petdio-s3-bucket
     region:
       static: ap-northeast-2
-
 S3Url: https://petdio-s3-bucket.s3-ap-northeast-2.amazonaws.com
+
+# Prometheus
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus
+

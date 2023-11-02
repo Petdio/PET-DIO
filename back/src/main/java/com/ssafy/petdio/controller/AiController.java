@@ -28,6 +28,7 @@ public class AiController {
             return ResponseEntity.status(HttpStatus.OK).build();
         } catch (Exception e){
             log.error("ai 사진 만들기 에러"+e.getMessage());
+            log.error("Error!!" + e.getStackTrace());
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
     }

@@ -1,4 +1,4 @@
-package com.ssafy.petdio.model.dto;
+package com.ssafy.petdio.user.model.dto;
 
 import lombok.Builder;
 import lombok.Data;

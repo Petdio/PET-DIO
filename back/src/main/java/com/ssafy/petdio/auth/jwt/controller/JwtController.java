@@ -1,7 +1,7 @@
 package com.ssafy.petdio.auth.jwt.controller;
 
 import com.ssafy.petdio.auth.jwt.service.JwtService;
-import com.ssafy.petdio.model.dto.UserDto;
+import com.ssafy.petdio.user.model.dto.UserDto;
 import com.ssafy.petdio.auth.jwt.mapper.JwtMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;

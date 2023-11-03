@@ -2,12 +2,12 @@ package com.ssafy.petdio.auth.oauth2.kakao;
 
 import com.ssafy.petdio.auth.jwt.service.JwtService;
 import com.ssafy.petdio.model.Enum.SocialType;
-import com.ssafy.petdio.model.dto.UserDto;
-import com.ssafy.petdio.model.dto.UserLoginDto;
+import com.ssafy.petdio.user.model.dto.UserDto;
+import com.ssafy.petdio.user.model.dto.UserLoginDto;
 import com.ssafy.petdio.model.Enum.Role;
-import com.ssafy.petdio.model.entity.User;
-import com.ssafy.petdio.repository.UserRepository;
-import com.ssafy.petdio.model.mapper.UserMapper;
+import com.ssafy.petdio.user.model.entity.User;
+import com.ssafy.petdio.user.repository.UserRepository;
+import com.ssafy.petdio.user.model.mapper.UserMapper;
 import com.ssafy.petdio.auth.jwt.mapper.JwtMapper;
 import lombok.RequiredArgsConstructor;
 

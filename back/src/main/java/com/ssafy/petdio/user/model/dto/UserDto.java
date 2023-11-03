@@ -1,4 +1,4 @@
-package com.ssafy.petdio.model.dto;
+package com.ssafy.petdio.user.model.dto;
 
 import com.ssafy.petdio.model.Enum.Role;
 import lombok.*;
@@ -11,14 +11,14 @@ public class UserDto {
     private Long userId;
     private String userNickname;
     private String profileImage;
-    private int coin;
+    private int userCoin;
     private Role role;
 
-    public UserDto(Long userId, String userNickname, String profileImage, int coin, Role role) {
+    public UserDto(Long userId, String userNickname, String profileImage, int userCoin, Role role) {
         this.userId = userId;
         this.userNickname = userNickname;
         this.profileImage = profileImage;
-        this.coin = coin;
+        this.userCoin = userCoin;
         this.role = role;
     }
 }

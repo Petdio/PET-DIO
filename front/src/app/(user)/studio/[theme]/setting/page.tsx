@@ -1,6 +1,7 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Subtitle from '@/components/studio/subtitle/Subtitle';
+import axios from 'axios';
 import AnimalSelectRadioGroup from '@/components/studio/animal-select-radio/AnimalSelectRadioGroup';
 import {
   Autocomplete,
@@ -20,6 +21,12 @@ import PriceChip from '@/components/common/price-chip/PriceChip';
 import HelpIcon from '@mui/icons-material/Help';
 import { useRouter } from 'next/navigation';
 import ButtonWithTooltip from '@/components/studio/Tooltip/button-with-tooltip/ButtonWithTooltip';
+// interfaces
+import { UserInfoProps } from '@/interfaces/UserInfoProps';
+// utils
+import { payAvailable } from '@/utils/payAvailable';
+// apis
+import { getUserInfo } from '@/apis/getUserInfo';
 
 export default function Setting() {
   const router = useRouter();
@@ -29,6 +36,34 @@ export default function Setting() {
   const [animalIdx, setAnimalIdx] = useState(-1);
   const [breed, setBreed] = useState<string | undefined>();
   const [inputComplete, setInputComplete] = useState(false);
+
+  // @todo 유저 현재 보유 코인: 전역으로 관리하는 편이 나은가?
+  const [userCoin, setUserCoin] = useState(0);
+  async function getUserInfo() {
+    try {
+      const response = await axios.get(
+        // process.env.NEXT_PUBLIC_API_URL + `user`,
+        `user`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('access-token')}`,
+          },
+        }
+      );
+
+      console.log(response);
+      setUserCoin(response.data.userCoin);
+    } catch (error) {
+      console.error('에러 발생:', error);
+      alert('로그인 해주세요.');
+      window.location.href = '/login';
+    }
+  }
+  useEffect(() => {
+    getUserInfo();
+  }, []);
+  // 사진 생성 가격
+  const generatePrice = 50;
 
   const animalType = ['개', '고양이'];
   const animalLabelSet = [
@@ -102,18 +137,29 @@ export default function Setting() {
               {animalLabelSet[animalIdx].comment}
             </Typography>
             <Box paddingTop="1rem">
-              <ButtonWithTooltip
-                disabled={!inputComplete}
-                toolTipContent="세부 설정 입력을 완료해주세요!"
-                mode="upload"
-                onClick={sendSetting}
-                addComponent={
-                  <PriceChip
-                    price={50}
-                    isDisabled={!inputComplete}
-                  />
-                }
-              />
+              {payAvailable(userCoin, generatePrice) ? (
+                <ButtonWithTooltip
+                  disabled={!inputComplete}
+                  toolTipContent="세부 설정 입력을 완료해주세요!"
+                  mode="upload"
+                  onClick={sendSetting}
+                  addComponent={
+                    <PriceChip
+                      price={generatePrice}
+                      isDisabled={!inputComplete}
+                    />
+                  }
+                />
+              ) : (
+                <Button
+                  variant="contained"
+                  size="large"
+                  disabled
+                  sx={{ width: '100%' }}
+                >
+                  코인이 부족합니다.
+                </Button>
+              )}
             </Box>
           </Box>
         )}

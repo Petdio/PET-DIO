@@ -5,14 +5,15 @@ import CloseIcon from '@mui/icons-material/Close';
 interface Props {
   isFiltered: boolean;
   onClick: () => void;
-  // onClick?: (event: React.KeyboardEvent | React.MouseEvent) => void;
+  disabled: boolean;
 }
 
-function ThemeSelectButton({ isFiltered, onClick }: Props) {
+function ThemeSelectButton({ isFiltered, onClick, disabled }: Props) {
   const selectThemeContent = '테마 선택';
   const cancelThemeContent = '선택 취소';
   return (
     <Fab
+      disabled={disabled}
       variant="extended"
       size="medium"
       color="secondary"

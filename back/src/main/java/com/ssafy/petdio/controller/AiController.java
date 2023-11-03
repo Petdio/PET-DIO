@@ -2,6 +2,8 @@ package com.ssafy.petdio.controller;
 
 import com.ssafy.petdio.service.AiService;
 import java.util.Arrays;
+
+import com.ssafy.petdio.service.FcmService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -18,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/ai")
 public class AiController {
     private final AiService aiService;
+    private final FcmService fcmService;
 
     @PostMapping("/create")
     public ResponseEntity createImages(@RequestParam("conceptId") Long conceptId,
@@ -26,8 +29,10 @@ public class AiController {
         log.info("hello createImages");
         try {
             Long userId = Long.valueOf(authentication.getName());
+            log.info("---------------fcm test------------");
+            fcmService.sendMessageTo(userId);
             aiService.makeAiImage(conceptId, imageFile, breed, userId);
-            log.info("ai사진 만들기 요청 성공 url : ");
+            log.info("ai사진 만들기 요청 성공 url!!");
             return ResponseEntity.status(HttpStatus.OK).build();
         } catch (Exception e){
             log.error("ai 사진 만들기 에러"+e.getMessage());
@@ -48,6 +53,5 @@ public class AiController {
         }
 //        return ResponseEntity.status(HttpStatus.OK).build();
     }
-
 
 }

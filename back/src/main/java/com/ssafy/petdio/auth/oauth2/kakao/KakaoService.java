@@ -62,7 +62,7 @@ public class KakaoService {
     }
 
     @Transactional
-    public User loginKakao(KakaoUserDto kakaoUserDto) {
+    public User loginKakao(KakaoUserDto kakaoUserDto, String fcmToken) {
         log.info(kakaoUserDto.getAuthenticationCode(), "회원 카카오 로그인");
 
         Optional<User> user = userRepository.findByUserSocialIdAndUserDeleteIsNull(
@@ -86,8 +86,10 @@ public class KakaoService {
                     .userSocialType(SocialType.KAKAO)
                     .userSocialId(kakaoUserDto.getAuthenticationCode())
                     .userCoin(DEFAULT_COIN)
+                    .fcmToken(fcmToken)
                     .build());
         }
+        // 카카오에서 제대로 안받아진 user면
         return userRepository.save(User.builder()
                 .userNickname(null)
                 .userEmail(null)
@@ -98,7 +100,6 @@ public class KakaoService {
                 .build());
     }
 
-    // 카카오에서 제대로 안받아진 user면
     public UserLoginDto getUserLoginDto(User user) {
         UserDto userDto = UserMapper.INSTANCE.entityToUserDto(user);
         return UserLoginDto.builder().userDto(userDto)

@@ -9,14 +9,16 @@ import com.ssafy.petdio.user.model.entity.User;
 import com.ssafy.petdio.repository.AlbumRepository;
 import com.ssafy.petdio.repository.SettingRepository;
 import com.ssafy.petdio.util.Leonardo;
-import java.io.IOException;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 @Service
@@ -36,8 +38,36 @@ public class AiServiceImpl implements AiService {
     @Override
     public void makeAiImage(Long conceptId, MultipartFile multipartFile, String breed, Long userId) throws IOException {
         List<Setting> settings = settingRepository.findAllByConcept_ConceptId(conceptId);
+        String generationId = null;
 
-        String generationId = leonardo.generateAndFetchImages(leonardo.putJsonPayload(settings, Prompt.findEnumById(conceptId), leonardo.init(multipartFile), breed));
+
+        if (conceptId == 1) {
+            String[] modelIds = {"e316348f-7773-490e-adcd-46757c738eb7", "ac614f96-1082-45bf-be9d-757f2d31c174",
+                    "1e60896f-3c26-4296-8ecc-53e2afecc132","5c232a9e-9061-4777-980a-ddc8e65647c6","2067ae52-33fd-4a82-bb92-c2c55e7d2786",
+            "d69c8273-6b17-4a30-a13e-d6637ae1c644","f1929ea3-b169-4c18-a16c-5d58b4292c69","1aa0f478-51be-4efd-94e8-76bfc8f533af"};
+            String selectedModelId = getRandomModelId(modelIds);
+            generationId = leonardo.generateAndFetchImages(leonardo.putJsonPayload(settings, Prompt.findEnumById(conceptId), leonardo.init(multipartFile), breed, selectedModelId));
+        } else if (conceptId == 2) {
+            String[] modelIds = {"e316348f-7773-490e-adcd-46757c738eb7", "ac614f96-1082-45bf-be9d-757f2d31c174",
+                    "1e60896f-3c26-4296-8ecc-53e2afecc132","5c232a9e-9061-4777-980a-ddc8e65647c6","2067ae52-33fd-4a82-bb92-c2c55e7d2786",
+                    "d69c8273-6b17-4a30-a13e-d6637ae1c644","f1929ea3-b169-4c18-a16c-5d58b4292c69","1aa0f478-51be-4efd-94e8-76bfc8f533af"};
+            String selectedModelId = getRandomModelId(modelIds);
+            generationId = leonardo.generateAndFetchImages(leonardo.putJsonPayload(settings, Prompt.findEnumById(conceptId), leonardo.init(multipartFile), breed, selectedModelId));
+        } else if (conceptId == 3) {
+            String[] modelIds = {"e316348f-7773-490e-adcd-46757c738eb7", "ac614f96-1082-45bf-be9d-757f2d31c174",
+                    "1e60896f-3c26-4296-8ecc-53e2afecc132","5c232a9e-9061-4777-980a-ddc8e65647c6","2067ae52-33fd-4a82-bb92-c2c55e7d2786",
+                    "d69c8273-6b17-4a30-a13e-d6637ae1c644","f1929ea3-b169-4c18-a16c-5d58b4292c69","1aa0f478-51be-4efd-94e8-76bfc8f533af"};
+            String selectedModelId = getRandomModelId(modelIds);
+            generationId = leonardo.generateAndFetchImages(leonardo.putJsonPayload(settings, Prompt.findEnumById(conceptId), leonardo.init(multipartFile), breed, selectedModelId));
+        } else if (conceptId == 4) {
+            String[] modelIds = {"e316348f-7773-490e-adcd-46757c738eb7", "ac614f96-1082-45bf-be9d-757f2d31c174",
+                    "1e60896f-3c26-4296-8ecc-53e2afecc132","5c232a9e-9061-4777-980a-ddc8e65647c6","2067ae52-33fd-4a82-bb92-c2c55e7d2786",
+                    "d69c8273-6b17-4a30-a13e-d6637ae1c644","f1929ea3-b169-4c18-a16c-5d58b4292c69","1aa0f478-51be-4efd-94e8-76bfc8f533af"};
+            String selectedModelId = getRandomModelId(modelIds);
+            generationId = leonardo.generateAndFetchImages(leonardo.putJsonPayload(settings, Prompt.findEnumById(conceptId), leonardo.init(multipartFile), breed, selectedModelId));
+        }
+
+        //String generationId = leonardo.generateAndFetchImages(leonardo.putJsonPayload(settings, Prompt.findEnumById(conceptId), leonardo.init(multipartFile), breed));
         redisTemplate.opsForValue().set(generationId, AiDto.Data.builder().userId(userId).conceptId(conceptId).build());
     }
 
@@ -77,5 +107,11 @@ public class AiServiceImpl implements AiService {
             log.error("GenerationId를 찾을 수 없음! leonardoUrl : " + leonardoUrl);
             throw new Exception("url 에서 GenerationId 찾을 수 없음");
         }
+    }
+
+    private String getRandomModelId(String[] modelIds) {
+        Random random = new Random();
+        int randomIndex = random.nextInt(modelIds.length);
+        return modelIds[randomIndex];
     }
 }

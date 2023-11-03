@@ -20,7 +20,7 @@ function AnimalSelectButton({ content, size, isSelected }: Props) {
       btnHeight = 160;
       break;
     case 'small':
-      btnHeight = 120;
+      btnHeight = 80;
       break;
   }
   return (

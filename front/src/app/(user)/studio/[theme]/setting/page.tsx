@@ -21,12 +21,10 @@ import PriceChip from '@/components/common/price-chip/PriceChip';
 import HelpIcon from '@mui/icons-material/Help';
 import { useRouter } from 'next/navigation';
 import ButtonWithTooltip from '@/components/studio/Tooltip/button-with-tooltip/ButtonWithTooltip';
-// interfaces
-import { UserInfoProps } from '@/interfaces/UserInfoProps';
 // utils
 import { payAvailable } from '@/utils/payAvailable';
-// apis
-import { getUserInfo } from '@/apis/getUserInfo';
+// constants
+import { price } from '@/constants/price';
 
 export default function Setting() {
   const router = useRouter();
@@ -63,7 +61,7 @@ export default function Setting() {
     getUserInfo();
   }, []);
   // 사진 생성 가격
-  const generatePrice = 50;
+  const generatePrice = price.generateImage;
 
   const animalType = ['개', '고양이'];
   const animalLabelSet = [
@@ -158,6 +156,12 @@ export default function Setting() {
                   sx={{ width: '100%' }}
                 >
                   코인이 부족합니다.
+                  {/* @todo ButtonWithTooltip과 중복 -> 리팩토링 필요 */}
+                  <Box width={'0.5rem'} />
+                  <PriceChip
+                    price={generatePrice}
+                    isDisabled={true}
+                  />
                 </Button>
               )}
             </Box>

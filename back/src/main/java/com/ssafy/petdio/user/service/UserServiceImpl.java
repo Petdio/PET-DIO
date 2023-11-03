@@ -47,12 +47,14 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 코인 사용하는 메서드
-     * @param
-     * @return
+     * @param id
+     * @return void
      */
     @Override
-    public void useCoin() {
-
+    public void useCoin(Long id) {
+        User user = findUserById(id);
+        user.useCoin();
+        userRepository.save(user);
     }
 
     /**

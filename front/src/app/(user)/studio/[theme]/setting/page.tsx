@@ -1,7 +1,7 @@
-"use client";
-import { useState } from "react";
-import Subtitle from "@/components/studio/subtitle/Subtitle";
-import AnimalSelectRadioGroup from "@/components/studio/animal-select-radio/AnimalSelectRadioGroup";
+'use client';
+import { useState } from 'react';
+import Subtitle from '@/components/studio/subtitle/Subtitle';
+import AnimalSelectRadioGroup from '@/components/studio/animal-select-radio/AnimalSelectRadioGroup';
 import {
   Autocomplete,
   TextField,
@@ -11,14 +11,15 @@ import {
   ClickAwayListener,
   IconButton,
   Button,
-} from "@mui/material";
+} from '@mui/material';
 import {
   dogBreedList,
   catBreedList,
-} from "@/app/(user)/studio/[theme]/setting/Breeds";
-import HelpIcon from "@mui/icons-material/Help";
-import { useRouter } from "next/navigation";
-import ButtonWithTooltip from "@/components/studio/Tooltip/button-with-tooltip/ButtonWithTooltip";
+} from '@/app/(user)/studio/[theme]/setting/Breeds';
+import PriceChip from '@/components/common/price-chip/PriceChip';
+import HelpIcon from '@mui/icons-material/Help';
+import { useRouter } from 'next/navigation';
+import ButtonWithTooltip from '@/components/studio/Tooltip/button-with-tooltip/ButtonWithTooltip';
 
 export default function Setting() {
   const router = useRouter();
@@ -29,10 +30,10 @@ export default function Setting() {
   const [breed, setBreed] = useState<string | undefined>();
   const [inputComplete, setInputComplete] = useState(false);
 
-  const animalType = ["개", "고양이"];
+  const animalType = ['개', '고양이'];
   const animalLabelSet = [
-    { label: "견종", comment: "반려견의 견종을 선택해주세요." },
-    { label: "묘종", comment: "반려묘의 묘종을 선택해주세요." },
+    { label: '견종', comment: '반려견의 견종을 선택해주세요.' },
+    { label: '묘종', comment: '반려묘의 묘종을 선택해주세요.' },
   ];
   const breedList = [dogBreedList, catBreedList];
 
@@ -63,25 +64,28 @@ export default function Setting() {
   };
 
   const sendSetting = () => {
-    router.push("generating");
+    router.push('generating');
   };
 
   return (
     <Box
       sx={{
-        height: "100%",
-        width: "200%",
-        display: "flex",
-        transform: `${toggle ? "translate(-50%,0)" : "translate(0,0)"}`,
-        transition: "transform 1s ease",
-        transitionDelay: "0.5s",
+        height: '100%',
+        width: '200%',
+        display: 'flex',
+        transform: `${toggle ? 'translate(-50%,0)' : 'translate(0,0)'}`,
+        transition: 'transform 1s ease',
+        transitionDelay: '0.5s',
       }}
     >
-      <Box sx={{ height: "100%", width: "50%" }}>
+      <Box sx={{ height: '100%', width: '50%' }}>
         <Subtitle content="반려동물은 어떤 동물인가요?" />
-        <AnimalSelectRadioGroup animalItems={animalType} onSelect={onSelect} />
+        <AnimalSelectRadioGroup
+          animalItems={animalType}
+          onSelect={onSelect}
+        />
         {animalSelected && (
-          <Box sx={{ width: "100%", padding: "1rem" }}>
+          <Box sx={{ width: '100%', padding: '1rem' }}>
             <Autocomplete
               disablePortal
               id="dog-breed-selection"
@@ -103,14 +107,24 @@ export default function Setting() {
                 toolTipContent="세부 설정 입력을 완료해주세요!"
                 mode="upload"
                 onClick={sendSetting}
+                addComponent={
+                  <PriceChip
+                    price={50}
+                    isDisabled={!inputComplete}
+                  />
+                }
               />
             </Box>
           </Box>
         )}
       </Box>
-      <Box sx={{ height: "100%", width: "50%" }}>
+      <Box sx={{ height: '100%', width: '50%' }}>
         <Subtitle content="마지막으로 세부설정을 입력해주세요." />
-        <Typography variant="caption" color="grey" paddingLeft="1rem">
+        <Typography
+          variant="caption"
+          color="grey"
+          paddingLeft="1rem"
+        >
           예시) 오른쪽 얼굴에 점이 있어요.
         </Typography>
         <ClickAwayListener onClickAway={handleTooltipClose}>
@@ -131,23 +145,26 @@ export default function Setting() {
               </>
             }
           >
-            <IconButton onClick={handleTooltipOpen} size="medium">
+            <IconButton
+              onClick={handleTooltipOpen}
+              size="medium"
+            >
               <HelpIcon fontSize="small" />
             </IconButton>
           </Tooltip>
         </ClickAwayListener>
-        <Box sx={{ padding: "1rem", width: "100%" }}>
+        <Box sx={{ padding: '1rem', width: '100%' }}>
           <TextField
             id="standard-basic"
             label="반려동물의 특징을 적어주세요."
             variant="standard"
             multiline
-            sx={{ width: "100%" }}
+            sx={{ width: '100%' }}
           />
         </Box>
         <Box padding="1rem">
           <Button
-            sx={{ width: "100%" }}
+            sx={{ width: '100%' }}
             variant="contained"
             onClick={sendSetting}
           >

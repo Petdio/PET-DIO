@@ -7,4 +7,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class OAuthReqDto {
     private String code;
+    private String fcmToken;
 }

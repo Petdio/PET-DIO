@@ -5,27 +5,27 @@ import {
   Divider,
   Box,
   Typography,
-} from "@mui/material";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import TollTwoToneIcon from "@mui/icons-material/TollTwoTone";
-import Settings from "@mui/icons-material/Settings";
-import Logout from "@mui/icons-material/Logout";
-import { amber } from "@mui/material/colors";
-import { useRouter } from "next/navigation";
+} from '@mui/material';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import TollTwoToneIcon from '@mui/icons-material/TollTwoTone';
+import Settings from '@mui/icons-material/Settings';
+import Logout from '@mui/icons-material/Logout';
+import { amber } from '@mui/material/colors';
+import { useRouter } from 'next/navigation';
 
 interface Props {
   isOpen: boolean;
   closeFn: () => void;
   anchorEl: null | HTMLElement;
-  coins: number;
+  userCoin: number;
 }
 
-function MemberMenu({ isOpen, closeFn, anchorEl, coins }: Props) {
+function MemberMenu({ isOpen, closeFn, anchorEl, userCoin }: Props) {
   const router = useRouter();
   const handleLogOut = () => {
-    localStorage.removeItem("access-token"); // access-token 제거
+    localStorage.removeItem('access-token'); // access-token 제거
     router.refresh();
-    window.location.href = "/login";
+    window.location.href = '/login';
   };
 
   return (
@@ -34,54 +34,64 @@ function MemberMenu({ isOpen, closeFn, anchorEl, coins }: Props) {
       open={isOpen}
       onClose={closeFn}
       // onClick={closeFn}
-      sx={{ transform: "translate(-0.5rem)" }}
+      sx={{ transform: 'translate(-0.5rem)' }}
       PaperProps={{
         elevation: 0,
         sx: {
-          overflow: "visible",
-          filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+          overflow: 'visible',
+          filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
           mt: 1.5,
-          "& .MuiAvatar-root": {
+          '& .MuiAvatar-root': {
             width: 32,
             height: 32,
             ml: -0.5,
           },
-          "&:before": {
+          '&:before': {
             content: '""',
-            display: "block",
-            position: "absolute",
+            display: 'block',
+            position: 'absolute',
             top: 0,
             right: 14,
             width: 10,
             height: 10,
-            bgcolor: "background.paper",
-            transform: "translateY(-50%) rotate(45deg)",
+            bgcolor: 'background.paper',
+            transform: 'translateY(-50%) rotate(45deg)',
             zIndex: 0,
           },
         },
       }}
-      transformOrigin={{ horizontal: "right", vertical: "top" }}
-      anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+      transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+      anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
     >
       <MenuItem
         sx={{
-          cursor: "default",
-          ":hover": {
-            backgroundColor: "inherit",
+          cursor: 'default',
+          ':hover': {
+            backgroundColor: 'inherit',
           },
-          ":active": { backgroundColor: "inherit" },
+          ':active': { backgroundColor: 'inherit' },
         }}
       >
-        <Typography fontSize={12} color="text.primary">
+        <Typography
+          fontSize={12}
+          color="text.primary"
+        >
           보유 코인
         </Typography>
-        <Box display="flex" width="7rem" justifyContent="flex-end">
-          <Typography>{coins.toLocaleString()}</Typography>
+        <Box
+          display="flex"
+          width="7rem"
+          justifyContent="flex-end"
+        >
+          <Typography>{userCoin.toLocaleString()}</Typography>
           <Box width="0.25rem" />
           <TollTwoToneIcon htmlColor={amber[500]} />
         </Box>
       </MenuItem>
-      <MenuItem onClick={closeFn} disabled>
+      <MenuItem
+        onClick={closeFn}
+        disabled
+      >
         <ListItemIcon>
           <ShoppingCartIcon fontSize="small" />
         </ListItemIcon>
@@ -90,7 +100,10 @@ function MemberMenu({ isOpen, closeFn, anchorEl, coins }: Props) {
 
       <Divider />
 
-      <MenuItem onClick={closeFn} disabled>
+      <MenuItem
+        onClick={closeFn}
+        disabled
+      >
         <ListItemIcon>
           <Settings fontSize="small" />
         </ListItemIcon>

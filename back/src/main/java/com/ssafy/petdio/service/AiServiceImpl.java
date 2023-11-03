@@ -42,7 +42,8 @@ public class AiServiceImpl implements AiService {
 
 
         if (conceptId == 1) {
-            String[] modelIds = {"modelId1_concept1", "modelId2_concept1", "modelId3_concept1"};
+            String[] modelIds = {"e316348f-7773-490e-adcd-46757c738eb7", "ac614f96-1082-45bf-be9d-757f2d31c174",
+                    "1e60896f-3c26-4296-8ecc-53e2afecc132"};
             String selectedModelId = getRandomModelId(modelIds);
             generationId = leonardo.generateAndFetchImages(leonardo.putJsonPayload(settings, Prompt.findEnumById(conceptId), leonardo.init(multipartFile), breed, selectedModelId));
         } else if (conceptId == 2) {

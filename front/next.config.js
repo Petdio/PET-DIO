@@ -3,29 +3,12 @@ const withPWA = require("next-pwa")({
   dest: "public",
   register: true,
   skipWaiting: true,
+  buildExcludes: ["app-build-manifest.json"],
 });
 const runtimeCaching = require("next-pwa/cache");
 
 module.exports = withPWA({
   reactStrictMode: false,
-  buildExcludes: [/app-build-manifest.json$/],
-  exclude: [
-    // add buildExcludes here
-    ({ asset, compilation }) => {
-      if (
-        asset.name.startsWith("server/") ||
-        asset.name.match(
-          /^((app-|^)build-manifest\.json|react-loadable-manifest\.json)$/
-        )
-      ) {
-        return true;
-      }
-      if (isDev && !asset.name.startsWith("static/runtime/")) {
-        return true;
-      }
-      return false;
-    },
-  ],
   runtimeCaching,
   env: {
     BASE_URL: process.env.BASE_URL,

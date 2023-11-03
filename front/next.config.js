@@ -1,10 +1,10 @@
 /** @type {import('next').NextConfig} */
-const withPWA = require("next-pwa")({
-  dest: "public",
+const withPWA = require('next-pwa')({
+  dest: 'public',
   register: true,
   skipWaiting: true,
 });
-const runtimeCaching = require("next-pwa/cache");
+const runtimeCaching = require('next-pwa/cache');
 
 module.exports = withPWA({
   reactStrictMode: false,
@@ -15,15 +15,15 @@ module.exports = withPWA({
   async rewrites() {
     return [
       {
-        source: "/:path*/user",
+        source: '/:path*/user',
         destination: `${process.env.NEXT_PUBLIC_API_URL}user`,
       },
       {
-        source: "/concept/list",
+        source: '/concept/list',
         destination: `${process.env.NEXT_PUBLIC_API_URL}concept/list`,
       },
       {
-        source: "/album/list",
+        source: '/album/list',
         destination: `${process.env.NEXT_PUBLIC_API_URL}album/list`,
       },
     ];
@@ -31,58 +31,64 @@ module.exports = withPWA({
   images: {
     remotePatterns: [
       {
-        protocol: "https",
-        hostname: "static.displate.com",
-        port: "",
-        pathname: "/**",
+        protocol: 'https',
+        hostname: 'static.displate.com',
+        port: '',
+        pathname: '/**',
       },
       {
-        protocol: "https",
-        hostname: "t3.ftcdn.net",
-        port: "",
-        pathname: "/**",
+        protocol: 'https',
+        hostname: 't3.ftcdn.net',
+        port: '',
+        pathname: '/**',
       },
       {
-        protocol: "https",
-        hostname: "preview.redd.it",
-        port: "",
-        pathname: "/**",
+        protocol: 'https',
+        hostname: 'preview.redd.it',
+        port: '',
+        pathname: '/**',
       },
       {
-        protocol: "https",
-        hostname: "prompthero.com",
-        port: "",
-        pathname: "/**",
+        protocol: 'https',
+        hostname: 'prompthero.com',
+        port: '',
+        pathname: '/**',
       },
       {
-        protocol: "https",
-        hostname: "img.freepik.com",
-        port: "",
-        pathname: "/**",
+        protocol: 'https',
+        hostname: 'img.freepik.com',
+        port: '',
+        pathname: '/**',
       },
       {
-        protocol: "https",
-        hostname: "source.unsplash.com",
-        port: "",
-        pathname: "/**",
+        protocol: 'https',
+        hostname: 'source.unsplash.com',
+        port: '',
+        pathname: '/**',
       },
       {
-        protocol: "http",
-        hostname: "k.kakaocdn.net",
-        port: "",
-        pathname: "/**",
+        protocol: 'http',
+        hostname: 'k.kakaocdn.net',
+        port: '',
+        pathname: '/**',
       },
       {
-        protocol: "https",
-        hostname: "cdn.leonardo.ai",
-        port: "",
-        pathname: "/**",
+        protocol: 'https',
+        hostname: 'cdn.leonardo.ai',
+        port: '',
+        pathname: '/**',
       },
       {
-        protocol: "https",
-        hostname: "k9a206.p.ssafy.io",
-        port: "",
-        pathname: "/**",
+        protocol: 'https',
+        hostname: 'k9a206.p.ssafy.io',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'petdio-s3.s3.ap-northeast-2.amazonaws.com',
+        port: '',
+        pathname: '/**',
       },
     ],
   },

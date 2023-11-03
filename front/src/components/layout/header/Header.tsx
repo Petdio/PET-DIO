@@ -1,15 +1,19 @@
 'use client';
 import { useEffect, useState } from 'react';
+import { styled } from '@mui/material/styles';
+import { usePathname } from 'next/navigation';
 import axios from 'axios';
 // components
 import { AppBar } from '@mui/material';
 import Logo from '../../common/logo/Logo';
-import { styled } from '@mui/material/styles';
 import MyPage from '@/components/common/my-page/MyPage';
 import MemberMenu from '@/components/common/my-page/member-menu/MemberMenu';
 import BackButton from '@/components/common/back-button/BackButton';
-import { usePathname } from 'next/navigation';
 import HomeButton from '@/components/common/home-button/HomeButton';
+// interfaces
+import { UserInfoProps } from '@/interfaces/UserInfoProps';
+// apis
+import { getUserInfo } from '@/apis/getUserInfo';
 
 const StyledAppBar = styled(AppBar)`
   && {
@@ -39,6 +43,8 @@ export default function Header() {
   };
   const pathname = usePathname();
 
+  const noneBackButtonPathList = ['/album', '/generating', '/result'];
+
   async function getUserInfo() {
     try {
       const response = await axios.get(
@@ -60,9 +66,6 @@ export default function Header() {
       window.location.href = '/login';
     }
   }
-
-  const noneBackButtonPathList = ['/album', '/generating', '/result'];
-
   useEffect(() => {
     getUserInfo();
   }, []);

@@ -2,15 +2,11 @@ import axios from 'axios';
 
 export async function getUserInfo() {
   try {
-    const response = await axios.get(
-      // process.env.NEXT_PUBLIC_API_URL + `user`,
-      `user`,
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('access-token')}`,
-        },
-      }
-    );
+    const response = await axios.get(`user`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('access-token')}`,
+      },
+    });
 
     console.log(response);
     // setCoin(response.data.userCoin);

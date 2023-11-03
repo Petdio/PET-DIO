@@ -5,6 +5,7 @@ import com.ssafy.petdio.model.entity.Album;
 import com.ssafy.petdio.repository.AlbumRepository;
 import com.ssafy.petdio.repository.ConceptRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,7 +18,8 @@ import java.util.stream.Collectors;
 public class AlbumServiceImpl implements AlbumService{
     private final AlbumRepository albumRepository;
     private final ConceptRepository conceptRepository;
-
+    @Value("${S3Url}")
+    private final String S3URL;
     @Override
     public List<AlbumDto.Inventory> albumList(Long user_id){
         List<Album> album = albumRepository.findAllByUser_UserId(user_id);
@@ -30,7 +32,7 @@ public class AlbumServiceImpl implements AlbumService{
                                 .map(album1 -> AlbumDto.Detail.builder()
                                         .albumId(album1.getAlbumId())
                                         .albumCreated(album1.getAlbumCreated())
-                                        .albumURL("https://petdio-s3.s3.ap-northeast-2.amazonaws.com/" + album1.getAlbumImgUrl()).build())
+                                        .albumURL(S3URL + album1.getAlbumImgUrl()).build())
                                 .collect(Collectors.toList()))
                         .build()).collect(Collectors.toList());
     }

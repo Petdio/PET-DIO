@@ -11,7 +11,9 @@ public enum Prompt {
     STICKER(1L,
             "(Sticker An adorable cute breed in the photo that provided),(Same pose as the provided photo," +
                     " photo provided as close to the provided photo as possible, refer to the photo.)," +
-                    "((Different every time)), (Different every time)" +
+                    "((Different every time)), (Different every time)," +
+                    " (Every time make different, not the same photo,different photo)," +
+                    "((Every time make different, not the same photo,different photo))" +
                     "breed in the photo that provided, stickers, " +
                     "adorable, lovely, 3D vector art, cute and quirky, watercolor effect, bokeh, Adobe Illustrator ," +
                     " hand-drawn, digital painting, low-poly, low-lighting, bird's-eye view, isometric style, character-focused," +

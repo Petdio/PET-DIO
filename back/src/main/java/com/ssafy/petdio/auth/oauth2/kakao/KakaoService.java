@@ -27,7 +27,8 @@ public class KakaoService {
 
     private final UserRepository userRepository;
     private final JwtService jwtService;
-
+    // 회원가입시 1500원
+    private static final int DEFAULT_COIN = 150;
 
     @Value("${KAKAO_RESTAPI_KEY}")
     private String KAKAO_RESTPAPI_KEY;
@@ -42,7 +43,7 @@ public class KakaoService {
                         + KAKAO_RESTPAPI_KEY + "&redirect_uri=" + KAKAO_REDIRECT_URL + "&code="
                         + code;
 
-        System.out.println("토큰 URL 생성");
+        log.info("토큰 URL 생성");
         return webClient.post()
                 .uri(getTokenURL)
                 .retrieve()
@@ -67,12 +68,15 @@ public class KakaoService {
         Optional<User> user = userRepository.findByUserSocialIdAndUserDeleteIsNull(
                 kakaoUserDto.getAuthenticationCode());
 
+        // 회원가입돼있어
         if (user.isPresent()) {
             log.info("회원가입 된 멤버입니다.");
             // TODO
             //  JWT Return Code Need
             return user.orElseThrow();
         }
+        // 회원가입 안돼있음
+        // 카카오에서 정보가 제대로 받아와진 user면
         if (kakaoUserDto.getProperties() != null) {
             return userRepository.save(User.builder()
                     .userNickname(kakaoUserDto.getProperties().getNickname())
@@ -81,7 +85,7 @@ public class KakaoService {
                     .role(Role.USER)
                     .userSocialType(SocialType.KAKAO)
                     .userSocialId(kakaoUserDto.getAuthenticationCode())
-//                    .userToken()
+                    .userCoin(DEFAULT_COIN)
                     .build());
         }
         return userRepository.save(User.builder()
@@ -94,6 +98,7 @@ public class KakaoService {
                 .build());
     }
 
+    // 카카오에서 제대로 안받아진 user면
     public UserLoginDto getUserLoginDto(User user) {
         UserDto userDto = UserMapper.INSTANCE.entityToUserDto(user);
         return UserLoginDto.builder().userDto(userDto)

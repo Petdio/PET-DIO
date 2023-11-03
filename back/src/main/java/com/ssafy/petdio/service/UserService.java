@@ -11,6 +11,8 @@ public interface UserService {
 
     public UserResponseDto updateUserProfile(Long id, UserProfileUpdateDto userProfileUpdateDto);
 
+    public void useCoin();
+
     public void deleteUser(Long id);
 
 }

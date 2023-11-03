@@ -64,6 +64,13 @@ public class User {
         this.role = Role.USER;
     }
 
+    // 코인 사용
+    public void useCoin(){
+        // 1회 이미지 생성 시 소비되는 코인
+        int coinPerImage = 50;
+        this.userCoin -= coinPerImage;
+    }
+
     public User updateUser(UserProfileUpdateDto userProfileUpdateDto) {
         if (userProfileUpdateDto.getNickname() != null)
             this.userNickname = userProfileUpdateDto.getNickname();

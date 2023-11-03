@@ -73,7 +73,7 @@ public enum Prompt {
 
 
     private Long id;
-    private String prompt;
+    private String[] prompt;
     private String negativePrompt;
 
     private static final Map<Long, Prompt> enumIdMap = new HashMap<>();
@@ -85,10 +85,10 @@ public enum Prompt {
     }
     Prompt(Long id, String[] prompt, String negativePrompt) {
         this.id = id;
-        this.prompt = Arrays.toString(prompt);
+        this.prompt = new String[]{Arrays.toString(prompt)};
         this.negativePrompt = negativePrompt;
     }
-    
+
     public static Prompt findEnumById(Long id) {
         return enumIdMap.get(id);
     }

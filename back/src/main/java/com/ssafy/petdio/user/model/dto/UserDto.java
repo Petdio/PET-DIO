@@ -1,4 +1,4 @@
-package com.ssafy.petdio.model.dto;
+package com.ssafy.petdio.user.model.dto;
 
 import com.ssafy.petdio.model.Enum.Role;
 import lombok.*;

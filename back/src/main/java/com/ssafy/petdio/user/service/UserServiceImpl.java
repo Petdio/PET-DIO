@@ -1,11 +1,11 @@
-package com.ssafy.petdio.service;
+package com.ssafy.petdio.user.service;
 
-import com.ssafy.petdio.model.dto.UserDto;
-import com.ssafy.petdio.model.dto.UserProfileUpdateDto;
-import com.ssafy.petdio.model.dto.UserResponseDto;
-import com.ssafy.petdio.model.entity.User;
-import com.ssafy.petdio.model.mapper.UserMapper;
-import com.ssafy.petdio.repository.UserRepository;
+import com.ssafy.petdio.user.model.dto.UserDto;
+import com.ssafy.petdio.user.model.dto.UserProfileUpdateDto;
+import com.ssafy.petdio.user.model.dto.UserResponseDto;
+import com.ssafy.petdio.user.model.dto.User;
+import com.ssafy.petdio.user.model.mapper.UserMapper;
+import com.ssafy.petdio.user.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

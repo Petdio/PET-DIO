@@ -1,7 +1,7 @@
 package com.ssafy.petdio.auth.jwt.mapper;
 
 import com.ssafy.petdio.auth.jwt.dto.JwtDto;
-import com.ssafy.petdio.model.dto.UserDto;
+import com.ssafy.petdio.user.model.dto.UserDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

@@ -1,8 +1,7 @@
-package com.ssafy.petdio.model.entity;
+package com.ssafy.petdio.user.model.dto;
 
 import com.ssafy.petdio.model.Enum.Role;
 import com.ssafy.petdio.model.Enum.SocialType;
-import com.ssafy.petdio.model.dto.UserProfileUpdateDto;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;

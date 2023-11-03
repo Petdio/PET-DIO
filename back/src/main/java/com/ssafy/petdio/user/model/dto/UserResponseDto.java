@@ -1,6 +1,5 @@
-package com.ssafy.petdio.model.dto;
+package com.ssafy.petdio.user.model.dto;
 
-import com.ssafy.petdio.model.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

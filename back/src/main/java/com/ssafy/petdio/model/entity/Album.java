@@ -1,6 +1,7 @@
 package com.ssafy.petdio.model.entity;
 
 
+import com.ssafy.petdio.user.model.dto.User;
 import jakarta.persistence.*;
 import lombok.*;
 

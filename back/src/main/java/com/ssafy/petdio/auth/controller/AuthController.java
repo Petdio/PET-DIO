@@ -25,7 +25,7 @@ public class AuthController {
         log.info("카카오 로그인");
         KakaoTokenDto kakaoTokenDto = kakaoService.getKakaoAccessToken(oAuthReqDto.getCode());
         KakaoUserDto kakaoUserDto = kakaoService.getKakaoUser(kakaoTokenDto.getAccessToken());
-        User loginUser = kakaoService.loginKakao(kakaoUserDto);
+        User loginUser = kakaoService.loginKakao(kakaoUserDto, oAuthReqDto.getFcmToken());
         System.out.println("loginUser : " + loginUser);
         return new ResponseEntity<>(kakaoService.getUserLoginDto(loginUser), HttpStatus.OK);
     }

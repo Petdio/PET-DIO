@@ -30,7 +30,7 @@ public class AlbumServiceImpl implements AlbumService{
                                 .map(album1 -> AlbumDto.Detail.builder()
                                         .albumId(album1.getAlbumId())
                                         .albumCreated(album1.getAlbumCreated())
-                                        .albumURL(album1.getAlbumImgUrl()).build())
+                                        .albumURL("https://petdio-s3.s3.ap-northeast-2.amazonaws.com/" + album1.getAlbumImgUrl()).build())
                                 .collect(Collectors.toList()))
                         .build()).collect(Collectors.toList());
     }

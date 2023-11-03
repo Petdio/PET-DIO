@@ -1,5 +1,5 @@
-"use client";
-import { forwardRef, useState, useRef, useEffect } from "react";
+'use client';
+import { forwardRef, useState, useRef, useEffect } from 'react';
 import {
   Grid,
   Box,
@@ -10,14 +10,15 @@ import {
   DialogContentText,
   DialogActions,
   Button,
-} from "@mui/material";
-import Image from "next/image";
-import { TransitionProps } from "@mui/material/transitions";
-import ThemeCard from "../theme-card/ThemeCard";
-import Subtitle from "../subtitle/Subtitle";
-import { Container } from "@mui/material";
-import { useRouter } from "next/navigation";
-import axios from "axios";
+} from '@mui/material';
+import Image from 'next/image';
+import { TransitionProps } from '@mui/material/transitions';
+import ThemeCard from '../theme-card/ThemeCard';
+import Subtitle from '../subtitle/Subtitle';
+import { Container } from '@mui/material';
+import { useRouter } from 'next/navigation';
+import axios from 'axios';
+import convertTheme from '@/utils/convertTheme';
 
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {
@@ -25,7 +26,13 @@ const Transition = forwardRef(function Transition(
   },
   ref: React.Ref<unknown>
 ) {
-  return <Slide direction="up" ref={ref} {...props} />;
+  return (
+    <Slide
+      direction="up"
+      ref={ref}
+      {...props}
+    />
+  );
 });
 
 interface ThemeList {
@@ -59,14 +66,14 @@ export default function ThemeList() {
   };
 
   const [open, setOpen] = useState(false);
-  const [modalTitle, setModalTitle] = useState("");
+  const [modalTitle, setModalTitle] = useState('');
   const [exampleList, setExampleList] = useState<string[]>([]);
-  const [path, setPath] = useState("");
+  const [path, setPath] = useState('');
   const [themeList, setThemeList] = useState<ThemeList[]>([]);
 
   const handleClickOpen = (index: number) => {
     setOpen(true);
-    setModalTitle(themeList[index].name);
+    setModalTitle(convertTheme(themeList[index].name));
     setExampleList(themeList[index].examples);
     setPath(themeList[index].path);
   };
@@ -82,7 +89,7 @@ export default function ThemeList() {
         `concept/list`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+            Authorization: `Bearer ${localStorage.getItem('access-token')}`,
           },
         }
       );
@@ -90,9 +97,9 @@ export default function ThemeList() {
       console.log(response);
       setThemeList(response.data);
     } catch (error) {
-      console.error("에러 발생:", error);
-      alert("로그인 해주세요.");
-      window.location.href = "/login";
+      console.error('에러 발생:', error);
+      alert('로그인 해주세요.');
+      window.location.href = '/login';
     }
   }
 
@@ -104,10 +111,13 @@ export default function ThemeList() {
     <>
       <Box
         sx={{
-          padding: "1rem",
+          padding: '1rem',
         }}
       >
-        <Grid container spacing={2}>
+        <Grid
+          container
+          spacing={2}
+        >
           {themeList.map((item, index) => {
             return (
               <Grid
@@ -118,7 +128,7 @@ export default function ThemeList() {
               >
                 <ThemeCard
                   imgSrc={item.imgURL}
-                  themeName={item.name}
+                  themeName={convertTheme(item.name)}
                 ></ThemeCard>
               </Grid>
             );
@@ -133,7 +143,10 @@ export default function ThemeList() {
         aria-describedby="select-theme"
         maxWidth="xs"
       >
-        <DialogTitle textAlign="center" fontWeight="bold">
+        <DialogTitle
+          textAlign="center"
+          fontWeight="bold"
+        >
           {modalTitle}
         </DialogTitle>
         <DialogContent sx={{ padding: 0 }}>
@@ -148,33 +161,33 @@ export default function ThemeList() {
             onMouseUp={onDragEnd}
             onMouseLeave={onDragEnd}
             sx={{
-              backgroundColor: "#454545",
-              height: "230px",
-              width: "100%",
-              overflow: "hidden",
-              overflowX: "scroll",
-              scrollbarWidth: "none",
-              "&::-webkit-scrollbar": {
-                display: "none",
+              backgroundColor: '#454545',
+              height: '230px',
+              width: '100%',
+              overflow: 'hidden',
+              overflowX: 'scroll',
+              scrollbarWidth: 'none',
+              '&::-webkit-scrollbar': {
+                display: 'none',
               },
-              display: "flex",
-              justifyContent: "flex-start",
-              alignItems: "center",
-              margin: "0",
+              display: 'flex',
+              justifyContent: 'flex-start',
+              alignItems: 'center',
+              margin: '0',
             }}
           >
             <Box
               sx={{
-                display: "flex",
-                height: "100%",
+                display: 'flex',
+                height: '100%',
               }}
             >
               {exampleList.map((item, index) => {
                 return (
                   <Box
                     sx={{
-                      position: "relative",
-                      marginBottom: "0.25rem",
+                      position: 'relative',
+                      marginBottom: '0.25rem',
                       flexShrink: 0,
                       aspectRatio: 1 / 1,
                       margin: 1,
@@ -188,7 +201,7 @@ export default function ThemeList() {
                       objectFit="cover"
                       objectPosition="center center"
                       placeholder="empty"
-                      style={{ borderRadius: "0.5rem" }}
+                      style={{ borderRadius: '0.5rem' }}
                     />
                   </Box>
                 );
@@ -206,14 +219,14 @@ export default function ThemeList() {
         </DialogContent>
         <DialogActions
           sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            padding: "0rem 1rem 3.5rem 1rem",
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            padding: '0rem 1rem 3.5rem 1rem',
           }}
         >
           <Button
-            sx={{ width: "50%" }}
+            sx={{ width: '50%' }}
             variant="contained"
             color="inherit"
             onClick={handleClose}
@@ -221,7 +234,7 @@ export default function ThemeList() {
             취소
           </Button>
           <Button
-            sx={{ width: "50%" }}
+            sx={{ width: '50%' }}
             variant="contained"
             onClick={() => router.push(`studio/${path}/add-photo`)}
           >

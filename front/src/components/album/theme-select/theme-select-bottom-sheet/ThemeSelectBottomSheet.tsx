@@ -37,28 +37,31 @@ function ThemeSelectBottomSheet({
       container
       spacing={1}
     >
-      {themeNameList.map((themeName, idx) => (
-        <Grid
-          key={themeName}
-          onClick={() => onThemeChange(idx)}
-          item
-          xs={6}
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          height="4rem"
-          sx={{
-            cursor: 'pointer',
-            '&:hover': {
-              '& > .content': {
-                color: theme.palette.secondary.main,
+      {themeNameList.map((themeName, idx) => {
+        if (themeName === 'none') return null;
+        return (
+          <Grid
+            key={themeName}
+            onClick={() => onThemeChange(idx)}
+            item
+            xs={6}
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            height="4rem"
+            sx={{
+              cursor: 'pointer',
+              '&:hover': {
+                '& > .content': {
+                  color: theme.palette.secondary.main,
+                },
               },
-            },
-          }}
-        >
-          <Typography className="content">{themeName}</Typography>
-        </Grid>
-      ))}
+            }}
+          >
+            <Typography className="content">{themeName}</Typography>
+          </Grid>
+        );
+      })}
     </Grid>
   );
   return (

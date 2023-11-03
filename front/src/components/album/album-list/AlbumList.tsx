@@ -20,22 +20,16 @@ function AlbumList() {
   const [albumData, setAlbumData] = useState<AlbumDataProps[]>([]);
   let noImage = true;
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await getAlbumList(
-          localStorage.getItem('access-token')
-        );
-        if (response !== undefined) {
-          const data = response.data;
-          setAlbumData(data);
-        } else {
-          console.log('response undefined');
-        }
-      } catch (error) {
-        console.error('Error fetching album data:', error);
+    async function fetchAlbumData() {
+      const response = await getAlbumList(localStorage.getItem('access-token'));
+      if (response !== undefined) {
+        const data = response.data;
+        setAlbumData(data);
+      } else {
+        console.log('response undefined');
       }
     }
-    fetchData();
+    fetchAlbumData();
   }, []);
 
   const albumTheme = albumData.map((data) => {

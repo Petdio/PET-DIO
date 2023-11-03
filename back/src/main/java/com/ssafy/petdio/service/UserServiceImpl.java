@@ -46,6 +46,16 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     * 코인 사용하는 메서드
+     * @param
+     * @return
+     */
+    @Override
+    public void useCoin() {
+
+    }
+
+    /**
      * 유저 삭제하는 메서드(soft delete)
      * @param id
      * @return

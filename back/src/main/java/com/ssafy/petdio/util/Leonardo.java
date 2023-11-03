@@ -2,19 +2,19 @@ package com.ssafy.petdio.util;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ssafy.petdio.config.LeonardoConfig;
 import com.ssafy.petdio.model.Enum.Prompt;
 import com.ssafy.petdio.model.entity.Setting;
-import java.io.*;
-
-import com.ssafy.petdio.config.LeonardoConfig;
 import jakarta.annotation.PostConstruct;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
-import org.json.*;
+import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
@@ -118,7 +118,7 @@ public class Leonardo {
             }
         }
 
-        generationPayload.put("imagePrompts", prompt.getPrompt().replace("breed", breed));
+        generationPayload.put("prompt", prompt.getPrompt().replace("breed", breed));
         System.out.println(prompt.getPrompt().replace("breed", breed));
         generationPayload.put("negative_prompt", prompt.getNegativePrompt());
         generationPayload.put("init_image_id", imageId);

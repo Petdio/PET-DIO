@@ -29,25 +29,43 @@ const themeOptions: ThemeOptions = {
       contrastText: '#fff',
     },
     text: {
-      primary: "#181818",
-      secondary: "#18181860",
-      disabled: "#18181838",
+      primary: '#181818',
+      secondary: '#18181860',
+      disabled: '#18181838',
     },
     common: {
       black: '#181818',
       white: '#fff',
     },
     grey: {
-      50: "#f6f6f6",
-      100: "#e7e7e7",
-      200: "#d1d1d1",
-      300: "#E0E0E0",
-      400: "#888888",
-      500: "#6d6d6d",
-      600: "#5d5d5d",
-      700: "#4f4f4f",
-      800: "#454545",
-      900: "#3d3d3d",
+      50: '#f6f6f6',
+      100: '#e7e7e7',
+      200: '#d1d1d1',
+      300: '#E0E0E0',
+      400: '#888888',
+      500: '#6d6d6d',
+      600: '#5d5d5d',
+      700: '#4f4f4f',
+      800: '#454545',
+      900: '#3d3d3d',
+    },
+    success: {
+      main: '#2798D0',
+      '50': '#F2F9FD',
+      '100': '#E3F1FB'
+    },
+  },
+  components: {
+    MuiAlert: {
+      styleOverrides: {
+        standardSuccess: {
+          backgroundColor: '#E3F1FB',
+          color: '#197BB0',
+        },
+      },
+    },
+    MuiIcon: {
+      styleOverrides: {},
     },
   },
 };

@@ -10,6 +10,7 @@ import com.ssafy.petdio.user.model.entity.User;
 import com.ssafy.petdio.repository.AlbumRepository;
 import com.ssafy.petdio.repository.SettingRepository;
 import com.ssafy.petdio.user.repository.UserRepository;
+import com.ssafy.petdio.user.service.UserService;
 import com.ssafy.petdio.util.Leonardo;
 import java.util.HashMap;
 import java.util.Map;
@@ -38,6 +39,7 @@ public class AiServiceImpl implements AiService {
     private final FileService fileService;
     private final AlbumRepository albumRepository;
     private final UserRepository userRepository;
+    private final UserService userService;
     private final FcmService fcmService;
     private final RedisTemplate<String, AiDto.Data> redisTemplate;
 
@@ -102,6 +104,7 @@ public class AiServiceImpl implements AiService {
         User user = userRepository.findByUserIdAndUserDeleteIsNull(imageData.getUserId()).orElseThrow();
         Map<String, String> map = new HashMap<>();
         map.put("test", "test11");
+        userService.useCoin(user.getUserId());
         if (user.getFcmToken() == null) throw new Exception();
         fcmService.sendMessageTo(imageData.getUserId(),
                 NotificationMessage.builder()

@@ -1,5 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
+import axios from 'axios';
+// components
 import { AppBar } from '@mui/material';
 import Logo from '../../common/logo/Logo';
 import { styled } from '@mui/material/styles';
@@ -7,7 +9,6 @@ import MyPage from '@/components/common/my-page/MyPage';
 import MemberMenu from '@/components/common/my-page/member-menu/MemberMenu';
 import BackButton from '@/components/common/back-button/BackButton';
 import { usePathname } from 'next/navigation';
-import axios from 'axios';
 import HomeButton from '@/components/common/home-button/HomeButton';
 
 const StyledAppBar = styled(AppBar)`

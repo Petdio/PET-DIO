@@ -1,8 +1,8 @@
-package com.ssafy.petdio.controller;
+package com.ssafy.petdio.user.controller;
 
-import com.ssafy.petdio.model.dto.UserDto;
-import com.ssafy.petdio.repository.UserRepository;
-import com.ssafy.petdio.service.UserService;
+import com.ssafy.petdio.user.model.dto.UserDto;
+import com.ssafy.petdio.user.repository.UserRepository;
+import com.ssafy.petdio.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

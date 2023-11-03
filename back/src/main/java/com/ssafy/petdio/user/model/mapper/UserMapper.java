@@ -1,7 +1,7 @@
-package com.ssafy.petdio.model.mapper;
+package com.ssafy.petdio.user.model.mapper;
 
-import com.ssafy.petdio.model.dto.UserDto;
-import com.ssafy.petdio.model.entity.User;
+import com.ssafy.petdio.user.model.dto.UserDto;
+import com.ssafy.petdio.user.model.entity.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

@@ -5,7 +5,7 @@ import com.ssafy.petdio.model.dto.AiDto;
 import com.ssafy.petdio.model.entity.Album;
 import com.ssafy.petdio.model.entity.Concept;
 import com.ssafy.petdio.model.entity.Setting;
-import com.ssafy.petdio.model.entity.User;
+import com.ssafy.petdio.user.model.entity.User;
 import com.ssafy.petdio.repository.AlbumRepository;
 import com.ssafy.petdio.repository.SettingRepository;
 import com.ssafy.petdio.util.Leonardo;

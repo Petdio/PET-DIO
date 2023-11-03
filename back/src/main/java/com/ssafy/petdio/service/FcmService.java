@@ -28,22 +28,24 @@ public class FcmService {
     private final UserRepository userRepository;
     public void sendMessageTo(Long id) throws IOException {
         User user = userRepository.findByUserIdAndUserDeleteIsNull(id).orElseThrow();
-            if(user.getFcmToken() != null) {
-                String message = makeMessage(user.getFcmToken());
-                OkHttpClient client = new OkHttpClient();
-                RequestBody requestBody = RequestBody.create(message,
-                        MediaType.get("application/json; charset=utf-8"));
-                Request request = new Request.Builder()
-                        .url("https://fcm.googleapis.com/fcm/send")
-                        .post(requestBody)
-                        .addHeader(HttpHeaders.AUTHORIZATION, "Bearer " + getAccessToken())
-                        .addHeader(HttpHeaders.CONTENT_TYPE, "application/json; UTF-8")
-                        .build();
-                Response response = client.newCall(request).execute();
-                log.info(Objects.requireNonNull(response.body()).string());
-            } else {
-                log.info("알림은 허용이지만, 토큰이 없는 유저");
-            }
+        String token = "cSSKYNg6UT4Kkda3HLmLwy:APA91bEhnO-doBsdgxlSD6pKeJBRLqjjq8Sfcm9Rq46QkRRAgOlDkNPyhdyTSL6G7K1QyqTm8STbfV-GQXO7RFz0Rm873aHzku0LwiGl0IDl9NZ7ReuOoToZ0sJgX7p28CLFaR3_9nbf";
+//            if(user.getFcmToken() != null) {
+        if(token != null) {
+                    String message = makeMessage(user.getFcmToken());
+                    OkHttpClient client = new OkHttpClient();
+                    RequestBody requestBody = RequestBody.create(message,
+                            MediaType.get("application/json; charset=utf-8"));
+                    Request request = new Request.Builder()
+                            .url("https://fcm.googleapis.com/fcm/send")
+                            .post(requestBody)
+                            .addHeader(HttpHeaders.AUTHORIZATION, "Bearer " + getAccessToken())
+                            .addHeader(HttpHeaders.CONTENT_TYPE, "application/json; UTF-8")
+                            .build();
+                    Response response = client.newCall(request).execute();
+                    log.info(Objects.requireNonNull(response.body()).string());
+                } else {
+                    log.info("알림은 허용이지만, 토큰이 없는 유저");
+                }
     }
 
     private String makeMessage(String targetToken) throws JsonProcessingException {

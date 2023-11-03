@@ -19,6 +19,7 @@ import convertTheme from '@/utils/convertTheme';
 function AlbumList() {
   const [albumData, setAlbumData] = useState<AlbumDataProps[]>([]);
   let noImage = true;
+  let numOfThemes = 0;
   useEffect(() => {
     async function fetchAlbumData() {
       const response = await getAlbumList(localStorage.getItem('access-token'));
@@ -37,6 +38,7 @@ function AlbumList() {
       return 'none';
     }
     noImage = false;
+    numOfThemes++;
     const theme = Object.values(data);
     const themeEN = theme[0];
     return convertTheme(themeEN);
@@ -114,6 +116,7 @@ function AlbumList() {
         handleClose={handleModalClose}
       />
       <ThemeSelectButton
+        disabled={numOfThemes <= 1 ? true : false}
         isFiltered={filteredThemeIdx === -1 ? false : true}
         onClick={
           filteredThemeIdx === -1

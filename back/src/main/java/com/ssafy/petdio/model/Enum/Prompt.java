@@ -44,34 +44,28 @@ public enum Prompt {
                     "3D vector art, cute and quirky, fantasy art, watercolor effect, bokeh, Adobe Illustrator, hand-drawn, " +
                     "digital painting, low-poly, soft lighting, bird's-eye view, isometric style, retro aesthetic, " +
                     "focused on the character, 4K resolution, photorealistic rendering, using Cinema 4D",
-            "out of frame, cropped, bad proportions, \" +\n"+
-                    "\"out of frame, bad anatomy, poorly drawn face, morbid, mutilated,((extra eyes)), \" +\n" +
-                    "\"((extra arms)), ((extra legs)), ((extra fingers)), ((extra headphones)), ((two headphones)), \" +\n" +
-                    "\"((extra heads)), ((extra eyes)) (((2 heads))), duplicate, man, men, blurry, abstract, disfigured, deformed, \" +\n" +
-                    "\"cartoon, animated, toy, figure, framed, 3d, cartoon, 3d, disfigured, bad art, deformed, poorly drawn,\" +\n" +
-                    "\" extra limbs, close up, b&w, weird colors, blurry, watermark, blur haze, 2 heads, long neck, watermark, \" +\n" +
-                    "\"elongated body, cropped image,out of frame,draft,deformed hands, twisted fingers, double image, \" +\n" +
-                    "\"malformed hands, multiple heads, extra limb, ugly, poorly drawn hands, missing limb, cut-off, over satured, \" +\n" +
-                    "\"grain, lowères, bad anatomy, poorly drawn face, mutation, mutated, floating limbs, disconnected limbs, \" +\n" +
-                    "\"out of focus, long body, disgusting, extra fingers, groos proportions, missing arms, mutated hands, \" +\n" +
-                    "\"cloned face, missing legs"),
+            "out of frame, cropped, bad proportions, out of frame, bad anatomy, poorly drawn face, morbid, " +
+                    "mutilated,((extra eyes)), ((extra arms)), ((extra legs)), ((extra fingers)), " +
+                    "((extra headphones)), ((two headphones)), ((extra heads)), ((extra eyes)) (((2 heads))), " +
+                    "duplicate,  blurry, abstract, disfigured, deformed, disfigured, bad art, deformed, " +
+                    "poorly drawn,elongated body, cropped image,out of frame,draft,deformed hands, " +
+                    "twisted fingers, double image, malformed hands, multiple heads, extra limb, ugly, " +
+                    "poorly drawn hands, missing limb, cut-off, over satured, grain, lowères, bad anatomy, " +
+                    "poorly drawn face, mutation, mutated, floating limbs, disconnected limbs"),
     MINI(4L,
             "cute tiny hyperrealistic Anime brown breed the photo that provided, adorable and fluffy, logo design, cartoon, " +
                     "cinematic lighting effect, charming, 3D vector art, cute and quirky, fantasy art, bokeh, hand-drawn, " +
                     "digital painting, soft lighting, isometric style , 4K resolution, photorealistic rendering," +
                     " highly detailed clean, vector image, photorealistic masterpiece, professional photography, " +
                     "simple space backdrop, flat white background, isometric, vibrant vector",
-            "negative_prompt\", \"duplicate, blurry, abstract, bad anatomy, bad eyes, crossed eyes,\" +\n" +
-                    "                \" disfigured, poorly drawn face, mutation, mutated, ((extra limb)), ugly, two trunks, missing limb, \" +\n" +
-                    "                \"floating limbs, disconnected limbs, malformed hands, blur, out of focus, long neck, \" +\n" +
-                    "                \"((((mutated hands and fingers)))), (((out of frame))), floating limbs, disconnected limbs, blur, \" +\n" +
-                    "                \"out of focus,\" +\n" +
-                    "                \" mutated foot, long neck, ((((mutated hands and fingers)))), bad eyes, crossed eyes, disfigured, \" +\n" +
-                    "                \"poorly drawn, mutation, mutated, ((extra limb)), ugly, poorly drawn hands, blur, out of focus, long neck, \" +\n" +
-                    "                \"long body, two face, out of frame, text, error, cropped, 3 shoes, 3 legs,2 ears, low quality, jpeg artifacts,\" +\n" +
-                    "                \"morbid, double image, ugly, disfigured, cut off, ugly, grain, low res, deformed, blurry, bad anatomy, \" +\n" +
-                    "                \"disfigured, poorly drawn face, disconnected limbs, mangled, extra fingers, duplicate artifacts, missing arms,\" +\n" +
-                    "                \" mutilated hands, cloned face,");
+            "out of frame, cropped, bad proportions, out of frame, bad anatomy, poorly drawn face, morbid, " +
+                    "mutilated,((extra eyes)), ((extra arms)), ((extra legs)), ((extra fingers)), " +
+                    "((extra headphones)), ((two headphones)), ((extra heads)), ((extra eyes)) (((2 heads))), " +
+                    "duplicate,  blurry, abstract, disfigured, deformed, disfigured, bad art, deformed, " +
+                    "poorly drawn,elongated body, cropped image,out of frame,draft,deformed hands, " +
+                    "twisted fingers, double image, malformed hands, multiple heads, extra limb, ugly, " +
+                    "poorly drawn hands, missing limb, cut-off, over satured, grain, lowères, bad anatomy, " +
+                    "poorly drawn face, mutation, mutated, floating limbs, disconnected limbs");
 
 
 

@@ -7,6 +7,7 @@ import ThemeSection from '@/components/album/theme-section/ThemeSection';
 import ThemeSelectButton from '@/components/album/theme-select/theme-select-button/ThemeSelectButton';
 import ThemeSelectBottomSheet from '@/components/album/theme-select/theme-select-bottom-sheet/ThemeSelectBottomSheet';
 import DetailModal from '@/components/album/detail/detail-modal/DetailModal';
+import NoImage from '../no-image/NoImage';
 // interfaces
 import { ModalInfoProps } from '@/interfaces/ModalInfoProps';
 import { AlbumDataProps } from '@/interfaces/AlbumDataProps';
@@ -15,12 +16,9 @@ import getAlbumList from '@/apis/getAlbumList';
 // utils
 import convertTheme from '@/utils/convertTheme';
 
-interface Props {
-  albumData: AlbumDataProps[];
-}
-
 function AlbumList() {
   const [albumData, setAlbumData] = useState<AlbumDataProps[]>([]);
+  let noImage = true;
   useEffect(() => {
     async function fetchData() {
       try {
@@ -41,6 +39,10 @@ function AlbumList() {
   }, []);
 
   const albumTheme = albumData.map((data) => {
+    if (data.detail.length === 0) {
+      return 'none';
+    }
+    noImage = false;
     const theme = Object.values(data);
     const themeEN = theme[0];
     return convertTheme(themeEN);
@@ -74,10 +76,11 @@ function AlbumList() {
   return (
     <>
       <Box marginTop="1rem">
-        {albumData &&
+        {!noImage ? (
           albumData.map((data, idx) => {
             const themeEN = Object.values(data)[0];
             const themeKO = convertTheme(themeEN);
+            console.log(data.detail);
             const isDisplayed =
               filteredThemeIdx === -1 || filteredThemeIdx === idx;
 
@@ -86,15 +89,28 @@ function AlbumList() {
                 key={data.conceptId}
                 display={isDisplayed ? 'block' : 'none'}
               >
-                <ThemeSection
-                  themeName={themeKO}
-                  imgList={data.detail}
-                  onClickFn={handleModalOpen}
-                />
+                {data.detail.length !== 0 && (
+                  <ThemeSection
+                    themeName={themeKO}
+                    imgList={data.detail}
+                    onClickFn={handleModalOpen}
+                  />
+                )}
                 <Box height="1rem" />
               </Box>
             );
-          })}
+          })
+        ) : (
+          <Box
+            width="100%"
+            height="100%"
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <NoImage />
+          </Box>
+        )}
       </Box>
 
       <DetailModal

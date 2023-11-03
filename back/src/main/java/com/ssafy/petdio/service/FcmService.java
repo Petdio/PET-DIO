@@ -40,7 +40,7 @@ public class FcmService {
                     Request request = new Request.Builder()
                             .url("https://fcm.googleapis.com/fcm/send")
                             .post(requestBody)
-                            .addHeader(HttpHeaders.AUTHORIZATION, "key=" + getAccessToken())
+                            .addHeader(HttpHeaders.AUTHORIZATION, "Bearer" + getAccessToken())
                             .addHeader(HttpHeaders.CONTENT_TYPE, "application/json; UTF-8")
                             .build();
                     Response response = client.newCall(request).execute();

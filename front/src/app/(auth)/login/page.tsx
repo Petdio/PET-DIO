@@ -1,12 +1,10 @@
 import Logo from "@/components/common/logo/Logo";
 import { Typography, Box } from "@mui/material";
 import KakaoLogIn from "@/components/common/login/kakao-login/KakaoLogin";
-import FirebaseTest from "@/components/FirebaseTest";
 
 export default function LogIn() {
   return (
     <>
-      <FirebaseTest />
       <Box
         sx={{
           height: "100vh",

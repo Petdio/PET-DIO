@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 export default async function getAlbumList(accessToken: string | null) {
   try {
@@ -11,12 +11,12 @@ export default async function getAlbumList(accessToken: string | null) {
         },
       }
     );
-    console.log(response);
+    // console.log(response);
     return response;
   } catch (error) {
     if (accessToken === null) {
-      console.log("There is no access token. ");
+      console.log('There is no access token. ');
     }
-    console.error("Failed to get album list:", error);
+    console.error('Failed to get album list:', error);
   }
 }

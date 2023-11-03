@@ -27,7 +27,7 @@ public class FcmService {
     private final ResourceLoader resourceLoader;
     public void sendMessageTo(Long id) throws IOException {
         User user = userRepository.findByUserIdAndUserDeleteIsNull(id).orElseThrow();
-        String token = "cSSKYNg6UT4Kkda3HLmLwy:APA91bEhnO-doBsdgxlSD6pKeJBRLqjjq8Sfcm9Rq46QkRRAgOlDkNPyhdyTSL6G7K1QyqTm8STbfV-GQXO7RFz0Rm873aHzku0LwiGl0IDl9NZ7ReuOoToZ0sJgX7p28CLFaR3_9nbf";
+        String token = "cSSKYNg6UT4Kkda3HLmLwy:APA91bH5tbpVYGMSpmHL9DNtZm0aEWe1vspMmbYaD7Xi1CVncPcO4by8LWz4MHC0QRSmxl_J_a2Vd1KxcIOahLQTorIA82A-oNevVAUkUhIu7bgeV2qLKBM3xzVhJQshfCnnyg7r-hmL";
 //            if(user.getFcmToken() != null) {
         if(token != null) {
                     String message = makeMessage(user.getFcmToken());

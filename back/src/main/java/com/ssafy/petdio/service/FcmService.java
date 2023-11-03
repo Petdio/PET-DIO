@@ -66,6 +66,7 @@ public class FcmService {
         GoogleCredentials googleCredentials = GoogleCredentials.fromStream(inputStream)
                 .createScoped(List.of("https://www.googleapis.com/auth/cloud-platform"));
         googleCredentials.refreshIfExpired();
+        log.info("fcm token:" + googleCredentials.getAccessToken().getTokenValue());
         return googleCredentials.getAccessToken().getTokenValue();
     }
 

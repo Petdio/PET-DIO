@@ -1,6 +1,7 @@
 package com.ssafy.petdio.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.google.auth.oauth2.AccessToken;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.common.net.HttpHeaders;
 import com.ssafy.petdio.model.dto.FcmDto;
@@ -30,7 +31,8 @@ public class FcmService {
         String token = "cSSKYNg6UT4Kkda3HLmLwy:APA91bH5tbpVYGMSpmHL9DNtZm0aEWe1vspMmbYaD7Xi1CVncPcO4by8LWz4MHC0QRSmxl_J_a2Vd1KxcIOahLQTorIA82A-oNevVAUkUhIu7bgeV2qLKBM3xzVhJQshfCnnyg7r-hmL";
 //            if(user.getFcmToken() != null) {
         if(token != null) {
-                    String message = makeMessage(user.getFcmToken());
+//                    String message = makeMessage(user.getFcmToken());
+                String message = makeMessage(token);
 //            String message = makeMessage("ZHk82ZK62ea5kaIKnze-lyrlkNsWD5jzAYGaBnKBnrk");
                     OkHttpClient client = new OkHttpClient();
                     RequestBody requestBody = RequestBody.create(message,
@@ -61,14 +63,15 @@ public class FcmService {
         return fcmMessage.toString();
     }
 
-    private String getAccessToken() throws IOException {
+    private AccessToken getAccessToken() throws IOException {
         Resource resource = resourceLoader.getResource("classpath:serviceAccountKey.json");
         InputStream inputStream = resource.getInputStream();
-        GoogleCredentials googleCredentials = GoogleCredentials.fromStream(inputStream)
-                .createScoped(List.of("https://www.googleapis.com/auth/cloud-platform"));
-        googleCredentials.refreshIfExpired();
-        log.info("fcm token:" + googleCredentials.getAccessToken().getTokenValue());
-        return googleCredentials.getAccessToken().getTokenValue();
+        GoogleCredentials credentials = GoogleCredentials.fromStream(inputStream);
+        credentials.refreshIfExpired();
+        AccessToken token = credentials.getAccessToken();
+        log.info("fcm token:" + token);
+        return token;
     }
+
 
 }

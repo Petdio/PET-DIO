@@ -3,22 +3,20 @@ package com.ssafy.petdio.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.common.net.HttpHeaders;
-import com.google.firebase.messaging.FirebaseMessaging;
-import com.google.firebase.messaging.Message;
 import com.ssafy.petdio.model.dto.FcmDto;
 import com.ssafy.petdio.user.model.entity.User;
 import com.ssafy.petdio.user.repository.UserRepository;
+import java.io.InputStream;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -26,6 +24,7 @@ import java.util.Optional;
 public class FcmService {
 //    private final FirebaseMessaging firebaseMessaging;
     private final UserRepository userRepository;
+    private ResourceLoader resourceLoader;
     public void sendMessageTo(Long id) throws IOException {
         User user = userRepository.findByUserIdAndUserDeleteIsNull(id).orElseThrow();
         String token = "cSSKYNg6UT4Kkda3HLmLwy:APA91bEhnO-doBsdgxlSD6pKeJBRLqjjq8Sfcm9Rq46QkRRAgOlDkNPyhdyTSL6G7K1QyqTm8STbfV-GQXO7RFz0Rm873aHzku0LwiGl0IDl9NZ7ReuOoToZ0sJgX7p28CLFaR3_9nbf";
@@ -62,8 +61,9 @@ public class FcmService {
     }
 
     private String getAccessToken() throws IOException {
-        String serverPath = "/back/src/main/resources/serviceAccountKey.json";
-        GoogleCredentials googleCredentials = GoogleCredentials.fromStream(new FileInputStream(serverPath))
+        Resource resource = resourceLoader.getResource("classpath:serviceAccountKey.json");
+        InputStream inputStream = resource.getInputStream();
+        GoogleCredentials googleCredentials = GoogleCredentials.fromStream(inputStream)
                 .createScoped(List.of("https://www.googleapis.com/auth/cloud-platform"));
         googleCredentials.refreshIfExpired();
         return googleCredentials.getAccessToken().getTokenValue();

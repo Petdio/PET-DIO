@@ -28,8 +28,8 @@ import java.util.Objects;
 @Slf4j
 public class FcmService {
     private final FirebaseMessaging firebaseMessaging;
-    private final UserRepository userRepository;
-    private final ResourceLoader resourceLoader;
+//    private final UserRepository userRepository;
+//    private final ResourceLoader resourceLoader;
     public String sendMessageTo(Long id, NotificationMessage notificationMessage) throws IOException {
         Notification notification = Notification.builder().setTitle(notificationMessage.getTitle()).setBody(
                 notificationMessage.getBody()).setImage(notificationMessage.getImage()).build();

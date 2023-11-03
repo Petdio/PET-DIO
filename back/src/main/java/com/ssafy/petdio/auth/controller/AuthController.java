@@ -5,7 +5,7 @@ import com.ssafy.petdio.auth.oauth2.kakao.KakaoService;
 import com.ssafy.petdio.auth.oauth2.kakao.KakaoTokenDto;
 import com.ssafy.petdio.auth.oauth2.kakao.KakaoUserDto;
 import com.ssafy.petdio.user.model.dto.UserLoginDto;
-import com.ssafy.petdio.user.model.dto.User;
+import com.ssafy.petdio.user.model.entity.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

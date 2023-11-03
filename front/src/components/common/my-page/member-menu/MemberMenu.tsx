@@ -17,10 +17,10 @@ interface Props {
   isOpen: boolean;
   closeFn: () => void;
   anchorEl: null | HTMLElement;
-  userCoin: number;
+  coins: number;
 }
 
-function MemberMenu({ isOpen, closeFn, anchorEl, userCoin }: Props) {
+function MemberMenu({ isOpen, closeFn, anchorEl, coins }: Props) {
   const router = useRouter();
   const handleLogOut = () => {
     localStorage.removeItem('access-token'); // access-token 제거
@@ -83,7 +83,7 @@ function MemberMenu({ isOpen, closeFn, anchorEl, userCoin }: Props) {
           width="7rem"
           justifyContent="flex-end"
         >
-          <Typography>{userCoin.toLocaleString()}</Typography>
+          <Typography>{coins.toLocaleString()}</Typography>
           <Box width="0.25rem" />
           <TollTwoToneIcon htmlColor={amber[500]} />
         </Box>

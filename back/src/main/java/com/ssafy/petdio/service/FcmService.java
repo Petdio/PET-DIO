@@ -67,8 +67,11 @@ public class FcmService {
         Resource resource = resourceLoader.getResource("classpath:serviceAccountKey.json");
         InputStream inputStream = resource.getInputStream();
         GoogleCredentials credentials = GoogleCredentials.fromStream(inputStream);
+        credentials = credentials.createScoped("https://www.googleapis.com/auth/firebase.messaging");
         credentials.refreshIfExpired();
         AccessToken token = credentials.getAccessToken();
+
+
         log.info("fcm token:" + token);
         return token.getTokenValue();
     }

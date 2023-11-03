@@ -1,15 +1,22 @@
 package com.ssafy.petdio.model.Enum;
 
+import lombok.Getter;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import lombok.Getter;
+
 
 @Getter
 public enum Prompt {
     STICKER(1L, new String[] {
-            "(Sticker An adorable cute breed in the photo that provided),breed in the photo that provided, stickers, adorable, lovely, 3D vector art, cute and quirky, watercolor effect, bokeh, Adobe Illustrator , hand-drawn, digital painting, low-poly, low-lighting, bird's-eye view, isometric style, character-focused, 4K resolution, photorealistic rendering, using Cinema 4D,\n"
-                    + "sticker, cartoon breed in the photo that provided sticker, all white background, Vermeer style, 12K, high quality, HD, octane render, cinematic lighting, sticker format, sticker shape,Different every time, When making, Different every time I make a photo, not same"
+            "(Sticker An adorable cute breed in the photo that provided),breed in the photo that provided, stickers, " +
+                    "adorable, lovely, 3D vector art, cute and quirky, watercolor effect, bokeh, Adobe Illustrator ," +
+                    " hand-drawn, digital painting, low-poly, low-lighting, bird's-eye view, isometric style, character-focused," +
+                    " 4K resolution, photorealistic rendering, using Cinema 4D,\n"
+                    + "sticker, cartoon breed in the photo that provided sticker, all white background, Vermeer style, " +
+                    "12K, high quality, HD, octane render, cinematic lighting, sticker format, sticker shape," +
+                    "Different every time, When making, Different every time I make a photo, not same"
     }, ""),
     HALLOWEEN(2L, new String[] {
             "cute stickers, 8K Ultra HD, highly detailed, Detailed illustration of a cute breed enjoying Halloween, " +
@@ -81,7 +88,7 @@ public enum Prompt {
         this.prompt = Arrays.toString(prompt);
         this.negativePrompt = negativePrompt;
     }
-
+    
     public static Prompt findEnumById(Long id) {
         return enumIdMap.get(id);
     }

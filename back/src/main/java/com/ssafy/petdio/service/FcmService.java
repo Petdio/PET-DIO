@@ -24,8 +24,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Slf4j
 public class FcmService {
-    private final FirebaseMessaging firebaseMessaging;
-    private UserRepository userRepository;
+//    private final FirebaseMessaging firebaseMessaging;
+    private final UserRepository userRepository;
     public void sendMessageTo(Long id) throws IOException {
         User user = userRepository.findByUserIdAndUserDeleteIsNull(id).orElseThrow();
             if(user.getFcmToken() != null) {

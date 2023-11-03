@@ -63,14 +63,14 @@ public class FcmService {
         return fcmMessage.toString();
     }
 
-    private AccessToken getAccessToken() throws IOException {
+    private String getAccessToken() throws IOException {
         Resource resource = resourceLoader.getResource("classpath:serviceAccountKey.json");
         InputStream inputStream = resource.getInputStream();
         GoogleCredentials credentials = GoogleCredentials.fromStream(inputStream);
         credentials.refreshIfExpired();
         AccessToken token = credentials.getAccessToken();
         log.info("fcm token:" + token);
-        return token;
+        return token.getTokenValue();
     }
 
 

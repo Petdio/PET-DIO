@@ -25,7 +25,7 @@ public class FirebaseConfig {
         GoogleCredentials credentials = GoogleCredentials.fromStream(inputStream);
 
         FirebaseOptions firebaseOptions = FirebaseOptions.builder().setCredentials(credentials).build();
-        FirebaseApp app = FirebaseApp.initializeApp(firebaseOptions, "my-app");
+        FirebaseApp app = FirebaseApp.initializeApp(firebaseOptions, "DEFAULT");
 
         return FirebaseMessaging.getInstance();
     }

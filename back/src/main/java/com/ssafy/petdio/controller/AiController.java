@@ -30,8 +30,9 @@ public class AiController {
         try {
             Long userId = Long.valueOf(authentication.getName());
             aiService.makeAiImage(conceptId, imageFile, breed, userId);
-            log.info("ai사진 만들기 요청 성공 url : ");
-            fcmService.sendMessageTo();
+            log.info("ai사진 만들기 요청 성공 url!!");
+            log.info("---------------fcm test------------");
+            fcmService.sendMessageTo(userId);
             return ResponseEntity.status(HttpStatus.OK).build();
         } catch (Exception e){
             log.error("ai 사진 만들기 에러"+e.getMessage());

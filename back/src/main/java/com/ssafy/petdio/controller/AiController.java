@@ -32,10 +32,10 @@ public class AiController {
         log.info("hello createImages");
         try {
             Long userId = Long.valueOf(authentication.getName());
-            log.info("---------------fcm test------------");
-            Map<String, String> map = new HashMap<>();
-            map.put("test", "test11");
-            fcmService.sendMessageTo(userId, NotificationMessage.builder().title("12").image("1234").body("123").recipientToken("cSSKYNg6UT4Kkda3HLmLwy:APA91bH5tbpVYGMSpmHL9DNtZm0aEWe1vspMmbYaD7Xi1CVncPcO4by8LWz4MHC0QRSmxl_J_a2Vd1KxcIOahLQTorIA82A-oNevVAUkUhIu7bgeV2qLKBM3xzVhJQshfCnnyg7r-hmL").data(map).build());
+//            log.info("---------------fcm test------------");
+//            Map<String, String> map = new HashMap<>();
+//            map.put("test", "test11");
+//            fcmService.sendMessageTo(userId, NotificationMessage.builder().title("12").image("1234").body("123").recipientToken("cSSKYNg6UT4Kkda3HLmLwy:APA91bH5tbpVYGMSpmHL9DNtZm0aEWe1vspMmbYaD7Xi1CVncPcO4by8LWz4MHC0QRSmxl_J_a2Vd1KxcIOahLQTorIA82A-oNevVAUkUhIu7bgeV2qLKBM3xzVhJQshfCnnyg7r-hmL").data(map).build());
             aiService.makeAiImage(conceptId, imageFile, breed, userId);
             log.info("ai사진 만들기 요청 성공 url!!");
             return ResponseEntity.status(HttpStatus.OK).build();
@@ -51,7 +51,8 @@ public class AiController {
 
         log.info("webhook!!! " + url);
         try {
-            log.info("결과!!!: " + aiService.getImage(url));
+            aiService.getImage(url);
+
 //            return ResponseEntity.status(HttpStatus.OK).bo;
         } catch (Exception e) {
             throw new RuntimeException(e);

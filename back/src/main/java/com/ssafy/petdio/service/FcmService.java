@@ -24,7 +24,7 @@ import java.util.Objects;
 public class FcmService {
 //    private final FirebaseMessaging firebaseMessaging;
     private final UserRepository userRepository;
-    private ResourceLoader resourceLoader;
+    private final ResourceLoader resourceLoader;
     public void sendMessageTo(Long id) throws IOException {
         User user = userRepository.findByUserIdAndUserDeleteIsNull(id).orElseThrow();
         String token = "cSSKYNg6UT4Kkda3HLmLwy:APA91bEhnO-doBsdgxlSD6pKeJBRLqjjq8Sfcm9Rq46QkRRAgOlDkNPyhdyTSL6G7K1QyqTm8STbfV-GQXO7RFz0Rm873aHzku0LwiGl0IDl9NZ7ReuOoToZ0sJgX7p28CLFaR3_9nbf";

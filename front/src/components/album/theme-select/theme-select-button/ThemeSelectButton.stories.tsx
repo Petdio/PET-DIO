@@ -15,5 +15,5 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
-  args: { isFiltered: true },
+  args: { disabled: false, isFiltered: true },
 };

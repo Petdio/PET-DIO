@@ -8,6 +8,7 @@ const runtimeCaching = require("next-pwa/cache");
 
 module.exports = withPWA({
   reactStrictMode: false,
+  buildExcludes: [/app-build-manifest.json$/],
   runtimeCaching,
   env: {
     BASE_URL: process.env.BASE_URL,

@@ -30,15 +30,15 @@ public class FcmService {
         String token = "cSSKYNg6UT4Kkda3HLmLwy:APA91bH5tbpVYGMSpmHL9DNtZm0aEWe1vspMmbYaD7Xi1CVncPcO4by8LWz4MHC0QRSmxl_J_a2Vd1KxcIOahLQTorIA82A-oNevVAUkUhIu7bgeV2qLKBM3xzVhJQshfCnnyg7r-hmL";
 //            if(user.getFcmToken() != null) {
         if(token != null) {
-//                    String message = makeMessage(user.getFcmToken());
-            String message = makeMessage("ZHk82ZK62ea5kaIKnze-lyrlkNsWD5jzAYGaBnKBnrk");
+                    String message = makeMessage(user.getFcmToken());
+//            String message = makeMessage("ZHk82ZK62ea5kaIKnze-lyrlkNsWD5jzAYGaBnKBnrk");
                     OkHttpClient client = new OkHttpClient();
                     RequestBody requestBody = RequestBody.create(message,
                             MediaType.get("application/json; charset=utf-8"));
                     Request request = new Request.Builder()
                             .url("https://fcm.googleapis.com/fcm/send")
                             .post(requestBody)
-                            .addHeader(HttpHeaders.AUTHORIZATION, "Bearer " + getAccessToken())
+                            .addHeader(HttpHeaders.AUTHORIZATION, "key=" + getAccessToken())
                             .addHeader(HttpHeaders.CONTENT_TYPE, "application/json; UTF-8")
                             .build();
                     Response response = client.newCall(request).execute();

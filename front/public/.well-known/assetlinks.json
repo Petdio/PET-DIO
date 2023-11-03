@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "kr.co.petdio.twa",
+        "sha256_cert_fingerprints": ["FF:C0:DB:17:90:3E:2A:D6:93:9C:A8:F9:E0:CB:02:F1:C5:D6:D3:BB:99:F3:95:60:8C:D5:A2:07:CD:00:89:C5"]
+      }
+    }]

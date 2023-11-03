@@ -18,8 +18,10 @@ import java.util.stream.Collectors;
 public class AlbumServiceImpl implements AlbumService{
     private final AlbumRepository albumRepository;
     private final ConceptRepository conceptRepository;
-    @Value("${S3Url}")
-    private final String S3URL;
+
+    @Value("${cloud.aws.url}")
+    private String S3_URL;
+
     @Override
     public List<AlbumDto.Inventory> albumList(Long user_id){
         List<Album> album = albumRepository.findAllByUser_UserId(user_id);
@@ -32,7 +34,7 @@ public class AlbumServiceImpl implements AlbumService{
                                 .map(album1 -> AlbumDto.Detail.builder()
                                         .albumId(album1.getAlbumId())
                                         .albumCreated(album1.getAlbumCreated())
-                                        .albumURL(S3URL + album1.getAlbumImgUrl()).build())
+                                        .albumURL(S3_URL + album1.getAlbumImgUrl()).build())
                                 .collect(Collectors.toList()))
                         .build()).collect(Collectors.toList());
     }

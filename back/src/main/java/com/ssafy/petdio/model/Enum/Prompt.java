@@ -73,8 +73,9 @@ public enum Prompt {
                     "twisted fingers, double image, malformed hands, multiple heads, extra limb, ugly, " +
                     "poorly drawn hands, missing limb, cut-off, over satured, grain, lowères, bad anatomy, " +
                     "poorly drawn face, mutation, mutated, floating limbs, disconnected limbs"),
-    CHRISTMAS(5L, "breed sticker, Christmas themed, nouveau border, sticker design," +
-            " simple, bold, art deco, vector, graphic",
+    CHRISTMAS(5L, "A breed wearing a red Christmas hat, sitting next to a" +
+            "Christmas tree made of little paws. Happy Pawildays written in groovy font." +
+            "White background. T-shirt design.",
             "");
 
 

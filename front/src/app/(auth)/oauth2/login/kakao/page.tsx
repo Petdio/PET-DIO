@@ -31,7 +31,7 @@ export default function KakaoLogInPage() {
       );
       if (code) {
         console.log(`code: ${code}`);
-        loginReq(code, token);
+        loginReq(code);
       }
       return;
     }
@@ -81,14 +81,16 @@ export default function KakaoLogInPage() {
 
   useEffect(() => {
     const code = new URL(document.location.toString()).searchParams.get("code");
-    if (code && token !== "error") {
-      console.log(`code: ${code}`);
-      console.log(`fcmToken: ${token}`);
-      loginReq(code, token);
-    } else {
-      if (code) {
+    if (code) {
+      if (token !== "error") {
         console.log(`code: ${code}`);
-        loginReq(code);
+        console.log(`fcmToken: ${token}`);
+        loginReq(code, token);
+      } else {
+        if (code) {
+          console.log(`code: ${code}`);
+          loginReq(code);
+        }
       }
     }
   }, [token]);

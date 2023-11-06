@@ -26,6 +26,7 @@ function AlbumList() {
       if (response !== undefined) {
         const data = response.data;
         setAlbumData(data);
+        console.log(data);
       } else {
         console.log('response undefined');
       }
@@ -60,6 +61,7 @@ function AlbumList() {
     albumURL: '',
     themeName: '',
     albumCreated: '',
+    path: '',
   });
   const handleModalOpen = (modalInfo: ModalInfoProps) => {
     setModalOpen(true);
@@ -114,6 +116,7 @@ function AlbumList() {
         themeName={modalInfo.themeName}
         imgInfo={modalInfo}
         handleClose={handleModalClose}
+        againURL={modalInfo.path as string}
       />
       <ThemeSelectButton
         disabled={numOfThemes <= 1 ? true : false}

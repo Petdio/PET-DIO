@@ -55,7 +55,7 @@ export default function KakaoLogInPage() {
           if (code) {
             console.log(`code: ${code}`);
             console.log(`fcmToken: ${fcmToken}`);
-            loginReq(code);
+            loginReq(code, fcmToken);
           }
         } else {
           console.log(

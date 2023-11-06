@@ -67,7 +67,7 @@ export default function KakaoLogInPage() {
   useEffect(() => {
     const code = new URL(document.location.toString()).searchParams.get("code");
     onMessageFCM();
-    if (code && token !== "") {
+    if (code) {
       console.log(`code: ${code}`);
       console.log(`fcmToken: ${token}`);
       loginReq(code);

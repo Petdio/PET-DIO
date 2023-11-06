@@ -79,12 +79,9 @@ public class FileService {
             PutObjectResult result = amazonS3.putObject(
                     new PutObjectRequest(bucket, fileName, is, om)
             );
-        } catch (AmazonServiceException e){
+        } catch (IOException e){
             log.error(e.getMessage());
-            return "FAIL";
-        } catch (SdkClientException e) {
-            log.error(e.getMessage());
-            return "FAIL";
+            throw new IOException("s3에 사진 저장 실패");
         }
         return fileName;
     }

@@ -8,5 +8,4 @@ public interface AlbumService {
     List<AlbumDto.Inventory> albumList(Long album_user_id);
 
     void AlbumDelete(Long album_id);
-
 }

@@ -85,4 +85,8 @@ public class User {
         this.userDelete = Timestamp.from(Instant.now());
     }
 
+    public void updateFcmToken(String fcmToken) {
+        this.fcmToken = fcmToken;
+    }
+
 }

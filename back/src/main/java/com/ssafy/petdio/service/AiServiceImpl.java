@@ -84,9 +84,6 @@ public class AiServiceImpl implements AiService {
         String generationId = getGenerationId(leonardoUrl);
         AiDto.Data imageData = redisTemplate.opsForValue().get(generationId);
 
-
-//        String s3Url = leonardo.getImageByGenerationId(generationId);
-//        if (s3Url == null) return null;
         String s3Url = fileService.upload(leonardoUrl);
         albumRepository.save(
                 Album.builder()
@@ -99,25 +96,20 @@ public class AiServiceImpl implements AiService {
                                 .userId(imageData.getUserId())
                                 .build())
                         .build());
-
+        log.info("만들어진 url 링크: " + defaultUrl + s3Url);
         log.info("---------------fcm test------------");
         User user = userRepository.findByUserIdAndUserDeleteIsNull(imageData.getUserId()).orElseThrow();
         Map<String, String> map = new HashMap<>();
         map.put("test", "test11");
-        userService.useCoin(user.getUserId());
-        if (user.getFcmToken() == null) throw new Exception();
-        fcmService.sendMessageTo(imageData.getUserId(),
-                NotificationMessage.builder()
+        if (user.getFcmToken() == null) throw new Exception("fcm 토큰 없음");
+        fcmService.sendMessageTo(NotificationMessage.builder()
                         .title("사진 만들기 완료")
                         .image(defaultUrl + s3Url)
                         .body("확인해주세요!")
-//                        .recipientToken("cSSKYNg6UT4Kkda3HLmLwy:APA91bH5tbpVYGMSpmHL9DNtZm0aEWe1vspMmbYaD7Xi1CVncPcO4by8LWz4MHC0QRSmxl_J_a2Vd1KxcIOahLQTorIA82A-oNevVAUkUhIu7bgeV2qLKBM3xzVhJQshfCnnyg7r-hmL")
                         .recipientToken(user.getFcmToken())
                         .data(map)
                         .build());
-
-
-//        return defaultUrl + s3Url;
+        userService.useCoin(user.getUserId());
     }
 
     private String getGenerationId(String leonardoUrl) throws Exception {

@@ -24,9 +24,11 @@ export default function KakaoLogInPage() {
 
   useEffect(() => {
     const code = new URL(document.location.toString()).searchParams.get("code");
-    if (code) {
+    if (code && fcmToken !== "") {
+      if (fcmToken !== "DENIED") {
+        console.log(`fcmToken: ${fcmToken}`);
+      }
       console.log(`code: ${code}`);
-      console.log(`fcmToken: ${fcmToken}`);
       loginReq(code);
     }
   }, [fcmToken]);

@@ -47,6 +47,7 @@ export default function FCM() {
     // 브라우저에 알림 권한을 요청합니다.
     const permission = await Notification.requestPermission();
     if (permission !== "granted") {
+      setFcmToken("DENIED");
       return;
     }
 
@@ -73,12 +74,14 @@ export default function FCM() {
           setFcmToken(token);
           console.log(token);
         } else {
+          setFcmToken("DENIED");
           console.log(
             "No registration token available. Request permission to generate one."
           );
         }
       })
       .catch((err) => {
+        setFcmToken("DENIED");
         console.log("An error occurred while retrieving token. ", err);
       });
 

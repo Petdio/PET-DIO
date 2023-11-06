@@ -38,6 +38,19 @@ export default function RootLayout({
           gtag('config', 'G-4HGPR7ZWG3');
         `}
       </Script>
+      <Script id="beusable-heatmap">
+        {`
+          (function(w, d, a){
+            w.__beusablerumclient__ = {
+            load : function(src){
+            var b = d.createElement("script");
+            b.src = src; b.async=true; b.type = "text/javascript";
+            d.getElementsByTagName("head")[0].appendChild(b);
+              }
+            };w.__beusablerumclient__.load(a + "?url=" + encodeURIComponent(d.URL));
+          })(window, document, "//rum.beusable.net/load/b231106e092340u612");
+        `}
+      </Script>
       <ThemeRegistry>
         <body
           className={inter.className}

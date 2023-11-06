@@ -5,8 +5,6 @@ import { initializeApp } from "firebase/app";
 import { getMessaging, onMessage, getToken } from "firebase/messaging";
 
 export default function KakaoLogInPage() {
-  const code = new URL(document.location.toString()).searchParams.get("code");
-
   async function loginReq(code: string, fcmToken?: string) {
     try {
       const response = await axios.post(
@@ -25,6 +23,7 @@ export default function KakaoLogInPage() {
   const onMessageFCM = async () => {
     // 브라우저에 알림 권한을 요청합니다.
     const permission = await Notification.requestPermission();
+    const code = new URL(document.location.toString()).searchParams.get("code");
     if (permission !== "granted") {
       if (code) {
         console.log(`code: ${code}`);

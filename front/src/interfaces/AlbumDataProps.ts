@@ -1,4 +1,3 @@
-
 export interface ImgInfoProps {
   albumId: number;
   albumURL: string;
@@ -8,5 +7,6 @@ export interface ImgInfoProps {
 export interface AlbumDataProps {
   conceptName: string;
   conceptId: number;
+  path: string;
   detail: ImgInfoProps[];
 }

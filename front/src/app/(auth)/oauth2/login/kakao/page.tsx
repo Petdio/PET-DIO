@@ -69,7 +69,10 @@ export default function KakaoLogInPage() {
     const code = new URL(document.location.toString()).searchParams.get("code");
     console.log("code", code);
     onMessageFCM();
+    console.log(`code: ${code}`);
+    console.log(`fcmtoken: ${fcmtoken}`);
     if (code && fcmtoken !== "") {
+      console.log("login!");
       loginReq(code);
     }
   }, []);

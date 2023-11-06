@@ -46,7 +46,11 @@ public class AiServiceImpl implements AiService {
     @Override
     public void makeAiImage(Long conceptId, MultipartFile multipartFile, String breed, Long userId) throws IOException {
         List<Setting> settings = settingRepository.findAllByConcept_ConceptId(conceptId);
-        String generationId = null;
+        String[] modelIds = {"e316348f-7773-490e-adcd-46757c738eb7", "ac614f96-1082-45bf-be9d-757f2d31c174",
+                "1e60896f-3c26-4296-8ecc-53e2afecc132","5c232a9e-9061-4777-980a-ddc8e65647c6","2067ae52-33fd-4a82-bb92-c2c55e7d2786",
+                "d69c8273-6b17-4a30-a13e-d6637ae1c644","f1929ea3-b169-4c18-a16c-5d58b4292c69","1aa0f478-51be-4efd-94e8-76bfc8f533af"};
+        String selectedModelId = getRandomModelId(modelIds);
+        String generationId = leonardo.generateAndFetchImages(leonardo.putJsonPayload(settings, Prompt.findEnumById(conceptId), leonardo.init(multipartFile), breed, selectedModelId));
 
 
         if (conceptId == 1) {
@@ -90,9 +94,6 @@ public class AiServiceImpl implements AiService {
         String generationId = getGenerationId(leonardoUrl);
         AiDto.Data imageData = redisTemplate.opsForValue().get(generationId);
 
-
-//        String s3Url = leonardo.getImageByGenerationId(generationId);
-//        if (s3Url == null) return null;
         String s3Url = fileService.upload(leonardoUrl);
         albumRepository.save(
                 Album.builder()
@@ -105,25 +106,20 @@ public class AiServiceImpl implements AiService {
                                 .userId(imageData.getUserId())
                                 .build())
                         .build());
-
+        log.info("만들어진 url 링크: " + defaultUrl + s3Url);
         log.info("---------------fcm test------------");
         User user = userRepository.findByUserIdAndUserDeleteIsNull(imageData.getUserId()).orElseThrow();
         Map<String, String> map = new HashMap<>();
         map.put("test", "test11");
-        userService.useCoin(user.getUserId());
-        if (user.getFcmToken() == null) throw new Exception();
-        fcmService.sendMessageTo(imageData.getUserId(),
-                NotificationMessage.builder()
+        if (user.getFcmToken() == null) throw new Exception("fcm 토큰 없음");
+        fcmService.sendMessageTo(NotificationMessage.builder()
                         .title("사진 만들기 완료")
                         .image(defaultUrl + s3Url)
                         .body("확인해주세요!")
-//                        .recipientToken("cSSKYNg6UT4Kkda3HLmLwy:APA91bH5tbpVYGMSpmHL9DNtZm0aEWe1vspMmbYaD7Xi1CVncPcO4by8LWz4MHC0QRSmxl_J_a2Vd1KxcIOahLQTorIA82A-oNevVAUkUhIu7bgeV2qLKBM3xzVhJQshfCnnyg7r-hmL")
                         .recipientToken(user.getFcmToken())
                         .data(map)
                         .build());
-
-
-//        return defaultUrl + s3Url;
+        userService.useCoin(user.getUserId());
     }
 
     private String getGenerationId(String leonardoUrl) throws Exception {

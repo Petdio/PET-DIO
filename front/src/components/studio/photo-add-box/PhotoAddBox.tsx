@@ -21,6 +21,7 @@ import { Cropper, ReactCropperElement } from "react-cropper";
 import "cropperjs/dist/cropper.css";
 import { TransitionProps } from "@mui/material/transitions";
 import { useRouter } from "next/navigation";
+import { useFormData } from "@/components/common/FormDataProvider";
 
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {
@@ -38,6 +39,7 @@ function PhotoAddBox() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const cropperRef = useRef<ReactCropperElement>(null);
   const router = useRouter();
+  const { formData, setFormData } = useFormData();
 
   const handleFileUploadClick = () => {
     if (fileInputRef.current) {
@@ -48,6 +50,7 @@ function PhotoAddBox() {
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
+      setFormData({ ...formData, imageFile: event.target.files[0] });
       const reader = new FileReader();
       reader.onloadend = () => {
         const img = new Image();

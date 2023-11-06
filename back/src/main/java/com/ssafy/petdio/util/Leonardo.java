@@ -22,7 +22,6 @@ import java.util.List;
 public class Leonardo {
     private final LeonardoConfig leonardoConfig;
     private String AUTHORIZATION;
-
     OkHttpClient client = new OkHttpClient();
 
     @PostConstruct
@@ -117,8 +116,6 @@ public class Leonardo {
                 default -> generationPayload.put(setting.getSettingName(), setting.getSettingDetail());
             }
         }
-
-
 
         generationPayload.put("prompt", prompt.getPrompt().replace("breed", breed));
         System.out.println(prompt.getPrompt().replace("breed", breed));

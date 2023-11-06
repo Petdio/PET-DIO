@@ -71,9 +71,9 @@ public class KakaoService {
         // 회원가입돼있어
         if (user.isPresent()) {
             log.info("회원가입 된 멤버입니다.");
-            // TODO
-            //  JWT Return Code Need
-            return user.orElseThrow();
+            User updateUser = user.get();
+            updateUser.updateFcmToken(fcmToken);
+            return updateUser;
         }
         // 회원가입 안돼있음
         // 카카오에서 정보가 제대로 받아와진 user면

@@ -14,12 +14,14 @@ function ImageThumbnail({
   themeName,
   idx,
   onClickFn,
+  path,
 }: Props) {
   const imgInfo = {
     albumId: albumId,
     albumURL: albumURL,
     albumCreated: albumCreated,
     themeName: themeName,
+    path: path,
   };
   return (
     <Box

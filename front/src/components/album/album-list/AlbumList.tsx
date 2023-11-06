@@ -26,7 +26,7 @@ function AlbumList() {
       if (response !== undefined) {
         const data = response.data;
         setAlbumData(data);
-        console.log(data);
+        // console.log(data);
       } else {
         console.log('response undefined');
       }
@@ -64,13 +64,12 @@ function AlbumList() {
     path: '',
   });
   const handleModalOpen = (modalInfo: ModalInfoProps) => {
-    setModalOpen(true);
     setModalInfo(modalInfo);
+    setModalOpen(true);
   };
   const handleModalClose = () => {
     setModalOpen(false);
   };
-
   return (
     <>
       <Box marginTop="1rem">
@@ -78,7 +77,8 @@ function AlbumList() {
           albumData.map((data, idx) => {
             const themeEN = Object.values(data)[0];
             const themeKO = convertTheme(themeEN);
-            console.log(data.detail);
+            const path = data.path;
+            console.log(data);
             const isDisplayed =
               filteredThemeIdx === -1 || filteredThemeIdx === idx;
 
@@ -92,6 +92,7 @@ function AlbumList() {
                     themeName={themeKO}
                     imgList={data.detail}
                     onClickFn={handleModalOpen}
+                    againPath={path}
                   />
                 )}
                 <Box height="1rem" />

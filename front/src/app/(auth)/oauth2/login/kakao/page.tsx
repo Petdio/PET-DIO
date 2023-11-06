@@ -5,7 +5,7 @@ import { initializeApp } from "firebase/app";
 import { getMessaging, onMessage, getToken } from "firebase/messaging";
 
 export default function KakaoLogInPage() {
-  async function loginReq(code: string, fcmtoken: string) {
+  async function loginReq(code: string, fcmtoken: any) {
     try {
       const response = await axios.post(
         process.env.NEXT_PUBLIC_API_URL + `oauth2/login/kakao`,

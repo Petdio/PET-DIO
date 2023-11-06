@@ -5,11 +5,11 @@ import { initializeApp } from "firebase/app";
 import { getMessaging, onMessage, getToken } from "firebase/messaging";
 
 export default function KakaoLogInPage() {
-  async function loginReq(code: string, fcmtoken: any) {
+  async function loginReq(code: string, fcmToken: any) {
     try {
       const response = await axios.post(
         process.env.NEXT_PUBLIC_API_URL + `oauth2/login/kakao`,
-        { code, fcmtoken }
+        { code, fcmToken }
       );
 
       console.log(response);
@@ -48,7 +48,7 @@ export default function KakaoLogInPage() {
             "code"
           );
           console.log(`code: ${code}`);
-          console.log(`fcmtoken: ${currentToken}`);
+          console.log(`fcmToken: ${currentToken}`);
           // 정상적으로 토큰이 발급되면 콘솔에 출력합니다.
           if (code) {
             console.log("login!");

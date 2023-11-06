@@ -25,6 +25,7 @@ public class FcmService {
             firebaseMessaging.send(message);
             return "success";
         } catch (FirebaseMessagingException e) {
+            log.error(e.getMessage());
             throw new IOException("fcm 알림 전송 실패");
         }
     }

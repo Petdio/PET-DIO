@@ -24,5 +24,6 @@ export const Primary: Story = {
     },
     themeName: '우주복',
     isOpen: true,
+    againURL: '',
   },
 };

@@ -13,6 +13,8 @@ export default function convertTheme(themeEN: string) {
     case 'Mini':
       themeKO = '미니';
       break;
+    case 'Christmas':
+      themeKO = '크리스마스';
   }
   return themeKO;
 }

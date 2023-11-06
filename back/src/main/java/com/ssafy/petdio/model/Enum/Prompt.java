@@ -75,14 +75,7 @@ public enum Prompt {
                     "poorly drawn face, mutation, mutated, floating limbs, disconnected limbs"),
     CHRISTMAS(5L, "breed sticker, Christmas themed, nouveau border, sticker design," +
             " simple, bold, art deco, vector, graphic",
-            "out of frame, cropped, bad proportions, out of frame, bad anatomy, poorly drawn face, morbid," +
-            "mutilated,((extra eyes)), ((extra arms)), ((extra legs)), ((extra fingers))" +
-            "((extra headphones)), ((two headphones)), ((extra heads)), ((extra eyes)) (((2 heads)))" +
-            "duplicate,  blurry, abstract, disfigured, deformed, disfigured, bad art, deformed," +
-            "poorly drawn,elongated body, cropped image,out of frame,draft,deformed hands, " +
-            "twisted fingers, double image, malformed hands, multiple heads, extra limb, ugly," +
-            "poorly drawn hands, missing limb, cut-off, over satured, grain, lowères, bad anatomy," +
-            "poorly drawn face, mutation, mutated, floating limbs, disconnected limbs");
+            "");
 
 
 

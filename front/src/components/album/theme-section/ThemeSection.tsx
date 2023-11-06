@@ -9,9 +9,10 @@ interface Props {
   themeName: string;
   imgList?: ImgInfoProps[];
   onClickFn?: (imgInfo: ModalInfoProps) => void;
+  againPath: string
 }
 
-function ThemeSection({ themeName, imgList, onClickFn }: Props) {
+function ThemeSection({ themeName, imgList, onClickFn, againPath }: Props) {
   return (
     <>
       <Box
@@ -42,6 +43,7 @@ function ThemeSection({ themeName, imgList, onClickFn }: Props) {
                   idx={idx}
                   onClickFn={onClickFn}
                   themeName={themeName}
+                  path={againPath}
                 />
               );
             })}

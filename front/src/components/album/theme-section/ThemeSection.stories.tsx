@@ -17,6 +17,7 @@ type Story = StoryObj<typeof meta>;
 export const Primary: Story = {
   args: {
     themeName: '우주복',
+    againPath: '',
     imgList: [
       {
         albumId: 0,

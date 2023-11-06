@@ -156,7 +156,7 @@ function DetailModal({
             endIcon={<CameraIcon />}
             fullWidth
             sx={{ width: '100%' }}
-            onClick={() => router.push(`/theme/${againURL}`)}
+            onClick={() => router.push(`/studio/${againURL}/add-photo`)}
           >
             이 테마로 다시 만들기
           </ActionButton>

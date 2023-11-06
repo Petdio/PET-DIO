@@ -1,5 +1,6 @@
 'use client';
 import { forwardRef, ReactElement, Ref } from 'react';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import {
   Box,
@@ -43,10 +44,18 @@ interface Props {
   themeName: string;
   isOpen: boolean;
   handleClose: () => void;
+  againURL: string;
 }
 
-function DetailModal({ imgInfo, themeName, isOpen, handleClose }: Props) {
+function DetailModal({
+  imgInfo,
+  themeName,
+  isOpen,
+  handleClose,
+  againURL,
+}: Props) {
   const { albumURL, albumCreated } = imgInfo;
+  const router = useRouter();
   if (!isOpen) return null;
   return (
     <Dialog
@@ -147,6 +156,7 @@ function DetailModal({ imgInfo, themeName, isOpen, handleClose }: Props) {
             endIcon={<CameraIcon />}
             fullWidth
             sx={{ width: '100%' }}
+            onClick={() => router.push(`/theme/${againURL}`)}
           >
             이 테마로 다시 만들기
           </ActionButton>

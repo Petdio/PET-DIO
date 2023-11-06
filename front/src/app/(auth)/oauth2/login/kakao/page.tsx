@@ -19,7 +19,7 @@ export default function KakaoLogInPage() {
       if (fcmToken) {
         localStorage.setItem("fcmToken", fcmToken);
       }
-      // window.location.href = "/studio";
+      window.location.href = "/studio";
     } catch (error) {
       console.error("에러 발생:", error);
     }
@@ -28,7 +28,6 @@ export default function KakaoLogInPage() {
   const onMessageFCM = async () => {
     // 브라우저에 알림 권한을 요청합니다.
     const permission = await Notification.requestPermission();
-    console.log(permission);
     if (permission !== "granted") {
       const code = new URL(document.location.toString()).searchParams.get(
         "code"

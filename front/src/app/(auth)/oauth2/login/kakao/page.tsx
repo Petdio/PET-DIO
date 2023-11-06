@@ -29,7 +29,7 @@ export default function KakaoLogInPage() {
       console.log(`fcmToken: ${fcmToken}`);
       loginReq(code);
     }
-  }, []);
+  }, [fcmToken]);
 
   return <></>;
 }

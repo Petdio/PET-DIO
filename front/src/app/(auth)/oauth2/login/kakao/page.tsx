@@ -1,10 +1,12 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { initializeApp } from "firebase/app";
 import { getMessaging, onMessage, getToken } from "firebase/messaging";
 
 export default function KakaoLogInPage() {
+  const [token, setToken] = useState("");
+
   async function loginReq(code: string, fcmToken?: string) {
     try {
       const response = await axios.post(
@@ -23,12 +25,7 @@ export default function KakaoLogInPage() {
   const onMessageFCM = async () => {
     // 브라우저에 알림 권한을 요청합니다.
     const permission = await Notification.requestPermission();
-    const code = new URL(document.location.toString()).searchParams.get("code");
     if (permission !== "granted") {
-      if (code) {
-        console.log(`code: ${code}`);
-        loginReq(code);
-      }
       return;
     }
 
@@ -51,12 +48,8 @@ export default function KakaoLogInPage() {
     })
       .then((fcmToken) => {
         if (fcmToken) {
+          setToken(fcmToken);
           // 정상적으로 토큰이 발급되면 콘솔에 출력합니다.
-          if (code) {
-            console.log(`code: ${code}`);
-            console.log(`fcmToken: ${fcmToken}`);
-            loginReq(code, fcmToken);
-          }
         } else {
           console.log(
             "No registration token available. Request permission to generate one."
@@ -75,6 +68,12 @@ export default function KakaoLogInPage() {
 
   useEffect(() => {
     onMessageFCM();
+    const code = new URL(document.location.toString()).searchParams.get("code");
+    if (code) {
+      console.log(`code: ${code}`);
+      console.log(`fcmToken: ${token}`);
+      loginReq(code, token);
+    }
   }, []);
 
   return <></>;

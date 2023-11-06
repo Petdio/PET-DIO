@@ -7,10 +7,10 @@ type FormData = {
   imageFile: File | null;
 };
 
-type FormDataContextType = {
+interface FormDataContextType {
   formData: FormData;
   setFormData: React.Dispatch<React.SetStateAction<FormData>>;
-};
+}
 
 const FormDataContext = createContext<FormDataContextType | undefined>(
   undefined

@@ -1,13 +1,12 @@
 "use client";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { initializeApp } from "firebase/app";
-import { getMessaging, onMessage, getToken } from "firebase/messaging";
+import { useFcmToken } from "@/app/FCM";
 
 export default function KakaoLogInPage() {
-  const [token, setToken] = useState("");
+  const { fcmToken } = useFcmToken();
 
-  async function loginReq(code: string, fcmToken?: string) {
+  async function loginReq(code: string) {
     try {
       const response = await axios.post(
         process.env.NEXT_PUBLIC_API_URL + `oauth2/login/kakao`,
@@ -16,85 +15,21 @@ export default function KakaoLogInPage() {
 
       console.log(response);
       localStorage.setItem("access-token", response.data.accessToken);
-      if (fcmToken) {
-        localStorage.setItem("fcmToken", fcmToken);
-      }
+      localStorage.setItem("fcmToken", fcmToken);
       window.location.href = "/studio";
     } catch (error) {
       console.error("에러 발생:", error);
     }
   }
 
-  const onMessageFCM = async () => {
-    // 브라우저에 알림 권한을 요청합니다.
-    const permission = await Notification.requestPermission();
-    if (permission !== "granted") {
-      const code = new URL(document.location.toString()).searchParams.get(
-        "code"
-      );
-      if (code) {
-        console.log(`code: ${code}`);
-        loginReq(code);
-      }
-      return;
-    }
-
-    // 이곳에도 아까 위에서 앱 등록할때 받은 'firebaseConfig' 값을 넣어주세요.
-    const firebaseApp = initializeApp({
-      apiKey: process.env.NEXT_PUBLIC_FIREBASE_APIKEY,
-      authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-      projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECTID,
-      storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGEBUCKET,
-      messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGINGSENDERID,
-      appId: process.env.NEXT_PUBLIC_FIREBASE_APPID,
-      measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENTID,
-    });
-
-    const messaging = getMessaging(firebaseApp);
-
-    // 이곳 vapidKey 값으로 아까 토큰에서 사용한다고 했던 인증서 키 값을 넣어주세요.
-    getToken(messaging, {
-      vapidKey: process.env.NEXT_PUBLIC_FIREBASE_VAPIDKEY,
-    })
-      .then((fcmToken) => {
-        if (fcmToken) {
-          setToken(fcmToken);
-          // 정상적으로 토큰이 발급되면 콘솔에 출력합니다.
-        } else {
-          setToken("error");
-          console.log(
-            "No registration token available. Request permission to generate one."
-          );
-        }
-      })
-      .catch((err) => {
-        setToken("error");
-        console.log("An error occurred while retrieving token. ", err);
-      });
-
-    // 메세지가 수신되면 역시 콘솔에 출력합니다.
-    onMessage(messaging, (payload) => {
-      console.log("Message received. ", payload);
-    });
-  };
-
-  useEffect(() => {
-    onMessageFCM();
-  }, []);
-
   useEffect(() => {
     const code = new URL(document.location.toString()).searchParams.get("code");
-    if (code && token !== "") {
-      if (token !== "error") {
-        console.log(`code: ${code}`);
-        console.log(`fcmToken: ${token}`);
-        loginReq(code, token);
-      } else {
-        console.log(`code: ${code}`);
-        loginReq(code);
-      }
+    if (code) {
+      console.log(`code: ${code}`);
+      console.log(`fcmToken: ${fcmToken}`);
+      loginReq(code);
     }
-  }, [token]);
+  }, []);
 
   return <></>;
 }

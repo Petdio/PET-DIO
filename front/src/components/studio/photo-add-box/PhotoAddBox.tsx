@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { forwardRef, useState, useRef, ChangeEvent, useEffect } from 'react';
-import NextImage from 'next/image';
+import { forwardRef, useState, useRef, ChangeEvent, useEffect } from "react";
+import NextImage from "next/image";
 import {
   Box,
   Typography,
@@ -12,16 +12,16 @@ import {
   DialogContent,
   DialogActions,
   Button,
-} from '@mui/material';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { theme } from '@/styles/ThemeRegistry';
-import ButtonWithTooltip from '../Tooltip/button-with-tooltip/ButtonWithTooltip';
-import { Cropper, ReactCropperElement } from 'react-cropper';
-import 'cropperjs/dist/cropper.css';
-import { TransitionProps } from '@mui/material/transitions';
-import { useRouter } from 'next/navigation';
-import { useFormData } from '@/components/common/FormDataProvider';
+} from "@mui/material";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { theme } from "@/styles/ThemeRegistry";
+import ButtonWithTooltip from "../Tooltip/button-with-tooltip/ButtonWithTooltip";
+import { Cropper, ReactCropperElement } from "react-cropper";
+import "cropperjs/dist/cropper.css";
+import { TransitionProps } from "@mui/material/transitions";
+import { useRouter } from "next/navigation";
+import { useFormData } from "@/app/FormDataProvider";
 
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {
@@ -29,13 +29,7 @@ const Transition = forwardRef(function Transition(
   },
   ref: React.Ref<unknown>
 ) {
-  return (
-    <Slide
-      direction="up"
-      ref={ref}
-      {...props}
-    />
-  );
+  return <Slide direction="up" ref={ref} {...props} />;
 });
 
 function PhotoAddBox() {
@@ -88,7 +82,7 @@ function PhotoAddBox() {
   };
 
   const getCropData = () => {
-    if (typeof cropperRef.current?.cropper !== 'undefined') {
+    if (typeof cropperRef.current?.cropper !== "undefined") {
       onCrop(cropperRef.current?.cropper.getCroppedCanvas().toDataURL());
     }
     handleClose();
@@ -111,7 +105,7 @@ function PhotoAddBox() {
   };
 
   const handleUpload = () => {
-    router.push('setting');
+    router.push("setting");
   };
 
   return (
@@ -126,9 +120,9 @@ function PhotoAddBox() {
           borderRadius="0.5rem"
           sx={{
             aspectRatio: imageWidth / imageHeight,
-            borderRadius: '0.5rem',
+            borderRadius: "0.5rem",
             backgroundColor: theme.palette.grey[200],
-            cursor: 'pointer',
+            cursor: "pointer",
           }}
           onClick={handleFileUploadClick}
         >
@@ -136,7 +130,7 @@ function PhotoAddBox() {
             <input
               type="file"
               ref={fileInputRef}
-              style={{ display: 'none' }}
+              style={{ display: "none" }}
               onChange={handleFileChange}
             />
           ) : (
@@ -147,22 +141,22 @@ function PhotoAddBox() {
                 fill
                 placeholder="empty"
                 style={{
-                  borderRadius: '0.5rem',
-                  cursor: 'default',
-                  objectFit: 'cover',
-                  objectPosition: 'center center',
+                  borderRadius: "0.5rem",
+                  cursor: "default",
+                  objectFit: "cover",
+                  objectPosition: "center center",
                 }}
               />
               <IconButton
                 className="parentBtn"
                 sx={{
-                  position: 'absolute',
-                  right: '1rem',
-                  bottom: '1rem',
-                  width: '2rem',
-                  height: '2rem',
-                  '&:hover': {
-                    '& .MuiSvgIcon-root': {
+                  position: "absolute",
+                  right: "1rem",
+                  bottom: "1rem",
+                  width: "2rem",
+                  height: "2rem",
+                  "&:hover": {
+                    "& .MuiSvgIcon-root": {
                       color: theme.palette.error.light,
                     },
                   },
@@ -171,10 +165,10 @@ function PhotoAddBox() {
               >
                 <Box
                   sx={{
-                    position: 'absolute',
-                    width: '100%',
-                    height: '100%',
-                    borderRadius: '0.25rem',
+                    position: "absolute",
+                    width: "100%",
+                    height: "100%",
+                    borderRadius: "0.25rem",
                     backgroundColor: theme.palette.grey[200],
                   }}
                 />
@@ -194,26 +188,20 @@ function PhotoAddBox() {
               top="50%"
               left="50%"
               alignItems="center"
-              sx={{ transform: 'translate(-50%, -50%)' }}
+              sx={{ transform: "translate(-50%, -50%)" }}
               fontSize="3.5rem"
             >
               <AddCircleIcon
                 fontSize="inherit"
                 sx={{
                   color: theme.palette.grey[400],
-                  marginBottom: '0.25rem',
+                  marginBottom: "0.25rem",
                 }}
               />
-              <Typography
-                color={theme.palette.text.secondary}
-                fontSize="1rem"
-              >
+              <Typography color={theme.palette.text.secondary} fontSize="1rem">
                 사진첩에서 업로드
               </Typography>
-              <Typography
-                color={theme.palette.text.secondary}
-                fontSize="1rem"
-              >
+              <Typography color={theme.palette.text.secondary} fontSize="1rem">
                 (이미지 파일만 올려주세요!)
               </Typography>
             </Box>
@@ -236,7 +224,7 @@ function PhotoAddBox() {
             toolTipContent="사진을 업로드해주세요!"
           />
         </Box>
-        <Box style={{ width: '0.5rem' }}></Box>
+        <Box style={{ width: "0.5rem" }}></Box>
         <Box style={{ flex: 1 }}>
           <ButtonWithTooltip
             mode="upload"
@@ -271,14 +259,14 @@ function PhotoAddBox() {
         </DialogContent>
         <DialogActions
           sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            padding: '0rem 1rem 3.5rem 1rem',
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            padding: "0rem 1rem 3.5rem 1rem",
           }}
         >
           <Button
-            sx={{ width: '50%' }}
+            sx={{ width: "50%" }}
             variant="contained"
             color="inherit"
             onClick={handleClose}
@@ -286,7 +274,7 @@ function PhotoAddBox() {
             취소
           </Button>
           <Button
-            sx={{ width: '50%' }}
+            sx={{ width: "50%" }}
             variant="contained"
             onClick={getCropData}
           >

@@ -26,7 +26,7 @@ import ButtonWithTooltip from "@/components/studio/Tooltip/button-with-tooltip/B
 import { payAvailable } from "@/utils/payAvailable";
 // constants
 import { price } from "@/constants/price";
-import { useFormData } from "@/components/common/FormDataProvider";
+import { useFormData } from "@/app/FormDataProvider";
 
 export default function Setting() {
   const router = useRouter();

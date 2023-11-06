@@ -1,13 +1,13 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import axios from "axios";
 import { initializeApp } from "firebase/app";
 import { getMessaging, onMessage, getToken } from "firebase/messaging";
 
 export default function KakaoLogInPage() {
-  const [fcmToken, setFcmToken] = useState("");
+  const code = new URL(document.location.toString()).searchParams.get("code");
 
-  async function loginReq(code: string) {
+  async function loginReq(code: string, fcmToken?: string) {
     try {
       const response = await axios.post(
         process.env.NEXT_PUBLIC_API_URL + `oauth2/login/kakao`,
@@ -25,7 +25,13 @@ export default function KakaoLogInPage() {
   const onMessageFCM = async () => {
     // 브라우저에 알림 권한을 요청합니다.
     const permission = await Notification.requestPermission();
-    if (permission !== "granted") return;
+    if (permission !== "granted") {
+      if (code) {
+        console.log(`code: ${code}`);
+        loginReq(code);
+      }
+      return;
+    }
 
     // 이곳에도 아까 위에서 앱 등록할때 받은 'firebaseConfig' 값을 넣어주세요.
     const firebaseApp = initializeApp({
@@ -44,10 +50,14 @@ export default function KakaoLogInPage() {
     getToken(messaging, {
       vapidKey: process.env.NEXT_PUBLIC_FIREBASE_VAPIDKEY,
     })
-      .then((currentToken) => {
-        if (currentToken) {
+      .then((fcmToken) => {
+        if (fcmToken) {
           // 정상적으로 토큰이 발급되면 콘솔에 출력합니다.
-          setFcmToken(currentToken);
+          if (code) {
+            console.log(`code: ${code}`);
+            console.log(`fcmToken: ${fcmToken}`);
+            loginReq(code);
+          }
         } else {
           console.log(
             "No registration token available. Request permission to generate one."
@@ -65,13 +75,7 @@ export default function KakaoLogInPage() {
   };
 
   useEffect(() => {
-    const code = new URL(document.location.toString()).searchParams.get("code");
     onMessageFCM();
-    if (code) {
-      console.log(`code: ${code}`);
-      console.log(`fcmToken: ${fcmToken}`);
-      loginReq(code);
-    }
   }, []);
 
   return <></>;

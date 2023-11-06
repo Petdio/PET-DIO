@@ -28,8 +28,8 @@ module.exports = withPWA({
         destination: `${process.env.NEXT_PUBLIC_API_URL}album/list`,
       },
       {
-        source: "/api/ai/create",
-        destination: `${process.env.NEXT_PUBLIC_API_URL}api/ai/create`,
+        source: "/ai/create",
+        destination: `${process.env.NEXT_PUBLIC_API_URL}ai/create`,
       },
     ];
   },

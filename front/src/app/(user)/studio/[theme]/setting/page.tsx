@@ -19,12 +19,14 @@ import {
 } from '@/app/(user)/studio/[theme]/setting/Breeds';
 import PriceChip from '@/components/common/price-chip/PriceChip';
 import HelpIcon from '@mui/icons-material/Help';
+import LoadingButton from '@mui/lab/LoadingButton';
 import { useRouter } from 'next/navigation';
 import ButtonWithTooltip from '@/components/studio/Tooltip/button-with-tooltip/ButtonWithTooltip';
 // utils
 import { payAvailable } from '@/utils/payAvailable';
 // constants
 import { price } from '@/constants/price';
+import { useFormData } from '@/components/common/FormDataProvider';
 
 export default function Setting() {
   const router = useRouter();
@@ -32,8 +34,9 @@ export default function Setting() {
   const [open, setOpen] = useState(false);
   const [animalSelected, setAnimalSelected] = useState(false);
   const [animalIdx, setAnimalIdx] = useState(-1);
-  const [breed, setBreed] = useState<string | undefined>();
   const [inputComplete, setInputComplete] = useState(false);
+  const { formData, setFormData } = useFormData();
+  const [isLoading, setIsLoading] = useState(false);
 
   // @todo 유저 현재 보유 코인: 전역으로 관리하는 편이 나은가?
   const [userCoin, setUserCoin] = useState(0);
@@ -70,18 +73,19 @@ export default function Setting() {
   ];
   const breedList = [dogBreedList, catBreedList];
 
-  const onSelect = (idx: number) => {
+  const onAnimalSelect = (idx: number) => {
     setAnimalSelected(true);
     setAnimalIdx(idx);
   };
 
-  const handleChange = (
+  const handleBreedChange = (
     e: React.SyntheticEvent,
-    value: { label: string } | null
+    value: { label: string; value: string } | null
   ): void => {
-    setBreed(value?.label);
     if (value?.label) {
       // setToggle(true);
+      setFormData({ ...formData, breed: value.value });
+      console.log(formData);
       setInputComplete(true);
     } else {
       setInputComplete(false);
@@ -96,8 +100,25 @@ export default function Setting() {
     setOpen(true);
   };
 
-  const sendSetting = () => {
-    router.push('generating');
+  const sendSetting = async () => {
+    setIsLoading(true);
+    try {
+      const response = await axios.post(
+        // process.env.NEXT_PUBLIC_API_URL + `api/ai/create`,
+        '/api/ai/create',
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('access-token')}`,
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+      console.log('이미지 업로드 성공', response);
+      router.push('generating');
+    } catch (error) {
+      console.error('이미지 업로드 실패', error);
+    }
   };
 
   return (
@@ -115,7 +136,7 @@ export default function Setting() {
         <Subtitle content="반려동물은 어떤 동물인가요?" />
         <AnimalSelectRadioGroup
           animalItems={animalType}
-          onSelect={onSelect}
+          onSelect={onAnimalSelect}
         />
         {animalSelected && (
           <Box sx={{ width: '100%', padding: '1rem' }}>
@@ -123,7 +144,7 @@ export default function Setting() {
               disablePortal
               id="dog-breed-selection"
               options={breedList[animalIdx]}
-              onChange={handleChange}
+              onChange={handleBreedChange}
               renderInput={(params) => (
                 <TextField
                   {...params}
@@ -213,13 +234,22 @@ export default function Setting() {
           />
         </Box>
         <Box padding="1rem">
-          <Button
-            sx={{ width: '100%' }}
-            variant="contained"
-            onClick={sendSetting}
-          >
-            확인
-          </Button>
+          {!isLoading ? (
+            <Button
+              sx={{ width: '100%' }}
+              variant="contained"
+              onClick={sendSetting}
+            >
+              확인
+            </Button>
+          ) : (
+            <LoadingButton
+              sx={{ width: '100%' }}
+              variant="contained"
+            >
+              확인
+            </LoadingButton>
+          )}
         </Box>
       </Box>
     </Box>

@@ -5,13 +5,13 @@ import { initializeApp } from "firebase/app";
 import { getMessaging, onMessage, getToken } from "firebase/messaging";
 
 export default function KakaoLogInPage() {
-  const [token, setToken] = useState("");
+  const [fcmToken, setFcmToken] = useState("");
 
   async function loginReq(code: string) {
     try {
       const response = await axios.post(
         process.env.NEXT_PUBLIC_API_URL + `oauth2/login/kakao`,
-        { code, token }
+        { code, fcmToken }
       );
 
       console.log(response);
@@ -47,7 +47,7 @@ export default function KakaoLogInPage() {
       .then((currentToken) => {
         if (currentToken) {
           // 정상적으로 토큰이 발급되면 콘솔에 출력합니다.
-          setToken(currentToken);
+          setFcmToken(currentToken);
         } else {
           console.log(
             "No registration token available. Request permission to generate one."
@@ -69,7 +69,7 @@ export default function KakaoLogInPage() {
     onMessageFCM();
     if (code) {
       console.log(`code: ${code}`);
-      console.log(`fcmToken: ${token}`);
+      console.log(`fcmToken: ${fcmToken}`);
       loginReq(code);
     }
   }, []);

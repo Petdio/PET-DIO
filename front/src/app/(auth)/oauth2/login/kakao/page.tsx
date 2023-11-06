@@ -16,6 +16,9 @@ export default function KakaoLogInPage() {
 
       console.log(response);
       localStorage.setItem("access-token", response.data.accessToken);
+      if (fcmToken) {
+        localStorage.setItem("fcmToken", fcmToken);
+      }
       window.location.href = "/studio";
     } catch (error) {
       console.error("에러 발생:", error);

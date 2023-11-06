@@ -26,6 +26,13 @@ export default function KakaoLogInPage() {
     // 브라우저에 알림 권한을 요청합니다.
     const permission = await Notification.requestPermission();
     if (permission !== "granted") {
+      const code = new URL(document.location.toString()).searchParams.get(
+        "code"
+      );
+      if (code) {
+        console.log(`code: ${code}`);
+        loginReq(code, token);
+      }
       return;
     }
 
@@ -51,12 +58,14 @@ export default function KakaoLogInPage() {
           setToken(fcmToken);
           // 정상적으로 토큰이 발급되면 콘솔에 출력합니다.
         } else {
+          setToken("error");
           console.log(
             "No registration token available. Request permission to generate one."
           );
         }
       })
       .catch((err) => {
+        setToken("error");
         console.log("An error occurred while retrieving token. ", err);
       });
 
@@ -68,13 +77,21 @@ export default function KakaoLogInPage() {
 
   useEffect(() => {
     onMessageFCM();
+  }, []);
+
+  useEffect(() => {
     const code = new URL(document.location.toString()).searchParams.get("code");
-    if (code) {
+    if (code && token !== "error") {
       console.log(`code: ${code}`);
       console.log(`fcmToken: ${token}`);
       loginReq(code, token);
+    } else {
+      if (code) {
+        console.log(`code: ${code}`);
+        loginReq(code);
+      }
     }
-  }, []);
+  }, [token]);
 
   return <></>;
 }

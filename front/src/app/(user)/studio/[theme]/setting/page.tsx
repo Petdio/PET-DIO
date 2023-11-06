@@ -157,18 +157,30 @@ export default function Setting() {
             </Typography>
             <Box paddingTop="1rem">
               {payAvailable(userCoin, generatePrice) ? (
-                <ButtonWithTooltip
-                  disabled={!inputComplete}
-                  toolTipContent="세부 설정 입력을 완료해주세요!"
-                  mode="upload"
-                  onClick={sendSetting}
-                  addComponent={
-                    <PriceChip
-                      price={generatePrice}
-                      isDisabled={!inputComplete}
-                    />
-                  }
-                />
+                !isLoading ? (
+                  <ButtonWithTooltip
+                    disabled={!inputComplete}
+                    toolTipContent="세부 설정 입력을 완료해주세요!"
+                    mode="upload"
+                    onClick={sendSetting}
+                    addComponent={
+                      <PriceChip
+                        price={generatePrice}
+                        isDisabled={!inputComplete}
+                      />
+                    }
+                  />
+                ) : (
+                  <LoadingButton
+                    loading
+                    sx={{ width: "100%" }}
+                    variant="contained"
+                    // loadingIndicator="요청중..."
+                    // loadingPosition="start"
+                  >
+                    요청중...
+                  </LoadingButton>
+                )
               ) : (
                 <Button
                   variant="contained"
@@ -233,8 +245,15 @@ export default function Setting() {
               확인
             </Button>
           ) : (
-            <LoadingButton sx={{ width: "100%" }} variant="contained">
-              확인
+            // 중복 코드 제거
+            <LoadingButton
+              loading
+              sx={{ width: "100%" }}
+              variant="contained"
+              // loadingIndicator="요청중..."
+              // loadingPosition="start"
+            >
+              요청중...
             </LoadingButton>
           )}
         </Box>

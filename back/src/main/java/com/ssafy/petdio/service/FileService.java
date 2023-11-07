@@ -1,7 +1,5 @@
 package com.ssafy.petdio.service;
 
-import com.amazonaws.AmazonServiceException;
-import com.amazonaws.SdkClientException;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
@@ -20,6 +18,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @RequiredArgsConstructor
@@ -78,6 +77,24 @@ public class FileService {
             om.setContentLength(is.available());
             PutObjectResult result = amazonS3.putObject(
                     new PutObjectRequest(bucket, fileName, is, om)
+            );
+        } catch (IOException e){
+            log.error(e.getMessage());
+            throw new IOException("s3에 사진 저장 실패");
+        }
+        return fileName;
+    }
+
+    public String uploadForMultipartFile(MultipartFile file) throws IOException {
+        String[] type = file.getOriginalFilename().split("[.]");
+        String fileName = getUUID() +"." + type[type.length-1];
+        log.info(fileName);
+        try {
+            ObjectMetadata om = new ObjectMetadata();
+            om.setContentType(file.getContentType());
+            om.setContentLength(file.getBytes().length);
+            PutObjectResult result = amazonS3.putObject(
+                    new PutObjectRequest(bucket, fileName, file.getInputStream(), om)
             );
         } catch (IOException e){
             log.error(e.getMessage());

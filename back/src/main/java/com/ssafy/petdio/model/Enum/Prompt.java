@@ -73,10 +73,26 @@ public enum Prompt {
                     "twisted fingers, double image, malformed hands, multiple heads, extra limb, ugly, " +
                     "poorly drawn hands, missing limb, cut-off, over satured, grain, lowères, bad anatomy, " +
                     "poorly drawn face, mutation, mutated, floating limbs, disconnected limbs"),
-    CHRISTMAS(5L, "A breed wearing a red Christmas hat, sitting next to a" +
-            "Christmas tree made of little paws. Happy Pawildays written in groovy font." +
-            "White background. T-shirt design.",
-            "");
+    CHRISTMAS(5L,"cute stickers, 8K Ultra HD, highly detailed, Detailed illustration of a cute breed enjoying christmas"+
+            "illustration Kawaii breed in black punk rock amour," +
+                    "character design, vector art, fantasy art, T-shirt design, " +
+            " handcuffed to a cross,sticker, playing with a small ball of ruby,surrounded by presents, " +
+            "under a mistletoe, Christmas , side view, Svg sticker, clean white background, " +
+            "professional vector, high detail, t-shirt design, graffiti, vibrant, Stylized Sticker"
+            +" Super Deformed Character, full body, Cute Design, Two-Dimensional, Character Design, Adorable Characters," +
+            " Mascot Characters, Adobe Illustrator, A digital illustration of anime style , " +
+            "soft anime tones, luminism, pixiv, luminism, 3d render, octane render, " +
+            "Isometric, by yukisakura, awesome full color,"+
+            "Feeling like Kyoto Animation, pixiv, luminism, 3d render, octane render, Isometric, " +
+            "by yukisakura, awesome full color,",
+            "out of frame, cropped, bad proportions, out of frame, bad anatomy, poorly drawn face, morbid, \" +\n" +
+                    "mutilated,((extra eyes)), ((extra arms)), ((extra legs)), ((extra fingers))" +
+                    "((extra headphones)), ((two headphones)), ((extra heads)), ((extra eyes)) (((2 heads)))" +
+                    "duplicate,  blurry, abstract, disfigured, deformed, disfigured, bad art, deformed," +
+                    "poorly drawn,elongated body, cropped image,out of frame,draft,deformed hands, " +
+                    "twisted fingers, double image, malformed hands, multiple heads, extra limb, ugly," +
+                    "poorly drawn hands, missing limb, cut-off, over satured, grain, lowères, bad anatomy, " +
+                    "poorly drawn face, mutation, mutated, floating limbs, disconnected limbs");
 
 
 

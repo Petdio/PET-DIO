@@ -24,17 +24,24 @@ firebase.initializeApp({
 
 const messaging = firebase.messaging();
 
-// messaging.onBackgroundMessage((payload) => {
-//   console.log(
-//     "[firebase-messaging-sw.js] Received background message ",
-//     payload
-//   );
-//   // Customize notification here
-//   const notificationTitle = "Background Message Title";
-//   const notificationOptions = {
-//     body: "Background Message body.",
-//     icon: "/icon/icon-48x48.png",
-//   };
+self.addEventListener("push", function (e) {
+  if (!e.data.json()) return;
 
-//   self.registration.showNotification(notificationTitle, notificationOptions);
-// });
+  const resultData = e.data.json().notification;
+  const notificationTitle = resultData.title;
+  const notificationOptions = {
+    body: resultData.body,
+    icon: resultData.image, // 웹 푸시 이미지는 icon
+    tag: resultData.tag,
+  };
+
+  console.log("메세지:", resultData);
+  self.registration.showNotification(notificationTitle, notificationOptions);
+});
+
+self.addEventListener("notificationclick", function (event) {
+  console.log("notification click");
+  const url = "/";
+  event.notification.close();
+  event.waitUntil(clients.openWindow(url));
+});

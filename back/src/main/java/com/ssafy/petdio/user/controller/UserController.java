@@ -1,5 +1,6 @@
 package com.ssafy.petdio.user.controller;
 
+import com.ssafy.petdio.user.model.dto.FcmDto;
 import com.ssafy.petdio.user.model.dto.UserDto;
 import com.ssafy.petdio.user.repository.UserRepository;
 import com.ssafy.petdio.user.service.UserService;
@@ -23,6 +24,14 @@ public class UserController {
     @GetMapping({""})
     public ResponseEntity<UserDto> findMember(Authentication authentication) {
         return new ResponseEntity<>(userService.getUserProfile(null, Long.parseLong(authentication.getName())), HttpStatus.OK);
+    }
+
+    @PostMapping("/fcm")
+    public ResponseEntity fcmTokenUpdate(@RequestBody FcmDto fcmDto, Authentication authentication) {
+        log.info("전달받은 fcmToken: " + fcmDto.getFcmToken());
+        Long userId = Long.valueOf(authentication.getName());
+        userService.updateFcmToken(userId, fcmDto.getFcmToken());
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
 }

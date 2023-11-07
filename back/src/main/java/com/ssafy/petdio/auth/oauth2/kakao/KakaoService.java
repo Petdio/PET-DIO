@@ -62,7 +62,7 @@ public class KakaoService {
     }
 
     @Transactional
-    public User loginKakao(KakaoUserDto kakaoUserDto, String fcmToken) {
+    public User loginKakao(KakaoUserDto kakaoUserDto) {
         log.info(kakaoUserDto.getAuthenticationCode(), "회원 카카오 로그인");
 
         Optional<User> user = userRepository.findByUserSocialIdAndUserDeleteIsNull(
@@ -71,9 +71,10 @@ public class KakaoService {
         // 회원가입돼있어
         if (user.isPresent()) {
             log.info("회원가입 된 멤버입니다.");
-            User updateUser = user.get();
-            updateUser.updateFcmToken(fcmToken);
-            return updateUser;
+//            User updateUser = user.get();
+//            updateUser.updateFcmToken(fcmToken);
+//            return updateUser;
+            return user.get();
         }
         // 회원가입 안돼있음
         // 카카오에서 정보가 제대로 받아와진 user면
@@ -86,7 +87,7 @@ public class KakaoService {
                     .userSocialType(SocialType.KAKAO)
                     .userSocialId(kakaoUserDto.getAuthenticationCode())
                     .userCoin(DEFAULT_COIN)
-                    .fcmToken(fcmToken)
+//                    .fcmToken(fcmToken)
                     .build());
         }
         // 카카오에서 제대로 안받아진 user면

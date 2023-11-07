@@ -29,8 +29,7 @@ public class AuthController {
         try {
             loginUser = kakaoService.loginKakao(kakaoUserDto);
             log.info("로그인한 유저: " + loginUser);
-            kakaoService.getUserLoginDto(loginUser);
-            return ResponseEntity.status(HttpStatus.ACCEPTED).body(loginUser);
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(kakaoService.getUserLoginDto(loginUser));
         } catch (Exception e) {
             log.error(e.getMessage());
             return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());

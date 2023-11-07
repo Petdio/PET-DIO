@@ -42,6 +42,9 @@ dependencies {
 	// jwt
 	implementation "io.jsonwebtoken:jjwt:0.9.1"
 
+	//imageBuild
+	implementation 'commons-io:commons-io:2.11.0'
+
 	// com.sun.xml.bind
 	implementation 'com.sun.xml.bind:jaxb-impl:4.0.1'
 	implementation 'com.sun.xml.bind:jaxb-core:4.0.1'

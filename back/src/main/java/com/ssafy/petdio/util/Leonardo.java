@@ -161,6 +161,7 @@ public class Leonardo {
         generationPayload.put("init_image_id", imageId);
         generationPayload.put("modelId", selectedModelId);
         List<String> imagePrompts = new ArrayList<>();
+        imagePrompts.add(imageId);
         generationPayload.put("imagePrompts", imagePrompts);
 
         return generationPayload;

@@ -35,18 +35,6 @@ public class RedisConfig {
         return new LettuceConnectionFactory(configuration);
     }
 
-//    @Bean
-//    public RedisConnectionFactory redisConnectionFactory(){
-//        return new LettuceConnectionFactory(host, port);
-//    }
-
-//    @Bean
-//    public RedisTemplate<?, ?> redisTemplate(){
-//        RedisTemplate<?, ?> redisTemplate = new RedisTemplate<>();
-//        redisTemplate.setConnectionFactory(redisConnectionFactory());
-//        return redisTemplate;
-//    }
-
     @Bean
     public RedisTemplate<String, AiDto.Data> memberDtoRedisTemplate(RedisConnectionFactory connectionFactory) {
         RedisTemplate<String, AiDto.Data> template = new RedisTemplate<>();
@@ -57,6 +45,4 @@ public class RedisConfig {
         template.setHashKeySerializer(new StringRedisSerializer());
         return template;
     }
-
-
 }

@@ -72,6 +72,7 @@ public class Leonardo {
 
     public byte[] convertToJpg(MultipartFile file) throws IOException {
         String extension = FilenameUtils.getExtension(file.getOriginalFilename());
+        log.info("extension: " +extension);
 
         // 이미 확장자가 jpg인 경우 그대로 반환
         if (extension.equalsIgnoreCase("jpg")) {
@@ -152,7 +153,7 @@ public class Leonardo {
         }
 
         generationPayload.put("prompt", prompt.getPrompt().replace("breed", breed));
-        System.out.println(prompt.getPrompt().replace("breed", breed));
+        log.info("프롬프트 breed종류: " + breed);
         generationPayload.put("negative_prompt", prompt.getNegativePrompt());
         generationPayload.put("init_image_id", imageId);
         generationPayload.put("modelId", selectedModelId);

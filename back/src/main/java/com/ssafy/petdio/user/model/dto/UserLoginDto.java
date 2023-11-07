@@ -9,12 +9,12 @@ import lombok.ToString;
 @ToString
 public class UserLoginDto {
 
-    private AuthDto.LoginUser userDto;
+    private boolean newMember;
     private String accessToken;
 
     @Builder
-    public UserLoginDto(AuthDto.LoginUser userDto, String accessToken){
-        this.userDto = userDto;
+    public UserLoginDto(boolean newMember, String accessToken){
+        this.newMember = newMember;
         this.accessToken = accessToken;
     }
 

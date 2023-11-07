@@ -68,7 +68,6 @@ public class KakaoService {
         log.info(kakaoUserDto.getAuthenticationCode(), "회원 카카오 로그인");
 
         AtomicBoolean check = new AtomicBoolean(false);
-        AuthDto.LoginUser loginUser;
 
         Optional<User> optionalUser = userRepository.findByUserSocialIdAndUserDeleteIsNull(kakaoUserDto.getAuthenticationCode());
         User user = optionalUser.orElseGet(() -> {
@@ -87,9 +86,8 @@ public class KakaoService {
             return userRepository.save(newUser);
         });
         if (user == null) throw new Exception("카카오에서 유저 정보 불러오기 실패");
-        loginUser = new AuthDto.LoginUser().loginUser(user, check.get());
         return AuthDto.builder()
-                .loginUser(loginUser)
+                .newMember(check.get())
                 .user(user)
                 .build();
 //        User user = null;
@@ -125,7 +123,7 @@ public class KakaoService {
 
     public UserLoginDto getUserLoginDto(AuthDto authDto) {
         UserDto userDto = UserMapper.INSTANCE.entityToUserDto(authDto.getUser());
-        return UserLoginDto.builder().userDto(authDto.getLoginUser())
+        return UserLoginDto.builder().newMember(authDto.isNewMember())
                 .accessToken(
                         jwtService.createAccessToken(JwtMapper.INSTANCE.userDtoToJwtDto(userDto)))
                 .build();

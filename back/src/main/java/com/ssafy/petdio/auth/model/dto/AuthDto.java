@@ -14,33 +14,6 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AuthDto {
-    private LoginUser loginUser;
+    private boolean newMember;
     private User user;
-
-    @Getter
-    @ToString
-    @Builder
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class LoginUser {
-        private Long userId;
-        private String userEmail;
-        private int userCoin;
-        private String userNickname;
-        private String profileImage;
-        private Role role;
-        private boolean newMember;
-
-        public LoginUser loginUser(User user, boolean newMember) {
-            return LoginUser.builder()
-                    .userId(user.getUserId())
-                    .userEmail(user.getUserEmail())
-                    .userCoin(user.getUserCoin())
-                    .userNickname(user.getUserNickname())
-                    .profileImage(user.getProfileImage())
-                    .role(user.getRole())
-                    .newMember(newMember)
-                    .build();
-        }
-    }
 }

@@ -1,12 +1,10 @@
 package com.ssafy.petdio.auth.controller;
 
-import com.ssafy.petdio.auth.model.dto.LoginUser;
+import com.ssafy.petdio.auth.model.dto.AuthDto;
 import com.ssafy.petdio.auth.oauth2.common.OAuthReqDto;
 import com.ssafy.petdio.auth.oauth2.kakao.KakaoService;
 import com.ssafy.petdio.auth.oauth2.kakao.KakaoTokenDto;
 import com.ssafy.petdio.auth.oauth2.kakao.KakaoUserDto;
-import com.ssafy.petdio.user.model.dto.UserLoginDto;
-import com.ssafy.petdio.user.model.entity.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -27,11 +25,11 @@ public class AuthController {
         log.info("전달온 값: " + oAuthReqDto);
         KakaoTokenDto kakaoTokenDto = kakaoService.getKakaoAccessToken(oAuthReqDto.getCode());
         KakaoUserDto kakaoUserDto = kakaoService.getKakaoUser(kakaoTokenDto.getAccessToken());
-        LoginUser loginUser = null;
+        AuthDto loginUser = null;
         try {
             loginUser = kakaoService.loginKakao(kakaoUserDto);
             log.info("로그인한 유저: " + loginUser);
-            return ResponseEntity.status(HttpStatus.ACCEPTED).body(loginUser);
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(kakaoService.getUserLoginDto(loginUser));
         } catch (Exception e) {
             log.error(e.getMessage());
             return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());

@@ -6,9 +6,13 @@ import com.ssafy.petdio.config.LeonardoConfig;
 import com.ssafy.petdio.model.Enum.Prompt;
 import com.ssafy.petdio.model.entity.Setting;
 import jakarta.annotation.PostConstruct;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import javax.imageio.ImageIO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
+import org.apache.commons.io.FilenameUtils;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,7 +35,7 @@ public class Leonardo {
 
     public String init(MultipartFile multipartFile) throws IOException {
         RequestBody requestBody = new FormBody.Builder()
-                .add("extension", getFileExtension(multipartFile.getOriginalFilename()))
+                .add("extension", "jpg")
                 .build();
 
         JSONObject uploadInitResponse = null;
@@ -49,12 +53,12 @@ public class Leonardo {
         return imageId;
     }
 
-    private String getFileExtension(String fileName) {
-        if (fileName != null && fileName.lastIndexOf(".") != -1) {
-            return fileName.substring(fileName.lastIndexOf(".") + 1);
-        }
-        return "";
-    }
+//    private String getFileExtension(String fileName) {
+//        if (fileName != null && fileName.lastIndexOf(".") != -1) {
+//            return fileName.substring(fileName.lastIndexOf(".") + 1);
+//        }
+//        return "";
+//    }
 
     private Request getRequest(String url, RequestBody requestBody) {
         return new Request.Builder()
@@ -64,6 +68,28 @@ public class Leonardo {
                 .addHeader("content-type", "application/json")
                 .addHeader("authorization", AUTHORIZATION)
                 .build();
+    }
+
+    public byte[] convertToJpg(MultipartFile file) throws IOException {
+        String extension = FilenameUtils.getExtension(file.getOriginalFilename());
+        log.info("extension: " +extension);
+
+        // 이미 확장자가 jpg인 경우 그대로 반환
+        if (extension.equalsIgnoreCase("jpg")) {
+            return file.getBytes();
+        }
+
+        // 이미지 데이터를 읽어옴
+        BufferedImage img = ImageIO.read(file.getInputStream());
+
+        // jpg로 변환
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ImageIO.write(img, "jpg", bos);
+        bos.flush();
+        byte[] imageBytes = bos.toByteArray();
+        bos.close();
+
+        return imageBytes;
     }
 
     private boolean uploadImage(JSONObject jsonResponse, MultipartFile multipartFile) throws IOException {
@@ -81,11 +107,19 @@ public class Leonardo {
             builderUploadImageRequest.addFormDataPart(key, fieldsJson.getString(key));
         }
 
+        byte[] imageBytes = convertToJpg(multipartFile);
+
         builderUploadImageRequest.addFormDataPart(
                 "file",
                 multipartFile.getOriginalFilename(),
-                RequestBody.create(MediaType.parse(multipartFile.getContentType()), multipartFile.getBytes())
+                RequestBody.create(MediaType.parse("image/jpeg"), imageBytes)
         );
+
+//        builderUploadImageRequest.addFormDataPart(
+//                "file",
+//                multipartFile.getOriginalFilename(),
+//                RequestBody.create(MediaType.parse(multipartFile.getContentType()), multipartFile.getBytes())
+//        );
 
         MultipartBody uploadRequestBody=builderUploadImageRequest.build();
 
@@ -113,13 +147,13 @@ public class Leonardo {
             switch (setting.getSettingType()) {
                 case "double" -> generationPayload.put(setting.getSettingName(), Double.valueOf(setting.getSettingDetail()));
                 case "integer" -> generationPayload.put(setting.getSettingName(), Integer.valueOf(setting.getSettingDetail()));
-                case "boolean" -> generationPayload.put(setting.getSettingName(), true);
+                case "boolean" -> generationPayload.put(setting.getSettingName(), setting.getSettingName().equals("true"));
                 default -> generationPayload.put(setting.getSettingName(), setting.getSettingDetail());
             }
         }
 
         generationPayload.put("prompt", prompt.getPrompt().replace("breed", breed));
-        System.out.println(prompt.getPrompt().replace("breed", breed));
+        log.info("프롬프트 breed종류: " + breed);
         generationPayload.put("negative_prompt", prompt.getNegativePrompt());
         generationPayload.put("init_image_id", imageId);
         generationPayload.put("modelId", selectedModelId);

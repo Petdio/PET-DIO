@@ -126,12 +126,16 @@ export default function ThemeList() {
   };
 
   useEffect(() => {
+    getThemeList();
+  }, []);
+
+  useEffect(() => {
     if (fcmToken !== "DENIED" && fcmToken !== "") {
       getFcmToken();
     }
-    console.log(fcmToken);
+    console.log("fcmToken:", fcmToken);
     getThemeList();
-  }, []);
+  }, [fcmToken]);
 
   return (
     <>

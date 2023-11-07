@@ -22,7 +22,7 @@ public class AuthController {
     private final KakaoService kakaoService;
 
     @PostMapping("/login/kakao")
-    public ResponseEntity<> kakaoLogin(@RequestBody OAuthReqDto oAuthReqDto) {
+    public ResponseEntity kakaoLogin(@RequestBody OAuthReqDto oAuthReqDto) {
         log.info("카카오 로그인");
         log.info("전달온 값: " + oAuthReqDto);
         KakaoTokenDto kakaoTokenDto = kakaoService.getKakaoAccessToken(oAuthReqDto.getCode());

@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ConceptRepository extends JpaRepository<Concept, Long> {
     List<Concept> findByConceptDeleteFalse();
+    Concept findByConceptDeleteAndConceptId(Long conceptId);
 }

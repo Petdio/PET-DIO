@@ -39,7 +39,8 @@ public class Leonardo {
         try (Response response = client.newCall(getRequest(leonardoConfig.getInitImageURL(), requestBody)).execute()) {
             uploadInitResponse = new JSONObject(response.body().string());
         }
-
+        log.info(uploadInitResponse.toString());
+//        log.info(uploadInitResponse);
         String imageId = uploadInitResponse.getJSONObject("uploadInitImage").getString("id");
 
         if (uploadImage(uploadInitResponse, multipartFile)) {

@@ -35,7 +35,7 @@ public class Leonardo {
 
     public String init(MultipartFile multipartFile) throws IOException {
         RequestBody requestBody = new FormBody.Builder()
-                .add("extension", getFileExtension(multipartFile.getOriginalFilename()))
+                .add("extension", "jpg")
                 .build();
 
         JSONObject uploadInitResponse = null;
@@ -53,12 +53,12 @@ public class Leonardo {
         return imageId;
     }
 
-    private String getFileExtension(String fileName) {
-        if (fileName != null && fileName.lastIndexOf(".") != -1) {
-            return fileName.substring(fileName.lastIndexOf(".") + 1);
-        }
-        return "";
-    }
+//    private String getFileExtension(String fileName) {
+//        if (fileName != null && fileName.lastIndexOf(".") != -1) {
+//            return fileName.substring(fileName.lastIndexOf(".") + 1);
+//        }
+//        return "";
+//    }
 
     private Request getRequest(String url, RequestBody requestBody) {
         return new Request.Builder()

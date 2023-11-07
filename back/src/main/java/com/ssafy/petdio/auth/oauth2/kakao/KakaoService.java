@@ -1,7 +1,7 @@
 package com.ssafy.petdio.auth.oauth2.kakao;
 
 import com.ssafy.petdio.auth.jwt.service.JwtService;
-import com.ssafy.petdio.auth.model.dto.LoginUser;
+import com.ssafy.petdio.auth.model.dto.AuthDto;
 import com.ssafy.petdio.model.Enum.SocialType;
 import com.ssafy.petdio.user.model.dto.UserDto;
 import com.ssafy.petdio.user.model.dto.UserLoginDto;
@@ -64,11 +64,11 @@ public class KakaoService {
     }
 
     @Transactional
-    public LoginUser loginKakao(KakaoUserDto kakaoUserDto) throws Exception{
+    public AuthDto loginKakao(KakaoUserDto kakaoUserDto) throws Exception{
         log.info(kakaoUserDto.getAuthenticationCode(), "회원 카카오 로그인");
 
         AtomicBoolean check = new AtomicBoolean(false);
-        LoginUser loginUser;
+        AuthDto.LoginUser loginUser;
 
         Optional<User> optionalUser = userRepository.findByUserSocialIdAndUserDeleteIsNull(kakaoUserDto.getAuthenticationCode());
         User user = optionalUser.orElseGet(() -> {
@@ -87,8 +87,11 @@ public class KakaoService {
             return userRepository.save(newUser);
         });
         if (user == null) throw new Exception("카카오에서 유저 정보 불러오기 실패");
-        loginUser = new LoginUser().loginUser(user, check.get());
-        return loginUser;
+        loginUser = new AuthDto.LoginUser().loginUser(user, check.get());
+        return AuthDto.builder()
+                .loginUser(loginUser)
+                .user(user)
+                .build();
 //        User user = null;
 //        LoginUser loginUser = null;
 //        // 회원가입돼있어
@@ -120,9 +123,9 @@ public class KakaoService {
 //                .build());
     }
 
-    public UserLoginDto getUserLoginDto(User user) {
-        UserDto userDto = UserMapper.INSTANCE.entityToUserDto(user);
-        return UserLoginDto.builder().userDto(userDto)
+    public UserLoginDto getUserLoginDto(AuthDto authDto) {
+        UserDto userDto = UserMapper.INSTANCE.entityToUserDto(authDto.getUser());
+        return UserLoginDto.builder().userDto(authDto.getLoginUser())
                 .accessToken(
                         jwtService.createAccessToken(JwtMapper.INSTANCE.userDtoToJwtDto(userDto)))
                 .build();

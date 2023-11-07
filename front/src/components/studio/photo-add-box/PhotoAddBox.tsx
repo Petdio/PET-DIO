@@ -52,6 +52,10 @@ function PhotoAddBox() {
       const file = event.target.files[0];
       setFormData({ ...formData, imageFile: event.target.files[0] });
       const reader = new FileReader();
+      // 높이와 너비를 알아내려면 blob형식의 파일을 base64 형식으로 변환해야 한다.
+      reader.readAsDataURL(file);
+
+      // reader에 파일 등록될 시 실행될 이벤트 핸들러
       reader.onloadend = () => {
         const img = new Image();
         img.src = reader.result as string;
@@ -63,7 +67,6 @@ function PhotoAddBox() {
         };
         setImage(reader.result);
       };
-      reader.readAsDataURL(file);
     }
   };
 
@@ -84,6 +87,9 @@ function PhotoAddBox() {
   const getCropData = () => {
     if (typeof cropperRef.current?.cropper !== "undefined") {
       onCrop(cropperRef.current?.cropper.getCroppedCanvas().toDataURL());
+      cropperRef.current?.cropper.getCroppedCanvas().toBlob((file) => {
+        setFormData({ ...formData, imageFile: file });
+      });
     }
     handleClose();
   };

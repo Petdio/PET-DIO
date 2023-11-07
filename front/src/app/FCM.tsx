@@ -72,6 +72,7 @@ export default function FCM() {
         if (token) {
           // 정상적으로 토큰이 발급되면 콘솔에 출력합니다.
           setFcmToken(token);
+          localStorage.setItem("fcmToken", token);
           console.log(token);
         } else {
           setFcmToken("DENIED");

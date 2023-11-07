@@ -10,12 +10,11 @@ export default function KakaoLogInPage() {
     try {
       const response = await axios.post(
         process.env.NEXT_PUBLIC_API_URL + `oauth2/login/kakao`,
-        { code, fcmToken }
+        { code }
       );
 
       console.log(response);
       localStorage.setItem("access-token", response.data.accessToken);
-      localStorage.setItem("fcmToken", fcmToken);
       window.location.href = "/studio";
     } catch (error) {
       console.error("에러 발생:", error);
@@ -24,14 +23,11 @@ export default function KakaoLogInPage() {
 
   useEffect(() => {
     const code = new URL(document.location.toString()).searchParams.get("code");
-    if (code && fcmToken !== "") {
-      if (fcmToken !== "DENIED") {
-        console.log(`fcmToken: ${fcmToken}`);
-      }
+    if (code) {
       console.log(`code: ${code}`);
       loginReq(code);
     }
-  }, [fcmToken]);
+  }, []);
 
   return <></>;
 }

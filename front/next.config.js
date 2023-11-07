@@ -31,6 +31,10 @@ module.exports = withPWA({
         source: "/ai/create",
         destination: `${process.env.NEXT_PUBLIC_API_URL}ai/create`,
       },
+      {
+        source: "/user/fcm",
+        destination: `${process.env.NEXT_PUBLIC_API_URL}user/fcm`,
+      },
     ];
   },
   images: {

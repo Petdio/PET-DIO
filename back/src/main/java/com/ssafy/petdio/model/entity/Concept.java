@@ -5,10 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicInsert;
 
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@DynamicInsert
 @Builder
 @Entity
 @Table(name = "concept")
@@ -29,4 +31,8 @@ public class Concept {
 
     @Column(name = "concept_path")
     private String conceptPath;
+
+    public void updateConceptImg(String url) {
+        this.conceptImg = url;
+    }
 }

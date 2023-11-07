@@ -15,6 +15,7 @@ export default function KakaoLogInPage() {
 
       console.log(response);
       localStorage.setItem("access-token", response.data.accessToken);
+      localStorage.setItem("new-member", response.data.newMember);
       window.location.href = "/studio";
     } catch (error) {
       console.error("에러 발생:", error);

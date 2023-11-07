@@ -112,7 +112,7 @@ export default function ThemeList() {
       const response = await axios.post(
         // process.env.NEXT_PUBLIC_API_URL + `user/fcm`,
         "/user/fcm",
-        fcmToken,
+        { fcmToken },
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("access-token")}`,
@@ -126,12 +126,16 @@ export default function ThemeList() {
   };
 
   useEffect(() => {
+    getThemeList();
+  }, []);
+
+  useEffect(() => {
     if (fcmToken !== "DENIED" && fcmToken !== "") {
       getFcmToken();
     }
-    console.log(fcmToken);
+    console.log("fcmToken:", fcmToken);
     getThemeList();
-  }, []);
+  }, [fcmToken]);
 
   return (
     <>

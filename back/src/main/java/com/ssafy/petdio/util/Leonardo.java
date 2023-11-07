@@ -18,6 +18,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -97,6 +98,8 @@ public class Leonardo {
         JSONObject fieldsJson = new JSONObject(fieldsString);
 
         String urlUploadImage = jsonResponse.getJSONObject("uploadInitImage").getString("url");
+        String imageId = jsonResponse.getJSONObject("uploadInitImage").getString("id");
+
 
         System.out.println(jsonResponse.getJSONObject("uploadInitImage"));
 
@@ -157,6 +160,8 @@ public class Leonardo {
         generationPayload.put("negative_prompt", prompt.getNegativePrompt());
         generationPayload.put("init_image_id", imageId);
         generationPayload.put("modelId", selectedModelId);
+        List<String> imagePrompts = new ArrayList<>();
+        generationPayload.put("imagePrompts", imagePrompts);
 
         return generationPayload;
     }

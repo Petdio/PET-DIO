@@ -74,9 +74,18 @@ public enum Prompt {
             "professional vector, high detail, t-shirt design, graffiti, vibrant, Stylized Sticker"
             +" Super Deformed Character, full body, Cute Design, Two-Dimensional, Character Design, Adorable Characters," +
             " Mascot Characters, Adobe Illustrator, A digital illustration of anime style , " +
-            "soft anime tones, luminism, Feeling like Kyoto Animation, pixiv, luminism, 3d render, octane render, " +
+            "soft anime tones, luminism, pixiv, luminism, 3d render, octane render, " +
             "Isometric, by yukisakura, awesome full color,"+
-            "Feeling like Kyoto Animation, pixiv, luminism, 3d render, octane render, Isometric, by yukisakura, awesome full color,","");
+            "Feeling like Kyoto Animation, pixiv, luminism, 3d render, octane render, Isometric, " +
+            "by yukisakura, awesome full color,",
+            "out of frame, cropped, bad proportions, out of frame, bad anatomy, poorly drawn face, morbid, \" +\n" +
+                    "mutilated,((extra eyes)), ((extra arms)), ((extra legs)), ((extra fingers))" +
+                    "((extra headphones)), ((two headphones)), ((extra heads)), ((extra eyes)) (((2 heads)))" +
+                    "duplicate,  blurry, abstract, disfigured, deformed, disfigured, bad art, deformed," +
+                    "poorly drawn,elongated body, cropped image,out of frame,draft,deformed hands, " +
+                    "twisted fingers, double image, malformed hands, multiple heads, extra limb, ugly," +
+                    "poorly drawn hands, missing limb, cut-off, over satured, grain, lowères, bad anatomy, " +
+                    "poorly drawn face, mutation, mutated, floating limbs, disconnected limbs");
 
 
 

@@ -72,7 +72,6 @@ function PhotoAddBox() {
 
   /** 크롭한 데이터로 할 작업 */
   const onCrop = (croppedImgURL: string) => {
-    console.log(croppedImgURL);
     setImage(croppedImgURL);
     const img = new Image();
     img.src = croppedImgURL;
@@ -87,8 +86,13 @@ function PhotoAddBox() {
   const getCropData = () => {
     if (typeof cropperRef.current?.cropper !== "undefined") {
       onCrop(cropperRef.current?.cropper.getCroppedCanvas().toDataURL());
-      cropperRef.current?.cropper.getCroppedCanvas().toBlob((file) => {
-        setFormData({ ...formData, imageFile: file });
+      cropperRef.current?.cropper.getCroppedCanvas().toBlob((blob) => {
+        if (blob) {
+          const file = new File([blob], "croppedImage.jpeg", {
+            type: "image/jpeg",
+          });
+          setFormData({ ...formData, imageFile: file });
+        }
       });
     }
     handleClose();

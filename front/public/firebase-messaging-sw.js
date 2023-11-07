@@ -38,3 +38,25 @@ const messaging = firebase.messaging();
 
 //   self.registration.showNotification(notificationTitle, notificationOptions);
 // });
+// self.addEventListener("push", function (event) {
+//   var pushMessage = event.data.text();
+//   var options = {
+//     body: pushMessage,
+//     icon: "icon/icon-48x48.png",
+//     vibrate: [100, 50, 100],
+//     data: {
+//       primaryKey: "1",
+//     },
+//   };
+
+//   event.waitUntil(
+//     self.registration.showNotification("Push Notification", options)
+//   );
+// });
+
+self.addEventListener("notificationclick", function (event) {
+  console.log("notification click");
+  const url = "/";
+  event.notification.close();
+  event.waitUntil(clients.openWindow(url));
+});

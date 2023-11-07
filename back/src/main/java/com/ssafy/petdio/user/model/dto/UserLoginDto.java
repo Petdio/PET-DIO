@@ -1,5 +1,6 @@
 package com.ssafy.petdio.user.model.dto;
 
+import com.ssafy.petdio.auth.model.dto.AuthDto;
 import lombok.Builder;
 import lombok.Data;
 import lombok.ToString;
@@ -8,12 +9,12 @@ import lombok.ToString;
 @ToString
 public class UserLoginDto {
 
-    private UserDto userDto;
+    private boolean newMember;
     private String accessToken;
 
     @Builder
-    public UserLoginDto(UserDto userDto, String accessToken){
-        this.userDto = userDto;
+    public UserLoginDto(boolean newMember, String accessToken){
+        this.newMember = newMember;
         this.accessToken = accessToken;
     }
 

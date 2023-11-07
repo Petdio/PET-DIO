@@ -19,7 +19,8 @@ import { Container } from "@mui/material";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import convertTheme from "@/utils/convertTheme";
-import { useFormData } from "@/components/common/FormDataProvider";
+import { useFormData } from "@/app/FormDataProvider";
+import { useFcmToken } from "@/app/FCM";
 
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {
@@ -41,6 +42,7 @@ interface ThemeList {
 export default function ThemeList() {
   const router = useRouter();
   const scrollRef = useRef<HTMLDivElement>(null);
+  const { fcmToken } = useFcmToken();
 
   const [isDrag, setIsDrag] = useState(false);
   const [startX, setStartX] = useState<number>(0);
@@ -102,14 +104,38 @@ export default function ThemeList() {
       setThemeList(response.data);
     } catch (error) {
       console.error("에러 발생:", error);
-      alert("로그인 해주세요.");
-      window.location.href = "/login";
     }
   }
+
+  const getFcmToken = async () => {
+    try {
+      const response = await axios.post(
+        // process.env.NEXT_PUBLIC_API_URL + `user/fcm`,
+        "/user/fcm",
+        { fcmToken },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+          },
+        }
+      );
+      console.log("fcm 토큰 전송 성공", response);
+    } catch (error) {
+      console.error("fcm 토큰 전송 실패", error);
+    }
+  };
 
   useEffect(() => {
     getThemeList();
   }, []);
+
+  useEffect(() => {
+    if (fcmToken !== "DENIED" && fcmToken !== "") {
+      getFcmToken();
+    }
+    console.log("fcmToken:", fcmToken);
+    getThemeList();
+  }, [fcmToken]);
 
   return (
     <>

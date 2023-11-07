@@ -8,6 +8,7 @@ body {
   padding: 0;
   font-size: 100%;
   overflow-x: hidden;
+  overscroll-behavior-y: none; /* 모바일 새로고침 방지 */
 }
 
 /* 스크롤바의 너비를 조정합니다. */

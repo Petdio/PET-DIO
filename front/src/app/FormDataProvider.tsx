@@ -4,13 +4,13 @@ import { createContext, useContext, useState, ReactNode } from "react";
 type FormData = {
   conceptId: number;
   breed: string;
-  imageFile: File | null;
+  imageFile: File | Blob | null;
 };
 
-type FormDataContextType = {
+interface FormDataContextType {
   formData: FormData;
   setFormData: React.Dispatch<React.SetStateAction<FormData>>;
-};
+}
 
 const FormDataContext = createContext<FormDataContextType | undefined>(
   undefined

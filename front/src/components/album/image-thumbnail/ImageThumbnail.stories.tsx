@@ -22,5 +22,6 @@ export const Primary: Story = {
     idx: 0,
     themeName: '우주복',
     albumCreated: '2023년 10월 26일',
+    path: '',
   },
 };

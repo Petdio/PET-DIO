@@ -76,4 +76,10 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new RuntimeException("해당하는 유저를 찾을 수 없습니다"));
     }
 
+    @Override
+    @Transactional
+    public void updateFcmToken(Long userId, String fcmToken) {
+        findUserById(userId).updateFcmToken(fcmToken);
+    }
+
 }

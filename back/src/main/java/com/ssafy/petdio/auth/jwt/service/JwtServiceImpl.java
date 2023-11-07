@@ -67,9 +67,8 @@ public class JwtServiceImpl implements JwtService {
         claims.put("userId", jwtDto.getId());
         claims.put("userNickname", jwtDto.getNickname());
         claims.put("role", jwtDto.getRole());
-        System.out.println("토큰 생성 중!!!");
-        System.out.println(jwtDto.getId());
-        System.out.println(claims);
+        log.info("토큰 생성 중!!!");
+        log.info(jwtDto.getId() + " " + claims);
         UserDetails userDetails = User.builder()
                 .username(String.valueOf(jwtDto.getId()))
                 .password(jwtDto.getNickname() + SALT)
@@ -78,16 +77,14 @@ public class JwtServiceImpl implements JwtService {
                 userDetails, null, authoritiesMapper.mapAuthorities(userDetails.getAuthorities())
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        System.out.println(authentication);
-        System.out.println("액세스 토큰 빌드");
+        log.info(authentication + "\n 액세스 토큰 빌드");
         final String accessToken = Jwts.builder()
                 .setHeaderParam("typ", "JWT")
                 .setClaims(claims)
                 .setSubject(jwtDto.getId().toString())
                 .signWith(SignatureAlgorithm.HS256, encodeKey)
                 .compact();
-        System.out.println(accessToken);
-        System.out.println("토큰 생성 완료!!!!!!");
+        log.info(accessToken + "토큰 생성 완료!");
         return accessToken;
     }
 
@@ -120,9 +117,7 @@ public class JwtServiceImpl implements JwtService {
     public Authentication getAuthentication(String accessToken) {
         Claims claims = parseClaims(accessToken);
 
-        System.out.println("claims : " + claims);
-        System.out.println("claims.getSubject(): " + claims.getSubject());
-        System.out.println(claims.get("role"));
+        log.info("claims : " + claims);
         //권한 정보 가져오기
         Collection<? extends GrantedAuthority> authorities =
                 Arrays.stream(claims.get("role").toString().split(","))
@@ -133,7 +128,7 @@ public class JwtServiceImpl implements JwtService {
         UserDetails principal = new User(claims.getSubject(), "", authorities);
         System.out.println(principal);
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return new UsernamePasswordAuthenticationToken(principal, "", authorities);
     }
 

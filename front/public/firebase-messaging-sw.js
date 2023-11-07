@@ -24,35 +24,19 @@ firebase.initializeApp({
 
 const messaging = firebase.messaging();
 
-// messaging.onBackgroundMessage((payload) => {
-//   console.log(
-//     "[firebase-messaging-sw.js] Received background message ",
-//     payload
-//   );
-//   // Customize notification here
-//   const notificationTitle = "Background Message Title";
-//   const notificationOptions = {
-//     body: "Background Message body.",
-//     icon: "/icon/icon-48x48.png",
-//   };
+self.addEventListener("push", function (e) {
+  if (!e.data.json()) return;
 
-//   self.registration.showNotification(notificationTitle, notificationOptions);
-// });
-// self.addEventListener("push", function (event) {
-//   var pushMessage = event.data.text();
-//   var options = {
-//     body: pushMessage,
-//     icon: "icon/icon-48x48.png",
-//     vibrate: [100, 50, 100],
-//     data: {
-//       primaryKey: "1",
-//     },
-//   };
+  const resultData = e.data.json().notification;
+  const notificationTitle = resultData.title;
+  const notificationOptions = {
+    body: resultData.body,
+    icon: resultData.image, // 웹 푸시 이미지는 icon
+    tag: resultData.tag,
+  };
 
-//   event.waitUntil(
-//     self.registration.showNotification("Push Notification", options)
-//   );
-// });
+  self.registration.showNotification(notificationTitle, notificationOptions);
+});
 
 self.addEventListener("notificationclick", function (event) {
   console.log("notification click");

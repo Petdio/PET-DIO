@@ -1,6 +1,7 @@
 package com.ssafy.petdio.auth.oauth2.kakao;
 
 import com.ssafy.petdio.auth.jwt.service.JwtService;
+import com.ssafy.petdio.auth.model.dto.LoginUser;
 import com.ssafy.petdio.model.Enum.SocialType;
 import com.ssafy.petdio.user.model.dto.UserDto;
 import com.ssafy.petdio.user.model.dto.UserLoginDto;
@@ -9,6 +10,7 @@ import com.ssafy.petdio.user.model.entity.User;
 import com.ssafy.petdio.user.repository.UserRepository;
 import com.ssafy.petdio.user.model.mapper.UserMapper;
 import com.ssafy.petdio.auth.jwt.mapper.JwtMapper;
+import java.util.concurrent.atomic.AtomicBoolean;
 import lombok.RequiredArgsConstructor;
 
 import lombok.extern.slf4j.Slf4j;
@@ -62,24 +64,17 @@ public class KakaoService {
     }
 
     @Transactional
-    public User loginKakao(KakaoUserDto kakaoUserDto) {
+    public LoginUser loginKakao(KakaoUserDto kakaoUserDto) throws Exception{
         log.info(kakaoUserDto.getAuthenticationCode(), "회원 카카오 로그인");
 
-        Optional<User> user = userRepository.findByUserSocialIdAndUserDeleteIsNull(
-                kakaoUserDto.getAuthenticationCode());
+        AtomicBoolean check = new AtomicBoolean(false);
+        LoginUser loginUser;
 
-        // 회원가입돼있어
-        if (user.isPresent()) {
-            log.info("회원가입 된 멤버입니다.");
-//            User updateUser = user.get();
-//            updateUser.updateFcmToken(fcmToken);
-//            return updateUser;
-            return user.get();
-        }
-        // 회원가입 안돼있음
-        // 카카오에서 정보가 제대로 받아와진 user면
-        if (kakaoUserDto.getProperties() != null) {
-            return userRepository.save(User.builder()
+        Optional<User> optionalUser = userRepository.findByUserSocialIdAndUserDeleteIsNull(kakaoUserDto.getAuthenticationCode());
+        User user = optionalUser.orElseGet(() -> {
+            if (kakaoUserDto.getProperties() == null)
+                return null;
+            User newUser = User.builder()
                     .userNickname(kakaoUserDto.getProperties().getNickname())
                     .userEmail(kakaoUserDto.getKakaoAccount().getEmail())
                     .profileImage(kakaoUserDto.getProperties().getProfileImage())
@@ -87,18 +82,42 @@ public class KakaoService {
                     .userSocialType(SocialType.KAKAO)
                     .userSocialId(kakaoUserDto.getAuthenticationCode())
                     .userCoin(DEFAULT_COIN)
-//                    .fcmToken(fcmToken)
-                    .build());
-        }
+                    .build();
+            check.set(true);
+            return userRepository.save(newUser);
+        });
+        if (user == null) throw new Exception("카카오에서 유저 정보 불러오기 실패");
+        loginUser = new LoginUser().loginUser(user, check.get());
+        return loginUser;
+//        User user = null;
+//        LoginUser loginUser = null;
+//        // 회원가입돼있어
+//        if (user.isPresent()) {
+//            log.info("회원가입 된 멤버입니다.");
+//            return user.get();
+//        }
+//        // 회원가입 안돼있음
+//        // 카카오에서 정보가 제대로 받아와진 user면
+//        if (kakaoUserDto.getProperties() != null) {
+//            return userRepository.save(User.builder()
+//                    .userNickname(kakaoUserDto.getProperties().getNickname())
+//                    .userEmail(kakaoUserDto.getKakaoAccount().getEmail())
+//                    .profileImage(kakaoUserDto.getProperties().getProfileImage())
+//                    .role(Role.USER)
+//                    .userSocialType(SocialType.KAKAO)
+//                    .userSocialId(kakaoUserDto.getAuthenticationCode())
+//                    .userCoin(DEFAULT_COIN)
+//                    .build());
+//        }
         // 카카오에서 제대로 안받아진 user면
-        return userRepository.save(User.builder()
-                .userNickname(null)
-                .userEmail(null)
-                .profileImage(null)
-                .role(Role.USER)
-                .userSocialType(SocialType.KAKAO)
-                .userSocialId(kakaoUserDto.getAuthenticationCode())
-                .build());
+//        return userRepository.save(User.builder()
+//                .userNickname(null)
+//                .userEmail(null)
+//                .profileImage(null)
+//                .role(Role.USER)
+//                .userSocialType(SocialType.KAKAO)
+//                .userSocialId(kakaoUserDto.getAuthenticationCode())
+//                .build());
     }
 
     public UserLoginDto getUserLoginDto(User user) {

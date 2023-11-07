@@ -4,7 +4,7 @@ import { createContext, useContext, useState, ReactNode } from "react";
 type FormData = {
   conceptId: number;
   breed: string;
-  imageFile: File | Blob | null;
+  imageFile: File | null;
 };
 
 interface FormDataContextType {

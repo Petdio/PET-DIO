@@ -1,5 +1,4 @@
 'use client';
-import { forwardRef, ReactElement, Ref } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import {
@@ -9,35 +8,19 @@ import {
   DialogContent,
   DialogContentText,
   Button,
-  Slide,
   Typography,
   Tooltip,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { TransitionProps } from '@mui/material/transitions/transition';
 import { downloadImage } from './../../../../utils/downLoadImage';
 import ShareIcon from '@mui/icons-material/Share';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import CameraIcon from '@mui/icons-material/Camera';
 import CloseIcon from '@mui/icons-material/Close';
 import { ImgInfoProps } from '@/interfaces/AlbumDataProps';
+import { SlideMUI } from '@/components/animation/SlideMUI';
 
 const ActionButton = styled(Button)({});
-
-const Transition = forwardRef(function Transition(
-  props: TransitionProps & {
-    children: ReactElement<any, any>;
-  },
-  ref: Ref<unknown>
-) {
-  return (
-    <Slide
-      direction="up"
-      ref={ref}
-      {...props}
-    />
-  );
-});
 
 interface Props {
   imgInfo: ImgInfoProps;
@@ -62,7 +45,7 @@ function DetailModal({
       fullWidth={true}
       maxWidth="xs"
       open={isOpen}
-      TransitionComponent={Transition}
+      TransitionComponent={SlideMUI}
       onClose={handleClose}
       sx={{
         paddingLeft: '1rem',

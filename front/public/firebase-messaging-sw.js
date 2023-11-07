@@ -35,7 +35,8 @@ self.addEventListener("push", function (e) {
     tag: resultData.tag,
   };
 
-  self.registration.showNotification(notificationTitle, notificationOptions);
+  console.log("메세지:", resultData);
+  // self.registration.showNotification(notificationTitle, notificationOptions);
 });
 
 self.addEventListener("notificationclick", function (event) {

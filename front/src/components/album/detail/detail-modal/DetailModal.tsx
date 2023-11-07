@@ -1,5 +1,4 @@
 'use client';
-import { forwardRef, ReactElement, Ref } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import {
@@ -9,12 +8,10 @@ import {
   DialogContent,
   DialogContentText,
   Button,
-  Slide,
   Typography,
   Tooltip,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { TransitionProps } from '@mui/material/transitions/transition';
 import { downloadImage } from './../../../../utils/downLoadImage';
 import ShareIcon from '@mui/icons-material/Share';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';

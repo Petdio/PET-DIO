@@ -28,7 +28,7 @@ public enum Prompt {
 //                    " Mascot Characters, Adobe Illustrator, soft tetrad color, A digital illustration of anime style , " +
 //                    "soft anime tones, luminism, Feeling like Kyoto Animation, pixiv, luminism, 3d render, octane render, " +
 //                    "Isometric, by yukisakura, awesome full color,"+
-            "A detailed illustration of a print of a colorful cute black breed rides a broom" +
+            "A detailed illustration of a print of a colorful cute breed rides a broom" +
                     " and it wear witch hat and hold a book and peen next to a cute Halloween Pumpkin" +
                     " hyper realistic high quality, t-shit desing graphic, vector, carton, contour, fantasy swirls splash," +
                     " modern t-shirt design, in the style of Studio Ghibli, light white red and green pastel tetradic colors," +

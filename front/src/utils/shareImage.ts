@@ -8,16 +8,8 @@
 export default async function shareImage(imgSrc: string, fileName: string) {
   if (navigator.share) {
     try {
-      const response = await fetch(imgSrc);
-      const blob = await response.blob();
-      // const ext = imgSrc.split(".").pop();
-      // const file = new File([blob], "image." + ext, { type: blob.type });
       navigator.share({
-        files: [
-          new File([blob], `${fileName}.jpg`, {
-            type: blob.type,
-          }),
-        ],
+        url: window.location.href,
         title: "Petdio: 우리집 멍냥이를 위한 이색 사진관",
       });
     } catch (err) {

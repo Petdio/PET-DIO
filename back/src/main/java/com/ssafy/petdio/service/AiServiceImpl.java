@@ -80,6 +80,7 @@ public class AiServiceImpl implements AiService {
         User user = userRepository.findByUserIdAndUserDeleteIsNull(imageData.getUserId()).orElseThrow();
         Map<String, String> map = new HashMap<>();
         map.put("test", "test11");
+        userService.useCoin(user.getUserId());
         if (user.getFcmToken() == null) throw new Exception("fcm 토큰 없음");
         fcmService.sendMessageTo(NotificationMessage.builder()
                         .title("사진 만들기 완료")
@@ -88,7 +89,6 @@ public class AiServiceImpl implements AiService {
                         .recipientToken(user.getFcmToken())
                         .data(map)
                         .build());
-        userService.useCoin(user.getUserId());
     }
 
     private String getGenerationId(String leonardoUrl) throws Exception {

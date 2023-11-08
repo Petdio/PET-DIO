@@ -5,15 +5,14 @@
  * @returns void
  */
 
-export default async function shareImage() {
+export default async function shareImage(imgSrc: string) {
   if (navigator.share) {
-    try {
+    const imageKey = imgSrc.match(/\/([^/]+)\.jpg$/);
+    if (imageKey) {
       navigator.share({
-        url: window.location.href,
+        url: `https://www.petdio.co.kr/studio/result?img=${imageKey[1]}`,
         title: "Petdio: 우리집 멍냥이를 위한 이색 사진관",
       });
-    } catch (err) {
-      return console.log(err);
     }
   } else {
     alert("공유하기가 지원되지 않는 환경입니다.");

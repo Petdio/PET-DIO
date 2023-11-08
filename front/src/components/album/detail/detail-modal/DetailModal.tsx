@@ -111,7 +111,7 @@ function DetailModal({
               color="secondary"
               endIcon={<ShareIcon />}
               fullWidth
-              onClick={() => shareImage()}
+              onClick={() => shareImage(albumURL)}
             >
               공유
             </ActionButton>

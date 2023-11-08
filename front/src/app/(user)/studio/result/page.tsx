@@ -96,7 +96,7 @@ export default function Result() {
             size="large"
             endIcon={<ShareIcon />}
             fullWidth
-            onClick={() => shareImage()}
+            onClick={() => shareImage(image)}
           >
             공유
           </Button>

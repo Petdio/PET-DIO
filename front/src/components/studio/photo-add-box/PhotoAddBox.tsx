@@ -63,6 +63,32 @@ function PhotoAddBox() {
           if (img.width && img.height) {
             setImageWidth(img.width);
             setImageHeight(img.height);
+
+            const mimeType = file.type;
+
+            if (mimeType !== "image/jpg") {
+              // Canvas를 사용하여 이미지를 다시 인코딩하여 형식을 변경
+              const canvas = document.createElement("canvas");
+              const ctx = canvas.getContext("2d");
+              if (ctx) {
+                canvas.width = img.width;
+                canvas.height = img.height;
+                ctx.drawImage(img, 0, 0);
+                // 이미지를 JPEG 형식으로 변환
+                canvas.toBlob(
+                  (blob) => {
+                    if (blob) {
+                      const newFile = new File([blob], file.name, {
+                        type: "image/jpg",
+                      });
+                      setFormData({ ...formData, imageFile: newFile });
+                    }
+                  },
+                  "image/jpg",
+                  1.0
+                );
+              }
+            }
           }
         };
         setImage(reader.result);

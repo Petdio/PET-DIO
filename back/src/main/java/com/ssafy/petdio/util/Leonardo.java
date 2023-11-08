@@ -72,25 +72,34 @@ public class Leonardo {
     }
 
     public byte[] convertToJpg(MultipartFile file) throws IOException {
-        String extension = FilenameUtils.getExtension(file.getOriginalFilename());
-        log.info("extension: " +extension);
+        String contentType = file.getContentType();
+        log.info("Content Type: " + contentType);
 
-        // 이미 확장자가 jpg인 경우 그대로 반환
-        if (extension.equalsIgnoreCase("jpg")) {
-            return file.getBytes();
+        if (contentType != null && contentType.startsWith("image")) {
+            // 이미지 데이터를 읽어옴
+            BufferedImage img = ImageIO.read(file.getInputStream());
+
+            if (img != null) {
+                // 이미 확장자가 jpg인 경우 그대로 반환
+                if (FilenameUtils.getExtension(file.getOriginalFilename()).equalsIgnoreCase("jpg")) {
+                    return file.getBytes();
+                }
+
+                // jpg로 변환
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                try {
+                    ImageIO.write(img, "jpg", bos);
+                    return bos.toByteArray();
+                } finally {
+                    bos.close();
+                    img.flush();
+                }
+            } else {
+                throw new IOException("Invalid image format");
+            }
+        } else {
+            throw new IOException("Not an image file");
         }
-
-        // 이미지 데이터를 읽어옴
-        BufferedImage img = ImageIO.read(file.getInputStream());
-
-        // jpg로 변환
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        ImageIO.write(img, "jpg", bos);
-        bos.flush();
-        byte[] imageBytes = bos.toByteArray();
-        bos.close();
-
-        return imageBytes;
     }
 
     private boolean uploadImage(JSONObject jsonResponse, MultipartFile multipartFile) throws IOException {
@@ -111,6 +120,8 @@ public class Leonardo {
         }
 
         byte[] imageBytes = convertToJpg(multipartFile);
+
+        System.out.println(imageBytes);
 
         builderUploadImageRequest.addFormDataPart(
                 "file",
@@ -147,10 +158,11 @@ public class Leonardo {
     public JSONObject putJsonPayload(List<Setting> settings, Prompt prompt, String imageId, String breed, String selectedModelId) {
         JSONObject generationPayload = new JSONObject();
         for (Setting setting : settings) {
+            System.out.println(setting);
             switch (setting.getSettingType()) {
                 case "double" -> generationPayload.put(setting.getSettingName(), Double.valueOf(setting.getSettingDetail()));
                 case "integer" -> generationPayload.put(setting.getSettingName(), Integer.valueOf(setting.getSettingDetail()));
-                case "boolean" -> generationPayload.put(setting.getSettingName(), setting.getSettingName().equals("true"));
+                case "boolean" -> generationPayload.put(setting.getSettingName(), setting.getSettingDetail().equals("true"));
                 default -> generationPayload.put(setting.getSettingName(), setting.getSettingDetail());
             }
         }

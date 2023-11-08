@@ -3,25 +3,40 @@ import { useState, useEffect } from "react";
 import { LinearProgress, Box, Typography } from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
 import { useRouter } from "next/navigation";
+import { initializeApp } from "firebase/app";
+import { getMessaging, onMessage } from "firebase/messaging";
 
 export default function Generating() {
   const router = useRouter();
-  const [showComponent1, setShowComponent1] = useState(true);
+  const [showComponent, setShowComponent] = useState(true);
 
   useEffect(() => {
-    const timer1 = setTimeout(() => {
-      setShowComponent1(false);
-    }, 3000);
+    const firebaseApp = initializeApp({
+      apiKey: process.env.NEXT_PUBLIC_FIREBASE_APIKEY,
+      authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+      projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECTID,
+      storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGEBUCKET,
+      messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGINGSENDERID,
+      appId: process.env.NEXT_PUBLIC_FIREBASE_APPID,
+      measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENTID,
+    });
 
-    const timer2 = setTimeout(() => {
-      router.push("result");
-    }, 4000);
+    const messaging = getMessaging(firebaseApp);
 
-    return () => {
-      clearTimeout(timer1);
-      clearTimeout(timer2);
-    };
-  }, [router]);
+    onMessage(messaging, (payload) => {
+      console.log("Message received. ", payload.notification?.image);
+      const imageKey = payload.notification?.image?.match(/\/([^/]+)\.jpg$/);
+
+      if (imageKey) {
+        setShowComponent(false);
+        setTimeout(() => {
+          router.push(`/studio/result?img=${imageKey[1]}`);
+        }, 4000);
+      } else {
+        console.log("No match found");
+      }
+    });
+  }, []);
 
   return (
     <Box
@@ -38,14 +53,14 @@ export default function Generating() {
           justifyContent: "space-around",
         }}
       >
-        {showComponent1 ? (
+        {showComponent ? (
           <>
             <Typography
               variant="body1"
               color="black"
               sx={{ textAlign: "center", mb: "20px" }}
             >
-              댕댕이 옷 입히는 중...
+              옷 입히는 중...
             </Typography>
             <LinearProgress />
           </>

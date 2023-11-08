@@ -21,8 +21,8 @@ public enum Prompt {
                     " mutation, mutated, floating limbs, disconnected limbs, out of focus, long body, disgusting, " +
                     "extra fingers, groos proportions, missing arms, mutated hands, cloned face, missing legs,"),
     HALLOWEEN(2L,
-            "cute stickers, 8K Ultra HD, highly detailed, Detailed illustration of a cute breed enjoying Halloween, " +
-                    "with lots of pumpkins in the background, magic hat, style cartoon, two-dimensional, planar vector, " +
+            "cute stickers, 8K Ultra HD, highly detailed, Detailed illustration of a cute breed enjoying Halloween,pumpkins " +
+                    "(with lots of pumpkins in the background), magic hat, style cartoon, two-dimensional, planar vector, " +
                     "character design, vector art, fantasy art, T-shirt design, Background with light brown gradient, Chibi Chara," +
                     " Super Deformed Character, full body, Cute Design, Two-Dimensional, Character Design, Adorable Characters," +
                     " Mascot Characters, Adobe Illustrator, soft tetrad color, A digital illustration of anime style , " +
@@ -68,9 +68,10 @@ public enum Prompt {
                     "poorly drawn hands, missing limb, cut-off, over satured, grain, lowères, bad anatomy, " +
                     "poorly drawn face, mutation, mutated, floating limbs, disconnected limbs"),
     CHRISTMAS(5L,"illustration Kawaii breed in black punk rock amour, handcuffed to a cross,sticker, " +
+            "Christmas wallpaper with lots of Christmas gifts"+
             "playing with a small ball of ruby,surrounded by presents, under a mistletoe, Christmas , side view," +
             " Svg sticker, clean white background, professional vector, high detail, t-shirt design, graffiti, vibrant," +
-            " Stylized Sticker" +
+            " Stylized Sticker" + "breed in the center"+
             "sticker design with outline, cartoon styled, cute breed wearing a sanatas hat, " +
             "surrounded by gifts and a christmas tree, playing with toys, vector style, " +
             "4k, illustration, sketch, t shirt design",

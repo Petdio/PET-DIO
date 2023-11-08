@@ -11,7 +11,7 @@ public enum ConceptModel {
 
     DRAWING_MODEL(1L, "ac614f96-1082-45bf-be9d-757f2d31c174"),
 
-    HALLOWEEN_MODEL(2L, "e316348f-7773-490e-adcd-46757c738eb7"),
+    HALLOWEEN_MODEL(2L, "1e60896f-3c26-4296-8ecc-53e2afecc132"),
 
     NINJA_MODEL(3L, "ac614f96-1082-45bf-be9d-757f2d31c174"),
 

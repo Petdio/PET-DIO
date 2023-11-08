@@ -88,8 +88,8 @@ function PhotoAddBox() {
       onCrop(cropperRef.current?.cropper.getCroppedCanvas().toDataURL());
       cropperRef.current?.cropper.getCroppedCanvas().toBlob((blob) => {
         if (blob) {
-          const file = new File([blob], "croppedImage.jpeg", {
-            type: "image/jpeg",
+          const file = new File([blob], "croppedImage.jpg", {
+            type: "image/jpg",
           });
           setFormData({ ...formData, imageFile: file });
         }

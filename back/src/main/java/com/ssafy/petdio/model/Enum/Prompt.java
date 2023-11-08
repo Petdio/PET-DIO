@@ -9,11 +9,17 @@ import java.util.Map;
 @Getter
 public enum Prompt {
     DRAWING(1L,
-            "breed,design,vector,head,looking to side, on white background" ,
-            "deformed, ugly, disfigured, blurry, pixelated, hideous, " +
-                    "indistinct, old, malformed, extra hands, poorly drawn hands, extra arms," +
-                    " joined misshapen, collage, low, poor, monochrome, huge, extra fingers, mutated hands," +
-                    " fused fingers, too many fingers,"),
+            "cute stickers, style cartoon, cute pixar black breed Character, high quality, 8K Ultra HD, " +
+                    "colorful, pink, orange, blue, yellow, detailed illustration of a cute black breed , " +
+                    "beautiful cute pixar black breed , Many bats are flying in the background, " +
+                    "highly detailed, by yukisakura, awesome full color, vinyl sticker with white border" ,
+            "nude, nsfw, text, letters, too many feet, too many fingers, (((2 heads))), duplicate," +
+                    " abstract, disfigured, deformed, toy, figure, framed, disfigured, bad art, deformed, poorly drawn, " +
+                    "extra limbs, weird colors, 2 heads, long neck, elongated body, cropped image, out of frame, draft, " +
+                    "deformed hands, twisted fingers, double image, malformed hands, multiple heads, extra limb, ugly, " +
+                    "poorly drawn hands, missing limb, cut-off, over satured, grain, lowères, bad anatomy, poorly drawn face," +
+                    " mutation, mutated, floating limbs, disconnected limbs, out of focus, long body, disgusting, " +
+                    "extra fingers, groos proportions, missing arms, mutated hands, cloned face, missing legs,"),
     HALLOWEEN(2L,
 //            "cute stickers, 8K Ultra HD, highly detailed, Detailed illustration of a cute breed enjoying Halloween, " +
 //                    "with lots of pumpkins in the background, magic hat, style cartoon, two-dimensional, planar vector, " +

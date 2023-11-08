@@ -1,5 +1,6 @@
 package com.ssafy.petdio.service;
 
+import com.ssafy.petdio.model.Enum.ConceptModel;
 import com.ssafy.petdio.model.Enum.Prompt;
 import com.ssafy.petdio.model.dto.AiDto;
 import com.ssafy.petdio.model.dto.FcmDto.NotificationMessage;
@@ -47,8 +48,8 @@ public class AiServiceImpl implements AiService {
     public void makeAiImage(Long conceptId, MultipartFile multipartFile, String breed, Long userId) throws IOException {
         List<Setting> settings = settingRepository.findAllByConcept_ConceptId(conceptId);
 
-        String selectedModelId = getRandomModelId();
-        String generationId = leonardo.generateAndFetchImages(leonardo.putJsonPayload(settings, Prompt.findEnumById(conceptId), leonardo.init(multipartFile), breed, selectedModelId));
+//        String selectedModelId = getRandomModelId();
+        String generationId = leonardo.generateAndFetchImages(leonardo.putJsonPayload(settings, Prompt.findEnumById(conceptId), leonardo.init(multipartFile), breed, ConceptModel.findEnumById(conceptId)));
 
 
         //String generationId = leonardo.generateAndFetchImages(leonardo.putJsonPayload(settings, Prompt.findEnumById(conceptId), leonardo.init(multipartFile), breed));

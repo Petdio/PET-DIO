@@ -54,7 +54,7 @@ public class FileService {
             BufferedImage originalImage = ImageIO.read(imageStream);
 
             // 워터마크 이미지 로드
-            InputStream watermarkImageStream = getClass().getClassLoader().getResourceAsStream("watermark.svg");
+            InputStream watermarkImageStream = getClass().getClassLoader().getResourceAsStream("watermark.png");
             BufferedImage watermarkImage = ImageIO.read(watermarkImageStream);
 
             // 워터마크 위치 설정

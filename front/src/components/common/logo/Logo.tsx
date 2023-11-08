@@ -1,18 +1,31 @@
-import Image from "next/image";
+import Image from 'next/image';
+import Link from 'next/link';
 
 interface Props {
-  size?: "large" | "small";
+  size?: 'large' | 'small';
 }
 
-function Logo({ size = "small" }: Props) {
+function Logo({ size = 'small' }: Props) {
   switch (size) {
-    case "small":
+    case 'small':
       return (
-        <Image src="/assets/PETDIO.svg" alt="logo" width={75} height={28} />
+        <Link href={'/studio'}>
+          <Image
+            src="/assets/Logo_inapp_primary.svg"
+            alt="logo"
+            width={96}
+            height={48}
+          />
+        </Link>
       );
-    case "large":
+    case 'large':
       return (
-        <Image src="/assets/PETDIO.svg" alt="logo" width={250} height={94} />
+        <Image
+          src="/assets/PETDIO.svg"
+          alt="logo"
+          width={250}
+          height={94}
+        />
       );
   }
 }

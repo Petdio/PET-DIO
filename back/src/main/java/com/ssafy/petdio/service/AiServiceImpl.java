@@ -59,7 +59,7 @@ public class AiServiceImpl implements AiService {
     public void getImage(String leonardoUrl) throws Exception {
         String generationId = getGenerationId(leonardoUrl);
         AiDto.Data imageData = redisTemplate.opsForValue().get(generationId);
-
+        log.info("redis 에서 꺼낸 값 : " + imageData);
         String s3Url = fileService.upload(leonardoUrl);
         albumRepository.save(
                 Album.builder()

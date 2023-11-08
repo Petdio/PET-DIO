@@ -13,7 +13,7 @@ export default async function downloadImage(imgSrc: string, fileName: string) {
     const a = document.createElement("a");
     console.log(blob);
     a.href = blobUrl;
-    a.download = fileName;
+    a.download = `${fileName}.jpg`;
     a.style.display = "none";
     document.body.appendChild(a);
     a.click();

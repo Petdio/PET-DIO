@@ -21,8 +21,8 @@ public enum Prompt {
                     " mutation, mutated, floating limbs, disconnected limbs, out of focus, long body, disgusting, " +
                     "extra fingers, groos proportions, missing arms, mutated hands, cloned face, missing legs,"),
     HALLOWEEN(2L,
-            "cute stickers, 8K Ultra HD, highly detailed, Detailed illustration of a cute breed enjoying Halloween, " +
-                    "with lots of pumpkins in the background, magic hat, style cartoon, two-dimensional, planar vector, " +
+            "cute stickers, 8K Ultra HD, highly detailed, Detailed illustration of a cute breed enjoying Halloween,pumpkins " +
+                    "(with lots of pumpkins in the background), magic hat, style cartoon, two-dimensional, planar vector, " +
                     "character design, vector art, fantasy art, T-shirt design, Background with light brown gradient, Chibi Chara," +
                     " Super Deformed Character, full body, Cute Design, Two-Dimensional, Character Design, Adorable Characters," +
                     " Mascot Characters, Adobe Illustrator, soft tetrad color, A digital illustration of anime style , " +

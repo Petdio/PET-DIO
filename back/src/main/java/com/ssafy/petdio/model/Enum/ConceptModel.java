@@ -17,7 +17,7 @@ public enum ConceptModel {
 
     MINI(4L,"e316348f-7773-490e-adcd-46757c738eb7" ),
 
-    CHRISTMAS(5L, "ac614f96-1082-45bf-be9d-757f2d31c174");
+    CHRISTMAS(5L, "d69c8273-6b17-4a30-a13e-d6637ae1c644");
 
     private Long id;
     private String modelId;

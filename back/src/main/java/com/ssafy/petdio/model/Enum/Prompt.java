@@ -67,13 +67,7 @@ public enum Prompt {
                     "twisted fingers, double image, malformed hands, multiple heads, extra limb, ugly, " +
                     "poorly drawn hands, missing limb, cut-off, over satured, grain, lowères, bad anatomy, " +
                     "poorly drawn face, mutation, mutated, floating limbs, disconnected limbs"),
-    CHRISTMAS(5L,"illustration Kawaii breed in black punk rock amour, handcuffed to a cross,sticker, " +
-            "playing with a small ball of ruby,surrounded by presents, under a mistletoe, Christmas , side view," +
-            " Svg sticker, clean white background, professional vector, high detail, t-shirt design, graffiti, vibrant," +
-            " Stylized Sticker" +
-            "sticker design with outline, cartoon styled, cute breed wearing a sanatas hat, " +
-            "surrounded by gifts and a christmas tree, playing with toys, vector style, " +
-            "4k, illustration, sketch, t shirt design",
+    CHRISTMAS(5L,"Generate imaginative Christmas-themed animals: Picture a breed with [Festive Element/Accessory]",
             "out of frame, cropped, bad proportions, out of frame, bad anatomy, poorly drawn face, morbid," +
                     "mutilated,((extra eyes)), ((extra arms)), ((extra legs)), ((extra fingers))" +
                     "((extra headphones)), ((two headphones)), ((extra heads)), ((extra eyes)) (((2 heads)))" +

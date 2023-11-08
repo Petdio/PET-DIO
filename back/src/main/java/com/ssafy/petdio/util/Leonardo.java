@@ -112,6 +112,8 @@ public class Leonardo {
 
         byte[] imageBytes = convertToJpg(multipartFile);
 
+        System.out.println(imageBytes);
+
         builderUploadImageRequest.addFormDataPart(
                 "file",
                 multipartFile.getOriginalFilename(),
@@ -147,6 +149,7 @@ public class Leonardo {
     public JSONObject putJsonPayload(List<Setting> settings, Prompt prompt, String imageId, String breed, String selectedModelId) {
         JSONObject generationPayload = new JSONObject();
         for (Setting setting : settings) {
+            System.out.println(setting);
             switch (setting.getSettingType()) {
                 case "double" -> generationPayload.put(setting.getSettingName(), Double.valueOf(setting.getSettingDetail()));
                 case "integer" -> generationPayload.put(setting.getSettingName(), Integer.valueOf(setting.getSettingDetail()));

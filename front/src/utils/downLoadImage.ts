@@ -5,7 +5,7 @@
  * @returns void
  */
 
-export async function downloadImage(imgSrc: string, fileName: string) {
+export default async function downloadImage(imgSrc: string, fileName: string) {
   try {
     const response = await fetch(imgSrc);
     const blob = await response.blob();

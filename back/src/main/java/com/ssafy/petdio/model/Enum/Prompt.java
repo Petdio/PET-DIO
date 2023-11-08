@@ -8,27 +8,18 @@ import java.util.Map;
 
 @Getter
 public enum Prompt {
-    STICKER(1L,
-            "(Sticker An adorable cute breed in the photo that provided),(Same pose as the provided photo," +
-                    " photo provided as close to the provided photo as possible, refer to the photo.)," +
-                    "((Different every time)), (Different every time)," +
-                    " (Every time make different, not the same photo,different photo)," +
-                    "((Every time make different, not the same photo,different photo))" +
-                    "breed in the photo that provided, stickers, " +
-                    "adorable, lovely, 3D vector art, cute and quirky, watercolor effect, bokeh, Adobe Illustrator ," +
-                    " hand-drawn, digital painting, low-poly, low-lighting, bird's-eye view, isometric style, character-focused," +
-                    " 4K resolution, photorealistic rendering, using Cinema 4D,"
-                    + "sticker, cartoon breed in the photo that provided sticker, all white background, Vermeer style, " +
-                    "12K, high quality, HD, octane render, cinematic lighting, sticker format, sticker shape," +
-                    "Different every time, When making, Different every time I make a photo, not same",
-            "negative_prompt" + "nude, nsfw, text, letters, too many feet, too many fingers,"
-            + "(((2 heads))), duplicate, abstract, disfigured, deformed, toy, figure, framed, disfigured, bad art,"
-            + "deformed, poorly drawn, extra limbs, weird colors, 2 heads, long neck, elongated body, cropped image,"
-            + "out of frame, draft, deformed hands, twisted fingers, double image, malformed hands,"
-            + "multiple heads, extra limb, ugly, poorly drawn hands, missing limb, cut-off, over satured, grain, lowères,"
-            + " bad anatomy, poorly drawn face, mutation, mutated, floating limbs, disconnected limbs,"
-            + " out of focus, long body, disgusting, extra fingers, groos proportions, missing arms, mutated hands, "
-            + "cloned face, missing legs,"),
+    DRAWING(1L,
+            "cute stickers, style cartoon, cute pixar black breed Character, high quality, 8K Ultra HD, " +
+                    "colorful, pink, orange, blue, yellow, detailed illustration of a cute black breed , " +
+                    "beautiful cute pixar black breed , Many bats are flying in the background, " +
+                    "highly detailed, by yukisakura, awesome full color, vinyl sticker with white border" ,
+            "nude, nsfw, text, letters, too many feet, too many fingers, (((2 heads))), duplicate," +
+                    " abstract, disfigured, deformed, toy, figure, framed, disfigured, bad art, deformed, poorly drawn, " +
+                    "extra limbs, weird colors, 2 heads, long neck, elongated body, cropped image, out of frame, draft, " +
+                    "deformed hands, twisted fingers, double image, malformed hands, multiple heads, extra limb, ugly, " +
+                    "poorly drawn hands, missing limb, cut-off, over satured, grain, lowères, bad anatomy, poorly drawn face," +
+                    " mutation, mutated, floating limbs, disconnected limbs, out of focus, long body, disgusting, " +
+                    "extra fingers, groos proportions, missing arms, mutated hands, cloned face, missing legs,"),
     HALLOWEEN(2L,
 //            "cute stickers, 8K Ultra HD, highly detailed, Detailed illustration of a cute breed enjoying Halloween, " +
 //                    "with lots of pumpkins in the background, magic hat, style cartoon, two-dimensional, planar vector, " +
@@ -87,18 +78,10 @@ public enum Prompt {
                     "twisted fingers, double image, malformed hands, multiple heads, extra limb, ugly, " +
                     "poorly drawn hands, missing limb, cut-off, over satured, grain, lowères, bad anatomy, " +
                     "poorly drawn face, mutation, mutated, floating limbs, disconnected limbs"),
-    CHRISTMAS(5L,"cute stickers, 8K Ultra HD, highly detailed, Detailed illustration of a cute breed enjoying christmas"+
-            "illustration Kawaii breed in black punk rock amour," +
-                    "character design, vector art, fantasy art, T-shirt design, " +
-            " handcuffed to a cross,sticker, playing with a small ball of ruby,surrounded by presents, " +
-            "under a mistletoe, Christmas , side view, Svg sticker, clean white background, " +
-            "professional vector, high detail, t-shirt design, graffiti, vibrant, Stylized Sticker"
-            +" Super Deformed Character, full body, Cute Design, Two-Dimensional, Character Design, Adorable Characters," +
-            " Mascot Characters, Adobe Illustrator, A digital illustration of anime style , " +
-            "soft anime tones, luminism, pixiv, luminism, 3d render, octane render, " +
-            "Isometric, by yukisakura, awesome full color,"+
-            "Feeling like Kyoto Animation, pixiv, luminism, 3d render, octane render, Isometric, " +
-            "by yukisakura, awesome full color,",
+    CHRISTMAS(5L,"illustration Kawaii breed in black punk rock amour, handcuffed to a cross,sticker, " +
+            "playing with a small ball of ruby,surrounded by presents, under a mistletoe, Christmas , side view," +
+            " Svg sticker, clean white background, professional vector, high detail, t-shirt design, graffiti, vibrant," +
+            " Stylized Sticker",
             "out of frame, cropped, bad proportions, out of frame, bad anatomy, poorly drawn face, morbid, \" +\n" +
                     "mutilated,((extra eyes)), ((extra arms)), ((extra legs)), ((extra fingers))" +
                     "((extra headphones)), ((two headphones)), ((extra heads)), ((extra eyes)) (((2 heads)))" +

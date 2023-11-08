@@ -1,6 +1,6 @@
-"use client";
-import { useRouter } from "next/navigation";
-import Image from "next/image";
+'use client';
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import {
   Box,
   Dialog,
@@ -10,16 +10,16 @@ import {
   Button,
   Typography,
   Tooltip,
-} from "@mui/material";
-import { styled } from "@mui/material/styles";
-import downloadImage from "@/utils/downLoadImage";
-import ShareIcon from "@mui/icons-material/Share";
-import SaveAltIcon from "@mui/icons-material/SaveAlt";
-import CameraIcon from "@mui/icons-material/Camera";
-import CloseIcon from "@mui/icons-material/Close";
-import { ImgInfoProps } from "@/interfaces/AlbumDataProps";
-import { SlideMUI } from "@/components/animation/SlideMUI";
-import shareImage from "@/utils/shareImage";
+} from '@mui/material';
+import { styled } from '@mui/material/styles';
+import downloadImage from '@/utils/downLoadImage';
+import ShareIcon from '@mui/icons-material/Share';
+import SaveAltIcon from '@mui/icons-material/SaveAlt';
+import CameraIcon from '@mui/icons-material/Camera';
+import CloseIcon from '@mui/icons-material/Close';
+import { ImgInfoProps } from '@/interfaces/AlbumDataProps';
+import { SlideMUI } from '@/components/animation/SlideMUI';
+import shareImage from '@/utils/shareImage';
 
 const ActionButton = styled(Button)({});
 
@@ -39,6 +39,8 @@ function DetailModal({
   againURL,
 }: Props) {
   const { albumURL, albumCreated } = imgInfo;
+  const imgBrief = themeName + ', ' + albumCreated;
+  const fileName = themeName + '_' + albumCreated;
   const router = useRouter();
   if (!isOpen) return null;
   return (
@@ -49,8 +51,8 @@ function DetailModal({
       TransitionComponent={SlideMUI}
       onClose={handleClose}
       sx={{
-        paddingLeft: "1rem",
-        paddingRight: "1rem",
+        paddingLeft: '1rem',
+        paddingRight: '1rem',
       }}
     >
       <Button
@@ -60,19 +62,17 @@ function DetailModal({
         color="inherit"
         disableRipple
         sx={{
-          margin: "1rem 0 0 0.75rem",
-          alignSelf: "start",
+          margin: '1rem 0 0 0.75rem',
+          alignSelf: 'start',
           borderRadius: 100,
         }}
         onClick={handleClose}
       >
         닫기
       </Button>
-      <DialogContent sx={{ overflow: "hidden", padding: "1rem" }}>
+      <DialogContent sx={{ overflow: 'hidden', padding: '1rem' }}>
         <DialogContentText textAlign="end">
-          <Typography fontSize={14}>
-            {themeName + ", " + albumCreated}
-          </Typography>
+          <Typography fontSize={14}>{imgBrief}</Typography>
         </DialogContentText>
 
         <Box
@@ -83,18 +83,18 @@ function DetailModal({
         >
           <Image
             src={albumURL}
-            alt={themeName + ", " + albumCreated}
+            alt={imgBrief}
             fill
             objectFit="cover"
             objectPosition="center center"
             placeholder="empty"
-            style={{ borderRadius: "0.5rem" }}
+            style={{ borderRadius: '0.5rem' }}
           />
         </Box>
       </DialogContent>
       <DialogActions
         sx={{
-          padding: "0 1rem 1rem 1rem",
+          padding: '0 1rem 1rem 1rem',
         }}
       >
         <Box
@@ -104,7 +104,10 @@ function DetailModal({
           alignItems="center"
           padding={0}
         >
-          <Box display="flex" width="100%">
+          <Box
+            display="flex"
+            width="100%"
+          >
             {/* <Tooltip title="아직 준비중인 기능이에요." placement="top" arrow> */}
             <ActionButton
               variant="contained"
@@ -122,7 +125,7 @@ function DetailModal({
               color="primary"
               endIcon={<SaveAltIcon />}
               fullWidth
-              onClick={() => downloadImage(albumURL, "petdio-image")}
+              onClick={() => downloadImage(albumURL, fileName)}
             >
               저장
             </ActionButton>
@@ -133,7 +136,7 @@ function DetailModal({
             color="primary"
             endIcon={<CameraIcon />}
             fullWidth
-            sx={{ width: "100%" }}
+            sx={{ width: '100%' }}
             onClick={() => router.push(`/studio/${againURL}/add-photo`)}
           >
             이 테마로 다시 만들기

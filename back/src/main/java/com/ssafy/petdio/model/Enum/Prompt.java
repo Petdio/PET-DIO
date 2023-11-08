@@ -28,14 +28,14 @@ public enum Prompt {
 //                    " Mascot Characters, Adobe Illustrator, soft tetrad color, A digital illustration of anime style , " +
 //                    "soft anime tones, luminism, Feeling like Kyoto Animation, pixiv, luminism, 3d render, octane render, " +
 //                    "Isometric, by yukisakura, awesome full color,"+
-            "A detailed illustration of a print of a colorful cute black breed rides a broom has orange eyes" +
-                    " and it wear witch hat and hold a book and peen next to a cute Halloween Pumpkin," +
+            "A detailed illustration of a print of a colorful cute breed rides a broom" +
+                    " and it wear witch hat and hold a book and peen next to a cute Halloween Pumpkin" +
                     " hyper realistic high quality, t-shit desing graphic, vector, carton, contour, fantasy swirls splash," +
-                    " modern t-shirt design, in the style of Studio Ghibli, light white red and green pastel tetradic colors, " +
-                    "3D vector art, cute and quirky, fantasy art, watercolor effect, bokeh, Adobe Illustrator," +
-                    " hand-drawn, digital painting, low-poly, soft lighting, bird's-eye view, isometric style, " +
-                    "retro aesthetic, focusedon the character, 4K resolution, photorealistic rendering, " +
-                    "usingCinema 4D, isolated in a white background",
+                    " modern t-shirt design, in the style of Studio Ghibli, light white red and green pastel tetradic colors," +
+                    " 3D vector art, cute and quirky, fantasy art, watercolor effect, bokeh, Adobe Illustrator," +
+                    " hand-drawn, digital painting, low-poly, soft lighting, bird's-eye view, isometric style," +
+                    " retro aesthetic, focused on the character, 4K resolution, photorealistic rendering, " +
+                    " usingCinema 4D, isolated in a white background",
             "Feeling like Kyoto Animation, pixiv, luminism, 3d render, octane render, Isometric, by yukisakura," +
                     " awesome full color,"+ "nude, nsfw, text, letters, too many feet, too many fingers"
                     + "(((2 heads))), duplicate, abstract, disfigured, deformed, toy, figure, framed, disfigured, bad art, "

@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { Box, Typography, Button } from '@mui/material';
 
 interface Props {
@@ -14,7 +15,18 @@ function WelcomeItem4({ onClose }: Props) {
       alignItems="center"
       height="100%"
     >
-      <Typography>사진 만들러 가요</Typography>
+      <Image
+        // src="/assets/Logo_notypo_primary.svg"
+        src="/assets/vari.svg"
+        alt="logo"
+        width={48}
+        height={48}
+      />
+      <Box height="0.5rem" />
+      <Typography>이제 우리 반려동물의</Typography>
+      <Typography>새로운 모습을 만나러 가요!</Typography>
+      <Box height="1.5rem" />
+
       <Button
         variant="text"
         // endIcon={<ArrowForwardIcon />}
@@ -27,6 +39,7 @@ function WelcomeItem4({ onClose }: Props) {
       >
         PETDIO 시작!
       </Button>
+      <Box height="1rem" />
     </Box>
   );
 }

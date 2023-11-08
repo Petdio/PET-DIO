@@ -35,9 +35,14 @@ public class Leonardo {
     }
 
     public String init(MultipartFile multipartFile) throws IOException {
+        log.info("image file !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + multipartFile.getContentType() + " " + multipartFile.getOriginalFilename());
         RequestBody requestBody = new FormBody.Builder()
                 .add("extension", "jpg")
                 .build();
+
+//        RequestBody requestBody = new FormBody.Builder()
+//                .add("extension", getFileExtension(multipartFile.getOriginalFilename()))
+
 
         JSONObject uploadInitResponse = null;
 
@@ -54,12 +59,13 @@ public class Leonardo {
         return imageId;
     }
 
-//    private String getFileExtension(String fileName) {
-//        if (fileName != null && fileName.lastIndexOf(".") != -1) {
-//            return fileName.substring(fileName.lastIndexOf(".") + 1);
-//        }
-//        return "";
-//    }
+
+    private String getFileExtension(String fileName) {
+        if (fileName != null && fileName.lastIndexOf(".") != -1) {
+            return fileName.substring(fileName.lastIndexOf(".") + 1);
+        }
+        return "";
+    }
 
     private Request getRequest(String url, RequestBody requestBody) {
         return new Request.Builder()
@@ -95,6 +101,7 @@ public class Leonardo {
                     img.flush();
                 }
             } else {
+//                img = Imaging.getBufferedImage(file);
                 throw new IOException("Invalid image format");
             }
         } else {
@@ -128,6 +135,12 @@ public class Leonardo {
                 multipartFile.getOriginalFilename(),
                 RequestBody.create(MediaType.parse("image/jpeg"), imageBytes)
         );
+//        builderUploadImageRequest.addFormDataPart(
+//                "file",
+//                multipartFile.getOriginalFilename(),
+//                RequestBody.create(MediaType.parse(multipartFile.getContentType()), multipartFile.getBytes())
+//        );
+
 
 //        builderUploadImageRequest.addFormDataPart(
 //                "file",

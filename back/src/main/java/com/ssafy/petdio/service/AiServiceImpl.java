@@ -15,6 +15,7 @@ import com.ssafy.petdio.user.service.UserService;
 import com.ssafy.petdio.util.Leonardo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -123,5 +124,57 @@ public class AiServiceImpl implements AiService {
         Random random = new Random();
         int randomIndex = random.nextInt(modelIds.length);
         return modelIds[randomIndex];
+    }
+
+    @Override
+    public void webhookUrlCheck(String url) throws Exception {
+        JSONObject data = new JSONObject(url);
+        System.out.println(url);
+        System.out.println(data);
+        String status = data.getJSONObject("object").getString("status");
+        String generationId = data.getJSONObject("data").getJSONObject("object").getString("id");
+        AiDto.Data imageData = redisTemplate.opsForValue().get(generationId);
+        redisTemplate.delete(generationId);
+        User user = userRepository.findByUserIdAndUserDeleteIsNull(imageData.getUserId()).orElseThrow();
+        if (status.equals("COMPLETE")) {
+            String leonardoUrl = data.getJSONObject("data").getJSONObject("object").getJSONArray("images").getJSONObject(0).getString("url");
+            String s3Url = fileService.upload(leonardoUrl);
+            albumRepository.save(
+                    Album.builder()
+                            .albumImgUrl(s3Url)
+                            .concept(Concept
+                                    .builder()
+                                    .conceptId(imageData.getConceptId())
+                                    .build())
+                            .user(User.builder()
+                                    .userId(imageData.getUserId())
+                                    .build())
+                            .build());
+            log.info("만들어진 url 링크: " + defaultUrl + s3Url);
+            log.info("---------------fcm test------------");
+            Map<String, String> map = new HashMap<>();
+            map.put("test", "test11");
+            userService.useCoin(user.getUserId());
+            if (user.getFcmToken() == null) throw new Exception("fcm 토큰 없음");
+            fcmService.sendMessageTo(NotificationMessage.builder()
+                    .title("사진 만들기 완료")
+                    .image(defaultUrl + s3Url)
+                    .body("확인해주세요!")
+                    .recipientToken(user.getFcmToken())
+                    .data(map)
+                    .build());
+        } else if (status.equals("FAILED")) {
+            Map<String, String> map = new HashMap<>();
+            map.put("test", "test11");
+            userService.useCoin(user.getUserId());
+            if (user.getFcmToken() == null) throw new Exception("fcm 토큰 없음");
+            fcmService.sendMessageTo(NotificationMessage.builder()
+                    .title("사진 만들기 실패")
+                    .image(null)
+                    .body("다시 만들어볼까요?")
+                    .recipientToken(user.getFcmToken())
+                    .data(map)
+                    .build());
+        }
     }
 }

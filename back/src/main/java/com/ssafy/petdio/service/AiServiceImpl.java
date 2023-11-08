@@ -131,7 +131,7 @@ public class AiServiceImpl implements AiService {
         JSONObject data = new JSONObject(url);
         System.out.println(url);
         System.out.println(data);
-        String status = data.getJSONObject("data").getJSONObject("object").getString("status");
+        String status = data.getJSONObject("object").getString("status");
         String generationId = data.getJSONObject("data").getJSONObject("object").getString("id");
         AiDto.Data imageData = redisTemplate.opsForValue().get(generationId);
         redisTemplate.delete(generationId);

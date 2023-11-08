@@ -5,20 +5,22 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectResult;
 import com.ssafy.petdio.model.dto.ImageInfo;
-
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.*;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
-import org.springframework.web.multipart.MultipartFile;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -52,7 +54,7 @@ public class FileService {
             BufferedImage originalImage = ImageIO.read(imageStream);
 
             // 워터마크 이미지 로드
-            InputStream watermarkImageStream = getClass().getClassLoader().getResourceAsStream("watermark.png");
+            InputStream watermarkImageStream = getClass().getClassLoader().getResourceAsStream("watermark.svg");
             BufferedImage watermarkImage = ImageIO.read(watermarkImageStream);
 
             // 워터마크 위치 설정

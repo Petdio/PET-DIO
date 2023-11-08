@@ -161,7 +161,7 @@ public class Leonardo {
         generationPayload.put("prompt", prompt.getPrompt().replace("breed", breed));
         log.info("프롬프트 breed종류: " + breed);
         generationPayload.put("negative_prompt", prompt.getNegativePrompt());
-//        generationPayload.put("init_image_id", imageId);
+        generationPayload.put("init_image_id", imageId);
         generationPayload.put("modelId", selectedModelId);
         List<String> imagePrompts = new ArrayList<>();
         imagePrompts.add(imageId);

@@ -49,7 +49,7 @@ function WelcomeItem1({ startTutorial }: Props) {
         <Typography fontSize={14}>150을 드렸어요.</Typography>
       </TextBox>
       <Box height="2rem" />
-      <Button
+      {/* <Button
         variant="text"
         endIcon={<ArrowForwardIcon />}
         sx={{
@@ -60,7 +60,13 @@ function WelcomeItem1({ startTutorial }: Props) {
         onClick={() => startTutorial()}
       >
         시작하기
-      </Button>
+      </Button> */}
+      <TextBox>
+        <Typography color={theme.palette.primary.main}>
+          슬라이드로 시작
+        </Typography>
+        <ArrowForwardIcon htmlColor={theme.palette.primary.main} />
+      </TextBox>
     </Box>
   );
 }

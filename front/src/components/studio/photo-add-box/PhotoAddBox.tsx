@@ -65,6 +65,7 @@ function PhotoAddBox() {
             setImageHeight(img.height);
 
             const mimeType = file.type;
+            console.log(file.name);
 
             if (mimeType !== "image/jpg") {
               // Canvas를 사용하여 이미지를 다시 인코딩하여 형식을 변경
@@ -78,7 +79,7 @@ function PhotoAddBox() {
                 canvas.toBlob(
                   (blob) => {
                     if (blob) {
-                      const newFile = new File([blob], file.name, {
+                      const newFile = new File([blob], "image.jpg", {
                         type: "image/jpg",
                       });
                       setFormData({ ...formData, imageFile: newFile });

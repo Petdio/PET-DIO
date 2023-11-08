@@ -16,10 +16,12 @@ function ImageThumbnail({
   onClickFn,
   path,
 }: Props) {
+  const timestamp = albumCreated;
+  const date = new Date(timestamp).toLocaleDateString();
   const imgInfo = {
     albumId: albumId,
     albumURL: albumURL,
-    albumCreated: albumCreated,
+    albumCreated: date,
     themeName: themeName,
     path: path,
   };

@@ -13,6 +13,7 @@ public interface UserService {
 
     public void useCoin(Long id);
 
+
     public void deleteUser(Long id);
 
     @Transactional

@@ -1,18 +1,16 @@
 package com.ssafy.petdio.auth.oauth2.kakao;
 
+import com.ssafy.petdio.auth.jwt.mapper.JwtMapper;
 import com.ssafy.petdio.auth.jwt.service.JwtService;
 import com.ssafy.petdio.auth.model.dto.AuthDto;
+import com.ssafy.petdio.model.Enum.Role;
 import com.ssafy.petdio.model.Enum.SocialType;
 import com.ssafy.petdio.user.model.dto.UserDto;
 import com.ssafy.petdio.user.model.dto.UserLoginDto;
-import com.ssafy.petdio.model.Enum.Role;
 import com.ssafy.petdio.user.model.entity.User;
-import com.ssafy.petdio.user.repository.UserRepository;
 import com.ssafy.petdio.user.model.mapper.UserMapper;
-import com.ssafy.petdio.auth.jwt.mapper.JwtMapper;
-import java.util.concurrent.atomic.AtomicBoolean;
+import com.ssafy.petdio.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -20,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Slf4j
 @Service
@@ -31,6 +30,7 @@ public class KakaoService {
     private final JwtService jwtService;
     // 회원가입시 1500원
     private static final int DEFAULT_COIN = 150;
+
 
     @Value("${KAKAO_RESTAPI_KEY}")
     private String KAKAO_RESTPAPI_KEY;

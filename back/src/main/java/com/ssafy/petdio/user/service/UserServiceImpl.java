@@ -59,6 +59,7 @@ public class UserServiceImpl implements UserService {
 
 
 
+
     /**
      * 유저 삭제하는 메서드(soft delete)
      * @param id

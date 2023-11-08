@@ -9,7 +9,7 @@ interface Props {
   themeName: string;
   imgList?: ImgInfoProps[];
   onClickFn?: (imgInfo: ModalInfoProps) => void;
-  againPath: string
+  againPath: string;
 }
 
 function ThemeSection({ themeName, imgList, onClickFn, againPath }: Props) {
@@ -32,21 +32,24 @@ function ThemeSection({ themeName, imgList, onClickFn, againPath }: Props) {
           flexWrap="wrap"
         >
           {imgList &&
-            imgList.map((img, idx) => {
-              const { albumId, albumURL, albumCreated } = img;
-              return (
-                <ImageThumbnail
-                  albumId={albumId}
-                  key={albumURL}
-                  albumURL={albumURL}
-                  albumCreated={albumCreated}
-                  idx={idx}
-                  onClickFn={onClickFn}
-                  themeName={themeName}
-                  path={againPath}
-                />
-              );
-            })}
+            imgList
+              .slice()
+              .reverse()
+              .map((img, idx) => {
+                const { albumId, albumURL, albumCreated } = img;
+                return (
+                  <ImageThumbnail
+                    albumId={albumId}
+                    key={albumURL}
+                    albumURL={albumURL}
+                    albumCreated={albumCreated}
+                    idx={idx}
+                    onClickFn={onClickFn}
+                    themeName={themeName}
+                    path={againPath}
+                  />
+                );
+              })}
         </Box>
       </Box>
     </>

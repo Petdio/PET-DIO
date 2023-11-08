@@ -38,6 +38,8 @@ function DetailModal({
   againURL,
 }: Props) {
   const { albumURL, albumCreated } = imgInfo;
+  const imgBrief = themeName + ', ' + albumCreated;
+  const fileName = themeName + '_' + albumCreated;
   const router = useRouter();
   if (!isOpen) return null;
   return (
@@ -69,9 +71,7 @@ function DetailModal({
       </Button>
       <DialogContent sx={{ overflow: 'hidden', padding: '1rem' }}>
         <DialogContentText textAlign="end">
-          <Typography fontSize={14}>
-            {themeName + ', ' + albumCreated}
-          </Typography>
+          <Typography fontSize={14}>{imgBrief}</Typography>
         </DialogContentText>
 
         <Box
@@ -82,7 +82,7 @@ function DetailModal({
         >
           <Image
             src={albumURL}
-            alt={themeName + ', ' + albumCreated}
+            alt={imgBrief}
             fill
             objectFit="cover"
             objectPosition="center center"
@@ -127,7 +127,7 @@ function DetailModal({
               color="primary"
               endIcon={<SaveAltIcon />}
               fullWidth
-              onClick={() => downloadImage(albumURL, albumURL)}
+              onClick={() => downloadImage(albumURL, fileName)}
             >
               저장
             </ActionButton>

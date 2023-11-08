@@ -96,7 +96,7 @@ export default function Result() {
             size="large"
             endIcon={<ShareIcon />}
             fullWidth
-            onClick={() => shareImage(image, "petdio-image")}
+            onClick={() => shareImage()}
           >
             공유
           </Button>

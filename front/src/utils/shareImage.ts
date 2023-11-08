@@ -5,7 +5,7 @@
  * @returns void
  */
 
-export default async function shareImage(imgSrc: string, fileName: string) {
+export default async function shareImage() {
   if (navigator.share) {
     try {
       navigator.share({

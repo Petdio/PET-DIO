@@ -111,7 +111,7 @@ function DetailModal({
               color="secondary"
               endIcon={<ShareIcon />}
               fullWidth
-              onClick={() => shareImage(albumURL, "petdio-image")}
+              onClick={() => shareImage()}
             >
               공유
             </ActionButton>

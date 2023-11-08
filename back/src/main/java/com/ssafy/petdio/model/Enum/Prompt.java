@@ -8,21 +8,12 @@ import java.util.Map;
 
 @Getter
 public enum Prompt {
-    STICKER(1L,
-            "(Sticker An adorable cute breed in the photo that provided),"+
-                    "breed in the photo that provided, stickers, " +
-                    "sticker, happy miniature breed , kawaii, contour, vector, white background"+
-                    "adorable, lovely, 3D vector art, cute and quirky, watercolor effect, bokeh, Adobe Illustrator ," +
-                    "sticker, cartoon breed in the photo that provided sticker, all white background, Vermeer style, " +
-                    "12K, high quality, HD, octane render, cinematic lighting, sticker format, sticker shape," ,
-            "negative_prompt" + "nude, nsfw, text, letters, too many feet, too many fingers,"
-            + "(((2 heads))), duplicate, abstract, disfigured, deformed, toy, figure, framed, disfigured, bad art,"
-            + "deformed, poorly drawn, extra limbs, weird colors, 2 heads, long neck, elongated body, cropped image,"
-            + "out of frame, draft, deformed hands, twisted fingers, double image, malformed hands,"
-            + "multiple heads, extra limb, ugly, poorly drawn hands, missing limb, cut-off, over satured, grain, lowères,"
-            + " bad anatomy, poorly drawn face, mutation, mutated, floating limbs, disconnected limbs,"
-            + " out of focus, long body, disgusting, extra fingers, groos proportions, missing arms, mutated hands, "
-            + "cloned face, missing legs,"),
+    DRAWING(1L,
+            "breed,design,vector,head,looking to side, on white background" ,
+            "deformed, ugly, disfigured, blurry, pixelated, hideous, " +
+                    "indistinct, old, malformed, extra hands, poorly drawn hands, extra arms," +
+                    " joined misshapen, collage, low, poor, monochrome, huge, extra fingers, mutated hands," +
+                    " fused fingers, too many fingers,"),
     HALLOWEEN(2L,
 //            "cute stickers, 8K Ultra HD, highly detailed, Detailed illustration of a cute breed enjoying Halloween, " +
 //                    "with lots of pumpkins in the background, magic hat, style cartoon, two-dimensional, planar vector, " +

@@ -3,7 +3,6 @@ package com.ssafy.petdio.util;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.petdio.config.LeonardoConfig;
-import com.ssafy.petdio.model.Enum.ConceptModel;
 import com.ssafy.petdio.model.Enum.Prompt;
 import com.ssafy.petdio.model.entity.Setting;
 import jakarta.annotation.PostConstruct;
@@ -145,7 +144,7 @@ public class Leonardo {
         }
     }
 
-    public JSONObject putJsonPayload(List<Setting> settings, Prompt prompt, String imageId, String breed, ConceptModel conceptModel) {
+    public JSONObject putJsonPayload(List<Setting> settings, Prompt prompt, String imageId, String breed, String selectedModelId) {
         JSONObject generationPayload = new JSONObject();
         for (Setting setting : settings) {
             switch (setting.getSettingType()) {
@@ -160,7 +159,7 @@ public class Leonardo {
         log.info("프롬프트 breed종류: " + breed);
         generationPayload.put("negative_prompt", prompt.getNegativePrompt());
         generationPayload.put("init_image_id", imageId);
-        generationPayload.put("modelId", conceptModel);
+        generationPayload.put("modelId", selectedModelId);
         List<String> imagePrompts = new ArrayList<>();
         imagePrompts.add(imageId);
         generationPayload.put("imagePrompts", imagePrompts);

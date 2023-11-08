@@ -50,7 +50,9 @@ public enum Prompt {
                     " dark, gothic, t-shirt design, in the style of Studio Ghibli, pastel tetradic colors, 3D vector art," +
                     " cute and quirky, fantasy art, watercolor effect, bokeh, Adobe Illustrator, hand-drawn, digital painting," +
                     " low-poly, soft lighting, bird's-eye view, isometric style, retro aesthetic, focused on the character," +
-                    " 4K resolution, photorealistic rendering, using Cinema 4D",
+                    " 4K resolution, photorealistic rendering, using Cinema 4D" +
+            "Face nreed, ninja t-shirt, red color, black background, cool, spooky, scary, fiery, wielding a sword, " +
+                    "is on the hill, under the full moon, at night, 3d vector art, sharp fangs stained with blood",
             "out of frame, cropped, bad proportions, out of frame, bad anatomy, poorly drawn face, morbid," +
                     " mutilated,((extra eyes)), ((extra arms)), ((extra legs)), ((extra fingers)), ((extra headphones)), " +
                     "((two headphones)), ((extra heads)), ((extra eyes)) (((2 heads))), duplicate, man, men, blurry," +
@@ -78,8 +80,11 @@ public enum Prompt {
     CHRISTMAS(5L,"illustration Kawaii breed in black punk rock amour, handcuffed to a cross,sticker, " +
             "playing with a small ball of ruby,surrounded by presents, under a mistletoe, Christmas , side view," +
             " Svg sticker, clean white background, professional vector, high detail, t-shirt design, graffiti, vibrant," +
-            " Stylized Sticker",
-            "out of frame, cropped, bad proportions, out of frame, bad anatomy, poorly drawn face, morbid, \" +\n" +
+            " Stylized Sticker" +
+            "sticker design with outline, cartoon styled, cute breed wearing a sanatas hat, " +
+            "surrounded by gifts and a christmas tree, playing with toys, vector style, " +
+            "4k, illustration, sketch, t shirt design",
+            "out of frame, cropped, bad proportions, out of frame, bad anatomy, poorly drawn face, morbid," +
                     "mutilated,((extra eyes)), ((extra arms)), ((extra legs)), ((extra fingers))" +
                     "((extra headphones)), ((two headphones)), ((extra heads)), ((extra eyes)) (((2 heads)))" +
                     "duplicate,  blurry, abstract, disfigured, deformed, disfigured, bad art, deformed," +

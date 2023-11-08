@@ -19,6 +19,7 @@ import CameraIcon from "@mui/icons-material/Camera";
 import CloseIcon from "@mui/icons-material/Close";
 import { ImgInfoProps } from "@/interfaces/AlbumDataProps";
 import { SlideMUI } from "@/components/animation/SlideMUI";
+import shareImage from "@/utils/shareImage";
 
 const ActionButton = styled(Button)({});
 
@@ -110,7 +111,7 @@ function DetailModal({
               color="secondary"
               endIcon={<ShareIcon />}
               fullWidth
-              onClick={() => downloadImage(albumURL, "petdio-image")}
+              onClick={() => shareImage(albumURL, "petdio-image")}
             >
               공유
             </ActionButton>

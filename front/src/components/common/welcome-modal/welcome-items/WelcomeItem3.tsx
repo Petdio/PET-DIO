@@ -1,6 +1,10 @@
 import { Box, Typography } from '@mui/material';
+import CameraIcon from '@mui/icons-material/Camera';
+import { theme } from '@/styles/ThemeRegistry';
+import { TextBox } from './WelcomeItem1';
+import PhotoLibraryIcon from '@mui/icons-material/PhotoLibrary';
 
-function WelcomeItem3() {
+function WelcomeItem2() {
   return (
     <Box
       display="flex"
@@ -10,9 +14,33 @@ function WelcomeItem3() {
       alignItems="center"
       height="100%"
     >
-      <Typography>앨범 이렇게 이용하세요</Typography>
+      <TextBox>
+        <PhotoLibraryIcon htmlColor={theme.palette.primary.main} />
+        <Typography color={theme.palette.primary.main}>&nbsp;앨범</Typography>
+      </TextBox>
+      <Box height="0.5rem" />
+      <Typography fontSize={16}>만든 이미지들을 한눈에 확인해요.</Typography>
+      <TextBox>
+        <Typography
+          color={theme.palette.primary.main}
+          fontSize={16}
+          fontWeight={700}
+        >
+          저장
+        </Typography>
+        <Typography fontSize={16}>하거나&nbsp;</Typography>
+        <Typography
+          color={theme.palette.primary.main}
+          fontSize={16}
+          fontWeight={700}
+        >
+          공유
+        </Typography>
+        <Typography fontSize={16}>할 수도 있어요.</Typography>
+      </TextBox>
+      <Box height="1.5rem" />
     </Box>
   );
 }
 
-export default WelcomeItem3;
+export default WelcomeItem2;

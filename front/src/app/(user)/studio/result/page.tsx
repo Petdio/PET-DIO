@@ -4,27 +4,16 @@ import { Box, Button } from "@mui/material";
 import SaveAlt from "@mui/icons-material/SaveAlt";
 import NextImage from "next/image";
 import PageTitle from "@/components/common/page-title/PageTitle";
-import { downloadImage } from "@/utils/downLoadImage";
-import ReplayIcon from "@mui/icons-material/Replay";
 import ShareIcon from "@mui/icons-material/Share";
 import { useRouter } from "next/navigation";
+import downloadImage from "@/utils/downLoadImage";
+import shareImage from "@/utils/shareImage";
 
 export default function Result() {
   const router = useRouter();
   const [image, setImage] = useState("");
   const [imageWidth, setImageWidth] = useState(1);
   const [imageHeight, setImageHeight] = useState(1);
-
-  const handleShare = () => {
-    if (navigator.share) {
-      navigator.share({
-        title: "Petdio: 우리집 멍냥이를 위한 이색 사진관",
-        url: "https://www.petdio.co.kr",
-      });
-    } else {
-      alert("공유하기가 지원되지 않는 환경입니다.");
-    }
-  };
 
   useEffect(() => {
     const url = new URL(window.location.href);
@@ -107,7 +96,7 @@ export default function Result() {
             size="large"
             endIcon={<ShareIcon />}
             fullWidth
-            onClick={handleShare}
+            onClick={() => shareImage(image)}
           >
             공유
           </Button>
@@ -120,7 +109,7 @@ export default function Result() {
             endIcon={<SaveAlt />}
             size="large"
             fullWidth
-            onClick={() => downloadImage(image, "생성 이미지")}
+            onClick={() => downloadImage(image, "petdio-image")}
           >
             내 기기에 저장
           </Button>

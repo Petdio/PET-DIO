@@ -44,7 +44,4 @@ self.addEventListener("notificationclick", function (event) {
   const imageKey = event.notification.icon.match(/\/([^/]+)\.jpg$/);
   event.notification.close();
   event.waitUntil(clients.openWindow(`/studio/result?img=${imageKey[1]}`));
-  // const url = "/";
-  // event.notification.close();
-  // event.waitUntil(clients.openWindow(url));
 });

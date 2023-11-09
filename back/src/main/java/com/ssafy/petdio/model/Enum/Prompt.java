@@ -21,6 +21,7 @@ public enum Prompt {
 //                    " mutation, mutated, floating limbs, disconnected limbs, out of focus, long body, disgusting, " +
 //                    "extra fingers, groos proportions, missing arms, mutated hands, cloned face, missing legs,"),
             "cute breed stickers, style cartoon, cute pixar breed Character, high quality, 8K Ultra HD, " +
+                    "(Detailed colors like the imagePrompts provided, )" +
                     "beautiful cute pixar breed ,breed STICKER, in the style of Studio Ghibli,3D vector art breed ,cute and quirky breed," +
                     " Adobe Illustrator,digital painting,isometric style, retro aesthetic, focusedon the character, 4K resolution," +
                     " photorealistic rendering, usingCinema 4D,cute stickers,style cartoon,highly detailed, planar vector," +

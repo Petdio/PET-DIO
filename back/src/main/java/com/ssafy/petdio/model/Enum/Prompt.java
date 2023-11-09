@@ -20,11 +20,11 @@ public enum Prompt {
 //                    "poorly drawn hands, missing limb, cut-off, over satured, grain, lowères, bad anatomy, poorly drawn face," +
 //                    " mutation, mutated, floating limbs, disconnected limbs, out of focus, long body, disgusting, " +
 //                    "extra fingers, groos proportions, missing arms, mutated hands, cloned face, missing legs,"),
-            "cute stickers, style cartoon, cute pixar imagePrompts Character, high quality, 8K Ultra HD, " +
-                    "beautiful cute pixar,STICKER, in the style of Studio Ghibli,3D vector art,cute and quirky," +
+            "cute breed stickers, style cartoon, cute pixar breed Character, high quality, 8K Ultra HD, " +
+                    "beautiful cute pixar breed ,breed STICKER, in the style of Studio Ghibli,3D vector art breed ,cute and quirky breed," +
                     " Adobe Illustrator,digital painting,isometric style, retro aesthetic, focusedon the character, 4K resolution," +
                     " photorealistic rendering, usingCinema 4D,cute stickers,style cartoon,highly detailed, planar vector," +
-                    "character design,Super Deformed Character,Cute Design,Character Design," +
+                    "character design breed ,Super Deformed Character,Cute Design,Character Design," +
                     "A digital illustration of anime style, soft anime tones, by yukisakura, awesome full color," +
                     "Printable sticker about minimal cute cartoon imagePrompts, white background," +
                     "highly detailed, by yukisakura, awesome full color, vinyl sticker with white border," ,

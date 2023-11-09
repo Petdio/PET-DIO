@@ -19,7 +19,7 @@ function ThemeSelectButton({ isFiltered, onClick, disabled }: Props) {
       color="secondary"
       onClick={onClick}
       sx={{
-        position: 'fixed',
+        position: 'absolute',
         bottom: 88,
         right:
           // window.innerWidth >= 480

@@ -13,7 +13,7 @@ pipeline {
         stage('Docker Build') {
             steps {
                 dir('back/') {
-                    sh 'docker build -t back_img:latest .'
+                    sh 'docker build -t back_dev_img:latest .'
                 }
             }
         }
@@ -21,7 +21,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh 'docker rm -f back_container'
-                sh 'docker run -d --env-file ./back/.env --network deploy --name back_container -p 8080:8080 -u root back_img:latest'
+                sh 'docker run -d --env-file ./back/.env --network deploy --name back_dev_container -p 8081:8080 -u root back_dev_img:latest'
             }
         }
 

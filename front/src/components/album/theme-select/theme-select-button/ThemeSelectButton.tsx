@@ -9,7 +9,6 @@ interface Props {
 }
 
 function ThemeSelectButton({ isFiltered, onClick, disabled }: Props) {
-  console.log(window.innerWidth);
   const selectThemeContent = '테마 선택';
   const cancelThemeContent = '선택 취소';
   return (
@@ -20,12 +19,13 @@ function ThemeSelectButton({ isFiltered, onClick, disabled }: Props) {
       color="secondary"
       onClick={onClick}
       sx={{
-        position: 'fixed',
+        position: 'absolute',
         bottom: 88,
         right:
-          window.innerWidth >= 480
-            ? `calc((100vw - 480px) / 2 + 1rem)`
-            : '1rem',
+          // window.innerWidth >= 480
+          //   ? `calc((100vw - 480px) / 2 + 1rem)`
+          //   : '1rem',
+          '1rem',
       }}
     >
       {isFiltered ? (

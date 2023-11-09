@@ -6,7 +6,7 @@ pipeline {
             steps {
                 echo "Copy require file to pipeline folder"
                 sh 'cp /var/jenkins_home/util/back/serviceAccountKey.json ./back/src/main/resources/serviceAccountKey.json'
-                sh 'cp /var/jenkins_home/util/back/.env ./back/.env'
+                sh 'cp /var/jenkins_home/util/back/develop/.env ./back/.env'
             }
         }
 
@@ -23,7 +23,7 @@ pipeline {
             steps {
 								// master랑 다름
                 sh 'docker rm -f back_dev_container'
-                sh 'docker run -d --env-file ./back/.env --network deploy --name back_dev_container -p 8081:8080 -u root back_dev_img:latest'
+                sh 'docker run -d --env-file ./back/.env --network deploy --name back_dev_container -p 8081:8081 -u root back_dev_img:latest'
             }
         }
 

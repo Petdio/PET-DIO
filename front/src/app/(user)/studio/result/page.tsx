@@ -4,10 +4,10 @@ import { Box, Button } from "@mui/material";
 import SaveAlt from "@mui/icons-material/SaveAlt";
 import NextImage from "next/image";
 import PageTitle from "@/components/common/page-title/PageTitle";
-import { downloadImage } from "@/utils/downLoadImage";
-import ReplayIcon from "@mui/icons-material/Replay";
 import ShareIcon from "@mui/icons-material/Share";
 import { useRouter } from "next/navigation";
+import downloadImage from "@/utils/downLoadImage";
+import shareImage from "@/utils/shareImage";
 
 export default function Result() {
   const router = useRouter();
@@ -15,21 +15,10 @@ export default function Result() {
   const [imageWidth, setImageWidth] = useState(1);
   const [imageHeight, setImageHeight] = useState(1);
 
-  const handleShare = () => {
-    if (navigator.share) {
-      navigator.share({
-        title: "Petdio: 우리집 멍냥이를 위한 이색 사진관",
-        url: "https://www.petdio.co.kr",
-      });
-    } else {
-      alert("공유하기가 지원되지 않는 환경입니다.");
-    }
-  };
-
   useEffect(() => {
+    const url = new URL(window.location.href);
     setImage(
-      // "https://static.displate.com/857x1200/displate/2022-12-02/4748a00758338e689e892b1cba74d7e6_743167aa7ffdc3d970bf35c4817743ee.jpg"
-      "https://static.displate.com/1200x857/displate/2022-01-27/e556ce3239a00fd80a0029f7cb1e6703_e59e6fbd405c7d32ae29d2abd7d5f035.jpg"
+      `${process.env.NEXT_PUBLIC_S3_URL}${url.searchParams.get("img")}.jpg`
     );
   }, []);
 
@@ -82,7 +71,7 @@ export default function Result() {
           )}
         </Box>
       </div>
-      <Box padding="1rem" paddingBottom="0">
+      {/* <Box padding="1rem" paddingBottom="0">
         <Button
           variant="contained"
           color="primary"
@@ -92,7 +81,7 @@ export default function Result() {
         >
           내 기기에 저장
         </Button>
-      </Box>
+      </Box> */}
       <Box
         width="100%"
         padding="1rem"
@@ -102,27 +91,27 @@ export default function Result() {
       >
         <Box style={{ flex: 1 }}>
           <Button
-            variant="outlined"
-            color="primary"
+            variant="contained"
+            color="secondary"
             size="large"
-            endIcon={<ReplayIcon />}
-            sx={{ width: "100%" }}
-            onClick={() => router.push("add-photo")}
+            endIcon={<ShareIcon />}
+            fullWidth
+            onClick={() => shareImage(image)}
           >
-            다시 생성
+            공유
           </Button>
         </Box>
         <Box style={{ width: "0.5rem" }}></Box>
         <Box style={{ flex: 1 }}>
           <Button
             variant="contained"
-            color="secondary"
+            color="primary"
+            endIcon={<SaveAlt />}
             size="large"
-            endIcon={<ShareIcon />}
-            sx={{ width: "100%" }}
-            onClick={handleShare}
+            fullWidth
+            onClick={() => downloadImage(image, "petdio-image")}
           >
-            공유
+            내 기기에 저장
           </Button>
         </Box>
       </Box>

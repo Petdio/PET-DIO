@@ -35,9 +35,14 @@ public class Leonardo {
     }
 
     public String init(MultipartFile multipartFile) throws IOException {
+        log.info("image file !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + multipartFile.getContentType() + " " + multipartFile.getOriginalFilename());
+//        RequestBody requestBody = new FormBody.Builder()
+//                .add("extension", "jpg")
+//                .build();
+
         RequestBody requestBody = new FormBody.Builder()
-                .add("extension", "jpg")
-                .build();
+                .add("extension", getFileExtension(multipartFile.getOriginalFilename())).build();
+
 
         JSONObject uploadInitResponse = null;
 
@@ -54,12 +59,13 @@ public class Leonardo {
         return imageId;
     }
 
-//    private String getFileExtension(String fileName) {
-//        if (fileName != null && fileName.lastIndexOf(".") != -1) {
-//            return fileName.substring(fileName.lastIndexOf(".") + 1);
-//        }
-//        return "";
-//    }
+
+    private String getFileExtension(String fileName) {
+        if (fileName != null && fileName.lastIndexOf(".") != -1) {
+            return fileName.substring(fileName.lastIndexOf(".") + 1);
+        }
+        return "";
+    }
 
     private Request getRequest(String url, RequestBody requestBody) {
         return new Request.Builder()
@@ -71,27 +77,37 @@ public class Leonardo {
                 .build();
     }
 
-    public byte[] convertToJpg(MultipartFile file) throws IOException {
-        String extension = FilenameUtils.getExtension(file.getOriginalFilename());
-        log.info("extension: " +extension);
-
-        // 이미 확장자가 jpg인 경우 그대로 반환
-        if (extension.equalsIgnoreCase("jpg")) {
-            return file.getBytes();
-        }
-
-        // 이미지 데이터를 읽어옴
-        BufferedImage img = ImageIO.read(file.getInputStream());
-
-        // jpg로 변환
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        ImageIO.write(img, "jpg", bos);
-        bos.flush();
-        byte[] imageBytes = bos.toByteArray();
-        bos.close();
-
-        return imageBytes;
-    }
+//    public byte[] convertToJpg(MultipartFile file) throws IOException {
+//        String contentType = file.getContentType();
+//        log.info("Content Type: " + contentType);
+//
+//        if (contentType != null && contentType.startsWith("image")) {
+//            // 이미지 데이터를 읽어옴
+//            BufferedImage img = ImageIO.read(file.getInputStream());
+//
+//            if (img != null) {
+//                // 이미 확장자가 jpg인 경우 그대로 반환
+//                if (FilenameUtils.getExtension(file.getOriginalFilename()).equalsIgnoreCase("jpg")) {
+//                    return file.getBytes();
+//                }
+//
+//                // jpg로 변환
+//                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+//                try {
+//                    ImageIO.write(img, "jpg", bos);
+//                    return bos.toByteArray();
+//                } finally {
+//                    bos.close();
+//                    img.flush();
+//                }
+//            } else {
+////                img = Imaging.getBufferedImage(file);
+//                throw new IOException("Invalid image format");
+//            }
+//        } else {
+//            throw new IOException("Not an image file");
+//        }
+//    }
 
     private boolean uploadImage(JSONObject jsonResponse, MultipartFile multipartFile) throws IOException {
         String fieldsString = jsonResponse.getJSONObject("uploadInitImage").getString("fields");
@@ -110,13 +126,21 @@ public class Leonardo {
             builderUploadImageRequest.addFormDataPart(key, fieldsJson.getString(key));
         }
 
-        byte[] imageBytes = convertToJpg(multipartFile);
+//        byte[] imageBytes = convertToJpg(multipartFile);
+//
+//        System.out.println(imageBytes);
 
+//        builderUploadImageRequest.addFormDataPart(
+//                "file",
+//                multipartFile.getOriginalFilename(),
+//                RequestBody.create(MediaType.parse("image/jpeg"), imageBytes)
+//        );
         builderUploadImageRequest.addFormDataPart(
                 "file",
                 multipartFile.getOriginalFilename(),
-                RequestBody.create(MediaType.parse("image/jpeg"), imageBytes)
+                RequestBody.create(MediaType.parse(multipartFile.getContentType()), multipartFile.getBytes())
         );
+
 
 //        builderUploadImageRequest.addFormDataPart(
 //                "file",
@@ -147,10 +171,11 @@ public class Leonardo {
     public JSONObject putJsonPayload(List<Setting> settings, Prompt prompt, String imageId, String breed, String selectedModelId) {
         JSONObject generationPayload = new JSONObject();
         for (Setting setting : settings) {
+            System.out.println(setting);
             switch (setting.getSettingType()) {
                 case "double" -> generationPayload.put(setting.getSettingName(), Double.valueOf(setting.getSettingDetail()));
                 case "integer" -> generationPayload.put(setting.getSettingName(), Integer.valueOf(setting.getSettingDetail()));
-                case "boolean" -> generationPayload.put(setting.getSettingName(), setting.getSettingName().equals("true"));
+                case "boolean" -> generationPayload.put(setting.getSettingName(), setting.getSettingDetail().equals("true"));
                 default -> generationPayload.put(setting.getSettingName(), setting.getSettingDetail());
             }
         }

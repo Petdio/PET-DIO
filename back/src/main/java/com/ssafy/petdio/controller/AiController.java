@@ -45,6 +45,7 @@ public class AiController {
     public void webhookAlarm(@RequestBody String url) {
         log.info("webhook!!! " + url);
         try {
+//            aiService.webhookUrlCheck(url);
             aiService.getImage(url);
             log.info("ai fcm 성공");
         } catch (Exception e) {

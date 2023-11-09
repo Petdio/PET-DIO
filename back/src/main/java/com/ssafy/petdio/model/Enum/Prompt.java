@@ -23,7 +23,7 @@ public enum Prompt {
             "cute stickers, style cartoon, cute pixar black Character, high quality, 8K Ultra HD, " +
                     "colorful, pink, orange, blue, yellow, detailed illustration of a cute , " +
                     "beautiful cute pixar , Many bats are flying in the background, " +
-                    "highly detailed, by yukisakura, awesome full color, vinyl sticker with white border" ,
+                    "highly detailed, by yukisakura, awesome full color, vinyl sticker with white border," ,
             "nude, nsfw, text, letters, too many feet, too many fingers, (((2 heads))), duplicate," +
                     " abstract, disfigured, deformed, toy, figure, framed, disfigured, bad art, deformed, poorly drawn, " +
                     "extra limbs, weird colors, 2 heads, long neck, elongated body, cropped image, out of frame, draft, " +

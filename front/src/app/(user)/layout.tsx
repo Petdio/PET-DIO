@@ -12,14 +12,13 @@ export default function UserLayout({
       <Header />
       <Box
         sx={{
-          height: "auto",
+          height: "100vh",
           width: "100%",
           paddingTop: "72px",
           paddingBottom: "64px",
           backgroundColor: "#fff",
           position: "fixed",
           maxWidth: "480px",
-          minHeight: "100vh",
         }}
       >
         <Box

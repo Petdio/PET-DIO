@@ -8,7 +8,7 @@ import java.util.Map;
 
 @Getter
 public enum Prompt {
-    DRAWING(1L,
+    STICKER(1L,
 //            "cute stickers, style cartoon, cute pixar black breed Character, high quality, 8K Ultra HD, " +
 //                    "colorful, pink, orange, blue, yellow, detailed illustration of a cute black breed , " +
 //                    "beautiful cute pixar black breed , Many bats are flying in the background, " +

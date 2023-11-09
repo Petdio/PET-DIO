@@ -40,8 +40,8 @@ self.addEventListener("push", function (e) {
 });
 
 self.addEventListener("notificationclick", function (event) {
-  console.log("notification click");
-  const url = "/";
+  console.log("notification click", event.notification.icon);
+  const imageKey = event.notification.icon.match(/\/([^/]+)\.jpg$/);
   event.notification.close();
-  event.waitUntil(clients.openWindow(url));
+  event.waitUntil(clients.openWindow(`/studio/result?img=${imageKey[1]}`));
 });

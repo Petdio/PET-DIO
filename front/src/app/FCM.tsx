@@ -87,9 +87,9 @@ export default function FCM() {
       });
 
     // 메세지가 수신되면 역시 콘솔에 출력합니다.
-    onMessage(messaging, (payload) => {
-      console.log("Message received. ", payload);
-    });
+    // onMessage(messaging, (payload) => {
+    //   console.log("Message received. ", payload);
+    // });
   };
 
   useEffect(() => {

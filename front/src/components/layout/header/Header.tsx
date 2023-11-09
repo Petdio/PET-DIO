@@ -67,7 +67,13 @@ export default function Header() {
     }
   }
   useEffect(() => {
-    getUserInfo();
+    if (window.location.href.includes('/studio/result')) {
+      if (localStorage.getItem('access-token')) {
+        getUserInfo();
+      }
+    } else {
+      getUserInfo();
+    }
   }, []);
 
   return (

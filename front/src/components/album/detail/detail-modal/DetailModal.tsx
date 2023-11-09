@@ -12,13 +12,14 @@ import {
   Tooltip,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { downloadImage } from './../../../../utils/downLoadImage';
+import downloadImage from '@/utils/downLoadImage';
 import ShareIcon from '@mui/icons-material/Share';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import CameraIcon from '@mui/icons-material/Camera';
 import CloseIcon from '@mui/icons-material/Close';
 import { ImgInfoProps } from '@/interfaces/AlbumDataProps';
 import { SlideMUI } from '@/components/animation/SlideMUI';
+import shareImage from '@/utils/shareImage';
 
 const ActionButton = styled(Button)({});
 
@@ -38,6 +39,8 @@ function DetailModal({
   againURL,
 }: Props) {
   const { albumURL, albumCreated } = imgInfo;
+  const imgBrief = themeName + ', ' + albumCreated;
+  const fileName = themeName + '_' + albumCreated;
   const router = useRouter();
   if (!isOpen) return null;
   return (
@@ -69,9 +72,7 @@ function DetailModal({
       </Button>
       <DialogContent sx={{ overflow: 'hidden', padding: '1rem' }}>
         <DialogContentText textAlign="end">
-          <Typography fontSize={14}>
-            {themeName + ', ' + albumCreated}
-          </Typography>
+          <Typography fontSize={14}>{imgBrief}</Typography>
         </DialogContentText>
 
         <Box
@@ -82,7 +83,7 @@ function DetailModal({
         >
           <Image
             src={albumURL}
-            alt={themeName + ', ' + albumCreated}
+            alt={imgBrief}
             fill
             objectFit="cover"
             objectPosition="center center"
@@ -107,27 +108,24 @@ function DetailModal({
             display="flex"
             width="100%"
           >
-            <Tooltip
-              title="아직 준비중인 기능이에요."
-              placement="top"
-              arrow
+            {/* <Tooltip title="아직 준비중인 기능이에요." placement="top" arrow> */}
+            <ActionButton
+              variant="contained"
+              color="secondary"
+              endIcon={<ShareIcon />}
+              fullWidth
+              onClick={() => shareImage(albumURL)}
             >
-              <ActionButton
-                variant="contained"
-                color="secondary"
-                endIcon={<ShareIcon />}
-                fullWidth
-              >
-                공유
-              </ActionButton>
-            </Tooltip>
+              공유
+            </ActionButton>
+            {/* </Tooltip> */}
             <Box width="1em" />
             <ActionButton
               variant="contained"
               color="primary"
               endIcon={<SaveAltIcon />}
               fullWidth
-              onClick={() => downloadImage(albumURL, albumURL)}
+              onClick={() => downloadImage(albumURL, fileName)}
             >
               저장
             </ActionButton>

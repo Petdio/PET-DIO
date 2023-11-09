@@ -6,7 +6,7 @@ pipeline {
             steps {
                 echo "Copy require file to pipeline folder"
                 sh 'cp /var/jenkins_home/util/back/serviceAccountKey.json ./back/src/main/resources/serviceAccountKey.json'
-                sh 'cp /var/jenkins_home/util/back/.env ./back/.env'
+                sh 'cp /var/jenkins_home/util/back/develop/.env ./back/.env'
             }
         }
 

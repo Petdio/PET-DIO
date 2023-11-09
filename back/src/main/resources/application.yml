@@ -1,0 +1,64 @@
+# Spring
+spring:
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  config:
+    import: optional:file:.env[.properties]
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: ${DB_URL}
+    username: ${DB_ID}
+    password: ${DB_PWD}
+    hikari:
+      maximum-pool-size: 5
+      minimum-idle: 5
+      connection-timeout: 10000
+      connection-init-sql: SELECT 1
+      idle-timeout: 600000
+      max-lifetime: 1800000
+      auto-commit: true
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MariaDBDialect
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        default_batch_fetch_size: 1000
+  data:
+    redis:
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT}
+      database: 0
+      password: ${REDIS_PASSWORD}
+
+
+# Backend Port
+server:
+  port: 8080
+
+# S3
+cloud:
+  aws:
+    url: ${S3_URL}
+    credentials:
+      S3accessKey: ${S3_Access_Key}
+      S3secretKey: ${S3_Secret_Key}
+    stack:
+      auto: false
+    s3:
+      bucket: petdio-s3
+    region:
+      static: ap-northeast-2
+S3Url: https://petdio-s3.s3-ap-northeast-2.amazonaws.com/
+
+# Prometheus
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus
+

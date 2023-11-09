@@ -67,7 +67,7 @@ public enum Prompt {
                     "twisted fingers, double image, malformed hands, multiple heads, extra limb, ugly, " +
                     "poorly drawn hands, missing limb, cut-off, over satured, grain, lowères, bad anatomy, " +
                     "poorly drawn face, mutation, mutated, floating limbs, disconnected limbs"),
-    CHRISTMAS(5L,"Generate imaginative Christmas-themed animals: Picture a breed with [Festive Element/Accessory]",
+    CHRISTMAS(5L,"Create a background Christmas, with a big tree and gifts, and a small little cute breed with a red dog collar, with a Christmas hat, colorful snowing Christmas background",
             "out of frame, cropped, bad proportions, out of frame, bad anatomy, poorly drawn face, morbid," +
                     "mutilated,((extra eyes)), ((extra arms)), ((extra legs)), ((extra fingers))" +
                     "((extra headphones)), ((two headphones)), ((extra heads)), ((extra eyes)) (((2 heads)))" +

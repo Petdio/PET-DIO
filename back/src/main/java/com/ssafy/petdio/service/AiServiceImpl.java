@@ -137,7 +137,7 @@ public class AiServiceImpl implements AiService {
         redisTemplate.delete(generationId);
         User user = userRepository.findByUserIdAndUserDeleteIsNull(imageData.getUserId()).orElseThrow();
         if (status.equals("COMPLETE")) {
-            String leonardoUrl = data.getJSONObject("data").getJSONObject("object").getJSONArray("images").getJSONObject(0).getString("url");
+            String leonardoUrl = data.getJSONArray("images").getJSONObject(0).getString("url");
             String s3Url = fileService.upload(leonardoUrl);
             albumRepository.save(
                     Album.builder()

@@ -62,8 +62,7 @@ export default function RootLayout({
         >
           <Box
             sx={{
-              height: "auto",
-              minHeight: "100vh",
+              height: "100vh",
               maxWidth: "480px",
               margin: "auto",
               backgroundColor: "#fff",

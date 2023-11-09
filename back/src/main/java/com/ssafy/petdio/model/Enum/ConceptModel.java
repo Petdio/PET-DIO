@@ -9,7 +9,7 @@ import java.util.Map;
 public enum ConceptModel {
 
 
-    STICKER_MODEL(1L, "6908bfaf-8cf2-4fda-8c46-03f892d82e06"),
+    STICKER_MODEL(1L, "1e60896f-3c26-4296-8ecc-53e2afecc132"),
 
     HALLOWEEN_MODEL(2L, "1e60896f-3c26-4296-8ecc-53e2afecc132"),
 

@@ -23,7 +23,9 @@ public enum Prompt {
             "cute stickers, style cartoon, cute pixar imagePrompts Character, high quality, 8K Ultra HD, " +
                     "beautiful cute pixar,STICKER, in the style of Studio Ghibli,3D vector art,cute and quirky," +
                     " Adobe Illustrator,digital painting,isometric style, retro aesthetic, focusedon the character, 4K resolution," +
-                    " photorealistic rendering, usingCinema 4D" +
+                    " photorealistic rendering, usingCinema 4D,cute stickers,style cartoon,highly detailed, planar vector," +
+                    "character design,Super Deformed Character,Cute Design,Character Design," +
+                    "A digital illustration of anime style, soft anime tones, by yukisakura, awesome full color," +
                     "Printable sticker about minimal cute cartoon imagePrompts, white background," +
                     "highly detailed, by yukisakura, awesome full color, vinyl sticker with white border," ,
             "nude, nsfw, text, letters, too many feet, too many fingers, (((2 heads))), duplicate," +

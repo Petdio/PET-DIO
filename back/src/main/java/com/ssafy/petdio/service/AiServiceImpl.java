@@ -131,8 +131,8 @@ public class AiServiceImpl implements AiService {
         JSONObject data = new JSONObject(url);
         System.out.println(url);
         System.out.println(data);
-        String status = data.getJSONObject("object").getString("status");
-        String generationId = data.getJSONObject("object").getString("id");
+        String status = data.getString("status");
+        String generationId = data.getString("id");
         AiDto.Data imageData = redisTemplate.opsForValue().get(generationId);
         redisTemplate.delete(generationId);
         User user = userRepository.findByUserIdAndUserDeleteIsNull(imageData.getUserId()).orElseThrow();

@@ -34,15 +34,18 @@ function AlbumList() {
     fetchAlbumData();
   }, []);
 
-  const albumTheme = albumData.map((data) => {
-    if (data.detail.length === 0) {
-      return 'none';
-    }
+  const albumTheme = albumData.map((data, idx) => {
+    let imageExists = true;
+    if (data.detail.length === 0) imageExists = false;
     noImage = false;
     numOfThemes++;
     const theme = Object.values(data);
     const themeEN = theme[0];
-    return convertTheme(themeEN);
+    const themeENandStatus = {
+      themeName: convertTheme(themeEN),
+      imageExists: imageExists,
+    };
+    return themeENandStatus;
   });
 
   const [filterOpen, setFilterOpen] = useState(false);
@@ -78,7 +81,7 @@ function AlbumList() {
             const themeEN = Object.values(data)[0];
             const themeKO = convertTheme(themeEN);
             const path = data.path;
-            console.log(data);
+            // console.log(data);
             const isDisplayed =
               filteredThemeIdx === -1 || filteredThemeIdx === idx;
 

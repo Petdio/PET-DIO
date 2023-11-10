@@ -8,11 +8,13 @@ import com.ssafy.petdio.model.entity.Album;
 import com.ssafy.petdio.model.entity.Concept;
 import com.ssafy.petdio.model.entity.Setting;
 import com.ssafy.petdio.repository.AlbumRepository;
+import com.ssafy.petdio.repository.EmitterRepository;
 import com.ssafy.petdio.repository.SettingRepository;
 import com.ssafy.petdio.user.model.entity.User;
 import com.ssafy.petdio.user.repository.UserRepository;
 import com.ssafy.petdio.user.service.UserService;
 import com.ssafy.petdio.util.Leonardo;
+import com.ssafy.petdio.util.Lora;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
@@ -28,6 +30,8 @@ import java.util.Map;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -38,24 +42,34 @@ public class AiServiceImpl implements AiService {
 
     private final SettingRepository settingRepository;
     private final Leonardo leonardo;
+    private final Lora lora;
     private final FileService fileService;
     private final AlbumRepository albumRepository;
     private final UserRepository userRepository;
     private final UserService userService;
     private final FcmService fcmService;
     private final RedisTemplate<String, AiDto.Data> redisTemplate;
+    private final SseService sseService;
 
     @Override
-    public void makeAiImage(Long conceptId, MultipartFile multipartFile, String breed, Long userId) throws IOException {
+    public String makeAiImage(Long conceptId, MultipartFile multipartFile, String breed, Long userId) throws IOException {
         List<Setting> settings = settingRepository.findAllByConcept_ConceptId(conceptId);
 
+        // 레오나르도
+//        if (conceptId < 6) {
+
 //        String selectedModelId = getRandomModelId();
-        String selectedModelId = ConceptModel.findEnumById(conceptId).getModelId();
-        String generationId = leonardo.generateAndFetchImages(leonardo.putJsonPayload(settings, Prompt.findEnumById(conceptId), leonardo.init(multipartFile), breed, selectedModelId));
+            String selectedModelId = ConceptModel.findEnumById(conceptId).getModelId();
+            String generationId = leonardo.generateAndFetchImages(
+                    leonardo.putJsonPayload(settings, Prompt.findEnumById(conceptId),
+                            leonardo.init(multipartFile), breed, selectedModelId));
+            //String generationId = leonardo.generateAndFetchImages(leonardo.putJsonPayload(settings, Prompt.findEnumById(conceptId), leonardo.init(multipartFile), breed));
+            redisTemplate.opsForValue().set(generationId,
+                    AiDto.Data.builder().userId(userId).conceptId(conceptId).build());
+            return generationId;
+//            return sseService.connectNotification(generationId);
+//        }
 
-
-        //String generationId = leonardo.generateAndFetchImages(leonardo.putJsonPayload(settings, Prompt.findEnumById(conceptId), leonardo.init(multipartFile), breed));
-        redisTemplate.opsForValue().set(generationId, AiDto.Data.builder().userId(userId).conceptId(conceptId).build());
     }
 
     @Override
@@ -153,9 +167,12 @@ public class AiServiceImpl implements AiService {
             log.info("만들어진 url 링크: " + defaultUrl + s3Url);
             log.info("---------------fcm test------------");
             Map<String, String> map = new HashMap<>();
-            map.put("test", "test11");
             userService.useCoin(user.getUserId());
-            if (user.getFcmToken() == null) throw new Exception("fcm 토큰 없음");
+//            if (user.getFcmToken() == null) throw new Exception("fcm 토큰 없음");
+            if (user.getFcmToken() == null) {
+                sseService.send(generationId, defaultUrl + s3Url);
+                return;
+            }
             fcmService.sendMessageTo(NotificationMessage.builder()
                     .title("사진 만들기 완료")
                     .image(defaultUrl + s3Url)
@@ -167,7 +184,11 @@ public class AiServiceImpl implements AiService {
             Map<String, String> map = new HashMap<>();
             map.put("test", "test11");
             userService.useCoin(user.getUserId());
-            if (user.getFcmToken() == null) throw new Exception("fcm 토큰 없음");
+//            if (user.getFcmToken() == null) throw new Exception("fcm 토큰 없음");
+            if (user.getFcmToken() == null) {
+                sseService.send(generationId, "fail");
+                return;
+            }
             fcmService.sendMessageTo(NotificationMessage.builder()
                     .title("사진 만들기 실패")
                     .image(null)
@@ -177,4 +198,5 @@ public class AiServiceImpl implements AiService {
                     .build());
         }
     }
+
 }

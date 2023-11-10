@@ -2,6 +2,8 @@
 import { styled } from "@mui/material/styles";
 import { Typography, Button } from "@mui/material";
 import { createSvgIcon } from "@mui/material/utils";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 const KakaoLogInButton = styled(Button)`
   && {
@@ -37,10 +39,15 @@ const KakaoSymbol = createSvgIcon(
 );
 
 export default function KakaoLogIn() {
+  const router = useRouter();
   const kakaoLoginHandler = () => {
     const link = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY}&redirect_uri=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URL}&response_type=code`;
     window.location.href = link;
   };
+
+  useEffect(() => {
+    router.refresh();
+  }, []);
 
   return (
     <KakaoLogInButton variant="contained" onClick={kakaoLoginHandler}>

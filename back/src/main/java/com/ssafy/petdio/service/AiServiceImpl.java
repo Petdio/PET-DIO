@@ -171,6 +171,7 @@ public class AiServiceImpl implements AiService {
 //            if (user.getFcmToken() == null) throw new Exception("fcm 토큰 없음");
             if (user.getFcmToken() == null) {
                 sseService.send(user.getUserId(), generationId);
+                return;
             }
             fcmService.sendMessageTo(NotificationMessage.builder()
                     .title("사진 만들기 완료")

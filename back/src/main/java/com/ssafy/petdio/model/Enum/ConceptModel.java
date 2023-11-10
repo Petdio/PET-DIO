@@ -9,7 +9,7 @@ import java.util.Map;
 public enum ConceptModel {
 
     //Leonardo Diffusion XL
-    STICKER_MODEL(1L, "1e60896f-3c26-4296-8ecc-53e2afecc132"),
+    STICKER_MODEL(1L, "b820ea11-02bf-4652-97ae-9ac0cc00593d"),
 
     //Leonardo Diffusion XL
     HALLOWEEN_MODEL(2L, "b820ea11-02bf-4652-97ae-9ac0cc00593d"),

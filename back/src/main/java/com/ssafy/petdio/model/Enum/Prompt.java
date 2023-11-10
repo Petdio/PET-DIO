@@ -60,20 +60,12 @@ public enum Prompt {
                     " disgusting, extra fingers, groos proportions, missing arms, mutated hands, cloned face, missing legs"),
 
     NINJA(3L,
-//            "A detailed illustration face evil ninja breed,magic, t-shirt design, red color , dark magic splash, " +
-//                    "dark, ghotic, t-shirt design, in the style of Studio Ghibli, pastel tetradic colors, " +
-//                    "3D vector art, cute and quirky, fantasy art, watercolor effect, bokeh, Adobe Illustrator, " +
-//                    "hand-drawn, digital painting, low-poly, soft lighting, bird's-eye view, isometric style," +
-//                    " retro aesthetic, focused on the character, 4K resolution, photorealistic rendering, using Cinema 4D",
-            "cute breed stickers, style cartoon, cute pixar breed Character, high quality, 8K Ultra HD, " +
-            "(Detailed colors like the imagePrompts provided, )" +
-                    "beautiful cute pixar breed ,breed STICKER, in the style of Studio Ghibli,3D vector art breed ,cute and quirky breed," +
-                    " Adobe Illustrator,digital painting,isometric style, retro aesthetic, focusedon the character, 4K resolution," +
-                    " photorealistic rendering, usingCinema 4D,cute stickers,style cartoon,highly detailed, planar vector," +
-                    "character design breed ,Super Deformed Character,Cute Design,Character Design," +
-                    "A digital illustration of anime style, soft anime tones, by yukisakura, awesome full color," +
-                    "Printable sticker about minimal cute cartoon imagePrompts, white background," +
-                    "highly detailed, by yukisakura, awesome full color, vinyl sticker with white border,",
+            "A detailed illustration face evil ninja breed,magic, t-shirt design, red color , dark magic splash, " +
+                    "dark, ghotic, t-shirt design, in the style of Studio Ghibli, pastel tetradic colors, " +
+                    "3D vector art, cute and quirky, fantasy art, watercolor effect, bokeh, Adobe Illustrator, " +
+                    "hand-drawn, digital painting, low-poly, soft lighting, bird's-eye view, isometric style," +
+                    " retro aesthetic, focused on the character, 4K resolution, photorealistic rendering, using Cinema 4D",
+
             "out of frame, cropped, bad proportions, out of frame, bad anatomy, poorly drawn face, morbid," +
                     " mutilated,((extra eyes)), ((extra arms)), ((extra legs)), ((extra fingers)), ((extra headphones)), " +
                     "((two headphones)), ((extra heads)), ((extra eyes)) (((2 heads))), duplicate, man, men, blurry, " +
@@ -85,7 +77,7 @@ public enum Prompt {
                     "poorly drawn face, mutation, mutated, floating limbs, disconnected limbs, out of focus, long body," +
                     " disgusting, extra fingers, groos proportions, missing arms, mutated hands, cloned face, missing legs"),
     MINI(4L,
-            "cute tiny hyperrealistic Anime brown breed the photo that provided, adorable and fluffy, logo design, cartoon, " +
+            "cute tiny hyperrealistic Anime breed the photo that provided, adorable and fluffy, logo design, cartoon, " +
                     "cinematic lighting effect, charming, 3D vector art, cute and quirky, fantasy art, bokeh, hand-drawn, " +
                     "digital painting, soft lighting, isometric style , 4K resolution, photorealistic rendering," +
                     " highly detailed clean, vector image, photorealistic masterpiece, professional photography, " +

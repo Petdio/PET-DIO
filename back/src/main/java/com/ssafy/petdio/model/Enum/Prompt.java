@@ -8,11 +8,27 @@ import java.util.Map;
 
 @Getter
 public enum Prompt {
-    DRAWING(1L,
-            "cute stickers, style cartoon, cute pixar black breed Character, high quality, 8K Ultra HD, " +
-                    "colorful, pink, orange, blue, yellow, detailed illustration of a cute black breed , " +
-                    "beautiful cute pixar black breed , Many bats are flying in the background, " +
-                    "highly detailed, by yukisakura, awesome full color, vinyl sticker with white border" ,
+    STICKER(1L,
+//            "cute stickers, style cartoon, cute pixar black breed Character, high quality, 8K Ultra HD, " +
+//                    "colorful, pink, orange, blue, yellow, detailed illustration of a cute black breed , " +
+//                    "beautiful cute pixar black breed , Many bats are flying in the background, " +
+//                    "highly detailed, by yukisakura, awesome full color, vinyl sticker with white border" ,
+//            "nude, nsfw, text, letters, too many feet, too many fingers, (((2 heads))), duplicate," +
+//                    " abstract, disfigured, deformed, toy, figure, framed, disfigured, bad art, deformed, poorly drawn, " +
+//                    "extra limbs, weird colors, 2 heads, long neck, elongated body, cropped image, out of frame, draft, " +
+//                    "deformed hands, twisted fingers, double image, malformed hands, multiple heads, extra limb, ugly, " +
+//                    "poorly drawn hands, missing limb, cut-off, over satured, grain, lowères, bad anatomy, poorly drawn face," +
+//                    " mutation, mutated, floating limbs, disconnected limbs, out of focus, long body, disgusting, " +
+//                    "extra fingers, groos proportions, missing arms, mutated hands, cloned face, missing legs,"),
+            "cute breed stickers, style cartoon, cute pixar breed Character, high quality, 8K Ultra HD, " +
+                    "(Detailed colors like the imagePrompts provided, )" +
+                    "beautiful cute pixar breed ,breed STICKER, in the style of Studio Ghibli,3D vector art breed ,cute and quirky breed," +
+                    " Adobe Illustrator,digital painting,isometric style, retro aesthetic, focusedon the character, 4K resolution," +
+                    " photorealistic rendering, usingCinema 4D,cute stickers,style cartoon,highly detailed, planar vector," +
+                    "character design breed ,Super Deformed Character,Cute Design,Character Design," +
+                    "A digital illustration of anime style, soft anime tones, by yukisakura, awesome full color," +
+                    "Printable sticker about minimal cute cartoon imagePrompts, white background," +
+                    "highly detailed, by yukisakura, awesome full color, vinyl sticker with white border," ,
             "nude, nsfw, text, letters, too many feet, too many fingers, (((2 heads))), duplicate," +
                     " abstract, disfigured, deformed, toy, figure, framed, disfigured, bad art, deformed, poorly drawn, " +
                     "extra limbs, weird colors, 2 heads, long neck, elongated body, cropped image, out of frame, draft, " +
@@ -22,7 +38,8 @@ public enum Prompt {
                     "extra fingers, groos proportions, missing arms, mutated hands, cloned face, missing legs,"),
     HALLOWEEN(2L,
             "cute stickers, 8K Ultra HD, highly detailed, Detailed illustration of a cute breed enjoying Halloween, " +
-                    "with lots of pumpkins in the background, magic hat, style cartoon, two-dimensional, planar vector, " +
+                    "with lots of pumpkins in the background, magic hat, style cartoon, two-dimensional, planar vector," +
+                    "Many bats are flying in the background, " +
                     "character design, vector art, fantasy art, T-shirt design, Background with light brown gradient, Chibi Chara," +
                     " Super Deformed Character, full body, Cute Design, Two-Dimensional, Character Design, Adorable Characters," +
                     " Mascot Characters, Adobe Illustrator, soft tetrad color, A digital illustration of anime style , " +
@@ -67,7 +84,7 @@ public enum Prompt {
                     "twisted fingers, double image, malformed hands, multiple heads, extra limb, ugly, " +
                     "poorly drawn hands, missing limb, cut-off, over satured, grain, lowères, bad anatomy, " +
                     "poorly drawn face, mutation, mutated, floating limbs, disconnected limbs"),
-    CHRISTMAS(5L,"Generate imaginative Christmas-themed animals: Picture a breed with [Festive Element/Accessory]",
+    CHRISTMAS(5L,"Create a background Christmas, with a big tree and gifts, and a small little cute breed with a red dog collar, with a Christmas hat, colorful snowing Christmas background",
             "out of frame, cropped, bad proportions, out of frame, bad anatomy, poorly drawn face, morbid," +
                     "mutilated,((extra eyes)), ((extra arms)), ((extra legs)), ((extra fingers))" +
                     "((extra headphones)), ((two headphones)), ((extra heads)), ((extra eyes)) (((2 heads)))" +

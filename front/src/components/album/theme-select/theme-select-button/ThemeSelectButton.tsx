@@ -18,7 +18,15 @@ function ThemeSelectButton({ isFiltered, onClick, disabled }: Props) {
       size="medium"
       color="secondary"
       onClick={onClick}
-      sx={{ position: 'absolute', bottom: 88, right: '1rem' }}
+      sx={{
+        position: 'absolute',
+        bottom: 88,
+        right:
+          // window.innerWidth >= 480
+          //   ? `calc((100vw - 480px) / 2 + 1rem)`
+          //   : '1rem',
+          '1rem',
+      }}
     >
       {isFiltered ? (
         <>

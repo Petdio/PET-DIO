@@ -20,6 +20,7 @@ export default function Result() {
     setImage(
       `${process.env.NEXT_PUBLIC_S3_URL}${url.searchParams.get("img")}.jpg`
     );
+    router.refresh();
   }, []);
 
   useEffect(() => {

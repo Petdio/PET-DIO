@@ -127,6 +127,7 @@ export default function ThemeList() {
 
   useEffect(() => {
     getThemeList();
+    router.refresh();
   }, []);
 
   useEffect(() => {

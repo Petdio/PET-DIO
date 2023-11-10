@@ -90,11 +90,10 @@ public enum Prompt {
                     "twisted fingers, double image, malformed hands, multiple heads, extra limb, ugly, " +
                     "poorly drawn hands, missing limb, cut-off, over satured, grain, lowères, bad anatomy, " +
                     "poorly drawn face, mutation, mutated, floating limbs, disconnected limbs"),
-    CHRISTMAS(5L,"A detailed illustration of a print of a cute breed, with white fur fantasy flower splashes," +
-            " modern t-shirt design, Studio Ghibli style, light white, violet and pink pastel tetradic colors, " +
-            "3D vector art, cute and quirky, art fantasy, watercolor effect, bokeh, Adobe Illustrator, hand drawn, " +
-            "digital painting, low-poly, soft lighting, aerial view, retro aesthetic, character focused, 4K resolution, " +
-            "photorealistic rendering, using Cinema 4D",
+    SKY(5L,"An artistic portrait of a breed suspended in a blue sky with fluffy clouds," +
+            " the breed assumes a majestic pose as if exploring the heavens. Sunlight illuminates the scene, " +
+            "creating a radiant image full of life. The expression on the breed face is one of joy " +
+            "and bravery as he gazes toward the horizon in this captivating illustration.",
             "");
 
 

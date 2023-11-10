@@ -157,6 +157,12 @@ export default function Setting() {
             <Typography color="grey">
               {animalLabelSet[animalIdx].comment}
             </Typography>
+            <Typography
+              color="grey"
+              fontSize={14}
+            >
+              (사진과 같은 종으로 선택해야 AI가 정확하게 인식할 수 있어요!)
+            </Typography>
             <Box paddingTop="1rem">
               {payAvailable(userCoin, generatePrice) ? (
                 !isLoading ? (

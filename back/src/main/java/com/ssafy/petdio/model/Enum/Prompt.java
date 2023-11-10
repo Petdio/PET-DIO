@@ -10,14 +10,14 @@ import java.util.Map;
 public enum Prompt {
     STICKER(1L,
 
-            "(normal picture), prompt page for adults, breed in the picture, image ( breed, white background,) " +
+            "(normal picture), ((only blck line and white background)), breed in the picture that provided, image ( breed, white background,) " +
                     "clean line art, fine dark line art--HDS--Ar 2:3" +
                     "(only breed, white background), (Black and white outline art for cute book pages)," +
                     " all white, children's style, white background, whole body, sketch style, " +
                     "((white background)), ((only outlines used)), cartoon style, lines, coloring book, clean lines, " +
                     "background. White, Sketch style",
 
-            "(long bady),nude, nsfw, text, letters, too many feet, (too many fingers), (((2 heads))), duplicate," +
+            "(long body), nude, nsfw, text, letters, too many feet, (too many fingers), (((2 heads))), duplicate," +
                     " abstract, ((disfigured)), deformed, toy, figure, framed, disfigured, ((bad art)), deformed, poorly drawn, " +
                     "extra limbs, weird colors, (2 heads), (long neck), ((elongated body)), cropped image, out of frame, draft, " +
                     "deformed hands, (twisted fingers), ((double image)), malformed hands, multiple heads, extra limb, ugly, " +

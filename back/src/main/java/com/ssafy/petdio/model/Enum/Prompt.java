@@ -10,8 +10,8 @@ import java.util.Map;
 public enum Prompt {
     STICKER(1L,
 
-            "sticker, cartoon super cute breed, furry fluffy, pure white background, Vermeer style, 12K," +
-                    " high quality, HD, octane render, cinematic lighting, completely pure white background",
+            "prompt coloring page for adults, breed in the picture, image (different kinds of breed, white background, " +
+                    "clean line art, fine dark line art--HDS--Ar 2:3- upscaled (beta) by @Probark (fast)",
 
             "nude, nsfw, text, letters, too many feet, too many fingers, (((2 heads))), duplicate," +
                     " abstract, disfigured, deformed, toy, figure, framed, disfigured, bad art, deformed, poorly drawn, " +

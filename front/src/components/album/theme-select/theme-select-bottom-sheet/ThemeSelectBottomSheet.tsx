@@ -6,7 +6,10 @@ import { grey } from '@mui/material/colors';
 import React from 'react';
 
 interface Props {
-  themeNameList: string[];
+  themeNameList: {
+    themeName: string;
+    imageExists: boolean;
+  }[];
   isOpen: boolean;
   onOpen: React.ReactEventHandler<{}>;
   onClose: React.ReactEventHandler<{}>;
@@ -37,13 +40,29 @@ function ThemeSelectBottomSheet({
       container
       spacing={1}
     >
-      {themeNameList.map((themeName, idx) => {
-        if (themeName === 'none') return null;
+      {themeNameList.map((themeData, idx) => {
+        if (!themeData.imageExists) {
+          return (
+            <Grid
+              item
+              key={themeData.themeName}
+              xs={6}
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              height="4rem"
+            >
+              <Typography color={theme.palette.grey[300]}>
+                {themeData.themeName}
+              </Typography>
+            </Grid>
+          );
+        }
         return (
           <Grid
-            key={themeName}
-            onClick={() => onThemeChange(idx)}
             item
+            key={themeData.themeName}
+            onClick={() => onThemeChange(idx)}
             xs={6}
             display="flex"
             justifyContent="center"
@@ -58,7 +77,7 @@ function ThemeSelectBottomSheet({
               },
             }}
           >
-            <Typography className="content">{themeName}</Typography>
+            <Typography className="content">{themeData.themeName}</Typography>
           </Grid>
         );
       })}

@@ -8,16 +8,19 @@ import java.util.Map;
 @Getter
 public enum ConceptModel {
 
+    //Leonardo Diffusion XL
+    STICKER_MODEL(1L, "b820ea11-02bf-4652-97ae-9ac0cc00593d"),
 
-    STICKER_MODEL(1L, "1e60896f-3c26-4296-8ecc-53e2afecc132"),
-
+    //Leonardo Diffusion XL
     HALLOWEEN_MODEL(2L, "1e60896f-3c26-4296-8ecc-53e2afecc132"),
 
-    NINJA_MODEL(3L, "ac614f96-1082-45bf-be9d-757f2d31c174"),
+    //Leonardo Diffusion
+    NINJA_MODEL(3L, "b820ea11-02bf-4652-97ae-9ac0cc00593d"),
 
     MINI(4L,"e316348f-7773-490e-adcd-46757c738eb7" ),
 
-    CHRISTMAS(5L, "d69c8273-6b17-4a30-a13e-d6637ae1c644");
+    //Leonardo Diffusion
+    SKY(5L, "b820ea11-02bf-4652-97ae-9ac0cc00593d");
 
     private Long id;
     private String modelId;

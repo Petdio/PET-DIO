@@ -48,14 +48,16 @@ public enum Prompt {
                     " Mascot Characters, Adobe Illustrator, soft tetrad color, A digital illustration of anime style, " +
                     "soft anime tones, luminism, Feeling like Kyoto Animation, pixiv, luminism, 3d render, octane render, " +
                     "Isometric, by yukisakura, awesome full color,",
-            "nude, nsfw, text, letters, too many feet, too many fingers, (((2 heads))), duplicate, " +
-                    "abstract, disfigured, deformed, toy, figure, framed, disfigured, bad art, deformed, poorly drawn," +
-                    " extra limbs, weird colors, 2 heads, long neck, elongated body, cropped image, out of frame, draft," +
-                    " deformed hands, twisted fingers, double image, malformed hands, multiple heads, extra limb, ugly, " +
-                    "poorly drawn hands, missing limb, cut-off, over satured, grain, lowères, bad anatomy," +
-                    " poorly drawn face, mutation, mutated, floating limbs, disconnected limbs, out of focus, " +
-                    "long body, disgusting, extra fingers, groos proportions, missing arms, mutated hands, cloned face, " +
-                    "missing legs,"),
+            "out of frame, cropped, bad proportions, out of frame, bad anatomy, poorly drawn face, morbid," +
+                    "mutilated,((extra eyes)), ((extra arms)), ((extra legs)), ((extra fingers)), ((extra headphones)), " +
+                    "((two headphones)), ((extra heads)), ((extra eyes)) (((2 heads))), duplicate, man, men, blurry," +
+                    "abstract, disfigured, deformed, cartoon, animated, toy, figure, framed, 3d, cartoon, 3d, disfigured," +
+                    "bad art, deformed, poorly drawn, extra limbs, close up, b&w, weird colors, blurry, watermark, " +
+                    "blur haze, 2 heads, long neck, watermark, elongated body, cropped image,out of frame,draft," +
+                    " deformed hands, twisted fingers, double image, malformed hands, multiple heads, extra limb, " +
+                    " ugly, poorly drawn hands, missing limb, cut-off, over satured, grain, lowères, bad anatomy, " +
+                    " poorly drawn face, mutation, mutated, floating limbs, disconnected limbs, out of focus, long body," +
+                    " disgusting, extra fingers, groos proportions, missing arms, mutated hands, cloned face, missing legs"),
 
     NINJA(3L,
             "A detailed illustration face evil ninja breed,magic, t-shirt design, red color , dark magic splash, " +

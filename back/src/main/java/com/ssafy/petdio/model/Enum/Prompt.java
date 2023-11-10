@@ -10,8 +10,12 @@ import java.util.Map;
 public enum Prompt {
     STICKER(1L,
 
-            "prompt coloring page for adults, breed in the picture, image (different kinds of breed, white background, " +
-                    "clean line art, fine dark line art--HDS--Ar 2:3- upscaled (beta) by @Probark (fast)",
+            "prompt page for adults, breed in the picture, image ( breed, white background,) " +
+                    "clean line art, fine dark line art--HDS--Ar 2:3- upscaled (beta) by @Probark (fast)" +
+                    "(only breed, white background), (Black and white outline art for cute book pages)," +
+                    " all white, children's style, white background, whole body, sketch style, " +
+                    "((white background)), ((only outlines used)), cartoon style, lines, coloring book, clean lines, " +
+                    "background. White, Sketch style",
 
             "nude, nsfw, text, letters, too many feet, too many fingers, (((2 heads))), duplicate," +
                     " abstract, disfigured, deformed, toy, figure, framed, disfigured, bad art, deformed, poorly drawn, " +

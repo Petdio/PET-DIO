@@ -52,7 +52,7 @@ public class AiServiceImpl implements AiService {
     private final SseService sseService;
 
     @Override
-    public SseEmitter makeAiImage(Long conceptId, MultipartFile multipartFile, String breed, Long userId) throws IOException {
+    public String makeAiImage(Long conceptId, MultipartFile multipartFile, String breed, Long userId) throws IOException {
         List<Setting> settings = settingRepository.findAllByConcept_ConceptId(conceptId);
 
         // 레오나르도
@@ -66,7 +66,8 @@ public class AiServiceImpl implements AiService {
             //String generationId = leonardo.generateAndFetchImages(leonardo.putJsonPayload(settings, Prompt.findEnumById(conceptId), leonardo.init(multipartFile), breed));
             redisTemplate.opsForValue().set(generationId,
                     AiDto.Data.builder().userId(userId).conceptId(conceptId).build());
-            return sseService.connectNotification(generationId);
+            return generationId;
+//            return sseService.connectNotification(generationId);
 //        }
 
     }

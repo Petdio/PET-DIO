@@ -5,7 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 public interface AiService {
-    SseEmitter makeAiImage(Long conceptId, MultipartFile multipartFile, String breed, Long userId) throws IOException;
+    String makeAiImage(Long conceptId, MultipartFile multipartFile, String breed, Long userId) throws IOException;
 
     void getImage(String leonardoUrl) throws Exception;
 

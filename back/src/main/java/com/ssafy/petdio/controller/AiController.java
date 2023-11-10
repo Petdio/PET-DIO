@@ -19,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import org.yaml.snakeyaml.emitter.Emitter;
 import reactor.core.publisher.Flux;
 
@@ -40,6 +41,7 @@ public class AiController {
         log.info("hello createImages");
         try {
             Long userId = Long.valueOf(authentication.getName());
+//            aiService.makeAiImage(conceptId, imageFile, breed, userId);
             return ResponseEntity.status(HttpStatus.OK).body(aiService.makeAiImage(conceptId, imageFile, breed, userId));
         } catch (Exception e){
             log.error("ai 사진 만들기 에러"+e.getMessage());
@@ -57,6 +59,15 @@ public class AiController {
         } catch (Exception e) {
             log.error("ai 사진 만든 후 에러"+e.getMessage());
         }
+    }
+
+    @GetMapping("/sse") //발행
+    public SseEmitter streamDateTime(@RequestParam("generationId") String generationId) { // webmvc
+//        return ResponseEntity.status(HttpStatus.OK).body(aiService.makeAiImage(conceptId, imageFile, breed, userId));
+        return sseService.connectNotification(generationId);
+//        serversentService.register(sseEmitter);
+
+//        return sseEmitter;
     }
 
 //    @GetMapping(value = "/stream-sse", produces = "text/event-stream")

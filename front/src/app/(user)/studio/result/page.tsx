@@ -71,17 +71,6 @@ export default function Result() {
           )}
         </Box>
       </div>
-      {/* <Box padding="1rem" paddingBottom="0">
-        <Button
-          variant="contained"
-          color="primary"
-          endIcon={<SaveAlt />}
-          fullWidth
-          onClick={() => downloadImage(image, "생성 이미지")}
-        >
-          내 기기에 저장
-        </Button>
-      </Box> */}
       <Box
         width="100%"
         padding="1rem"
@@ -111,7 +100,7 @@ export default function Result() {
             fullWidth
             onClick={() => downloadImage(image, "petdio-image")}
           >
-            내 기기에 저장
+            저장
           </Button>
         </Box>
       </Box>

@@ -1,9 +1,11 @@
-import { Box, Typography, Button, styled } from '@mui/material';
+import { Box, Typography, Button } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import { theme } from '@/styles/ThemeRegistry';
 import { amber } from '@mui/material/colors';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import TollTwoToneIcon from '@mui/icons-material/TollTwoTone';
 import CardGiftcardTwoToneIcon from '@mui/icons-material/CardGiftcardTwoTone';
+import { member } from '@/constants/member';
 
 export const TextBox = styled(Box)(() => ({
   display: 'flex',
@@ -46,7 +48,7 @@ function WelcomeItem1({ startTutorial }: Props) {
           sx={{ fontSize: 16 }}
           htmlColor={amber[500]}
         />
-        <Typography fontSize={14}>150을 드렸어요.</Typography>
+        <Typography fontSize={14}>{member.initCoin}을 드렸어요.</Typography>
       </TextBox>
       <Box height="2rem" />
       {/* <Button

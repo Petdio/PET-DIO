@@ -30,7 +30,7 @@ public class KakaoService {
     private final UserRepository userRepository;
     private final JwtService jwtService;
     // 회원가입시 1500원
-    private static final int DEFAULT_COIN = 150;
+    private static final int DEFAULT_COIN = 300;
 
     @Value("${KAKAO_RESTAPI_KEY}")
     private String KAKAO_RESTPAPI_KEY;

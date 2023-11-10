@@ -60,11 +60,10 @@ export default function Generating() {
       }ai/sse?generationId=${localStorage.getItem("sse-token")}`
     );
 
-    eventSource.onmessage = (event) => {
+    eventSource.addEventListener("notify", (event) => {
       const data = JSON.parse(event.data);
-      console.log("Received message:", data);
-      // 여기서 받은 데이터를 활용하여 UI를 업데이트할 수 있습니다.
-    };
+      console.log("Received myEventName event:", data);
+    });
 
     eventSource.onerror = (error) => {
       console.error("Error occurred:", error);

@@ -19,8 +19,8 @@ public enum ConceptModel {
 
     MINI(4L,"e316348f-7773-490e-adcd-46757c738eb7" ),
 
-    //DreamShaper v7
-    CHRISTMAS(5L, "ac614f96-1082-45bf-be9d-757f2d31c174");
+    //Leonardo Diffusion
+    SKY(5L, "b820ea11-02bf-4652-97ae-9ac0cc00593d");
 
     private Long id;
     private String modelId;

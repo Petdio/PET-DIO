@@ -61,8 +61,8 @@ export default function Generating() {
     );
 
     eventSource.addEventListener("notify", (event) => {
-      const data = JSON.parse(event.data);
-      console.log("Received myEventName event:", data);
+      // const data = JSON.parse(event.data);
+      console.log("Received myEventName event:", event.data);
     });
 
     eventSource.onerror = (error) => {

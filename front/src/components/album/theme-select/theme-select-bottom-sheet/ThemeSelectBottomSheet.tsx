@@ -38,12 +38,29 @@ function ThemeSelectBottomSheet({
       spacing={1}
     >
       {themeNameList.map((themeName, idx) => {
-        if (themeName === 'none') return null;
+        if (themeName === 'none') {
+          return (
+            <Grid
+              item
+              key={themeName}
+              onClick={() => onThemeChange(idx)}
+              xs={6}
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              height="4rem"
+            >
+              <Typography color={theme.palette.grey[300]}>
+                {themeName}
+              </Typography>
+            </Grid>
+          );
+        }
         return (
           <Grid
+            item
             key={themeName}
             onClick={() => onThemeChange(idx)}
-            item
             xs={6}
             display="flex"
             justifyContent="center"

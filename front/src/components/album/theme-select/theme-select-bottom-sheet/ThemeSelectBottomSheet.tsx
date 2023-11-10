@@ -46,7 +46,6 @@ function ThemeSelectBottomSheet({
             <Grid
               item
               key={themeData.themeName}
-              onClick={() => onThemeChange(idx)}
               xs={6}
               display="flex"
               justifyContent="center"

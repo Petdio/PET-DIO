@@ -81,8 +81,11 @@ public enum Prompt {
                     "poorly drawn hands, missing limb, cut-off, over satured, grain, lowères, bad anatomy, " +
                     "poorly drawn face, mutation, mutated, floating limbs, disconnected limbs"),
     CHRISTMAS(5L,"A breed wearing a red Christmas hat," +
-            " sitting next to a Christmas tree made of breed. " +
-            "Happy Pawlidays written in groovy font. White background. T-shirt design.",
+            " sitting next to a Christmas tree made of breed, " +
+            "Happy Pawlidays written in groovy font, White background, T-shirt design," +
+            "A cute adorable Christmas breed puppy wearing a Santa hat, with presents, watercolor, water color painting, " +
+            "highly detailed, clipart, clip art, on a white background, water color, in view, high quality, photo realistic, " +
+            "holiday, festive, Christmas",
             "");
 
 

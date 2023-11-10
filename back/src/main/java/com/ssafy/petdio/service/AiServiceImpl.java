@@ -56,7 +56,7 @@ public class AiServiceImpl implements AiService {
         List<Setting> settings = settingRepository.findAllByConcept_ConceptId(conceptId);
 
         // 레오나르도
-        if (conceptId < 6) {
+//        if (conceptId < 6) {
 
 //        String selectedModelId = getRandomModelId();
             String selectedModelId = ConceptModel.findEnumById(conceptId).getModelId();
@@ -67,7 +67,7 @@ public class AiServiceImpl implements AiService {
             redisTemplate.opsForValue().set(generationId,
                     AiDto.Data.builder().userId(userId).conceptId(conceptId).build());
             return sseService.connectNotification(generationId);
-        }
+//        }
 
     }
 

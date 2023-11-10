@@ -10,7 +10,7 @@ import java.util.Map;
 public enum Prompt {
     STICKER(1L,
 
-            "(normal picture), prompt page for adults, breed in the picture, image ( breed, white background,) " +
+            "(normal picture), ((only blck line and white background)), breed in the picture that provided, image ( breed, white background,) " +
                     "clean line art, fine dark line art--HDS--Ar 2:3" +
                     "(only breed, white background), (Black and white outline art for cute book pages)," +
                     " all white, children's style, white background, whole body, sketch style, " +

@@ -41,14 +41,21 @@ public enum Prompt {
                     " mutation, mutated, floating limbs, disconnected limbs, out of focus, long body, disgusting, " +
                     "extra fingers, groos proportions, missing arms, mutated hands, cloned face, missing legs,"),
     HALLOWEEN(2L,
-            "A detailed illustration of a print of a cute breed rides a broom and it wear witch hat and " +
-                    "hold a book and peen next to a cute Halloween Pumpkin, hyper realistic high quality, " +
-                    "t-shit desing graphic, vector, carton, contour, fantasy swirls splash, modern t-shirt design, " +
-                    "in the style of Studio Ghibli, light white red and green pastel tetradic colors, 3D vector art, " +
-                    "cute and quirky, fantasy art, watercolor effect, bokeh, Adobe Illustrator, hand-drawn, digital painting," +
-                    " low-poly, soft lighting, bird's-eye view, isometric style, retro aesthetic, focusedon the character, " +
-                    "4K resolution, photorealistic rendering, usingCinema 4D, isolated in a white background",
-            "T-shirt mock-up"),
+            "cute stickers, 8K Ultra HD, highly detailed, Detailed illustration of a cute breed enjoying Halloween, " +
+                    "with lots of pumpkins in the background, magic hat, style cartoon, two-dimensional, planar vector, " +
+                    "character design, vector art, fantasy art, T-shirt design, Background with light brown gradient, Chibi Chara," +
+                    " Super Deformed Character, full body, Cute Design, Two-Dimensional, Character Design, Adorable Characters," +
+                    " Mascot Characters, Adobe Illustrator, soft tetrad color, A digital illustration of anime style, " +
+                    "soft anime tones, luminism, Feeling like Kyoto Animation, pixiv, luminism, 3d render, octane render, " +
+                    "Isometric, by yukisakura, awesome full color,",
+            "nude, nsfw, text, letters, too many feet, too many fingers, (((2 heads))), duplicate, " +
+                    "abstract, disfigured, deformed, toy, figure, framed, disfigured, bad art, deformed, poorly drawn," +
+                    " extra limbs, weird colors, 2 heads, long neck, elongated body, cropped image, out of frame, draft," +
+                    " deformed hands, twisted fingers, double image, malformed hands, multiple heads, extra limb, ugly, " +
+                    "poorly drawn hands, missing limb, cut-off, over satured, grain, lowères, bad anatomy," +
+                    " poorly drawn face, mutation, mutated, floating limbs, disconnected limbs, out of focus, " +
+                    "long body, disgusting, extra fingers, groos proportions, missing arms, mutated hands, cloned face, " +
+                    "missing legs,"),
 
     NINJA(3L,
             "A detailed illustration face evil ninja breed,magic, t-shirt design, red color , dark magic splash, " +
@@ -80,12 +87,11 @@ public enum Prompt {
                     "twisted fingers, double image, malformed hands, multiple heads, extra limb, ugly, " +
                     "poorly drawn hands, missing limb, cut-off, over satured, grain, lowères, bad anatomy, " +
                     "poorly drawn face, mutation, mutated, floating limbs, disconnected limbs"),
-    CHRISTMAS(5L,"A breed wearing a red Christmas hat," +
-            " sitting next to a Christmas tree made of breed, " +
-            "Happy Pawlidays written in groovy font, White background, T-shirt design," +
-            "A cute adorable Christmas breed puppy wearing a Santa hat, with presents, watercolor, water color painting, " +
-            "highly detailed, clipart, clip art, on a white background, water color, in view, high quality, photo realistic, " +
-            "holiday, festive, Christmas",
+    CHRISTMAS(5L,"A detailed illustration of a print of a cute breed, with white fur fantasy flower splashes," +
+            " modern t-shirt design, Studio Ghibli style, light white, violet and pink pastel tetradic colors, " +
+            "3D vector art, cute and quirky, art fantasy, watercolor effect, bokeh, Adobe Illustrator, hand drawn, " +
+            "digital painting, low-poly, soft lighting, aerial view, retro aesthetic, character focused, 4K resolution, " +
+            "photorealistic rendering, using Cinema 4D",
             "");
 
 

@@ -28,33 +28,54 @@ export default function Generating() {
     );
   }
 
-  // useEffect(() => {
-  //   const firebaseApp = initializeApp({
-  //     apiKey: process.env.NEXT_PUBLIC_FIREBASE_APIKEY,
-  //     authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-  //     projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECTID,
-  //     storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGEBUCKET,
-  //     messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGINGSENDERID,
-  //     appId: process.env.NEXT_PUBLIC_FIREBASE_APPID,
-  //     measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENTID,
-  //   });
+  useEffect(() => {
+    //   const firebaseApp = initializeApp({
+    //     apiKey: process.env.NEXT_PUBLIC_FIREBASE_APIKEY,
+    //     authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+    //     projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECTID,
+    //     storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGEBUCKET,
+    //     messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGINGSENDERID,
+    //     appId: process.env.NEXT_PUBLIC_FIREBASE_APPID,
+    //     measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENTID,
+    //   });
 
-  //   const messaging = getMessaging(firebaseApp);
+    //   const messaging = getMessaging(firebaseApp);
 
-  //   onMessage(messaging, (payload) => {
-  //     console.log('Message received. ', payload.notification?.image);
-  //     const imageKey = payload.notification?.image?.match(/\/([^/]+)\.jpg$/);
+    //   onMessage(messaging, (payload) => {
+    //     console.log('Message received. ', payload.notification?.image);
+    //     const imageKey = payload.notification?.image?.match(/\/([^/]+)\.jpg$/);
 
-  //     if (imageKey) {
-  //       setShowComponent(false);
-  //       setTimeout(() => {
-  //         router.push(`/studio/result?img=${imageKey[1]}`);
-  //       }, 4000);
-  //     } else {
-  //       console.log('No match found');
-  //     }
-  //   });
-  // }, []);
+    //     if (imageKey) {
+    //       setShowComponent(false);
+    //       setTimeout(() => {
+    //         router.push(`/studio/result?img=${imageKey[1]}`);
+    //       }, 4000);
+    //     } else {
+    //       console.log('No match found');
+    //     }
+    //   });
+    const eventSource = new EventSource(
+      `${
+        process.env.NEXT_PUBLIC_API_URL
+      }ai/sse?generationId=${localStorage.getItem("sse-token")}`
+    );
+
+    eventSource.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      console.log("Received message:", data);
+      // 여기서 받은 데이터를 활용하여 UI를 업데이트할 수 있습니다.
+    };
+
+    eventSource.onerror = (error) => {
+      console.error("Error occurred:", error);
+      eventSource.close();
+    };
+
+    return () => {
+      // 컴포넌트가 언마운트 될 때 EventSource를 닫습니다.
+      eventSource.close();
+    };
+  }, []);
 
   return (
     <Box

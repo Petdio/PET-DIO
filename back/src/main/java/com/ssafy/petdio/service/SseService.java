@@ -2,6 +2,7 @@ package com.ssafy.petdio.service;
 
 import com.ssafy.petdio.repository.EmitterRepository;
 import java.io.IOException;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -39,11 +40,11 @@ public class SseService {
         return sseEmitter;
     }
 
-    public void send(Long userId, String generationId) {
+    public void send(String generationId, String urlOrFail) {
         emitterRepository.get(generationId).ifPresentOrElse(sseEmitter -> {
             try {
                 System.out.println("send: " + sseEmitter);
-                sseEmitter.send(SseEmitter.event().id(generationId).name(NOTIFICATION_NAME).data("New notification"));
+                sseEmitter.send(SseEmitter.event().id(generationId).name(NOTIFICATION_NAME).data(urlOrFail));
             } catch (IOException e) {
                 emitterRepository.delete(generationId);
                 log.error(e.getMessage());

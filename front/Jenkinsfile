@@ -4,23 +4,22 @@ pipeline {
         stage("Set environment") {
             steps {
                 echo "Copy require file to pipeline folder"
-                sh 'cp /var/jenkins_home/util/front/develop/.env.local ./front/.env.local'
+                sh 'cp /var/jenkins_home/util/front/.env.local ./front/.env.local'
             }
         }
 
 		stage('Docker Build') {
 			steps {
 				dir('front/') {
-					sh 'docker build -t front_dev_img:latest .'
+					sh 'docker build -t front_img:latest .'
 				}
 			}
 		}
 
 		stage('Deploy') {
 			steps{
-				// master랑 다름 
-				sh 'docker rm -f front_dev_container'
-				sh 'docker run -d --env-file ./front/.env.local --name front_dev_container --network deploy -p 3001:3000 -u root	front_dev_img:latest'
+				sh 'docker rm -f front_container'
+				sh 'docker run -d --env-file ./front/.env.local --name front_container --network deploy -p 3000:3000 -u root	front_img:latest'
 				}
 		}
 

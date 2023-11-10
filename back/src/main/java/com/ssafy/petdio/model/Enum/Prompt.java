@@ -17,7 +17,7 @@ public enum Prompt {
                     "((white background)), ((only outlines used)), cartoon style, lines, coloring book, clean lines, " +
                     "background. White, Sketch style",
 
-            "(long bady),nude, nsfw, text, letters, too many feet, (too many fingers), (((2 heads))), duplicate," +
+            "(long body), nude, nsfw, text, letters, too many feet, (too many fingers), (((2 heads))), duplicate," +
                     " abstract, ((disfigured)), deformed, toy, figure, framed, disfigured, ((bad art)), deformed, poorly drawn, " +
                     "extra limbs, weird colors, (2 heads), (long neck), ((elongated body)), cropped image, out of frame, draft, " +
                     "deformed hands, (twisted fingers), ((double image)), malformed hands, multiple heads, extra limb, ugly, " +

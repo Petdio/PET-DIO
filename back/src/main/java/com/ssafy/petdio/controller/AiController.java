@@ -62,7 +62,8 @@ public class AiController {
     }
 
     @GetMapping("/sse") //발행
-    public SseEmitter streamDateTime(@RequestParam("generationId") String generationId) { // webmvc
+    public SseEmitter streamDateTime(@RequestParam("generationId") String generationId) {
+        log.info("sse : " + generationId);
 //        return ResponseEntity.status(HttpStatus.OK).body(aiService.makeAiImage(conceptId, imageFile, breed, userId));
         return sseService.connectNotification(generationId);
 //        serversentService.register(sseEmitter);

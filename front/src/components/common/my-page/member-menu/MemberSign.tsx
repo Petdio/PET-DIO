@@ -9,7 +9,6 @@ export default function MemberSign() {
 
   const handleLogOut = () => {
     localStorage.removeItem("access-token"); // access-token 제거
-    router.refresh();
     window.location.href = "/login";
   };
 

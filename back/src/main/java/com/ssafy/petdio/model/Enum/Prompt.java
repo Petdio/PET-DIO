@@ -60,16 +60,11 @@ public enum Prompt {
                     " disgusting, extra fingers, groos proportions, missing arms, mutated hands, cloned face, missing legs"),
 
     NINJA(3L,
-//            "A detailed illustration face evil ninja breed,magic, t-shirt design, red color , dark magic splash, " +
-//                    "dark, ghotic, t-shirt design, in the style of Studio Ghibli, pastel tetradic colors, " +
-//                    "3D vector art, cute and quirky, fantasy art, watercolor effect, bokeh, Adobe Illustrator, " +
-//                    "hand-drawn, digital painting, low-poly, soft lighting, bird's-eye view, isometric style," +
-//                    " retro aesthetic, focused on the character, 4K resolution, photorealistic rendering, using Cinema 4D",
-
-            "An artistic portrait of a breed suspended in a blue sky with fluffy clouds," +
-                    " the breed assumes a majestic pose as if exploring the heavens. Sunlight illuminates the scene, " +
-                    "creating a radiant image full of life. The expression on the breed face is one of joy " +
-                    "and bravery as he gazes toward the horizon in this captivating illustration.",
+            "A detailed illustration face evil ninja breed,magic, t-shirt design, red color , dark magic splash, " +
+                    "dark, ghotic, t-shirt design, in the style of Studio Ghibli, pastel tetradic colors, " +
+                    "3D vector art, cute and quirky, fantasy art, watercolor effect, bokeh, Adobe Illustrator, " +
+                    "hand-drawn, digital painting, low-poly, soft lighting, bird's-eye view, isometric style," +
+                    " retro aesthetic, focused on the character, 4K resolution, photorealistic rendering, using Cinema 4D",
 
             "out of frame, cropped, bad proportions, out of frame, bad anatomy, poorly drawn face, morbid," +
                     " mutilated,((extra eyes)), ((extra arms)), ((extra legs)), ((extra fingers)), ((extra headphones)), " +

@@ -58,18 +58,11 @@ public enum Prompt {
                     "missing legs,"),
 
     NINJA(3L,
-//            "A detailed illustration face evil ninja breed,magic, t-shirt design, red color , dark magic splash, " +
-//                    "dark, ghotic, t-shirt design, in the style of Studio Ghibli, pastel tetradic colors, " +
-//                    "3D vector art, cute and quirky, fantasy art, watercolor effect, bokeh, Adobe Illustrator, " +
-//                    "hand-drawn, digital painting, low-poly, soft lighting, bird's-eye view, isometric style," +
-//                    " retro aesthetic, focused on the character, 4K resolution, photorealistic rendering, using Cinema 4D",
-            "cute breed stickers, 8K Ultra HD, highly detailed, Detailed illustration of a cute breed enjoying Halloween, " +
-                    "with lots of pumpkins in the background, magic hat, style cartoon, two-dimensional, planar vector, " +
-                    "character design, vector art, fantasy art, T-shirt design, Background with light brown gradient, Chibi Chara," +
-                    " Super Deformed Character, full body, Cute Design, Two-Dimensional, Character Design, Adorable Characters," +
-                    " Mascot Characters, Adobe Illustrator, soft tetrad color, A digital illustration of anime style, " +
-                    "soft anime tones, luminism, Feeling like Kyoto Animation, pixiv, luminism, 3d render, octane render, " +
-                    "Isometric, by yukisakura, awesome full color,",
+            "A detailed illustration face evil ninja breed,magic, t-shirt design, red color , dark magic splash, " +
+                    "dark, ghotic, t-shirt design, in the style of Studio Ghibli, pastel tetradic colors, " +
+                    "3D vector art, cute and quirky, fantasy art, watercolor effect, bokeh, Adobe Illustrator, " +
+                    "hand-drawn, digital painting, low-poly, soft lighting, bird's-eye view, isometric style," +
+                    " retro aesthetic, focused on the character, 4K resolution, photorealistic rendering, using Cinema 4D",
             "out of frame, cropped, bad proportions, out of frame, bad anatomy, poorly drawn face, morbid," +
                     " mutilated,((extra eyes)), ((extra arms)), ((extra legs)), ((extra fingers)), ((extra headphones)), " +
                     "((two headphones)), ((extra heads)), ((extra eyes)) (((2 heads))), duplicate, man, men, blurry, " +

@@ -167,11 +167,10 @@ public class AiServiceImpl implements AiService {
             log.info("만들어진 url 링크: " + defaultUrl + s3Url);
             log.info("---------------fcm test------------");
             Map<String, String> map = new HashMap<>();
-            map.put("test", "test11");
             userService.useCoin(user.getUserId());
 //            if (user.getFcmToken() == null) throw new Exception("fcm 토큰 없음");
             if (user.getFcmToken() == null) {
-                sseService.send(user.getUserId(), generationId);
+                sseService.send(generationId, defaultUrl + s3Url);
                 return;
             }
             fcmService.sendMessageTo(NotificationMessage.builder()
@@ -185,7 +184,11 @@ public class AiServiceImpl implements AiService {
             Map<String, String> map = new HashMap<>();
             map.put("test", "test11");
             userService.useCoin(user.getUserId());
-            if (user.getFcmToken() == null) throw new Exception("fcm 토큰 없음");
+//            if (user.getFcmToken() == null) throw new Exception("fcm 토큰 없음");
+            if (user.getFcmToken() == null) {
+                sseService.send(generationId, "fail");
+                return;
+            }
             fcmService.sendMessageTo(NotificationMessage.builder()
                     .title("사진 만들기 실패")
                     .image(null)

@@ -10,18 +10,22 @@ import java.util.Map;
 public enum Prompt {
     STICKER(1L,
 
-            "prompt coloring page for adults, breed in the picture, image (different kinds of breed, white background, " +
-                    "clean line art, fine dark line art--HDS--Ar 2:3- upscaled (beta) by @Probark (fast)",
+            "(normal picture), prompt page for adults, breed in the picture, image ( breed, white background,) " +
+                    "clean line art, fine dark line art--HDS--Ar 2:3" +
+                    "(only breed, white background), (Black and white outline art for cute book pages)," +
+                    " all white, children's style, white background, whole body, sketch style, " +
+                    "((white background)), ((only outlines used)), cartoon style, lines, coloring book, clean lines, " +
+                    "background. White, Sketch style",
 
-            "nude, nsfw, text, letters, too many feet, too many fingers, (((2 heads))), duplicate," +
-                    " abstract, disfigured, deformed, toy, figure, framed, disfigured, bad art, deformed, poorly drawn, " +
-                    "extra limbs, weird colors, 2 heads, long neck, elongated body, cropped image, out of frame, draft, " +
-                    "deformed hands, twisted fingers, double image, malformed hands, multiple heads, extra limb, ugly, " +
+            "(long bady),nude, nsfw, text, letters, too many feet, (too many fingers), (((2 heads))), duplicate," +
+                    " abstract, ((disfigured)), deformed, toy, figure, framed, disfigured, ((bad art)), deformed, poorly drawn, " +
+                    "extra limbs, weird colors, (2 heads), (long neck), ((elongated body)), cropped image, out of frame, draft, " +
+                    "deformed hands, (twisted fingers), ((double image)), malformed hands, multiple heads, extra limb, ugly, " +
                     "poorly drawn hands, missing limb, cut-off, over satured, grain, lowères, bad anatomy, poorly drawn face," +
                     " mutation, mutated, floating limbs, disconnected limbs, out of focus, long body, disgusting, " +
                     "extra fingers, groos proportions, missing arms, mutated hands, cloned face, missing legs,"),
     HALLOWEEN(2L,
-            "cute breed stickers, 8K Ultra HD, highly detailed, Detailed illustration of a cute breed enjoying Halloween, " +
+            "(normal picture),cute breed stickers, 8K Ultra HD, highly detailed, Detailed illustration of a cute breed enjoying Halloween, " +
                     "with lots of pumpkins in the background, magic hat, style cartoon, two-dimensional, planar vector, " +
                     "character design, vector art, fantasy art, T-shirt design, Background with light brown gradient, Chibi Chara," +
                     " Super Deformed Character, full body, Cute Design, Two-Dimensional, Character Design, Adorable Characters," +
@@ -40,7 +44,7 @@ public enum Prompt {
                     " disgusting, extra fingers, groos proportions, missing arms, mutated hands, cloned face, missing legs"),
 
     NINJA(3L,
-            "A detailed illustration face evil ninja breed,magic, t-shirt design, red color , dark magic splash, " +
+            "(normal picture),A detailed illustration face evil ninja breed,magic, t-shirt design, red color , dark magic splash, " +
                     "dark, ghotic, t-shirt design, in the style of Studio Ghibli, pastel tetradic colors, " +
                     "3D vector art, cute and quirky, fantasy art, watercolor effect, bokeh, Adobe Illustrator, " +
                     "hand-drawn, digital painting, low-poly, soft lighting, bird's-eye view, isometric style," +
@@ -57,7 +61,7 @@ public enum Prompt {
                     "poorly drawn face, mutation, mutated, floating limbs, disconnected limbs, out of focus, long body," +
                     " disgusting, extra fingers, groos proportions, missing arms, mutated hands, cloned face, missing legs"),
     MINI(4L,
-            "cute tiny hyperrealistic Anime breed the photo that provided, adorable and fluffy, logo design, cartoon, " +
+            "(normal picture),cute tiny hyperrealistic Anime breed the photo that provided, adorable and fluffy, logo design, cartoon, " +
                     "cinematic lighting effect, charming, 3D vector art, cute and quirky, fantasy art, bokeh, hand-drawn, " +
                     "digital painting, soft lighting, isometric style , 4K resolution, photorealistic rendering," +
                     " highly detailed clean, vector image, photorealistic masterpiece, professional photography, " +
@@ -70,7 +74,7 @@ public enum Prompt {
                     "twisted fingers, double image, malformed hands, multiple heads, extra limb, ugly, " +
                     "poorly drawn hands, missing limb, cut-off, over satured, grain, lowères, bad anatomy, " +
                     "poorly drawn face, mutation, mutated, floating limbs, disconnected limbs"),
-    SKY(5L,"An artistic portrait of a breed suspended in a blue sky with fluffy clouds," +
+    SKY(5L,"(normal picture),An artistic portrait of a breed suspended in a blue sky with fluffy clouds," +
             " the breed assumes a majestic pose as if exploring the heavens. Sunlight illuminates the scene, " +
             "creating a radiant image full of life. The expression on the breed face is one of joy " +
             "and bravery as he gazes toward the horizon in this captivating illustration.",

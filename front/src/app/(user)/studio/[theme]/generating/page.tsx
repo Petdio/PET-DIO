@@ -37,7 +37,7 @@ export default function Generating() {
 
     eventSource.addEventListener("notify", (event) => {
       console.log("Received myEventName event:", event.data);
-      if (event.data !== "Connection complete") {
+      if (event.data !== "Connection completed") {
         const imageKey = event.data.match(/\/([^/]+)\.jpg$/);
         setShowComponent(false);
         setTimeout(() => {

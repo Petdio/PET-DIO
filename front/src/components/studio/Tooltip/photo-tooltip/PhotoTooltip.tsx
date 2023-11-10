@@ -1,14 +1,15 @@
-"use client";
-import { useState } from "react";
+'use client';
+import { useState } from 'react';
 import {
   Tooltip,
   IconButton,
   ClickAwayListener,
   Box,
   Grid,
-} from "@mui/material";
-import HelpIcon from "@mui/icons-material/Help";
-import Image from "next/image";
+  Typography,
+} from '@mui/material';
+import HelpIcon from '@mui/icons-material/Help';
+import Image from 'next/image';
 
 export default function PhotoTooltip() {
   const [open, setOpen] = useState(false);
@@ -33,13 +34,18 @@ export default function PhotoTooltip() {
         disableFocusListener
         disableHoverListener
         disableTouchListener
+        sx={{ padding: 0, marginLeft: '0.5rem' }}
         title={
           <>
             <Box width={300}>
               <div>AI가 잘 인식할 수 있도록,</div>
-              <div>아래와 같이 잘 찍힌 사진을 업로드해주세요.</div>
+              <div>아래처럼 얼굴이 잘 나온 사진을 업로드해주세요.</div>
 
-              <Grid container spacing={1} marginTop="0.5rem">
+              <Grid
+                container
+                spacing={1}
+                marginTop="0.5rem"
+              >
                 <Grid item>
                   <Image
                     src="/assets/Dog1.svg"
@@ -69,7 +75,10 @@ export default function PhotoTooltip() {
           </>
         }
       >
-        <IconButton onClick={handleTooltipOpen} size="medium">
+        <IconButton
+          onClick={handleTooltipOpen}
+          size="medium"
+        >
           <HelpIcon fontSize="small" />
         </IconButton>
       </Tooltip>

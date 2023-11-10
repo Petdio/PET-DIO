@@ -19,6 +19,7 @@ public enum Prompt {
                     "A digital illustration of anime style, soft anime tones, by yukisakura, awesome full color," +
                     "Printable sticker about minimal cute cartoon imagePrompts, white background," +
                     "highly detailed, by yukisakura, awesome full color, vinyl sticker with white border," ,
+
             "nude, nsfw, text, letters, too many feet, too many fingers, (((2 heads))), duplicate," +
                     " abstract, disfigured, deformed, toy, figure, framed, disfigured, bad art, deformed, poorly drawn, " +
                     "extra limbs, weird colors, 2 heads, long neck, elongated body, cropped image, out of frame, draft, " +

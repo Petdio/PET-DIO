@@ -10,15 +10,8 @@ import java.util.Map;
 public enum Prompt {
     STICKER(1L,
 
-            "cute breed stickers, style cartoon, cute pixar breed Character, high quality, 8K Ultra HD, " +
-                    "(Detailed colors like the imagePrompts provided, )" +
-                    "beautiful cute pixar breed ,breed STICKER, in the style of Studio Ghibli,3D vector art breed ,cute and quirky breed," +
-                    " Adobe Illustrator,digital painting,isometric style, retro aesthetic, focusedon the character, 4K resolution," +
-                    " photorealistic rendering, usingCinema 4D,cute stickers,style cartoon,highly detailed, planar vector," +
-                    "character design breed ,Super Deformed Character,Cute Design,Character Design," +
-                    "A digital illustration of anime style, soft anime tones, by yukisakura, awesome full color," +
-                    "Printable sticker about minimal cute cartoon imagePrompts, white background," +
-                    "highly detailed, by yukisakura, awesome full color, vinyl sticker with white border," ,
+            "sticker, cartoon super cute breed, furry fluffy, pure white background, Vermeer style, 12K," +
+                    " high quality, HD, octane render, cinematic lighting, completely pure white background",
 
             "nude, nsfw, text, letters, too many feet, too many fingers, (((2 heads))), duplicate," +
                     " abstract, disfigured, deformed, toy, figure, framed, disfigured, bad art, deformed, poorly drawn, " +

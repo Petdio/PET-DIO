@@ -1,6 +1,7 @@
-import { Fab, Typography } from '@mui/material';
-import FilterAltIcon from '@mui/icons-material/FilterAlt';
-import CloseIcon from '@mui/icons-material/Close';
+"use client";
+import { Fab, Typography } from "@mui/material";
+import FilterAltIcon from "@mui/icons-material/FilterAlt";
+import CloseIcon from "@mui/icons-material/Close";
 
 interface Props {
   isFiltered: boolean;
@@ -9,8 +10,8 @@ interface Props {
 }
 
 function ThemeSelectButton({ isFiltered, onClick, disabled }: Props) {
-  const selectThemeContent = '테마 선택';
-  const cancelThemeContent = '선택 취소';
+  const selectThemeContent = "테마 선택";
+  const cancelThemeContent = "선택 취소";
   return (
     <Fab
       disabled={disabled}
@@ -19,13 +20,13 @@ function ThemeSelectButton({ isFiltered, onClick, disabled }: Props) {
       color="secondary"
       onClick={onClick}
       sx={{
-        position: 'absolute',
+        position: "fixed",
         bottom: 88,
         right:
-          // window.innerWidth >= 480
-          //   ? `calc((100vw - 480px) / 2 + 1rem)`
-          //   : '1rem',
-          '1rem',
+          window.innerWidth >= 480
+            ? `calc((100vw - 480px) / 2 + 1rem)`
+            : "1rem",
+        // "1rem",
       }}
     >
       {isFiltered ? (

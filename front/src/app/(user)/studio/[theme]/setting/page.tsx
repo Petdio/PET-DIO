@@ -1,8 +1,8 @@
-"use client";
-import { useState, useEffect } from "react";
-import Subtitle from "@/components/studio/subtitle/Subtitle";
-import axios from "axios";
-import AnimalSelectRadioGroup from "@/components/studio/animal-select-radio/AnimalSelectRadioGroup";
+'use client';
+import { useState, useEffect } from 'react';
+import Subtitle from '@/components/studio/subtitle/Subtitle';
+import axios from 'axios';
+import AnimalSelectRadioGroup from '@/components/studio/animal-select-radio/AnimalSelectRadioGroup';
 import {
   Autocomplete,
   TextField,
@@ -12,21 +12,22 @@ import {
   ClickAwayListener,
   IconButton,
   Button,
-} from "@mui/material";
+} from '@mui/material';
 import {
   dogBreedList,
   catBreedList,
-} from "@/app/(user)/studio/[theme]/setting/Breeds";
-import PriceChip from "@/components/common/price-chip/PriceChip";
-import HelpIcon from "@mui/icons-material/Help";
-import LoadingButton from "@mui/lab/LoadingButton";
-import { useRouter } from "next/navigation";
-import ButtonWithTooltip from "@/components/studio/Tooltip/button-with-tooltip/ButtonWithTooltip";
+} from '@/app/(user)/studio/[theme]/setting/Breeds';
+import PriceChip from '@/components/common/price-chip/PriceChip';
+import HelpIcon from '@mui/icons-material/Help';
+import LoadingButton from '@mui/lab/LoadingButton';
+import { useRouter } from 'next/navigation';
+import ButtonWithTooltip from '@/components/studio/Tooltip/button-with-tooltip/ButtonWithTooltip';
 // utils
-import { payAvailable } from "@/utils/payAvailable";
+import { payAvailable } from '@/utils/payAvailable';
 // constants
-import { price } from "@/constants/price";
-import { useFormData } from "@/app/FormDataProvider";
+import { price } from '@/constants/price';
+import { useFormData } from '@/app/FormDataProvider';
+import ErrorBoundary from '@/app/ErrorBoundary';
 
 export default function Setting() {
   const router = useRouter();
@@ -47,7 +48,7 @@ export default function Setting() {
         `user`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+            Authorization: `Bearer ${localStorage.getItem('access-token')}`,
           },
           // maxContentLength: 100000000,
           maxBodyLength: 100000000,
@@ -57,9 +58,9 @@ export default function Setting() {
       console.log(response);
       setUserCoin(response.data.userCoin);
     } catch (error) {
-      console.error("에러 발생:", error);
-      alert("로그인 해주세요.");
-      window.location.href = "/login";
+      console.error('에러 발생:', error);
+      alert('로그인 해주세요.');
+      window.location.href = '/login';
     }
   }
   useEffect(() => {
@@ -68,10 +69,10 @@ export default function Setting() {
   // 사진 생성 가격
   const generatePrice = price.generateImage;
 
-  const animalType = ["개", "고양이"];
+  const animalType = ['개', '고양이'];
   const animalLabelSet = [
-    { label: "견종", comment: "반려견의 견종을 선택해주세요." },
-    { label: "묘종", comment: "반려묘의 묘종을 선택해주세요." },
+    { label: '견종', comment: '반려견의 견종을 선택해주세요.' },
+    { label: '묘종', comment: '반려묘의 묘종을 선택해주세요.' },
   ];
   const breedList = [dogBreedList, catBreedList];
 
@@ -107,163 +108,178 @@ export default function Setting() {
     try {
       const response = await axios.post(
         // process.env.NEXT_PUBLIC_API_URL + `ai/create`,
-        "/ai/create",
+        '/ai/create',
         formData,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("access-token")}`,
-            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${localStorage.getItem('access-token')}`,
+            'Content-Type': 'multipart/form-data',
           },
         }
       );
-      console.log("이미지 업로드 성공", response);
-      localStorage.setItem("sse-token", response.data);
-      router.push("generating");
+      console.log('이미지 업로드 성공', response);
+      localStorage.setItem('sse-token', response.data);
+      router.push('generating');
     } catch (error) {
-      console.error("이미지 업로드 실패", error);
+      console.error('이미지 업로드 실패', error);
     }
   };
 
   return (
-    <Box
-      sx={{
-        height: "100%",
-        width: "200%",
-        display: "flex",
-        transform: `${toggle ? "translate(-50%,0)" : "translate(0,0)"}`,
-        transition: "transform 1s ease",
-        transitionDelay: "0.5s",
-      }}
-    >
-      <Box sx={{ height: "100%", width: "50%" }}>
-        <Subtitle content="반려동물은 어떤 동물인가요?" />
-        <AnimalSelectRadioGroup
-          animalItems={animalType}
-          onSelect={onAnimalSelect}
-        />
-        {animalSelected && (
-          <Box sx={{ width: "100%", padding: "1rem" }}>
-            <Autocomplete
-              disablePortal
-              id="dog-breed-selection"
-              options={breedList[animalIdx]}
-              onChange={handleBreedChange}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label={animalLabelSet[animalIdx].label}
-                />
-              )}
-            />
-            <Typography color="grey">
-              {animalLabelSet[animalIdx].comment}
-            </Typography>
-            <Typography color="grey" fontSize={14}>
-              (사진과 같은 종으로 선택해야 AI가 정확하게 인식할 수 있어요!)
-            </Typography>
-            <Box paddingTop="1rem">
-              {payAvailable(userCoin, generatePrice) ? (
-                !isLoading ? (
-                  <ButtonWithTooltip
-                    disabled={!inputComplete}
-                    toolTipContent="세부 설정 입력을 완료해주세요!"
-                    mode="upload"
-                    onClick={sendSetting}
-                    addComponent={
-                      <PriceChip
-                        price={generatePrice}
-                        isDisabled={!inputComplete}
-                      />
-                    }
-                  />
-                ) : (
-                  <LoadingButton
-                    loading
-                    sx={{ width: "100%" }}
-                    variant="contained"
-                    // loadingIndicator="요청중..."
-                    // loadingPosition="start"
-                  >
-                    요청중...
-                  </LoadingButton>
-                )
-              ) : (
-                <Button
-                  variant="contained"
-                  size="large"
-                  disabled
-                  sx={{ width: "100%" }}
-                >
-                  코인이 부족합니다.
-                  {/* @todo ButtonWithTooltip과 중복 -> 리팩토링 필요 */}
-                  <Box width={"0.5rem"} />
-                  <PriceChip price={generatePrice} isDisabled={true} />
-                </Button>
-              )}
-            </Box>
-          </Box>
-        )}
-      </Box>
-      <Box sx={{ height: "100%", width: "50%" }}>
-        <Subtitle content="마지막으로 세부설정을 입력해주세요." />
-        <Typography variant="caption" color="grey" paddingLeft="1rem">
-          예시) 오른쪽 얼굴에 점이 있어요.
-        </Typography>
-        <ClickAwayListener onClickAway={handleTooltipClose}>
-          <Tooltip
-            PopperProps={{
-              disablePortal: true,
-            }}
-            onClose={handleTooltipClose}
-            open={open}
-            arrow
-            disableFocusListener
-            disableHoverListener
-            disableTouchListener
-            title={
-              <>
-                <div>반려동물의 주요한 특징을 입력하면</div>
-                <div>결과물의 퀄리티가 올라갈 수 있어요!</div>
-              </>
-            }
-          >
-            <IconButton onClick={handleTooltipOpen} size="medium">
-              <HelpIcon fontSize="small" />
-            </IconButton>
-          </Tooltip>
-        </ClickAwayListener>
-        <Box sx={{ padding: "1rem", width: "100%" }}>
-          <TextField
-            id="standard-basic"
-            label="반려동물의 특징을 적어주세요."
-            variant="standard"
-            multiline
-            sx={{ width: "100%" }}
+    <ErrorBoundary>
+      <Box
+        sx={{
+          height: '100%',
+          width: '200%',
+          display: 'flex',
+          transform: `${toggle ? 'translate(-50%,0)' : 'translate(0,0)'}`,
+          transition: 'transform 1s ease',
+          transitionDelay: '0.5s',
+        }}
+      >
+        <Box sx={{ height: '100%', width: '50%' }}>
+          <Subtitle content="반려동물은 어떤 동물인가요?" />
+          <AnimalSelectRadioGroup
+            animalItems={animalType}
+            onSelect={onAnimalSelect}
           />
-        </Box>
-        <Box padding="1rem">
-          {!isLoading ? (
-            <Button
-              sx={{ width: "100%" }}
-              variant="contained"
-              onClick={sendSetting}
-            >
-              확인
-            </Button>
-          ) : (
-            // 중복 코드 제거
-            <LoadingButton
-              loading
-              sx={{ width: "100%" }}
-              variant="contained"
-              // loadingIndicator="요청중..."
-              // loadingPosition="start"
-            >
-              요청중...
-            </LoadingButton>
+          {animalSelected && (
+            <Box sx={{ width: '100%', padding: '1rem' }}>
+              <Autocomplete
+                disablePortal
+                id="dog-breed-selection"
+                options={breedList[animalIdx]}
+                onChange={handleBreedChange}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label={animalLabelSet[animalIdx].label}
+                  />
+                )}
+              />
+              <Typography color="grey">
+                {animalLabelSet[animalIdx].comment}
+              </Typography>
+              <Typography
+                color="grey"
+                fontSize={14}
+              >
+                (사진과 같은 종으로 선택해야 AI가 정확하게 인식할 수 있어요!)
+              </Typography>
+              <Box paddingTop="1rem">
+                {payAvailable(userCoin, generatePrice) ? (
+                  !isLoading ? (
+                    <ButtonWithTooltip
+                      disabled={!inputComplete}
+                      toolTipContent="세부 설정 입력을 완료해주세요!"
+                      mode="upload"
+                      onClick={sendSetting}
+                      addComponent={
+                        <PriceChip
+                          price={generatePrice}
+                          isDisabled={!inputComplete}
+                        />
+                      }
+                    />
+                  ) : (
+                    <LoadingButton
+                      loading
+                      sx={{ width: '100%' }}
+                      variant="contained"
+                      // loadingIndicator="요청중..."
+                      // loadingPosition="start"
+                    >
+                      요청중...
+                    </LoadingButton>
+                  )
+                ) : (
+                  <Button
+                    variant="contained"
+                    size="large"
+                    disabled
+                    sx={{ width: '100%' }}
+                  >
+                    코인이 부족합니다.
+                    {/* @todo ButtonWithTooltip과 중복 -> 리팩토링 필요 */}
+                    <Box width={'0.5rem'} />
+                    <PriceChip
+                      price={generatePrice}
+                      isDisabled={true}
+                    />
+                  </Button>
+                )}
+              </Box>
+            </Box>
           )}
         </Box>
+        <Box sx={{ height: '100%', width: '50%' }}>
+          <Subtitle content="마지막으로 세부설정을 입력해주세요." />
+          <Typography
+            variant="caption"
+            color="grey"
+            paddingLeft="1rem"
+          >
+            예시) 오른쪽 얼굴에 점이 있어요.
+          </Typography>
+          <ClickAwayListener onClickAway={handleTooltipClose}>
+            <Tooltip
+              PopperProps={{
+                disablePortal: true,
+              }}
+              onClose={handleTooltipClose}
+              open={open}
+              arrow
+              disableFocusListener
+              disableHoverListener
+              disableTouchListener
+              title={
+                <>
+                  <div>반려동물의 주요한 특징을 입력하면</div>
+                  <div>결과물의 퀄리티가 올라갈 수 있어요!</div>
+                </>
+              }
+            >
+              <IconButton
+                onClick={handleTooltipOpen}
+                size="medium"
+              >
+                <HelpIcon fontSize="small" />
+              </IconButton>
+            </Tooltip>
+          </ClickAwayListener>
+          <Box sx={{ padding: '1rem', width: '100%' }}>
+            <TextField
+              id="standard-basic"
+              label="반려동물의 특징을 적어주세요."
+              variant="standard"
+              multiline
+              sx={{ width: '100%' }}
+            />
+          </Box>
+          <Box padding="1rem">
+            {!isLoading ? (
+              <Button
+                sx={{ width: '100%' }}
+                variant="contained"
+                onClick={sendSetting}
+              >
+                확인
+              </Button>
+            ) : (
+              // 중복 코드 제거
+              <LoadingButton
+                loading
+                sx={{ width: '100%' }}
+                variant="contained"
+                // loadingIndicator="요청중..."
+                // loadingPosition="start"
+              >
+                요청중...
+              </LoadingButton>
+            )}
+          </Box>
+        </Box>
       </Box>
-    </Box>
+    </ErrorBoundary>
   );
 }

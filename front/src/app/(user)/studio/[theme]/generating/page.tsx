@@ -33,7 +33,7 @@ export default function Generating() {
   }
 
   useEffect(() => {
-    if (fcmToken === "") {
+    if (fcmToken !== "") {
       const firebaseApp = initializeApp({
         apiKey: process.env.NEXT_PUBLIC_FIREBASE_APIKEY,
         authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,

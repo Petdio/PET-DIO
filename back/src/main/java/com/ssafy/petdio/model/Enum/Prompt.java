@@ -8,25 +8,29 @@ import java.util.Map;
 
 @Getter
 public enum Prompt {
-    STICKER(1L,
+    SKETCH(1L,
 
             "(normal picture), ((only blck line and white background)), breed in the picture that provided, image ( breed, white background,) " +
                     "clean line art, fine dark line art--HDS--Ar 2:3" +
                     "(only breed, white background), (Black and white outline art for cute book pages)," +
                     " all white, children's style, white background, whole body, sketch style, " +
-                    "((white background)), ((only outlines used)), cartoon style, lines, coloring book, clean lines, " +
-                    "background. White, Sketch style",
+                    "((white background)), ((only outlines used)), lines, coloring book, clean lines, " +
+                    "background. White, Sketch style, " +
+                    "high quality, 8K Ultra HD, hyper-realistic sketch portrait of a breed,precision and accuracy," +
+
+                    "realistic pencil drawing of a breed, [view], face portrait, black and white, breed that provided image, white background, sketch, pencil strokes, pencil lines" ,
 
             "(long body), nude, nsfw, text, letters, too many feet, (too many fingers), (((2 heads))), duplicate," +
                     " abstract, ((disfigured)), deformed, toy, figure, framed, disfigured, ((bad art)), deformed, poorly drawn, " +
                     "extra limbs, weird colors, (2 heads), (long neck), ((elongated body)), cropped image, out of frame, draft, " +
                     "deformed hands, (twisted fingers), ((double image)), malformed hands, multiple heads, extra limb, ugly, " +
                     "poorly drawn hands, missing limb, cut-off, over satured, grain, lowères, bad anatomy, poorly drawn face," +
-                    " mutation, mutated, floating limbs, disconnected limbs, out of focus, long body, disgusting, " +
+                    " mutation, mutated, floating limbs, disconnected limbs,  out of focus, long body, disgusting, " +
                     "extra fingers, groos proportions, missing arms, mutated hands, cloned face, missing legs,"),
     HALLOWEEN(2L,
             "(normal picture),cute breed stickers, 8K Ultra HD, highly detailed, " +
-                    "Detailed illustration of a cute breed enjoying Halloween, with lots of pumpkins in the background, " +
+                    "Detailed illustration of a cute breed enjoying Halloween, with lots of Halloween pumpkins in the background," +
+                    "it wear witch hat and hold a book and halloween mood,Halloween Mood Wallpaper " +
                     "magic hat, style cartoon, two-dimensional, planar vector, character design, vector art," +
                     " fantasy art, T-shirt design, Chibi Chara, Super Deformed Character, full body," +
                     " Cute Design, Two-Dimensional, Character Design, Adorable Characters, Mascot Characters," +

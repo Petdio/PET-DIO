@@ -30,7 +30,7 @@ public enum Prompt {
     HALLOWEEN(2L,
             "(normal picture),cute breed stickers, 8K Ultra HD, highly detailed, " +
                     "Detailed illustration of a cute breed enjoying Halloween, with lots of Halloween pumpkins in the background," +
-                    "it wear witch hat and hold a book and peen next to a cute Halloween Pumpkin,halloween mood,Halloween Mood Wallpaper " +
+                    "it wear witch hat and hold a book and halloween mood,Halloween Mood Wallpaper " +
                     "magic hat, style cartoon, two-dimensional, planar vector, character design, vector art," +
                     " fantasy art, T-shirt design, Chibi Chara, Super Deformed Character, full body," +
                     " Cute Design, Two-Dimensional, Character Design, Adorable Characters, Mascot Characters," +
@@ -93,7 +93,27 @@ public enum Prompt {
                     "twisted fingers, double image, malformed hands, multiple heads, extra limb, ugly, poorly drawn hands, " +
                     "missing limb, cut-off, over satured, grain, lowères, bad anatomy, poorly drawn face, mutation, mutated," +
                     " floating limbs, disconnected limbs, out of focus, long body, disgusting, extra fingers, groos proportions," +
-                    " missing arms, mutated hands, cloned face, missing legs");
+                    " missing arms, mutated hands, cloned face, missing legs"),
+
+     JAPAN(6L, "breed Nebulosa Galaxy, T-Shirt Art, T-Shirt Design, Shirt Print, Splash art, style, " +
+             "portrait poster, Adobe Illustrator, Vector, 3D Illustration, Abstract Art," +
+             " Print illustrations, Dark Background, Vibrant Color, Very Colorful, " +
+             "Trendy Colorful Gradient, Centered, Front View, Hyper Detailed, Photorealistic Rendering, 8k HD, Focused, " +
+             "Super Detailed, head feathers, " +
+             "Intricately Detailed Splash Art Triadic Color Trend Artstation Unreal Engine 5 Volumetric Lighting, Gothic , " +
+             "High resolution, close-up, ambient light, Nikon 15mm f/1.8G, " +
+             "by GIlSam-paio octane rendering depicting innovation and truth, 8k, glamour, " +
+             "intricate detailed environment, lace, smudges , ornate, unreal engine, fantastica",
+
+            "closeup, two heads, two faces, plastic, deformed, blurry, bad anatomy, bad eyes, crossed eyes, " +
+                    "disfigured, badly drawn face, mutation, mutant, ((extra limb)), ugly, badly drawn hands , missing limb, blurry," +
+                    " floating limbs, disconnected limbs, malformed hands, blur, out of focus, long neck, long body, " +
+                    "((((mutant hands and fingers)))), ((out of frame))), blender, doll, cropped, low res, close-up, badly drawn face," +
+                    " double out of frame, two heads, blurred, ugly, disfigured, many fingers, deformed, repetitive, black and white, " +
+                    "grainy, extra limbs, bad anatomyFilter pass -high, airbrush, portrait, enlarged, soft light, smooth skin, " +
+                    "close-up, deformed, extra limbs, extra fingers, mutated hands, bad anatomy, bad proportions, blind, bad eyes," +
+                    " ugly eyes, dead eyes, blur, vignette , out of shot, out of focus, gaussian, close-up, monochrome, grainy, noisy," +
+                    " text, writing, watermark, logo, oversaturation, oversaturation, overshadow.");
 
 
 

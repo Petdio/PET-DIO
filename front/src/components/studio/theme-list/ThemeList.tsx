@@ -107,7 +107,7 @@ export default function ThemeList() {
     }
   }
 
-  const getFcmToken = async () => {
+  const sendFcmToken = async () => {
     try {
       const response = await axios.post(
         // process.env.NEXT_PUBLIC_API_URL + `user/fcm`,
@@ -127,13 +127,10 @@ export default function ThemeList() {
 
   useEffect(() => {
     getThemeList();
-    router.refresh();
   }, []);
 
   useEffect(() => {
-    if (fcmToken !== "DENIED" && fcmToken !== "") {
-      getFcmToken();
-    }
+    sendFcmToken();
     console.log("fcmToken:", fcmToken);
     getThemeList();
   }, [fcmToken]);

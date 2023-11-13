@@ -30,7 +30,7 @@ public enum Prompt {
     HALLOWEEN(2L,
             "(normal picture),cute breed stickers, 8K Ultra HD, highly detailed, " +
                     "Detailed illustration of a cute breed enjoying Halloween, with lots of Halloween pumpkins in the background," +
-                    "it wear witch hat and hold a book and peen next to a cute Halloween Pumpkin,halloween mood,Halloween Mood Wallpaper " +
+                    "it wear witch hat and hold a book and halloween mood,Halloween Mood Wallpaper " +
                     "magic hat, style cartoon, two-dimensional, planar vector, character design, vector art," +
                     " fantasy art, T-shirt design, Chibi Chara, Super Deformed Character, full body," +
                     " Cute Design, Two-Dimensional, Character Design, Adorable Characters, Mascot Characters," +

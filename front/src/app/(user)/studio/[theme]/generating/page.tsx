@@ -7,6 +7,7 @@ import { initializeApp } from "firebase/app";
 import { getMessaging, onMessage } from "firebase/messaging";
 import { theme } from "@/styles/ThemeRegistry";
 import { useFcmToken } from "@/app/FCM";
+import ErrorBoundary from "@/app/ErrorBoundary";
 
 const loadingMessageArr = [
   "사진과 일치하는 품종을 입력해야 원하는 이미지를 얻을 수 있어요.",
@@ -33,7 +34,7 @@ export default function Generating() {
   }
 
   useEffect(() => {
-    if (fcmToken === "") {
+    if (fcmToken !== "") {
       const firebaseApp = initializeApp({
         apiKey: process.env.NEXT_PUBLIC_FIREBASE_APIKEY,
         authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
@@ -89,56 +90,58 @@ export default function Generating() {
   }, []);
 
   return (
-    <Box
-      sx={{
-        height: "100%",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
+    <ErrorBoundary>
       <Box
         sx={{
-          width: "70%",
-          justifyContent: "space-around",
+          height: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
-        {showComponent ? (
-          <>
-            <Typography
-              textAlign="center"
-              color={theme.palette.primary.light}
-              fontSize={14}
-            >
-              tip.
-            </Typography>
-            <Typography
-              variant="body1"
-              color={theme.palette.common.black}
-              sx={{
-                textAlign: "center",
-                mt: "0.5rem",
-                mb: "20px",
-                wordBreak: "keep-all",
-              }}
-            >
-              {loadingMessageArr[loadingMessageIdx]}
-            </Typography>
-            <LinearProgress />
-          </>
-        ) : (
-          <>
-            <Typography
-              variant="body1"
-              color="black"
-              sx={{ textAlign: "center", mb: "20px" }}
-            >
-              이미지 생성 완료!
-            </Typography>
-            <CheckIcon color="primary" sx={{ width: "100%" }} />
-          </>
-        )}
+        <Box
+          sx={{
+            width: "70%",
+            justifyContent: "space-around",
+          }}
+        >
+          {showComponent ? (
+            <>
+              <Typography
+                textAlign="center"
+                color={theme.palette.primary.light}
+                fontSize={14}
+              >
+                tip.
+              </Typography>
+              <Typography
+                variant="body1"
+                color={theme.palette.common.black}
+                sx={{
+                  textAlign: "center",
+                  mt: "0.5rem",
+                  mb: "20px",
+                  wordBreak: "keep-all",
+                }}
+              >
+                {loadingMessageArr[loadingMessageIdx]}
+              </Typography>
+              <LinearProgress />
+            </>
+          ) : (
+            <>
+              <Typography
+                variant="body1"
+                color="black"
+                sx={{ textAlign: "center", mb: "20px" }}
+              >
+                이미지 생성 완료!
+              </Typography>
+              <CheckIcon color="primary" sx={{ width: "100%" }} />
+            </>
+          )}
+        </Box>
       </Box>
-    </Box>
+    </ErrorBoundary>
   );
 }

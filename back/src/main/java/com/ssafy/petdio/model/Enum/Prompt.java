@@ -15,7 +15,7 @@ public enum Prompt {
                     "(only breed, white background), (Black and white outline art for cute book pages)," +
                     " all white, children's style, white background, whole body, sketch style, " +
                     "((white background)), ((only outlines used)), lines, coloring book, clean lines, " +
-                    "background. White, Sketch style," +
+                    "background. White, Sketch style, " +
                     "high quality, 8K Ultra HD, hyper-realistic sketch portrait of a breed,precision and accuracy",
 
             "(long body), nude, nsfw, text, letters, too many feet, (too many fingers), (((2 heads))), duplicate," +

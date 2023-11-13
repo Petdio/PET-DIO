@@ -95,19 +95,25 @@ public enum Prompt {
                     " floating limbs, disconnected limbs, out of focus, long body, disgusting, extra fingers, groos proportions," +
                     " missing arms, mutated hands, cloned face, missing legs"),
 
-     JAPAN(6L, "illustration of breed, " +
-             "JAPANESE FOREST detailed design for streetwear and urban style t-shirts design, hoodies, " +
-             "etc Pro Vector, high quality, digital art",
-            "Pencils, close up, two heads, two faces, plastic, Deformed, blurry, bad anatomy, bad eyes," +
-                    " crossed eyes, disfigured, poorly drawn face, mutation, mutated, ((extra limb)), ugly, poorly drawn hands," +
-                    " missing limb, blurry, floating limbs, disconnected limbs, malformed hands, blur, out of focus," +
-                    " long neck, long body, ((((mutated hands and fingers)))), (((out of frame))), blender, doll, cropped," +
-                    " low-res, close-up, poorly-drawn face, out of frame double, two heads, blurred, ugly, disfigured, " +
-                    "too many fingers, deformed, repetitive, black and white, grainy, extra limbs, bad anatomy, " +
-                    "High pass filter, airbrush, portrait, zoomed, soft light, smooth skin, closeup, deformed, extra limbs," +
-                    " extra fingers, mutated hands, bad anatomy, bad proportions , blind, bad eyes, ugly eyes, dead eyes, " +
-                    "blur, vignette, out of shot, out of focus, gaussian, closeup, monochrome, grainy, noisy, text, writing, " +
-                    "watermark, logo, oversaturation , over saturation, over shadow");
+     JAPAN(6L, "breed Nebulosa Galaxy, T-Shirt Art, T-Shirt Design, Shirt Print, Splash art, style, " +
+             "portrait poster, Adobe Illustrator, Vector, 3D Illustration, Abstract Art," +
+             " Print illustrations, Dark Background, Vibrant Color, Very Colorful, " +
+             "Trendy Colorful Gradient, Centered, Front View, Hyper Detailed, Photorealistic Rendering, 8k HD, Focused, " +
+             "Super Detailed, head feathers, " +
+             "Intricately Detailed Splash Art Triadic Color Trend Artstation Unreal Engine 5 Volumetric Lighting, Gothic , " +
+             "High resolution, close-up, ambient light, Nikon 15mm f/1.8G, " +
+             "by GIlSam-paio octane rendering depicting innovation and truth, 8k, glamour, " +
+             "intricate detailed environment, lace, smudges , ornate, unreal engine, fantastica",
+
+            "closeup, two heads, two faces, plastic, deformed, blurry, bad anatomy, bad eyes, crossed eyes, " +
+                    "disfigured, badly drawn face, mutation, mutant, ((extra limb)), ugly, badly drawn hands , missing limb, blurry," +
+                    " floating limbs, disconnected limbs, malformed hands, blur, out of focus, long neck, long body, " +
+                    "((((mutant hands and fingers)))), ((out of frame))), blender, doll, cropped, low res, close-up, badly drawn face," +
+                    " double out of frame, two heads, blurred, ugly, disfigured, many fingers, deformed, repetitive, black and white, " +
+                    "grainy, extra limbs, bad anatomyFilter pass -high, airbrush, portrait, enlarged, soft light, smooth skin, " +
+                    "close-up, deformed, extra limbs, extra fingers, mutated hands, bad anatomy, bad proportions, blind, bad eyes," +
+                    " ugly eyes, dead eyes, blur, vignette , out of shot, out of focus, gaussian, close-up, monochrome, grainy, noisy," +
+                    " text, writing, watermark, logo, oversaturation, oversaturation, overshadow.");
 
 
 

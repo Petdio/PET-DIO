@@ -16,14 +16,16 @@ public enum Prompt {
                     " all white, children's style, white background, whole body, sketch style, " +
                     "((white background)), ((only outlines used)), lines, coloring book, clean lines, " +
                     "background. White, Sketch style, " +
-                    "high quality, 8K Ultra HD, hyper-realistic sketch portrait of a breed,precision and accuracy",
+                    "high quality, 8K Ultra HD, hyper-realistic sketch portrait of a breed,precision and accuracy," +
+
+                    "realistic pencil drawing of a breed, [view], face portrait, black and white, breed that provided image, white background, sketch, pencil strokes, pencil lines" ,
 
             "(long body), nude, nsfw, text, letters, too many feet, (too many fingers), (((2 heads))), duplicate," +
                     " abstract, ((disfigured)), deformed, toy, figure, framed, disfigured, ((bad art)), deformed, poorly drawn, " +
                     "extra limbs, weird colors, (2 heads), (long neck), ((elongated body)), cropped image, out of frame, draft, " +
                     "deformed hands, (twisted fingers), ((double image)), malformed hands, multiple heads, extra limb, ugly, " +
                     "poorly drawn hands, missing limb, cut-off, over satured, grain, lowères, bad anatomy, poorly drawn face," +
-                    " mutation, mutated, floating limbs, disconnected limbs, out of focus, long body, disgusting, " +
+                    " mutation, mutated, floating limbs, disconnected limbs,  out of focus, long body, disgusting, " +
                     "extra fingers, groos proportions, missing arms, mutated hands, cloned face, missing legs,"),
     HALLOWEEN(2L,
             "(normal picture),cute breed stickers, 8K Ultra HD, highly detailed, " +

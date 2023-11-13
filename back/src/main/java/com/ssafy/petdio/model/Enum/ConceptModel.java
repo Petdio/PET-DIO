@@ -22,7 +22,7 @@ public enum ConceptModel {
     //Leonardo Diffusion
     SKY(5L, "b820ea11-02bf-4652-97ae-9ac0cc00593d"),
 
-    GHOST(6L,"");
+    GHOST(6L,"b820ea11-02bf-4652-97ae-9ac0cc00593d");
 
     private Long id;
     private String modelId;

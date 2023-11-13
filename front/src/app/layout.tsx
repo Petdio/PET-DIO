@@ -9,9 +9,6 @@ import { Inter } from 'next/font/google';
 import Script from 'next/script';
 import HeadMeta from '@/components/meta/HeadMeta';
 
-// import Error from './error';
-// import ErrorBoundary from './ErrorBoundary';
-
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {

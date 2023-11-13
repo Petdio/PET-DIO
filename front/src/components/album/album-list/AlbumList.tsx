@@ -34,7 +34,6 @@ function AlbumList() {
       }
     }
     fetchAlbumData();
-    router.refresh();
   }, []);
 
   const albumTheme = albumData.map((data, idx) => {

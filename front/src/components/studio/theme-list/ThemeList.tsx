@@ -127,7 +127,6 @@ export default function ThemeList() {
 
   useEffect(() => {
     getThemeList();
-    router.replace(location.href);
   }, []);
 
   useEffect(() => {

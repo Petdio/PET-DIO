@@ -53,7 +53,6 @@ export default function Generating() {
         if (imageKey) {
           setShowComponent(false);
           setTimeout(() => {
-            router.replace(`/studio/result?img=${imageKey[1]}`);
             router.push(`/studio/result?img=${imageKey[1]}`);
           }, 4000);
         } else {
@@ -73,7 +72,6 @@ export default function Generating() {
           const imageKey = event.data.match(/\/([^/]+)\.jpg$/);
           setShowComponent(false);
           setTimeout(() => {
-            router.replace(`/studio/result?img=${imageKey[1]}`);
             router.push(`/studio/result?img=${imageKey[1]}`);
           }, 4000);
         }

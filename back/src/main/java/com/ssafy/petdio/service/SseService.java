@@ -33,7 +33,7 @@ public class SseService {
 
         // 503 Service Unavailable 오류가 발생하지 않도록 첫 데이터를 보낸다.
         try {
-            sseEmitter.send(SseEmitter.event().id("").name(NOTIFICATION_NAME).data("Connection completed"));
+            sseEmitter.send(SseEmitter.event().id(generationId).name(NOTIFICATION_NAME).data("Connection completed"));
         } catch (IOException e) {
             log.error(e.getMessage());
         }

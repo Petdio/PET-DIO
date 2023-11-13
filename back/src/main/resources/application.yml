@@ -38,7 +38,7 @@ spring:
 
 # Backend Port
 server:
-  port: 8080
+  port: 8081
 
 # S3
 cloud:

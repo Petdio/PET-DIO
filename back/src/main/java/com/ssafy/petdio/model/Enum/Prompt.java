@@ -93,7 +93,13 @@ public enum Prompt {
                     "twisted fingers, double image, malformed hands, multiple heads, extra limb, ugly, poorly drawn hands, " +
                     "missing limb, cut-off, over satured, grain, lowères, bad anatomy, poorly drawn face, mutation, mutated," +
                     " floating limbs, disconnected limbs, out of focus, long body, disgusting, extra fingers, groos proportions," +
-                    " missing arms, mutated hands, cloned face, missing legs");
+                    " missing arms, mutated hands, cloned face, missing legs"),
+    GHOST(6L, "A ghostly breed, ethereal and translucent, standing amidst a foggy forest. " +
+            "Its eyes glow with a supernatural light, and its form seems to blend with the mist. Medium: 16k photography," +
+            " style: hyper-realistic capturing the spectral essence of the breed, " +
+            "lighting: soft ambient moonlight filtering through the trees, colors: image that provided. " +
+            "Composition: shot with a Canon EOS-1D X Mark III, 50mm lens.",
+            "");
 
 
 

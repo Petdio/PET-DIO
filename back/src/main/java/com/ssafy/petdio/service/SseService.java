@@ -24,7 +24,7 @@ public class SseService {
         SseEmitter sseEmitter = new SseEmitter(DEFAULT_TIMEOUT);
         System.out.println("connect: " + sseEmitter);
 
-        // 유저 ID로 SseEmitter를 저장한다.
+        // 유저 ID로 SseEmitter를 저장한다. 
         emitterRepository.save(generationId, sseEmitter);
 
         // 세션이 종료될 경우 저장한 SseEmitter를 삭제한다.

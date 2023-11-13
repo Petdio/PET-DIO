@@ -33,7 +33,7 @@ export default function Generating() {
   }
 
   useEffect(() => {
-    if (fcmToken !== "DENIED") {
+    if (fcmToken === "") {
       const firebaseApp = initializeApp({
         apiKey: process.env.NEXT_PUBLIC_FIREBASE_APIKEY,
         authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
@@ -53,6 +53,7 @@ export default function Generating() {
         if (imageKey) {
           setShowComponent(false);
           setTimeout(() => {
+            router.replace(`/studio/result?img=${imageKey[1]}`);
             router.push(`/studio/result?img=${imageKey[1]}`);
           }, 4000);
         } else {
@@ -72,6 +73,7 @@ export default function Generating() {
           const imageKey = event.data.match(/\/([^/]+)\.jpg$/);
           setShowComponent(false);
           setTimeout(() => {
+            router.replace(`/studio/result?img=${imageKey[1]}`);
             router.push(`/studio/result?img=${imageKey[1]}`);
           }, 4000);
         }

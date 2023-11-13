@@ -12,7 +12,7 @@ public enum ConceptModel {
     STICKER_MODEL(1L, "b820ea11-02bf-4652-97ae-9ac0cc00593d"),
 
     //Leonardo Diffusion XL
-    HALLOWEEN_MODEL(2L, "1e60896f-3c26-4296-8ecc-53e2afecc132"),
+    HALLOWEEN_MODEL(2L, "e316348f-7773-490e-adcd-46757c738eb7"),
 
     //Leonardo Diffusion
     NINJA_MODEL(3L, "b820ea11-02bf-4652-97ae-9ac0cc00593d"),

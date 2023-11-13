@@ -86,6 +86,10 @@ public class User {
     }
 
     public void updateFcmToken(String fcmToken) {
+        if (fcmToken.equals("")) {
+            this.fcmToken = null;
+            return;
+        }
         this.fcmToken = fcmToken;
     }
 

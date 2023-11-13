@@ -9,6 +9,9 @@ import { Inter } from 'next/font/google';
 import Script from 'next/script';
 import HeadMeta from '@/components/meta/HeadMeta';
 
+// import Error from './error';
+// import ErrorBoundary from './ErrorBoundary';
+
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
@@ -17,7 +20,7 @@ export const metadata: Metadata = {
     '반려동물을 위한 AI 이미지 생성 스튜디오입니다. 반려동물의 이미지를 업로드하고 세부 설정을 완료하면 반려동물이 등장하는 특별한 이미지를 생성해 줍니다.',
   manifest: '/manifest.json',
   icons: { apple: '/icon.png' },
-  themeColor: '#7430F7',
+  themeColor: '#8758FF',
 };
 
 export default function RootLayout({

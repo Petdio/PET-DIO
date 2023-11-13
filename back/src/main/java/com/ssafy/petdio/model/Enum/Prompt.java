@@ -95,12 +95,19 @@ public enum Prompt {
                     " floating limbs, disconnected limbs, out of focus, long body, disgusting, extra fingers, groos proportions," +
                     " missing arms, mutated hands, cloned face, missing legs"),
 
-    GHOST(6L, "(A ghostly breed), ethereal and translucent, ((standing amidst a foggy forest.)) " +
-            "Its eyes glow with a supernatural light, and its form seems to blend with the mist. Medium: 16k photography," +
-            " style: hyper-realistic capturing the spectral essence of the breed, " +
-            "lighting: soft ambient moonlight filtering through the trees, colors: image that provided. " +
-            "Composition: shot with a Canon EOS-1D X Mark III, 50mm lens.",
-            "");
+     JAPAN(6L, "illustration of breed, " +
+             "JAPANESE FOREST detailed design for streetwear and urban style t-shirts design, hoodies, " +
+             "etc Pro Vector, high quality, digital art",
+            "Pencils, close up, two heads, two faces, plastic, Deformed, blurry, bad anatomy, bad eyes," +
+                    " crossed eyes, disfigured, poorly drawn face, mutation, mutated, ((extra limb)), ugly, poorly drawn hands," +
+                    " missing limb, blurry, floating limbs, disconnected limbs, malformed hands, blur, out of focus," +
+                    " long neck, long body, ((((mutated hands and fingers)))), (((out of frame))), blender, doll, cropped," +
+                    " low-res, close-up, poorly-drawn face, out of frame double, two heads, blurred, ugly, disfigured, " +
+                    "too many fingers, deformed, repetitive, black and white, grainy, extra limbs, bad anatomy, " +
+                    "High pass filter, airbrush, portrait, zoomed, soft light, smooth skin, closeup, deformed, extra limbs," +
+                    " extra fingers, mutated hands, bad anatomy, bad proportions , blind, bad eyes, ugly eyes, dead eyes, " +
+                    "blur, vignette, out of shot, out of focus, gaussian, closeup, monochrome, grainy, noisy, text, writing, " +
+                    "watermark, logo, oversaturation , over saturation, over shadow");
 
 
 

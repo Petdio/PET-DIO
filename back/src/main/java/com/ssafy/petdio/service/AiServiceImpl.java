@@ -72,6 +72,21 @@ public class AiServiceImpl implements AiService {
 
     }
 
+    @Override
+    public String makerealPhotoImage(Long conceptId, String modelId, Long userId) throws IOException {
+
+        List<Setting> settings = settingRepository.findAllByConcept_ConceptId(conceptId);
+
+        String generationId = leonardo.generateAndFetchImages(
+                leonardo.realPhotoPutJsonPayload(settings, Prompt.findEnumById(conceptId),
+                        modelId));
+        redisTemplate.opsForValue().set(generationId,
+                AiDto.Data.builder().userId(userId).conceptId(conceptId).build());
+
+        return generationId;
+    }
+
+
     private String getGenerationId(String leonardoUrl) throws Exception {
         String pattern = "/([^/]+)/[^/]+$";
 

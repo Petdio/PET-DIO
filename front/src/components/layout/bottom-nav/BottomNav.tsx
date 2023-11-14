@@ -1,25 +1,52 @@
 "use client";
-
-import { usePathname } from "next/navigation";
+// Import necessary types from Next.js and Material-UI
+import { usePathname, useRouter } from "next/navigation";
 import { BottomNavigation, BottomNavigationAction } from "@mui/material";
 import PaletteIcon from "@mui/icons-material/Palette";
 import CameraIcon from "@mui/icons-material/Camera";
 import CollectionsIcon from "@mui/icons-material/Collections";
-import { theme } from "@/styles/ThemeRegistry";
+import { MouseEvent, ChangeEvent, useState, useEffect } from "react";
 
-interface Props {}
+interface BottomNavProps {}
 
-function BottomNav() {
-  let activeNum = 0;
-  let pathname = usePathname();
-  switch (pathname) {
-    case "/studio":
-      activeNum = 0;
-      break;
-    case "/album":
-      activeNum = 1;
-      break;
-  }
+function BottomNav(props: BottomNavProps) {
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const [activeNum, setActiveNum] = useState<number>(0);
+
+  const handleNavigationChange = (event: ChangeEvent<{}>, newValue: number) => {
+    switch (newValue) {
+      case 0:
+        router.push("/studio");
+        break;
+      case 1:
+        router.push("/ai-studio");
+        break;
+      case 2:
+        router.push("/album");
+        break;
+      default:
+        break;
+    }
+  };
+  useEffect(() => {
+    // Update the active state based on the current route
+    switch (pathname) {
+      case "/studio":
+        setActiveNum(0);
+        break;
+      case "/ai-studio":
+        setActiveNum(1);
+        break;
+      case "/album":
+        setActiveNum(2);
+        break;
+      default:
+        break;
+    }
+  }, [usePathname()]);
+
   return (
     <BottomNavigation
       sx={{
@@ -30,29 +57,23 @@ function BottomNav() {
         position: "fixed",
         bottom: 0,
         maxWidth: "480px",
-        // 컬러코드 글로벌에서 가져올 것
         borderTop: "1px solid #d9d9d9",
       }}
       value={activeNum}
+      onChange={handleNavigationChange}
       showLabels
     >
       <BottomNavigationAction
-        href="/studio"
-        icon={<PaletteIcon />}
         label="캐주얼"
-        disableRipple
+        icon={<PaletteIcon />}
       />
       <BottomNavigationAction
-        href="/ai-studio"
-        icon={<CameraIcon />}
         label="스튜디오"
-        disableRipple
+        icon={<CameraIcon />}
       />
       <BottomNavigationAction
-        href="/album"
-        icon={<CollectionsIcon />}
         label="앨범"
-        disableRipple
+        icon={<CollectionsIcon />}
       />
     </BottomNavigation>
   );

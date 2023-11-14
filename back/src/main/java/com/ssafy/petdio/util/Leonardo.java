@@ -188,6 +188,26 @@ public class Leonardo {
         return generationPayload;
     }
 
+    public JSONObject realPhotoPutJsonPayload(List<Setting> settings, Prompt prompt, String modelId) {
+        JSONObject generationPayload = new JSONObject();
+        for (Setting setting : settings) {
+            System.out.println(setting);
+            switch (setting.getSettingType()) {
+                case "double" -> generationPayload.put(setting.getSettingName(), Double.valueOf(setting.getSettingDetail()));
+                case "integer" -> generationPayload.put(setting.getSettingName(), Integer.valueOf(setting.getSettingDetail()));
+                case "boolean" -> generationPayload.put(setting.getSettingName(), setting.getSettingDetail().equals("true"));
+                default -> generationPayload.put(setting.getSettingName(), setting.getSettingDetail());
+            }
+        }
+
+        generationPayload.put("negative_prompt", prompt.getNegativePrompt());
+        generationPayload.put("modelId", modelId);
+
+        return generationPayload;
+    }
+
+
+
     public String generateAndFetchImages(JSONObject generationPayload) throws IOException {
         RequestBody generationRequestBody = RequestBody.create(
                 MediaType.parse("application/json"),

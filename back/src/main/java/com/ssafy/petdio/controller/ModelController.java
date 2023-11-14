@@ -28,7 +28,7 @@ public class ModelController {
                                         Authentication authentication)
     {
         try {
-            modelService.trainModel(datasetName, files, Long.valueOf(authentication.getName()));
+//            modelService.trainModel(datasetName, files, Long.valueOf(authentication.getName()));
             return ResponseEntity.status(HttpStatus.OK).body(null);
         } catch (Exception e) {
             log.error("모델 만들기 에러"+e.getMessage());

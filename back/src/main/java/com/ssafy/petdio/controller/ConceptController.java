@@ -36,7 +36,7 @@ public class ConceptController {
         return ResponseEntity.status(HttpStatus.OK).body(conceptService.getConceptList(false));
     }
 
-    @GetMapping("realphoto/list")
+    @GetMapping("/realphoto/list")
     public ResponseEntity getRealPhotoConceptList() {
         log.info("get real photo concept list");
         return ResponseEntity.status(HttpStatus.OK).body(conceptService.getConceptList(true));

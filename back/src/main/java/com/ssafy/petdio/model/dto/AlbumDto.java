@@ -15,6 +15,7 @@ public class AlbumDto {
     @NoArgsConstructor
     public static class Inventory {
         private String conceptName;
+        private boolean realPhotoType;
         private Long conceptId;
         private String path;
         private List<Detail> detail;

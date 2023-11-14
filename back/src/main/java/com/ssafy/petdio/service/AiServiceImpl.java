@@ -167,35 +167,26 @@ public class AiServiceImpl implements AiService {
             log.info("만들어진 url 링크: " + defaultUrl + s3Url);
             log.info("---------------fcm test------------");
             Map<String, String> map = new HashMap<>();
+            map.put("url", defaultUrl + s3Url);
             userService.useCoin(user.getUserId());
-//            if (user.getFcmToken() == null) throw new Exception("fcm 토큰 없음");
-            if (user.getFcmToken() == null) {
-                sseService.send(generationId, defaultUrl + s3Url);
-                return;
+            sseService.send(generationId, defaultUrl + s3Url);
+            if (user.getFcmToken() != null) {
+                fcmService.sendMessageTo(NotificationMessage.builder()
+                        .recipientToken(user.getFcmToken())
+                        .data(map)
+                        .build());
             }
-            fcmService.sendMessageTo(NotificationMessage.builder()
-                    .title("사진 만들기 완료")
-                    .image(defaultUrl + s3Url)
-                    .body("확인해주세요!")
-                    .recipientToken(user.getFcmToken())
-                    .data(map)
-                    .build());
         } else if (status.equals("FAILED")) {
             Map<String, String> map = new HashMap<>();
-            map.put("test", "test11");
+            map.put("url", "fail");
             userService.useCoin(user.getUserId());
-//            if (user.getFcmToken() == null) throw new Exception("fcm 토큰 없음");
-            if (user.getFcmToken() == null) {
-                sseService.send(generationId, "fail");
-                return;
+            sseService.send(generationId, "fail");
+            if (user.getFcmToken() != null) {
+                fcmService.sendMessageTo(NotificationMessage.builder()
+                        .recipientToken(user.getFcmToken())
+                        .data(map)
+                        .build());
             }
-            fcmService.sendMessageTo(NotificationMessage.builder()
-                    .title("사진 만들기 실패")
-                    .image(null)
-                    .body("다시 만들어볼까요?")
-                    .recipientToken(user.getFcmToken())
-                    .data(map)
-                    .build());
         }
     }
 

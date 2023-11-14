@@ -273,4 +273,23 @@ public class Leonardo {
 
     }
 
+    public String trainModel(String modelName, String datasetId, String instancePrompt) {
+        MediaType mediaType = MediaType.parse("application/json");
+        String requestBodyJson = "{\"name\":\"" + modelName + "\",\"description\":\"\",\"datasetId\":\"" + datasetId + "\",\"instance_prompt\":\"" + instancePrompt + "\",\"modelType\":\"GENERAL\",\"nsfw\":false,\"resolution\":512,\"sd_Version\":\"v1_5\",\"strength\":\"MEDIUM\"}";
+        RequestBody requestBody = RequestBody.create(mediaType, requestBodyJson);
+
+        JSONObject trainModelResponse = null;
+
+        try (Response response = client.newCall(getRequest(leonardoConfig.getTrainModelURL(), requestBody)).execute()) {
+            trainModelResponse = new JSONObject(response.body().string());
+
+            String customModelId = trainModelResponse.getJSONObject("sdTrainingJob").getString("customModelId");
+
+            return customModelId;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
 }

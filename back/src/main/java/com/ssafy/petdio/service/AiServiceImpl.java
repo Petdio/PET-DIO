@@ -113,12 +113,15 @@ public class AiServiceImpl implements AiService {
         System.out.println(data);
         String status = data.getString("status");
         String generationId = data.getString("id");
+        String datasetId = data.getString("initDatasetId");
+        if (datasetId != null) {
+            log.info("datasetId : " + datasetId);
+            return;
+        }
         AiDto.Data imageData = redisTemplate.opsForValue().get(generationId);
         redisTemplate.delete(generationId);
         User user = userRepository.findByUserIdAndUserDeleteIsNull(imageData.getUserId()).orElseThrow();
         if (status.equals("COMPLETE")) {
-            String datasetId = data.getString("initDatasetId");
-            if (datasetId == null) {
                 String leonardoUrl = data.getJSONArray("images").getJSONObject(0).getString("url");
                 String s3Url = fileService.upload(leonardoUrl);
                 albumRepository.save(
@@ -144,9 +147,6 @@ public class AiServiceImpl implements AiService {
                             .data(map)
                             .build());
                 }
-                return;
-            }
-            log.info("datasetId : " + datasetId);
         } else if (status.equals("FAILED")) {
             Map<String, String> map = new HashMap<>();
             map.put("url", "fail");

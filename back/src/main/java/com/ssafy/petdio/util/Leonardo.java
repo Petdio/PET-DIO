@@ -372,6 +372,8 @@ public class Leonardo {
         try (Response response = client.newCall(getRequest(leonardoConfig.getTrainModelURL(), requestBody)).execute()) {
             trainModelResponse = new JSONObject(response.body().string());
 
+            log.info(String.valueOf(trainModelResponse));
+
             String customModelId = trainModelResponse.getJSONObject("sdTrainingJob").getString("customModelId");
 
             return customModelId;

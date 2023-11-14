@@ -113,10 +113,14 @@ public class AiServiceImpl implements AiService {
         System.out.println(data);
         String status = data.getString("status");
         String generationId = data.getString("id");
-        String datasetId = data.getString("initDatasetId");
-        if (datasetId != null) {
-            log.info("datasetId : " + datasetId);
-            return;
+        try {
+            String datasetId = data.getString("initDatasetId");
+            if (datasetId != null) {
+                log.info("datasetId : " + datasetId);
+                return;
+            }
+        } catch (Exception e) {
+            log.info("사진 만들기 요청임");
         }
         AiDto.Data imageData = redisTemplate.opsForValue().get(generationId);
         redisTemplate.delete(generationId);

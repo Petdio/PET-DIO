@@ -3,6 +3,7 @@ package com.ssafy.petdio.controller;
 import com.ssafy.petdio.model.dto.FcmDto.NotificationMessage;
 import com.ssafy.petdio.service.AiService;
 import com.ssafy.petdio.service.SseService;
+import jakarta.servlet.http.HttpServletResponse;
 import java.time.Duration;
 import java.time.LocalTime;
 import java.util.Arrays;
@@ -62,13 +63,12 @@ public class AiController {
     }
 
     @GetMapping("/sse") //발행
-    public SseEmitter streamDateTime(@RequestParam("generationId") String generationId) {
+    public SseEmitter streamDateTime(@RequestParam("generationId") String generationId, HttpServletResponse response) {
         log.info("sse : " + generationId);
-//        return ResponseEntity.status(HttpStatus.OK).body(aiService.makeAiImage(conceptId, imageFile, breed, userId));
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
+        response.setHeader("Access-Control-Allow-Headers", "Origin, Content-Type, Accept");
         return sseService.connectNotification(generationId);
-//        serversentService.register(sseEmitter);
-
-//        return sseEmitter;
     }
 
 //    @GetMapping(value = "/stream-sse", produces = "text/event-stream")

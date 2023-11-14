@@ -24,7 +24,7 @@ public class SseService {
         SseEmitter sseEmitter = new SseEmitter(DEFAULT_TIMEOUT);
         System.out.println("connect: " + sseEmitter);
 
-        // 유저 ID로 SseEmitter를 저장한다.
+        // 유저 ID로 SseEmitter를 저장한다. 
         emitterRepository.save(generationId, sseEmitter);
 
         // 세션이 종료될 경우 저장한 SseEmitter를 삭제한다.
@@ -33,7 +33,7 @@ public class SseService {
 
         // 503 Service Unavailable 오류가 발생하지 않도록 첫 데이터를 보낸다.
         try {
-            sseEmitter.send(SseEmitter.event().id("").name(NOTIFICATION_NAME).data("Connection completed"));
+            sseEmitter.send(SseEmitter.event().id(generationId).name(NOTIFICATION_NAME).data("Connection completed"));
         } catch (IOException e) {
             log.error(e.getMessage());
         }

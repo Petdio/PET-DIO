@@ -72,40 +72,6 @@ public class AiServiceImpl implements AiService {
 
     }
 
-    @Override
-    public void getImage(String leonardoUrl) throws Exception {
-        String generationId = getGenerationId(leonardoUrl);
-        AiDto.Data imageData = redisTemplate.opsForValue().get(generationId);
-        redisTemplate.delete(generationId);
-        log.info("redis 에서 꺼낸 값 : " + imageData);
-        String s3Url = fileService.upload(leonardoUrl);
-        albumRepository.save(
-                Album.builder()
-                        .albumImgUrl(s3Url)
-                        .concept(Concept
-                                .builder()
-                                .conceptId(imageData.getConceptId())
-                                .build())
-                        .user(User.builder()
-                                .userId(imageData.getUserId())
-                                .build())
-                        .build());
-        log.info("만들어진 url 링크: " + defaultUrl + s3Url);
-        log.info("---------------fcm test------------");
-        User user = userRepository.findByUserIdAndUserDeleteIsNull(imageData.getUserId()).orElseThrow();
-        Map<String, String> map = new HashMap<>();
-        map.put("test", "test11");
-        userService.useCoin(user.getUserId());
-        if (user.getFcmToken() == null) throw new Exception("fcm 토큰 없음");
-        fcmService.sendMessageTo(NotificationMessage.builder()
-                        .title("사진 만들기 완료")
-                        .image(defaultUrl + s3Url)
-                        .body("확인해주세요!")
-                        .recipientToken(user.getFcmToken())
-                        .data(map)
-                        .build());
-    }
-
     private String getGenerationId(String leonardoUrl) throws Exception {
         String pattern = "/([^/]+)/[^/]+$";
 

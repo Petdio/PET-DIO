@@ -133,7 +133,10 @@ export default function Generating() {
               >
                 이미지 생성 완료!
               </Typography>
-              <CheckIcon color="primary" sx={{ width: "100%" }} />
+              <CheckIcon
+                color="primary"
+                sx={{ width: "100%" }}
+              />
             </>
           )}
         </Box>

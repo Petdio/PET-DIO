@@ -30,6 +30,9 @@ public class Model {
     @Column(name = "model_dataset_id")
     private String datasetId;
 
+    @Column(name = "model_custom_id")
+    private String customModelId;
+
     @ManyToOne
     @JoinColumn(name = "model_user_id", referencedColumnName = "user_id")
     private User user;

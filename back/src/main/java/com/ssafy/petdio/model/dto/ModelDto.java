@@ -11,6 +11,7 @@ import lombok.*;
 public class ModelDto {
 
     private String modelName;
+    private String customModelId;
     private String datasetId;
     private Long userId;
     private String instancePrompt;

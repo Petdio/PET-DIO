@@ -15,4 +15,11 @@ public class LeonardoConfig {
 
     @Value("${LEONARDO_GENERATION_IMAGE_URL}")
     private String generationImageURL;
+
+    @Value("${LEONARDO_CREATE_DATASET_URL")
+    private String createDatasetURL ;
+
+    @Value("${LEONARDO_TRAIN_MODEL_URL")
+    private String trainModelURL ;
+
 }

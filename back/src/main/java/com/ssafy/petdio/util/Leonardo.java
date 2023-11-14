@@ -254,4 +254,23 @@ public class Leonardo {
         }
     }
 
+    public String createDataset(String datasetName){
+        RequestBody requestBody = new FormBody.Builder()
+                .add("name", datasetName).build();
+
+        JSONObject createDatasetResponse = null;
+
+        try (Response response = client.newCall(getRequest(leonardoConfig.getCreateDatasetURL(), requestBody)).execute()) {
+            createDatasetResponse = new JSONObject(response.body().string());
+
+            String datasetId = createDatasetResponse.getJSONObject("insert_datasets_one").getString("id");
+
+            return datasetId;
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
 }

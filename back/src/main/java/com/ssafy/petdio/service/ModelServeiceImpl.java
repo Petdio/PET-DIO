@@ -6,6 +6,7 @@ import com.ssafy.petdio.util.Leonardo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @RequiredArgsConstructor
@@ -18,7 +19,12 @@ public class ModelServeiceImpl implements ModelService{
     private final UserService userService;
 
     @Override
-    public String makeDataset(String datasetName) {
+    public String makeDataset(String datasetName, MultipartFile multipartFile, Long userId) {
+
+        String datasetId = leonardo.createDataset(datasetName);
+
+
+
         return null;
     }
 

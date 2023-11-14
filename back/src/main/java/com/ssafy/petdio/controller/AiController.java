@@ -52,7 +52,7 @@ public class AiController {
 
     @PostMapping("/create/realPhoto")
     public ResponseEntity realPhotoImages(@RequestParam("conceptId") Long conceptId,
-                                          @RequestParam("modelId") String modelId, Authentication authentication){
+                                          @RequestParam("modelId") int modelId, Authentication authentication){
         log.info("lets go sisaImages");
 
         try{

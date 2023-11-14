@@ -188,7 +188,7 @@ public class Leonardo {
         return generationPayload;
     }
 
-    public JSONObject realPhotoPutJsonPayload(List<Setting> settings, Prompt prompt, String modelId) {
+    public JSONObject realPhotoPutJsonPayload(List<Setting> settings, Prompt prompt, String modelId, String breed) {
         JSONObject generationPayload = new JSONObject();
         for (Setting setting : settings) {
             System.out.println(setting);
@@ -200,6 +200,7 @@ public class Leonardo {
             }
         }
 
+        generationPayload.put("prompt", prompt.getPrompt().replace("breed", breed));
         generationPayload.put("negative_prompt", prompt.getNegativePrompt());
         generationPayload.put("modelId", modelId);
 

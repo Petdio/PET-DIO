@@ -294,12 +294,73 @@ public class Leonardo {
 
             // 로그 print용, 없어도 됨
             String imageId = uploadDatasetImageResponse.getJSONObject("uploadDatasetImage").getString("id");
-            if (uploadImage(uploadDatasetImageResponse, multipartFile)) {
+            if (uploadDatasetImage(uploadDatasetImageResponse, multipartFile)) {
                 log.info(imageId + " uploaded successfully.");
             }
         }
 
     }
+
+    // Dataset용 이미지 업로드 메서드
+    private boolean uploadDatasetImage (JSONObject jsonResponse, MultipartFile multipartFile) throws IOException {
+        String fieldsString = jsonResponse.getJSONObject("uploadDatasetImage").getString("fields");
+        JSONObject fieldsJson = new JSONObject(fieldsString);
+
+        String urlUploadImage = jsonResponse.getJSONObject("uploadDatasetImage").getString("url");
+        String imageId = jsonResponse.getJSONObject("uploadDatasetImage").getString("id");
+
+
+        System.out.println(jsonResponse.getJSONObject("uploadDatasetImage"));
+
+        MultipartBody.Builder builderUploadImageRequest =
+                new MultipartBody.Builder().setType(MultipartBody.FORM);
+
+        for (String key : fieldsJson.keySet()) {
+            builderUploadImageRequest.addFormDataPart(key, fieldsJson.getString(key));
+        }
+
+//        byte[] imageBytes = convertToJpg(multipartFile);
+//
+//        System.out.println(imageBytes);
+
+//        builderUploadImageRequest.addFormDataPart(
+//                "file",
+//                multipartFile.getOriginalFilename(),
+//                RequestBody.create(MediaType.parse("image/jpeg"), imageBytes)
+//        );
+        builderUploadImageRequest.addFormDataPart(
+                "file",
+                multipartFile.getOriginalFilename(),
+                RequestBody.create(MediaType.parse(multipartFile.getContentType()), multipartFile.getBytes())
+        );
+
+
+//        builderUploadImageRequest.addFormDataPart(
+//                "file",
+//                multipartFile.getOriginalFilename(),
+//                RequestBody.create(MediaType.parse(multipartFile.getContentType()), multipartFile.getBytes())
+//        );
+
+        MultipartBody uploadRequestBody=builderUploadImageRequest.build();
+
+        Request uploadRequest=new Request.Builder()
+                .url(urlUploadImage)
+                .post(uploadRequestBody)
+                .build();
+
+
+        try(Response uploadResponse=client.newCall(uploadRequest).execute()){
+            if (!uploadResponse.isSuccessful()) {
+                System.out.println("Failed to upload image: " + uploadResponse.body().string());
+                return false;
+            }
+            System.out.println("upload");
+            System.out.println(uploadResponse.body());
+
+            return true;
+        }
+    }
+
 
     public String trainModel(String modelName, String datasetId, String instancePrompt) {
         MediaType mediaType = MediaType.parse("application/json");

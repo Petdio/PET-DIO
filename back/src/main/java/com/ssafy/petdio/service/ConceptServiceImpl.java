@@ -22,8 +22,7 @@ public class ConceptServiceImpl implements ConceptService{
 
     @Override
     public List<ConceptDto.Response> getConceptList(boolean concept_type) {
-        return conceptRepository
-                .findByConceptDeleteFalseAndConceptType(concept_type)
+        return (concept_type ? conceptRepository.findByConceptDeleteFalseAndConceptTypeTrue() : conceptRepository.findByConceptDeleteFalseAndConceptTypeFalse())
                 .stream()
                 .map(concept -> ConceptDto.Response.builder()
                         .id(concept.getConceptId())

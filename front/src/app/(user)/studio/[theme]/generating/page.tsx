@@ -3,10 +3,7 @@ import { useState, useEffect } from "react";
 import { LinearProgress, Box, Typography } from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
 import { useRouter } from "next/navigation";
-import { initializeApp } from "firebase/app";
-import { getMessaging, onMessage } from "firebase/messaging";
 import { theme } from "@/styles/ThemeRegistry";
-import { useFcmToken } from "@/app/FCM";
 import ErrorBoundary from "@/app/ErrorBoundary";
 
 const loadingMessageArr = [
@@ -18,7 +15,6 @@ const loadingMessageArr = [
 ];
 
 export default function Generating() {
-  const { fcmToken } = useFcmToken();
   const router = useRouter();
   const [showComponent, setShowComponent] = useState(true);
   const [loadingMessageIdx, setLoadingMessageIdx] = useState(0);
@@ -34,59 +30,59 @@ export default function Generating() {
   }
 
   useEffect(() => {
-    if (fcmToken !== "") {
-      const firebaseApp = initializeApp({
-        apiKey: process.env.NEXT_PUBLIC_FIREBASE_APIKEY,
-        authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-        projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECTID,
-        storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGEBUCKET,
-        messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGINGSENDERID,
-        appId: process.env.NEXT_PUBLIC_FIREBASE_APPID,
-        measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENTID,
-      });
+    // if (fcmToken !== "") {
+    //   const firebaseApp = initializeApp({
+    //     apiKey: process.env.NEXT_PUBLIC_FIREBASE_APIKEY,
+    //     authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+    //     projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECTID,
+    //     storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGEBUCKET,
+    //     messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGINGSENDERID,
+    //     appId: process.env.NEXT_PUBLIC_FIREBASE_APPID,
+    //     measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENTID,
+    //   });
 
-      const messaging = getMessaging(firebaseApp);
+    //   const messaging = getMessaging(firebaseApp);
 
-      onMessage(messaging, (payload) => {
-        console.log("Message received. ", payload.notification?.image);
-        const imageKey = payload.notification?.image?.match(/\/([^/]+)\.jpg$/);
+    //   onMessage(messaging, (payload) => {
+    //     console.log("Message received. ", payload.notification?.image);
+    //     const imageKey = payload.notification?.image?.match(/\/([^/]+)\.jpg$/);
 
-        if (imageKey) {
-          setShowComponent(false);
-          setTimeout(() => {
-            router.push(`/studio/result?img=${imageKey[1]}`);
-          }, 2000);
-        } else {
-          console.log("No match found");
-        }
-      });
-    } else {
-      const eventSource = new EventSource(
-        `${
-          process.env.NEXT_PUBLIC_API_URL
-        }ai/sse?generationId=${localStorage.getItem("sse-token")}`
-      );
+    //     if (imageKey) {
+    //       setShowComponent(false);
+    //       setTimeout(() => {
+    //         router.push(`/studio/result?img=${imageKey[1]}`);
+    //       }, 2000);
+    //     } else {
+    //       console.log("No match found");
+    //     }
+    //   });
+    // } else {
+    const eventSource = new EventSource(
+      `${
+        process.env.NEXT_PUBLIC_API_URL
+      }ai/sse?generationId=${localStorage.getItem("sse-token")}`
+    );
 
-      eventSource.addEventListener("notify", (event) => {
-        console.log("Received myEventName event:", event.data);
-        if (event.data !== "Connection completed") {
-          const imageKey = event.data.match(/\/([^/]+)\.jpg$/);
-          setShowComponent(false);
-          setTimeout(() => {
-            router.push(`/studio/result?img=${imageKey[1]}`);
-          }, 2000);
-        }
-      });
+    eventSource.addEventListener("notify", (event) => {
+      console.log("Received myEventName event:", event.data);
+      if (event.data !== "Connection completed") {
+        const imageKey = event.data.match(/\/([^/]+)\.jpg$/);
+        setShowComponent(false);
+        setTimeout(() => {
+          router.push(`/studio/result?img=${imageKey[1]}`);
+        }, 2000);
+      }
+    });
 
-      eventSource.onerror = (error) => {
-        console.error("Error occurred:", error);
-        eventSource.close();
-      };
+    eventSource.onerror = (error) => {
+      console.error("Error occurred:", error);
+      eventSource.close();
+    };
 
-      return () => {
-        eventSource.close();
-      };
-    }
+    return () => {
+      eventSource.close();
+    };
+    // }
   }, []);
 
   return (

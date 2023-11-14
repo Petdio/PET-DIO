@@ -1,11 +1,8 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import axios from "axios";
-import { useFcmToken } from "@/app/FCM";
 
 export default function KakaoLogInPage() {
-  const { fcmToken } = useFcmToken();
-
   async function loginReq(code: string) {
     try {
       const response = await axios.post(

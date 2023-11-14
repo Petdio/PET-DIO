@@ -2,10 +2,11 @@ package com.ssafy.petdio.service;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.util.List;
+
 public interface ModelService {
 
-    String makeDataset(String datasetName, MultipartFile multipartFile, Long userId);
-
-    String trainModel(String modelName, String datasetId, String instancePrompt);
+    void trainModel(String datasetName, List<MultipartFile> multipartFiles, Long userId) throws IOException;
 
 }

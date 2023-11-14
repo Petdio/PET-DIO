@@ -273,7 +273,7 @@ public class Leonardo {
     }
 
 
-    public void dataSetInit(String datasetId, MultipartFile[] multipartFiles) throws IOException {
+    public void dataSetInit(String datasetId, List<MultipartFile> multipartFiles) throws IOException {
 
         for (MultipartFile multipartFile : multipartFiles) {
             log.info("사진 여러장 보내는중!!!!!!!!!" + multipartFile.getContentType() + " " + multipartFile.getOriginalFilename());

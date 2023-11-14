@@ -33,19 +33,13 @@ public class ConceptController {
     @GetMapping("/list")
     public ResponseEntity getConceptList() {
         log.info("get concept list");
-        return ResponseEntity.status(HttpStatus.OK).body(conceptService.getConceptList());
+        return ResponseEntity.status(HttpStatus.OK).body(conceptService.getConceptList(false));
     }
 
-//    @PostMapping("/image")
-//    public String makeAiImage(@RequestParam(value = "file", required = false) MultipartFile file, @RequestParam(value = "conceptId") Long conceptId, Authentication authentication) {
-//        log.info("make Ai Image");
-//        System.out.println("userId: " + Long.parseLong(authentication.getName()));
-//        userId =
-//        try {
-//            aiService.makeAiImage(conceptId, file, userId);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//        return "Hello Concept-Service";
-//    }
+    @GetMapping("realphoto/list")
+    public ResponseEntity getRealPhotoConceptList() {
+        log.info("get real photo concept list");
+        return ResponseEntity.status(HttpStatus.OK).body(conceptService.getConceptList(true));
+    }
+    
 }

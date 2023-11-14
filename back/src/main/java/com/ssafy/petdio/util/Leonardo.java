@@ -6,13 +6,9 @@ import com.ssafy.petdio.config.LeonardoConfig;
 import com.ssafy.petdio.model.Enum.Prompt;
 import com.ssafy.petdio.model.entity.Setting;
 import jakarta.annotation.PostConstruct;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import javax.imageio.ImageIO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
-import org.apache.commons.io.FilenameUtils;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -270,7 +266,41 @@ public class Leonardo {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+
+    public void dataSetInit(String datasetId, MultipartFile[] multipartFiles) throws IOException {
+
+        for (MultipartFile multipartFile : multipartFiles) {
+            log.info("사진 여러장 보내는중!!!!!!!!!" + multipartFile.getContentType() + " " + multipartFile.getOriginalFilename());
+//        RequestBody requestBody = new FormBody.Builder()
+//                .add("extension", "jpg")
+//                .build();
+
+            String datasetURL = leonardoConfig.getCreateDatasetURL() + "/" + datasetId + "/upload";
+
+            RequestBody requestBody = new FormBody.Builder()
+                    .add("extension", getFileExtension(multipartFile.getOriginalFilename()))
+                    .build();
+
+
+            JSONObject uploadInitResponse = null;
+
+            try (Response response = client.newCall(getRequest(datasetURL, requestBody)).execute()) {
+                uploadInitResponse = new JSONObject(response.body().string());
+            }
+            log.info(uploadInitResponse.toString());
+            //        log.info(uploadInitResponse);
+
+            // 로그 print용, 없어도 됨
+            String imageId = uploadInitResponse.getJSONObject("uploadInitImage").getString("id");
+            if (uploadImage(uploadInitResponse, multipartFile)) {
+                log.info(imageId + " uploaded successfully.");
+            }
+        }
 
     }
+
+
 
 }

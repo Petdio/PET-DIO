@@ -6,13 +6,9 @@ import com.ssafy.petdio.config.LeonardoConfig;
 import com.ssafy.petdio.model.Enum.Prompt;
 import com.ssafy.petdio.model.entity.Setting;
 import jakarta.annotation.PostConstruct;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import javax.imageio.ImageIO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
-import org.apache.commons.io.FilenameUtils;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -288,17 +284,17 @@ public class Leonardo {
                     .build();
 
 
-            JSONObject uploadInitResponse = null;
+            JSONObject uploadDatasetImageResponse = null;
 
             try (Response response = client.newCall(getRequest(datasetURL, requestBody)).execute()) {
-                uploadInitResponse = new JSONObject(response.body().string());
+                uploadDatasetImageResponse = new JSONObject(response.body().string());
             }
-            log.info(uploadInitResponse.toString());
+            log.info(uploadDatasetImageResponse.toString());
             //        log.info(uploadInitResponse);
 
             // 로그 print용, 없어도 됨
-            String imageId = uploadInitResponse.getJSONObject("uploadInitImage").getString("id");
-            if (uploadImage(uploadInitResponse, multipartFile)) {
+            String imageId = uploadDatasetImageResponse.getJSONObject("uploadDatasetImage").getString("id");
+            if (uploadImage(uploadDatasetImageResponse, multipartFile)) {
                 log.info(imageId + " uploaded successfully.");
             }
         }

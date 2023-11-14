@@ -117,31 +117,36 @@ public class AiServiceImpl implements AiService {
         redisTemplate.delete(generationId);
         User user = userRepository.findByUserIdAndUserDeleteIsNull(imageData.getUserId()).orElseThrow();
         if (status.equals("COMPLETE")) {
-            String leonardoUrl = data.getJSONArray("images").getJSONObject(0).getString("url");
-            String s3Url = fileService.upload(leonardoUrl);
-            albumRepository.save(
-                    Album.builder()
-                            .albumImgUrl(s3Url)
-                            .concept(Concept
-                                    .builder()
-                                    .conceptId(imageData.getConceptId())
-                                    .build())
-                            .user(User.builder()
-                                    .userId(imageData.getUserId())
-                                    .build())
+            String datasetId = data.getString("initDatasetId");
+            if (datasetId == null) {
+                String leonardoUrl = data.getJSONArray("images").getJSONObject(0).getString("url");
+                String s3Url = fileService.upload(leonardoUrl);
+                albumRepository.save(
+                        Album.builder()
+                                .albumImgUrl(s3Url)
+                                .concept(Concept
+                                        .builder()
+                                        .conceptId(imageData.getConceptId())
+                                        .build())
+                                .user(User.builder()
+                                        .userId(imageData.getUserId())
+                                        .build())
+                                .build());
+                log.info("만들어진 url 링크: " + defaultUrl + s3Url);
+                log.info("---------------fcm test------------");
+                Map<String, String> map = new HashMap<>();
+                map.put("url", defaultUrl + s3Url);
+                userService.useCoin(user.getUserId());
+                sseService.send(generationId, defaultUrl + s3Url);
+                if (user.getFcmToken() != null) {
+                    fcmService.sendMessageTo(NotificationMessage.builder()
+                            .recipientToken(user.getFcmToken())
+                            .data(map)
                             .build());
-            log.info("만들어진 url 링크: " + defaultUrl + s3Url);
-            log.info("---------------fcm test------------");
-            Map<String, String> map = new HashMap<>();
-            map.put("url", defaultUrl + s3Url);
-            userService.useCoin(user.getUserId());
-            sseService.send(generationId, defaultUrl + s3Url);
-            if (user.getFcmToken() != null) {
-                fcmService.sendMessageTo(NotificationMessage.builder()
-                        .recipientToken(user.getFcmToken())
-                        .data(map)
-                        .build());
+                }
+                return;
             }
+            log.info("datasetId : " + datasetId);
         } else if (status.equals("FAILED")) {
             Map<String, String> map = new HashMap<>();
             map.put("url", "fail");

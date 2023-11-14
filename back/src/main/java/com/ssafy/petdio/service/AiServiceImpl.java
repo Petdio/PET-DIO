@@ -6,9 +6,11 @@ import com.ssafy.petdio.model.dto.AiDto;
 import com.ssafy.petdio.model.dto.FcmDto.NotificationMessage;
 import com.ssafy.petdio.model.entity.Album;
 import com.ssafy.petdio.model.entity.Concept;
+import com.ssafy.petdio.model.entity.Model;
 import com.ssafy.petdio.model.entity.Setting;
 import com.ssafy.petdio.repository.AlbumRepository;
 import com.ssafy.petdio.repository.EmitterRepository;
+import com.ssafy.petdio.repository.ModelRepository;
 import com.ssafy.petdio.repository.SettingRepository;
 import com.ssafy.petdio.user.model.entity.User;
 import com.ssafy.petdio.user.repository.UserRepository;
@@ -50,6 +52,7 @@ public class AiServiceImpl implements AiService {
     private final FcmService fcmService;
     private final RedisTemplate<String, AiDto.Data> redisTemplate;
     private final SseService sseService;
+    private final ModelRepository modelRepository;
 
     @Override
     public String makeAiImage(Long conceptId, MultipartFile multipartFile, String breed, Long userId) throws IOException {
@@ -71,6 +74,25 @@ public class AiServiceImpl implements AiService {
 //        }
 
     }
+
+    @Override
+    public String makerealPhotoImage(Long conceptId, int modelId, Long userId) throws IOException {
+
+        List<Setting> settings = settingRepository.findAllByConcept_ConceptId(conceptId);
+
+        Model model = modelRepository.findByUserUserIdAndModelId(userId, modelId);
+
+        String breed = model.getInstancePrompt();
+
+        String generationId = leonardo.generateAndFetchImages(
+                leonardo.realPhotoPutJsonPayload(settings, Prompt.findEnumById(conceptId),
+                        model.getCustomModelId(), breed));
+        redisTemplate.opsForValue().set(generationId,
+                AiDto.Data.builder().userId(userId).conceptId(conceptId).build());
+
+        return generationId;
+    }
+
 
     private String getGenerationId(String leonardoUrl) throws Exception {
         String pattern = "/([^/]+)/[^/]+$";
@@ -113,10 +135,14 @@ public class AiServiceImpl implements AiService {
         System.out.println(data);
         String status = data.getString("status");
         String generationId = data.getString("id");
-        String datasetId = data.getString("initDatasetId");
-        if (datasetId != null) {
-            log.info("datasetId : " + datasetId);
-            return;
+        try {
+            String datasetId = data.getString("initDatasetId");
+            if (datasetId != null) {
+                log.info("datasetId : " + datasetId);
+                return;
+            }
+        } catch (Exception e) {
+            log.info("사진 만들기 요청임");
         }
         AiDto.Data imageData = redisTemplate.opsForValue().get(generationId);
         redisTemplate.delete(generationId);

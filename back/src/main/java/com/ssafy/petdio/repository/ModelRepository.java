@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface ModelRepository extends JpaRepository<Model, Long> {
 
-    List<Model> findAllByUser_UserId(Long user_id);
+    Model findByUserUserIdAndModelId(Long userId, int modelId);
 
     void deleteModelByModelId(Long model_id);
 

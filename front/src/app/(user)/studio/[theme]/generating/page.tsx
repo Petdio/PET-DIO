@@ -55,7 +55,7 @@ export default function Generating() {
           setShowComponent(false);
           setTimeout(() => {
             router.push(`/studio/result?img=${imageKey[1]}`);
-          }, 4000);
+          }, 2000);
         } else {
           console.log("No match found");
         }
@@ -74,7 +74,7 @@ export default function Generating() {
           setShowComponent(false);
           setTimeout(() => {
             router.push(`/studio/result?img=${imageKey[1]}`);
-          }, 4000);
+          }, 2000);
         }
       });
 

@@ -9,14 +9,29 @@ import { useMultiFormData } from "@/app/MultiFormdataProvider";
 import { Box, Button } from "@mui/material";
 
 import UploadCreateButton from "./upload-create-button-set/UploadCreateButtonSet";
+import ModelCreateNameModal from "./model-create-name-modal/ModelCreateNameModal";
 
 function ModelCreate() {
+  const [modelName, setModelName] = useState("");
   const [images, setImages] = useState<(string | ArrayBuffer | null)[]>([]);
   const [imageWidths, setImageWidths] = useState<number[]>([]);
   const [imageHeights, setImageHeights] = useState<number[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const { multiFormData, setMultiFormData } = useMultiFormData();
+
+  const setName = (inputName: string) => {
+    setModelName(inputName);
+  };
+
+  const [nameModalOpen, setNameModalOpen] = useState(false);
+  const handleModalOpen = () => {
+    setNameModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setNameModalOpen(false);
+  };
 
   const handleFileUploadClick = () => {
     if (fileInputRef.current) {
@@ -122,6 +137,7 @@ function ModelCreate() {
       <UploadCreateButton
         isUploadDone={isUploadDone}
         uploadClick={handleFileUploadClick}
+        openNameModal={handleModalOpen}
       >
         <input
           type="file"
@@ -132,6 +148,11 @@ function ModelCreate() {
         />
       </UploadCreateButton>
       <Button onClick={() => console.log(images)}>콘솔확인</Button>
+      <ModelCreateNameModal
+        open={nameModalOpen}
+        handleClose={handleModalClose}
+        setName={setName}
+      />
     </>
   );
 }

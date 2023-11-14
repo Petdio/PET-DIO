@@ -8,27 +8,16 @@ import { Button, Box } from "@mui/material";
 interface Props {
   isUploadDone: boolean;
   uploadClick: () => void;
+  openNameModal: () => void;
   children: React.ReactElement<any, any>;
 }
 
-function UploadCreateButton({ isUploadDone, uploadClick, children }: Props) {
-  // 반복되는 이 코드 재사용 가능할 수도
-  const [windowWidth, setWindowWidth] = useState(0);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-
-    handleResize();
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
+function UploadCreateButton({
+  isUploadDone,
+  uploadClick,
+  children,
+  openNameModal,
+}: Props) {
   return (
     <Box
       sx={{
@@ -60,8 +49,9 @@ function UploadCreateButton({ isUploadDone, uploadClick, children }: Props) {
           <Button
             variant="contained"
             sx={{ width: "50%" }}
+            onClick={openNameModal}
           >
-            이미지 생성하기
+            모델 만들기
           </Button>
         </Box>
       ) : (

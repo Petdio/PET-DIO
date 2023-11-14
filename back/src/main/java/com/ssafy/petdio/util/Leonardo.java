@@ -6,13 +6,9 @@ import com.ssafy.petdio.config.LeonardoConfig;
 import com.ssafy.petdio.model.Enum.Prompt;
 import com.ssafy.petdio.model.entity.Setting;
 import jakarta.annotation.PostConstruct;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import javax.imageio.ImageIO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
-import org.apache.commons.io.FilenameUtils;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -252,6 +248,76 @@ public class Leonardo {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public String createDataset(String datasetName){
+        RequestBody requestBody = new FormBody.Builder()
+                .add("name", datasetName).build();
+
+        JSONObject createDatasetResponse = null;
+
+        try (Response response = client.newCall(getRequest(leonardoConfig.getCreateDatasetURL(), requestBody)).execute()) {
+            createDatasetResponse = new JSONObject(response.body().string());
+
+            String datasetId = createDatasetResponse.getJSONObject("insert_datasets_one").getString("id");
+
+            return datasetId;
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    public void dataSetInit(String datasetId, List<MultipartFile> multipartFiles) throws IOException {
+
+        for (MultipartFile multipartFile : multipartFiles) {
+            log.info("사진 여러장 보내는중!!!!!!!!!" + multipartFile.getContentType() + " " + multipartFile.getOriginalFilename());
+//        RequestBody requestBody = new FormBody.Builder()
+//                .add("extension", "jpg")
+//                .build();
+
+            String datasetURL = leonardoConfig.getCreateDatasetURL() + "/" + datasetId + "/upload";
+
+            RequestBody requestBody = new FormBody.Builder()
+                    .add("extension", getFileExtension(multipartFile.getOriginalFilename()))
+                    .build();
+
+
+            JSONObject uploadDatasetImageResponse = null;
+
+            try (Response response = client.newCall(getRequest(datasetURL, requestBody)).execute()) {
+                uploadDatasetImageResponse = new JSONObject(response.body().string());
+            }
+            log.info(uploadDatasetImageResponse.toString());
+            //        log.info(uploadInitResponse);
+
+            // 로그 print용, 없어도 됨
+            String imageId = uploadDatasetImageResponse.getJSONObject("uploadDatasetImage").getString("id");
+            if (uploadImage(uploadDatasetImageResponse, multipartFile)) {
+                log.info(imageId + " uploaded successfully.");
+            }
+        }
+
+    }
+
+    public String trainModel(String modelName, String datasetId, String instancePrompt) {
+        MediaType mediaType = MediaType.parse("application/json");
+        String requestBodyJson = "{\"name\":\"" + modelName + "\",\"description\":\"\",\"datasetId\":\"" + datasetId + "\",\"instance_prompt\":\"" + instancePrompt + "\",\"modelType\":\"GENERAL\",\"nsfw\":false,\"resolution\":512,\"sd_Version\":\"v1_5\",\"strength\":\"MEDIUM\"}";
+        RequestBody requestBody = RequestBody.create(mediaType, requestBodyJson);
+
+        JSONObject trainModelResponse = null;
+
+        try (Response response = client.newCall(getRequest(leonardoConfig.getTrainModelURL(), requestBody)).execute()) {
+            trainModelResponse = new JSONObject(response.body().string());
+
+            String customModelId = trainModelResponse.getJSONObject("sdTrainingJob").getString("customModelId");
+
+            return customModelId;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
 }

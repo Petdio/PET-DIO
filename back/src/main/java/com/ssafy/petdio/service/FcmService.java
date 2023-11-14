@@ -17,9 +17,9 @@ import java.io.IOException;
 public class FcmService {
     private final FirebaseMessaging firebaseMessaging;
     public String sendMessageTo(NotificationMessage notificationMessage) throws IOException {
-        Notification notification = Notification.builder().setTitle(notificationMessage.getTitle()).setBody(
-                notificationMessage.getBody()).setImage(notificationMessage.getImage()).build();
-        Message message = Message.builder().setToken(notificationMessage.getRecipientToken()).setNotification(notification).putAllData(notificationMessage.getData()).build();
+//        Notification notification = Notification.builder().setTitle(notificationMessage.getTitle()).setBody(
+//                notificationMessage.getBody()).setImage(notificationMessage.getImage()).build();
+        Message message = Message.builder().setToken(notificationMessage.getRecipientToken()).putAllData(notificationMessage.getData()).build();
 
         try {
             firebaseMessaging.send(message);

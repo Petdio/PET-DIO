@@ -96,6 +96,7 @@ function ModelCreate() {
                           datasetName: modelName,
                           animalType: animalItems[animalIdx],
                         });
+                        console.log(multiFormData);
                       }
                     },
                     "image/jpg",
@@ -126,9 +127,10 @@ function ModelCreate() {
     try {
       const response = await axios.post(
         // process.env.NEXT_PUBLIC_API_URL + `ai/create`,
-        "/ai/create/realPhoto",
-        multiFormData,
+        `/model/train`,
+        null,
         {
+          params: multiFormData,
           headers: {
             Authorization: `Bearer ${localStorage.getItem("access-token")}`,
             "Content-Type": "multipart/form-data",

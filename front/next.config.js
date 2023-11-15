@@ -51,6 +51,10 @@ module.exports = withPWA({
         source: "/ai/create/realPhoto",
         destination: `${process.env.NEXT_PUBLIC_API_URL}ai/create/realPhoto`,
       },
+      {
+        source: "/model/train",
+        destination: `${process.env.NEXT_PUBLIC_API_URL}model/train`,
+      },
     ];
   },
   images: {

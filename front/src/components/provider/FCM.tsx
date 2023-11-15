@@ -40,7 +40,7 @@ export const useFcmToken = () => {
   return context;
 };
 
-export default function FCM() {
+export default function FcmTokenFetcher() {
   const { setFcmToken } = useFcmToken();
 
   const onMessageFCM = async () => {

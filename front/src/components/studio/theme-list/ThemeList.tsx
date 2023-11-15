@@ -19,8 +19,8 @@ import { Container } from "@mui/material";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import convertTheme from "@/utils/convertTheme";
-import { useFormData } from "@/app/FormDataProvider";
-import { useFcmToken } from "@/app/FCM";
+import { useFormData } from "@/components/provider/FormDataProvider";
+import { useFcmToken } from "@/components/provider/FCM";
 
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {

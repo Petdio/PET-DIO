@@ -17,7 +17,7 @@ import { Container } from "@mui/material";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import convertTheme from "@/utils/convertTheme";
-import { useFcmToken } from "@/app/FCM";
+import { useFcmToken } from "@/components/provider/FCM";
 import { SlideMUI } from "@/components/animation/SlideMUI";
 
 interface Theme {
@@ -125,10 +125,7 @@ export default function ThemeList() {
           padding: "1rem",
         }}
       >
-        <Grid
-          container
-          spacing={2}
-        >
+        <Grid container spacing={2}>
           {themeList.map((item, index) => {
             return (
               <Grid
@@ -154,10 +151,7 @@ export default function ThemeList() {
         aria-describedby="select-theme"
         maxWidth="xs"
       >
-        <DialogTitle
-          textAlign="center"
-          fontWeight="bold"
-        >
+        <DialogTitle textAlign="center" fontWeight="bold">
           {modalTitle}
         </DialogTitle>
         <DialogContent sx={{ padding: 0 }}>
@@ -244,10 +238,7 @@ export default function ThemeList() {
           >
             취소
           </Button>
-          <Button
-            sx={{ width: "50%" }}
-            variant="contained"
-          >
+          <Button sx={{ width: "50%" }} variant="contained">
             확인
           </Button>
         </DialogActions>

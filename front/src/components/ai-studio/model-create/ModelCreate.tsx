@@ -2,8 +2,8 @@
 
 import { forwardRef, useState, useRef, ChangeEvent, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useFormData } from "@/app/FormDataProvider";
-import { useMultiFormData } from "@/app/MultiFormdataProvider";
+import { useFormData } from "@/components/provider/FormDataProvider";
+import { useMultiFormData } from "@/components/provider/MultiFormdataProvider";
 // import Image from "next/image";
 
 import { Box, Button } from "@mui/material";
@@ -113,16 +113,9 @@ function ModelCreate() {
 
   return (
     <>
-      <Box
-        display="flex"
-        flexDirection="row"
-        flexWrap="wrap"
-      >
+      <Box display="flex" flexDirection="row" flexWrap="wrap">
         {images.map((image, index) => (
-          <Box
-            key={index}
-            m={1}
-          >
+          <Box key={index} m={1}>
             <img
               src={image as string}
               alt={`Uploaded ${index + 1}`}

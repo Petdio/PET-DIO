@@ -1,23 +1,24 @@
-import './globals.css';
-import ThemeRegistry from '../styles/ThemeRegistry';
-import ServiceWorker from './ServiceWorker';
-import FCM, { FcmTokenProvider } from './FCM';
+import "./globals.css";
+import ThemeRegistry from "../styles/ThemeRegistry";
+import ServiceWorker from "./ServiceWorker";
+import FcmTokenFetcher, { FcmTokenProvider } from "../components/provider/FCM";
 
-import { Box } from '@mui/material';
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import Script from 'next/script';
-import HeadMeta from '@/components/meta/HeadMeta';
+import { Box } from "@mui/material";
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import Script from "next/script";
+import HeadMeta from "@/components/meta/HeadMeta";
+import AlertBar from "@/components/common/alert-bar/AlertBar";
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Petdio',
+  title: "Petdio",
   description:
-    '반려동물을 위한 AI 이미지 생성 스튜디오입니다. 반려동물의 이미지를 업로드하고 세부 설정을 완료하면 반려동물이 등장하는 특별한 이미지를 생성해 줍니다.',
-  manifest: '/manifest.json',
-  icons: { apple: '/icon.png' },
-  themeColor: '#8758FF',
+    "반려동물을 위한 AI 이미지 생성 스튜디오입니다. 반려동물의 이미지를 업로드하고 세부 설정을 완료하면 반려동물이 등장하는 특별한 이미지를 생성해 줍니다.",
+  manifest: "/manifest.json",
+  icons: { apple: "/icon.png" },
+  themeColor: "#8758FF",
 };
 
 export default function RootLayout({
@@ -42,10 +43,7 @@ export default function RootLayout({
           gtag('config', 'G-4HGPR7ZWG3');
         `}
       </Script>
-      <Script
-        id="beusable-heatmap"
-        type="text/javascript"
-      >
+      <Script id="beusable-heatmap" type="text/javascript">
         {`
           (function(w, d, a){
             w.__beusablerumclient__ = {
@@ -61,18 +59,18 @@ export default function RootLayout({
       <ThemeRegistry>
         <body
           className={inter.className}
-          style={{ backgroundColor: '#f2f2f2' }}
+          style={{ backgroundColor: "#f2f2f2" }}
         >
           <Box
             sx={{
-              height: '100vh',
-              maxWidth: '480px',
-              margin: 'auto',
-              backgroundColor: '#fff',
+              height: "100vh",
+              maxWidth: "480px",
+              margin: "auto",
+              backgroundColor: "#fff",
             }}
           >
             <FcmTokenProvider>
-              <FCM />
+              <FcmTokenFetcher />
               {children}
             </FcmTokenProvider>
           </Box>

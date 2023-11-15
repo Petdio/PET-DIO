@@ -16,17 +16,20 @@ interface Props {
   open: boolean;
   handleClose: () => void;
   setName: (inputName: string) => void;
+  sendModelSetting: () => void;
 }
 
 export default function ModelCreateNameModal({
   open,
   handleClose,
   setName,
+  sendModelSetting,
 }: Props) {
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
   };
   const handleCreateClick = () => {
+    sendModelSetting();
     handleClose();
   };
   return (

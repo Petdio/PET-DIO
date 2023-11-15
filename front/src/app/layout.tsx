@@ -9,6 +9,7 @@ import { Inter } from "next/font/google";
 import Script from "next/script";
 import HeadMeta from "@/components/meta/HeadMeta";
 import AlertBar from "@/components/common/alert-bar/AlertBar";
+import AlertProvider from "@/components/provider/AlertProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,7 +29,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <ServiceWorker />
       <HeadMeta />
       <Script
         async
@@ -67,12 +67,17 @@ export default function RootLayout({
               maxWidth: "480px",
               margin: "auto",
               backgroundColor: "#fff",
+              position: "relative",
             }}
           >
-            <FcmTokenProvider>
-              <FcmTokenFetcher />
-              {children}
-            </FcmTokenProvider>
+            <AlertProvider>
+              <FcmTokenProvider>
+                <ServiceWorker />
+                <FcmTokenFetcher />
+                {children}
+                <AlertBar />
+              </FcmTokenProvider>
+            </AlertProvider>
           </Box>
         </body>
       </ThemeRegistry>

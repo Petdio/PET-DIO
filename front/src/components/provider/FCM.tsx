@@ -1,4 +1,5 @@
 "use client";
+
 import {
   createContext,
   useContext,
@@ -7,7 +8,8 @@ import {
   ReactNode,
 } from "react";
 import { initializeApp } from "firebase/app";
-import { getMessaging, onMessage, getToken } from "firebase/messaging";
+import { getMessaging, getToken } from "firebase/messaging";
+import { useAlert } from "./AlertProvider";
 
 interface FcmTokenContextType {
   fcmToken: string;
@@ -42,6 +44,7 @@ export const useFcmToken = () => {
 
 export default function FcmTokenFetcher() {
   const { setFcmToken } = useFcmToken();
+  const { failed } = useAlert();
 
   const onMessageFCM = async () => {
     // 브라우저에 알림 권한을 요청합니다.
@@ -74,12 +77,14 @@ export default function FcmTokenFetcher() {
           localStorage.setItem("fcmToken", token);
           console.log(token);
         } else {
+          failed("Error : 사용 가능한 fcm 토큰이 없습니다.");
           console.log(
             "No registration token available. Request permission to generate one."
           );
         }
       })
       .catch((err) => {
+        failed("Error : fcm 토큰 발급에 실패했습니다.");
         console.log("An error occurred while retrieving token. ", err);
       });
 

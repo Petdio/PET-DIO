@@ -29,6 +29,8 @@ import { price } from "@/constants/price";
 import { useFormData } from "@/components/provider/FormDataProvider";
 import ErrorBoundary from "@/app/ErrorBoundary";
 
+import { useAlert } from "@/components/provider/AlertProvider";
+
 export default function Setting() {
   const router = useRouter();
   const [toggle, setToggle] = useState(false);
@@ -36,8 +38,9 @@ export default function Setting() {
   const [animalSelected, setAnimalSelected] = useState(false);
   const [animalIdx, setAnimalIdx] = useState(-1);
   const [inputComplete, setInputComplete] = useState(false);
-  const { formData, setFormData } = useFormData();
   const [isLoading, setIsLoading] = useState(false);
+  const { formData, setFormData } = useFormData();
+  const { successed, failed } = useAlert();
 
   // @todo 유저 현재 보유 코인: 전역으로 관리하는 편이 나은가?
   const [userCoin, setUserCoin] = useState(0);
@@ -121,6 +124,7 @@ export default function Setting() {
       localStorage.setItem("sse-token", response.data);
       router.push("generating");
     } catch (error) {
+      failed("Error : 업로드 실패!");
       console.error("이미지 업로드 실패", error);
     }
   };

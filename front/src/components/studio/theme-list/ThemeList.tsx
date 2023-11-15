@@ -21,6 +21,7 @@ import axios from "axios";
 import convertTheme from "@/utils/convertTheme";
 import { useFormData } from "@/components/provider/FormDataProvider";
 import { useFcmToken } from "@/components/provider/FCM";
+import { useAlert } from "@/components/provider/AlertProvider";
 
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {
@@ -47,6 +48,7 @@ export default function ThemeList() {
   const [isDrag, setIsDrag] = useState(false);
   const [startX, setStartX] = useState<number>(0);
   const { formData, setFormData } = useFormData();
+  const { failed } = useAlert();
 
   const onDragStart = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -103,6 +105,7 @@ export default function ThemeList() {
       console.log(response);
       setThemeList(response.data);
     } catch (error) {
+      failed("Error : 테마를 가져오는 도중 에러가 발생했습니다.");
       console.error("에러 발생:", error);
     }
   }
@@ -122,6 +125,9 @@ export default function ThemeList() {
       console.log("fcm 토큰 전송 성공", response);
     } catch (error) {
       console.error("fcm 토큰 전송 실패", error);
+      failed(
+        "Error : fcm 토큰 전송에 실패했습니다. 푸시 알림을 받을 수 없습니다."
+      );
     }
   };
 

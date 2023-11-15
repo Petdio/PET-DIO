@@ -88,7 +88,10 @@ export default function Header() {
           !noneBackButtonPathList.some((path) => pathname.includes(path)) && (
             <BackButton />
           )}
+        {/* @todo 날먹코드: 추후 리팩토링 */}
+        {pathname.includes("/ai-studio/create") && <BackButton />}
         {pathname.includes("/result") && <HomeButton />}
+
         <Logo />
         <MyPage
           onClick={handleMyPageOpen}

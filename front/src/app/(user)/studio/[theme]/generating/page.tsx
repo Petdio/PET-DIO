@@ -5,8 +5,10 @@ import CheckIcon from "@mui/icons-material/Check";
 import { useRouter } from "next/navigation";
 import { theme } from "@/styles/ThemeRegistry";
 import ErrorBoundary from "@/app/ErrorBoundary";
+import { useAlert } from "@/components/provider/AlertProvider";
 
 const loadingMessageArr = [
+  "이미지 생성은 30초 ~ 1분 정도 걸려요. 조금만 기다려 주세요!",
   "사진과 일치하는 품종을 입력해야 원하는 이미지를 얻을 수 있어요.",
   "생성된 이미지를 저장하거나 다른 사람들과 공유해보세요!",
   "앨범 페이지에서 원하는 테마만 필터링할 수 있어요.",
@@ -18,6 +20,7 @@ export default function Generating() {
   const router = useRouter();
   const [showComponent, setShowComponent] = useState(true);
   const [loadingMessageIdx, setLoadingMessageIdx] = useState(0);
+  const { successed, failed } = useAlert();
 
   if (showComponent) {
     setTimeout(
@@ -57,6 +60,7 @@ export default function Generating() {
     //     }
     //   });
     // } else {
+    successed("업로드 성공! 조금만 기다려 주세요.");
     const eventSource = new EventSource(
       `${
         process.env.NEXT_PUBLIC_API_URL
@@ -75,6 +79,9 @@ export default function Generating() {
     });
 
     eventSource.onerror = (error) => {
+      failed(
+        "Error : 서버와의 알림 연결에 실패했어요! 생성된 이미지는 앨범에서 확인해주세요."
+      );
       console.error("Error occurred:", error);
       eventSource.close();
     };
@@ -133,10 +140,7 @@ export default function Generating() {
               >
                 이미지 생성 완료!
               </Typography>
-              <CheckIcon
-                color="primary"
-                sx={{ width: "100%" }}
-              />
+              <CheckIcon color="primary" sx={{ width: "100%" }} />
             </>
           )}
         </Box>

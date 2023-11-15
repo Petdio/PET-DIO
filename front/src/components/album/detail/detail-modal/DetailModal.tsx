@@ -1,6 +1,6 @@
-'use client';
-import { useRouter } from 'next/navigation';
-import Image from 'next/image';
+"use client";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
 import {
   Box,
   Dialog,
@@ -9,18 +9,19 @@ import {
   DialogContentText,
   Button,
   Typography,
-} from '@mui/material';
-import { styled } from '@mui/material/styles';
-import downloadImage from '@/utils/downLoadImage';
-import ShareIcon from '@mui/icons-material/Share';
-import SaveAltIcon from '@mui/icons-material/SaveAlt';
-import CameraIcon from '@mui/icons-material/Camera';
-import CloseIcon from '@mui/icons-material/Close';
-import { ImgInfoProps } from '@/interfaces/AlbumDataProps';
-import { SlideMUI } from '@/components/animation/SlideMUI';
-import shareImage from '@/utils/shareImage';
-import DeleteIcon from '@mui/icons-material/Delete';
-import axios from 'axios';
+} from "@mui/material";
+import { styled } from "@mui/material/styles";
+import downloadImage from "@/utils/downLoadImage";
+import ShareIcon from "@mui/icons-material/Share";
+import SaveAltIcon from "@mui/icons-material/SaveAlt";
+import CameraIcon from "@mui/icons-material/Camera";
+import CloseIcon from "@mui/icons-material/Close";
+import { ImgInfoProps } from "@/interfaces/AlbumDataProps";
+import { SlideMUI } from "@/components/animation/SlideMUI";
+import shareImage from "@/utils/shareImage";
+import DeleteIcon from "@mui/icons-material/Delete";
+import axios from "axios";
+import { useAlert } from "@/components/provider/AlertProvider";
 
 const ActionButton = styled(Button)({});
 
@@ -40,9 +41,11 @@ function DetailModal({
   againURL,
 }: Props) {
   const { albumURL, albumCreated } = imgInfo;
-  const imgBrief = themeName + ', ' + albumCreated;
-  const fileName = themeName + '_' + albumCreated;
+  const imgBrief = themeName + ", " + albumCreated;
+  const fileName = themeName + "_" + albumCreated;
   const router = useRouter();
+  const { failed } = useAlert();
+
   async function deletePicture() {
     try {
       const response = await axios.delete(
@@ -50,7 +53,7 @@ function DetailModal({
         `album/${imgInfo.albumId}`,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem('access-token')}`,
+            Authorization: `Bearer ${localStorage.getItem("access-token")}`,
           },
         }
       );
@@ -59,7 +62,8 @@ function DetailModal({
       handleClose();
       window.location.reload(); // 추후 삭제 모션으로 바꿀것
     } catch (error) {
-      console.error('에러 발생:', error);
+      failed("Error : 이미지 삭제 실패!");
+      console.error("에러 발생:", error);
     }
   }
 
@@ -72,11 +76,11 @@ function DetailModal({
       TransitionComponent={SlideMUI}
       onClose={handleClose}
       sx={{
-        paddingLeft: '1rem',
-        paddingRight: '1rem',
+        paddingLeft: "1rem",
+        paddingRight: "1rem",
       }}
     >
-      <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
         <Button
           startIcon={<CloseIcon />}
           size="small"
@@ -84,7 +88,7 @@ function DetailModal({
           color="inherit"
           disableRipple
           sx={{
-            margin: '1rem 0 0 0.75rem',
+            margin: "1rem 0 0 0.75rem",
             borderRadius: 100,
           }}
           onClick={handleClose}
@@ -98,14 +102,14 @@ function DetailModal({
           color="error"
           disableRipple
           sx={{
-            margin: '1rem 0.75rem 0 0',
+            margin: "1rem 0.75rem 0 0",
           }}
           onClick={deletePicture}
         >
           삭제
         </Button>
       </Box>
-      <DialogContent sx={{ padding: '1rem' }}>
+      <DialogContent sx={{ padding: "1rem" }}>
         <DialogContentText textAlign="end">
           <Typography fontSize={14}>{imgBrief}</Typography>
         </DialogContentText>
@@ -123,14 +127,14 @@ function DetailModal({
             objectFit="cover"
             objectPosition="center center"
             placeholder="empty"
-            style={{ borderRadius: '0.5rem' }}
+            style={{ borderRadius: "0.5rem" }}
           />
         </Box>
       </DialogContent>
 
       <DialogActions
         sx={{
-          padding: '0 1rem 1rem 1rem',
+          padding: "0 1rem 1rem 1rem",
         }}
       >
         <Box
@@ -140,10 +144,7 @@ function DetailModal({
           alignItems="center"
           padding={0}
         >
-          <Box
-            display="flex"
-            width="100%"
-          >
+          <Box display="flex" width="100%">
             {/* <Tooltip title="아직 준비중인 기능이에요." placement="top" arrow> */}
             <ActionButton
               variant="contained"
@@ -172,7 +173,7 @@ function DetailModal({
             color="primary"
             endIcon={<CameraIcon />}
             fullWidth
-            sx={{ width: '100%' }}
+            sx={{ width: "100%" }}
             onClick={() => router.push(`/studio/${againURL}/add-photo`)}
           >
             이 테마로 다시 만들기

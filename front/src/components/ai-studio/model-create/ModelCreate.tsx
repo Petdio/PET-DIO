@@ -1,10 +1,14 @@
 "use client";
 
 import { forwardRef, useState, useRef, ChangeEvent, useEffect } from "react";
+import axios from "axios";
 import NextImage from "next/image";
 import { useRouter } from "next/navigation";
-import { useFormData } from "@/app/FormDataProvider";
-import { useMultiFormData } from "@/app/MultiFormdataProvider";
+import { useFormData } from "@/components/provider/FormDataProvider";
+import { useMultiFormData } from "@/components/provider/MultiFormdataProvider";
+import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2
+import LoadingButton from "@mui/lab/LoadingButton";
+
 // import Image from "next/image";
 
 import { Box, Button } from "@mui/material";
@@ -20,6 +24,8 @@ function ModelCreate() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const { multiFormData, setMultiFormData } = useMultiFormData();
+  const [animalIdx, setAnimalIdx] = useState(-1);
+  const animalItems = ["개", "고양이"];
 
   const setName = (inputName: string) => {
     setModelName(inputName);
@@ -87,6 +93,8 @@ function ModelCreate() {
                             ...(multiFormData.imageFiles || []),
                             newFile,
                           ],
+                          datasetName: modelName,
+                          animalType: animalItems[animalIdx],
                         });
                       }
                     },
@@ -111,30 +119,51 @@ function ModelCreate() {
   };
 
   const [isUploadDone, setIsUploadDone] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const sendModelSetting = async () => {
+    setIsLoading(true);
+    try {
+      const response = await axios.post(
+        // process.env.NEXT_PUBLIC_API_URL + `ai/create`,
+        "/ai/create/realPhoto",
+        multiFormData,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log("이미지 업로드 성공", response);
+      localStorage.setItem("sse-token", response.data);
+      router.push("generating");
+    } catch (error) {
+      console.error("이미지 업로드 실패", error);
+    }
+  };
 
   return (
     <>
-      <Box
-        display="flex"
-        flexDirection="row"
-        flexWrap="wrap"
+      <Grid
+        container
+        sx={{ margin: "0 1rem" }}
+        spacing={1}
       >
         {images.map((image, index) => (
-          <Box
+          <Grid
             key={index}
-            m={1}
+            xs={4}
           >
             <Box
               position={"relative"}
-              width="4rem"
-              height="4rem"
+              width={"100%"}
+              sx={{ aspectRatio: 1 / 1 }}
             >
               <NextImage
                 src={image as string}
                 alt="업로드 이미지"
                 fill
-                // width={16}
-                // height={16}
                 placeholder="empty"
                 style={{
                   borderRadius: "0.5rem",
@@ -144,9 +173,9 @@ function ModelCreate() {
                 }}
               />
             </Box>
-          </Box>
+          </Grid>
         ))}
-      </Box>
+      </Grid>
       <UploadCreateButton
         isUploadDone={isUploadDone}
         uploadClick={handleFileUploadClick}
@@ -160,11 +189,12 @@ function ModelCreate() {
           multiple
         />
       </UploadCreateButton>
-      <Button onClick={() => console.log(images)}>콘솔확인</Button>
       <ModelCreateNameModal
         open={nameModalOpen}
         handleClose={handleModalClose}
         setName={setName}
+        animalItems={animalItems}
+        sendModelSetting={sendModelSetting}
       />
     </>
   );

@@ -21,7 +21,7 @@ import { Cropper, ReactCropperElement } from "react-cropper";
 import "cropperjs/dist/cropper.css";
 import { TransitionProps } from "@mui/material/transitions";
 import { useRouter } from "next/navigation";
-import { useFormData } from "@/app/FormDataProvider";
+import { useFormData } from "@/components/provider/FormDataProvider";
 
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {

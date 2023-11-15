@@ -17,7 +17,7 @@ import { Container } from "@mui/material";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import convertTheme from "@/utils/convertTheme";
-import { useFcmToken } from "@/app/FCM";
+import { useFcmToken } from "@/components/provider/FCM";
 import { SlideMUI } from "@/components/animation/SlideMUI";
 import BackButton from "../back-button/BackButton";
 
@@ -34,7 +34,7 @@ interface Props {
   goPrev: () => void;
 }
 
-export default function ThemeList({ modelId, goPrev }: Props) {
+export default function AiStudioThemeList({ modelId, goPrev }: Props) {
   const router = useRouter();
   const scrollRef = useRef<HTMLDivElement>(null);
   const { fcmToken } = useFcmToken();
@@ -156,10 +156,7 @@ export default function ThemeList({ modelId, goPrev }: Props) {
         }}
       >
         <BackButton goPrev={goPrev} />
-        <Grid
-          container
-          spacing={2}
-        >
+        <Grid container spacing={2}>
           {themeList.map((item, index) => {
             return (
               <Grid
@@ -185,10 +182,7 @@ export default function ThemeList({ modelId, goPrev }: Props) {
         aria-describedby="select-theme"
         maxWidth="xs"
       >
-        <DialogTitle
-          textAlign="center"
-          fontWeight="bold"
-        >
+        <DialogTitle textAlign="center" fontWeight="bold">
           {modalTitle}
         </DialogTitle>
         <DialogContent sx={{ padding: 0 }}>

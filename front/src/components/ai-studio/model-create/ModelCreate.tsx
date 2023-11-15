@@ -24,6 +24,8 @@ function ModelCreate() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const { multiFormData, setMultiFormData } = useMultiFormData();
+  const [animalIdx, setAnimalIdx] = useState(-1);
+  const animalItems = ["개", "고양이"];
 
   const setName = (inputName: string) => {
     setModelName(inputName);
@@ -91,7 +93,10 @@ function ModelCreate() {
                             ...(multiFormData.imageFiles || []),
                             newFile,
                           ],
+                          datasetName: modelName,
+                          animalType: animalItems[animalIdx],
                         });
+                        console.log(multiFormData);
                       }
                     },
                     "image/jpg",
@@ -118,14 +123,14 @@ function ModelCreate() {
   const [isLoading, setIsLoading] = useState(false);
 
   const sendModelSetting = async () => {
-    const settingData = { images, modelName };
     setIsLoading(true);
     try {
       const response = await axios.post(
         // process.env.NEXT_PUBLIC_API_URL + `ai/create`,
-        "/ai/create/realPhoto",
-        settingData,
+        `/model/train`,
+        null,
         {
+          params: multiFormData,
           headers: {
             Authorization: `Bearer ${localStorage.getItem("access-token")}`,
             "Content-Type": "multipart/form-data",
@@ -142,9 +147,16 @@ function ModelCreate() {
 
   return (
     <>
-      <Grid container sx={{ margin: "0 1rem" }} spacing={1}>
+      <Grid
+        container
+        sx={{ margin: "0 1rem" }}
+        spacing={1}
+      >
         {images.map((image, index) => (
-          <Grid key={index} xs={4}>
+          <Grid
+            key={index}
+            xs={4}
+          >
             <Box
               position={"relative"}
               width={"100%"}
@@ -183,6 +195,7 @@ function ModelCreate() {
         open={nameModalOpen}
         handleClose={handleModalClose}
         setName={setName}
+        animalItems={animalItems}
         sendModelSetting={sendModelSetting}
       />
     </>

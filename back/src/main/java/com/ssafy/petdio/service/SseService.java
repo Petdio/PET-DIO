@@ -45,6 +45,7 @@ public class SseService {
             try {
                 System.out.println("send: " + sseEmitter);
                 sseEmitter.send(SseEmitter.event().id(generationId).name(NOTIFICATION_NAME).data(urlOrFail));
+                emitterRepository.delete(generationId);
             } catch (IOException e) {
                 emitterRepository.delete(generationId);
                 log.error(e.getMessage());

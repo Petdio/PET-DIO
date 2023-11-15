@@ -116,17 +116,18 @@ export default function AiStudioThemeList({ modelId, goPrev }: Props) {
   };
 
   const sendSetting = async () => {
-    const settingData = { conceptId, modelId };
+    const settingData = { conceptId: conceptId, modelId: modelId };
     setIsLoading(true);
     try {
       const response = await axios.post(
         // process.env.NEXT_PUBLIC_API_URL + `ai/create`,
-        "/ai/create/realPhoto",
-        settingData,
+        `/ai/create/realPhoto`,
+        null,
         {
+          params: settingData,
           headers: {
             Authorization: `Bearer ${localStorage.getItem("access-token")}`,
-            "Content-Type": "multipart/form-data",
+            "Content-Type": "application/json",
           },
         }
       );
@@ -156,7 +157,10 @@ export default function AiStudioThemeList({ modelId, goPrev }: Props) {
         }}
       >
         <BackButton goPrev={goPrev} />
-        <Grid container spacing={2}>
+        <Grid
+          container
+          spacing={2}
+        >
           {themeList.map((item, index) => {
             return (
               <Grid
@@ -182,7 +186,10 @@ export default function AiStudioThemeList({ modelId, goPrev }: Props) {
         aria-describedby="select-theme"
         maxWidth="xs"
       >
-        <DialogTitle textAlign="center" fontWeight="bold">
+        <DialogTitle
+          textAlign="center"
+          fontWeight="bold"
+        >
           {modalTitle}
         </DialogTitle>
         <DialogContent sx={{ padding: 0 }}>

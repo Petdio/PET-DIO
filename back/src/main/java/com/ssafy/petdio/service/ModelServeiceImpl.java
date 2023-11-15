@@ -23,15 +23,20 @@ public class ModelServeiceImpl implements ModelService{
     private final ModelRepository modelRepository;
 
     @Override
-    public void trainModel(String datasetName, List<MultipartFile> multipartFiles, Long userId) throws IOException {
-
+    public void trainModel(String datasetName, List<MultipartFile> multipartFiles, String breed, Long userId) throws IOException {
+        // 모델 트레이닝 변수 설정
         String datasetId = leonardo.createDataset(datasetName);
         leonardo.dataSetInit(datasetId, multipartFiles);
         StringBuilder sb = new StringBuilder();
         sb.append(datasetName);
         sb.append(userId.toString());
         String instancePrompt = sb.toString();
+        // 모델 트레이닝
         String customModelId = leonardo.trainModel(datasetName, datasetId, instancePrompt);
+        
+        // DB에 저장할 때는 고양이인지 강아지인지까지 저장
+        sb.append(" ");
+        sb.append(breed);
 
         modelRepository.save(
                 Model.builder()

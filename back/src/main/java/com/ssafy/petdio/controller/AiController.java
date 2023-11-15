@@ -50,6 +50,25 @@ public class AiController {
         }
     }
 
+    @PostMapping("/create/realPhoto")
+    public ResponseEntity realPhotoImages(@RequestParam("conceptId") Long conceptId,
+                                          @RequestParam("modelId") int modelId, Authentication authentication){
+        log.info("lets go sisaImages");
+
+        try{
+
+            Long userId = Long.valueOf(authentication.getName());
+            return ResponseEntity.status(HttpStatus.OK).body(aiService.makerealPhotoImage(conceptId, modelId, userId));
+
+        }catch (Exception e){
+
+            log.error("실사 사진 만들기 에러"+e.getMessage());
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+
+        }
+    }
+
+
     @PostMapping("/webhook")
     public void webhookAlarm(@RequestBody String url) {
         log.info("webhook!!! " + url);

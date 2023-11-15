@@ -39,7 +39,12 @@ export default function Header() {
   };
   const pathname = usePathname();
 
-  const noneBackButtonPathList = ["/album", "/generating", "/result"];
+  const noneBackButtonPathList = [
+    "/album",
+    "/generating",
+    "/result",
+    "/ai-studio",
+  ];
 
   async function getUserInfo() {
     try {
@@ -74,14 +79,24 @@ export default function Header() {
 
   return (
     <>
-      <StyledAppBar position="static" sx={{ zIndex: 1000 }} elevation={0}>
+      <StyledAppBar
+        position="static"
+        sx={{ zIndex: 1000 }}
+        elevation={0}
+      >
         {pathname !== "/studio" &&
           !noneBackButtonPathList.some((path) => pathname.includes(path)) && (
             <BackButton />
           )}
+        {/* @todo 날먹코드: 추후 리팩토링 */}
+        {pathname.includes("/ai-studio/create") && <BackButton />}
         {pathname.includes("/result") && <HomeButton />}
+
         <Logo />
-        <MyPage onClick={handleMyPageOpen} profile={profile} />
+        <MyPage
+          onClick={handleMyPageOpen}
+          profile={profile}
+        />
         <MemberMenu
           anchorEl={anchorEl}
           isOpen={memberMenuOpen}

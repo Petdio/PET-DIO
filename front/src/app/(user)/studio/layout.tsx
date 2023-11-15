@@ -1,4 +1,4 @@
-import { FormDataProvider } from "@/app/FormDataProvider";
+import { FormDataProvider } from "@/components/provider/FormDataProvider";
 
 export default function StudioLayout({
   children,

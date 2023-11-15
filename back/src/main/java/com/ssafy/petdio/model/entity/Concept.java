@@ -32,6 +32,9 @@ public class Concept {
     @Column(name = "concept_path")
     private String conceptPath;
 
+    @Column(name = "concept_type")
+    private boolean conceptType;
+
     public void updateConceptImg(String url) {
         this.conceptImg = url;
     }

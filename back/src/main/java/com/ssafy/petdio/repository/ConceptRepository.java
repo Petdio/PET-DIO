@@ -9,5 +9,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ConceptRepository extends JpaRepository<Concept, Long> {
     List<Concept> findByConceptDeleteFalse();
+    List<Concept> findByConceptDeleteFalseAndConceptTypeFalse();
+
+    List<Concept> findByConceptDeleteFalseAndConceptTypeTrue();
     Concept findByConceptDeleteFalseAndConceptId(Long conceptId);
 }

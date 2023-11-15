@@ -6,13 +6,9 @@ import com.ssafy.petdio.config.LeonardoConfig;
 import com.ssafy.petdio.model.Enum.Prompt;
 import com.ssafy.petdio.model.entity.Setting;
 import jakarta.annotation.PostConstruct;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import javax.imageio.ImageIO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
-import org.apache.commons.io.FilenameUtils;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -192,6 +188,27 @@ public class Leonardo {
         return generationPayload;
     }
 
+    public JSONObject realPhotoPutJsonPayload(List<Setting> settings, Prompt prompt, String modelId, String breed) {
+        JSONObject generationPayload = new JSONObject();
+        for (Setting setting : settings) {
+            System.out.println(setting);
+            switch (setting.getSettingType()) {
+                case "double" -> generationPayload.put(setting.getSettingName(), Double.valueOf(setting.getSettingDetail()));
+                case "integer" -> generationPayload.put(setting.getSettingName(), Integer.valueOf(setting.getSettingDetail()));
+                case "boolean" -> generationPayload.put(setting.getSettingName(), setting.getSettingDetail().equals("true"));
+                default -> generationPayload.put(setting.getSettingName(), setting.getSettingDetail());
+            }
+        }
+
+        generationPayload.put("prompt", prompt.getPrompt().replace("breed", breed));
+        generationPayload.put("negative_prompt", prompt.getNegativePrompt());
+        generationPayload.put("modelId", modelId);
+
+        return generationPayload;
+    }
+
+
+
     public String generateAndFetchImages(JSONObject generationPayload) throws IOException {
         RequestBody generationRequestBody = RequestBody.create(
                 MediaType.parse("application/json"),
@@ -252,6 +269,139 @@ public class Leonardo {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public String createDataset(String datasetName){
+        RequestBody requestBody = new FormBody.Builder()
+                .add("name", datasetName).build();
+
+        JSONObject createDatasetResponse = null;
+
+        try (Response response = client.newCall(getRequest(leonardoConfig.getCreateDatasetURL(), requestBody)).execute()) {
+            createDatasetResponse = new JSONObject(response.body().string());
+
+            String datasetId = createDatasetResponse.getJSONObject("insert_datasets_one").getString("id");
+
+            return datasetId;
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    public void dataSetInit(String datasetId, List<MultipartFile> multipartFiles) throws IOException {
+
+        for (MultipartFile multipartFile : multipartFiles) {
+            log.info("사진 여러장 보내는중!!!!!!!!!" + multipartFile.getContentType() + " " + multipartFile.getOriginalFilename());
+//        RequestBody requestBody = new FormBody.Builder()
+//                .add("extension", "jpg")
+//                .build();
+
+            String datasetURL = leonardoConfig.getCreateDatasetURL() + "/" + datasetId + "/upload";
+
+            RequestBody requestBody = new FormBody.Builder()
+                    .add("extension", getFileExtension(multipartFile.getOriginalFilename()))
+                    .build();
+
+
+            JSONObject uploadDatasetImageResponse = null;
+
+            try (Response response = client.newCall(getRequest(datasetURL, requestBody)).execute()) {
+                uploadDatasetImageResponse = new JSONObject(response.body().string());
+            }
+            log.info(uploadDatasetImageResponse.toString());
+            //        log.info(uploadInitResponse);
+
+            // 로그 print용, 없어도 됨
+            String imageId = uploadDatasetImageResponse.getJSONObject("uploadDatasetImage").getString("id");
+            if (uploadDatasetImage(uploadDatasetImageResponse, multipartFile)) {
+                log.info(imageId + " uploaded successfully.");
+            }
+        }
+
+    }
+
+    // Dataset용 이미지 업로드 메서드
+    private boolean uploadDatasetImage (JSONObject jsonResponse, MultipartFile multipartFile) throws IOException {
+        String fieldsString = jsonResponse.getJSONObject("uploadDatasetImage").getString("fields");
+        JSONObject fieldsJson = new JSONObject(fieldsString);
+
+        String urlUploadImage = jsonResponse.getJSONObject("uploadDatasetImage").getString("url");
+        String imageId = jsonResponse.getJSONObject("uploadDatasetImage").getString("id");
+
+
+        System.out.println(jsonResponse.getJSONObject("uploadDatasetImage"));
+
+        MultipartBody.Builder builderUploadImageRequest =
+                new MultipartBody.Builder().setType(MultipartBody.FORM);
+
+        for (String key : fieldsJson.keySet()) {
+            builderUploadImageRequest.addFormDataPart(key, fieldsJson.getString(key));
+        }
+
+//        byte[] imageBytes = convertToJpg(multipartFile);
+//
+//        System.out.println(imageBytes);
+
+//        builderUploadImageRequest.addFormDataPart(
+//                "file",
+//                multipartFile.getOriginalFilename(),
+//                RequestBody.create(MediaType.parse("image/jpeg"), imageBytes)
+//        );
+        builderUploadImageRequest.addFormDataPart(
+                "file",
+                multipartFile.getOriginalFilename(),
+                RequestBody.create(MediaType.parse(multipartFile.getContentType()), multipartFile.getBytes())
+        );
+
+
+//        builderUploadImageRequest.addFormDataPart(
+//                "file",
+//                multipartFile.getOriginalFilename(),
+//                RequestBody.create(MediaType.parse(multipartFile.getContentType()), multipartFile.getBytes())
+//        );
+
+        MultipartBody uploadRequestBody=builderUploadImageRequest.build();
+
+        Request uploadRequest=new Request.Builder()
+                .url(urlUploadImage)
+                .post(uploadRequestBody)
+                .build();
+
+
+        try(Response uploadResponse=client.newCall(uploadRequest).execute()){
+            if (!uploadResponse.isSuccessful()) {
+                System.out.println("Failed to upload image: " + uploadResponse.body().string());
+                return false;
+            }
+            System.out.println("upload");
+            System.out.println(uploadResponse.body());
+
+            return true;
+        }
+    }
+
+
+    public String trainModel(String modelName, String datasetId, String instancePrompt) {
+        MediaType mediaType = MediaType.parse("application/json");
+        String requestBodyJson = "{\"name\":\"" + modelName + "\",\"description\":\"\",\"datasetId\":\"" + datasetId + "\",\"instance_prompt\":\"" + instancePrompt + "\",\"modelType\":\"GENERAL\",\"nsfw\":false,\"resolution\":512,\"sd_version\":\"v1_5\",\"strength\":\"MEDIUM\"}";
+        RequestBody requestBody = RequestBody.create(mediaType, requestBodyJson);
+
+        JSONObject trainModelResponse = null;
+
+        try (Response response = client.newCall(getRequest(leonardoConfig.getTrainModelURL(), requestBody)).execute()) {
+            trainModelResponse = new JSONObject(response.body().string());
+
+            log.info(String.valueOf(trainModelResponse));
+
+            String customModelId = trainModelResponse.getJSONObject("sdTrainingJob").getString("customModelId");
+
+            return customModelId;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
 }

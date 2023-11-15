@@ -5,7 +5,11 @@ import { useRouter } from "next/navigation";
 import { IconButton, Box } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
-export default function BackButton() {
+interface Props {
+  goPrev: () => void;
+}
+
+export default function BackButton({ goPrev }: Props) {
   const [windowWidth, setWindowWidth] = useState(0);
 
   useEffect(() => {
@@ -40,7 +44,7 @@ export default function BackButton() {
         aria-label="back"
         size="large"
         sx={{ position: "fixed", zIndex: 22000, left: leftPosition, top: 50 }}
-        onClick={() => router.back()}
+        onClick={() => goPrev()}
       >
         <ArrowBackIcon sx={{ fontSize: "30px" }} />
       </IconButton>

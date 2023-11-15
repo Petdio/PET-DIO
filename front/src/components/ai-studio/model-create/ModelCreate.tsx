@@ -162,7 +162,6 @@ function ModelCreate() {
           multiple
         />
       </UploadCreateButton>
-      <Button onClick={() => console.log(images)}>콘솔확인</Button>
       <ModelCreateNameModal
         open={nameModalOpen}
         handleClose={handleModalClose}

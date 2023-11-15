@@ -31,9 +31,10 @@ interface Theme {
 
 interface Props {
   modelId: number;
+  goPrev: () => void;
 }
 
-export default function ThemeList({ modelId }: Props) {
+export default function ThemeList({ modelId, goPrev }: Props) {
   const router = useRouter();
   const scrollRef = useRef<HTMLDivElement>(null);
   const { fcmToken } = useFcmToken();
@@ -154,6 +155,7 @@ export default function ThemeList({ modelId }: Props) {
           padding: "1rem",
         }}
       >
+        <BackButton goPrev={goPrev} />
         <Grid
           container
           spacing={2}

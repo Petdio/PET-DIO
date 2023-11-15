@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { Box, Alert, IconButton, Slide } from "@mui/material";
+import { Box, Alert, IconButton, Collapse } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useAlert } from "@/components/provider/AlertProvider";
 
@@ -24,9 +24,10 @@ export default function AlertBar() {
         bottom: "88px",
         left: "1rem",
         right: "1rem",
+        wordWrap: "break-word",
       }}
     >
-      <Slide direction="right" in={show}>
+      <Collapse aria-disabled in={show}>
         <Alert
           severity={isSuccessed ? "success" : "error"}
           variant="filled"
@@ -43,7 +44,7 @@ export default function AlertBar() {
         >
           {message}
         </Alert>
-      </Slide>
+      </Collapse>
     </Box>
   );
 }

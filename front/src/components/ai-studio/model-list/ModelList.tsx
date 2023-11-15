@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Typography, Box } from "@mui/material";
+import { Typography, Box, Button } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import Subtitle from "@/components/studio/subtitle/Subtitle";
 import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2
@@ -49,6 +49,9 @@ function ModelList() {
     setModelSelected(true);
     setModelID(modelId);
   };
+  const goPrev = () => {
+    setModelSelected(false);
+  };
   const Item = styled(Box)(({ theme }) => ({
     display: "flex",
     justifyContent: "space-between",
@@ -64,6 +67,7 @@ function ModelList() {
   }));
   return (
     <>
+      <Button onClick={() => setModelSelected(true)}>임시다음버튼</Button>
       {!modelSelected ? (
         <>
           <Subtitle content="어떤 모델을 사진관에 데려갈까요?" />
@@ -105,7 +109,10 @@ function ModelList() {
       ) : (
         <>
           <Subtitle content="뒤로가기 어떡하냐 / 임시 api호출" />
-          <ThemeList modelId={modelId} />
+          <ThemeList
+            modelId={modelId}
+            goPrev={goPrev}
+          />
         </>
       )}
     </>

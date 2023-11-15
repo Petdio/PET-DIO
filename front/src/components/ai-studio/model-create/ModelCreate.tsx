@@ -1,9 +1,14 @@
 "use client";
 
 import { forwardRef, useState, useRef, ChangeEvent, useEffect } from "react";
+import axios from "axios";
+import NextImage from "next/image";
 import { useRouter } from "next/navigation";
 import { useFormData } from "@/components/provider/FormDataProvider";
 import { useMultiFormData } from "@/components/provider/MultiFormdataProvider";
+import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2
+import LoadingButton from "@mui/lab/LoadingButton";
+
 // import Image from "next/image";
 
 import { Box, Button } from "@mui/material";
@@ -110,23 +115,57 @@ function ModelCreate() {
   };
 
   const [isUploadDone, setIsUploadDone] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const sendModelSetting = async () => {
+    const settingData = { images, modelName };
+    setIsLoading(true);
+    try {
+      const response = await axios.post(
+        // process.env.NEXT_PUBLIC_API_URL + `ai/create`,
+        "/ai/create/realPhoto",
+        settingData,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log("이미지 업로드 성공", response);
+      localStorage.setItem("sse-token", response.data);
+      router.push("generating");
+    } catch (error) {
+      console.error("이미지 업로드 실패", error);
+    }
+  };
 
   return (
     <>
-      <Box display="flex" flexDirection="row" flexWrap="wrap">
+      <Grid container sx={{ margin: "0 1rem" }} spacing={1}>
         {images.map((image, index) => (
-          <Box key={index} m={1}>
-            <img
-              src={image as string}
-              alt={`Uploaded ${index + 1}`}
-              style={{ maxWidth: "100px", maxHeight: "100px" }}
-            />
-            <p>
-              Width: {imageWidths[index]}, Height: {imageHeights[index]}
-            </p>
-          </Box>
+          <Grid key={index} xs={4}>
+            <Box
+              position={"relative"}
+              width={"100%"}
+              sx={{ aspectRatio: 1 / 1 }}
+            >
+              <NextImage
+                src={image as string}
+                alt="업로드 이미지"
+                fill
+                placeholder="empty"
+                style={{
+                  borderRadius: "0.5rem",
+                  cursor: "default",
+                  objectFit: "cover",
+                  objectPosition: "center center",
+                }}
+              />
+            </Box>
+          </Grid>
         ))}
-      </Box>
+      </Grid>
       <UploadCreateButton
         isUploadDone={isUploadDone}
         uploadClick={handleFileUploadClick}
@@ -140,11 +179,11 @@ function ModelCreate() {
           multiple
         />
       </UploadCreateButton>
-      <Button onClick={() => console.log(images)}>콘솔확인</Button>
       <ModelCreateNameModal
         open={nameModalOpen}
         handleClose={handleModalClose}
         setName={setName}
+        sendModelSetting={sendModelSetting}
       />
     </>
   );

@@ -19,6 +19,7 @@ import axios from "axios";
 import convertTheme from "@/utils/convertTheme";
 import { useFcmToken } from "@/components/provider/FCM";
 import { SlideMUI } from "@/components/animation/SlideMUI";
+import BackButton from "../back-button/BackButton";
 
 interface Theme {
   imgURL: string;
@@ -28,13 +29,19 @@ interface Theme {
   id: number;
 }
 
-export default function ThemeList() {
+interface Props {
+  modelId: number;
+  goPrev: () => void;
+}
+
+export default function AiStudioThemeList({ modelId, goPrev }: Props) {
   const router = useRouter();
   const scrollRef = useRef<HTMLDivElement>(null);
   const { fcmToken } = useFcmToken();
 
   const [isDrag, setIsDrag] = useState(false);
   const [startX, setStartX] = useState<number>(0);
+  const [isLoading, setIsLoading] = useState(false);
 
   const onDragStart = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -56,7 +63,7 @@ export default function ThemeList() {
   const [modalTitle, setModalTitle] = useState("");
   const [exampleList, setExampleList] = useState<string[]>([]);
   const [path, setPath] = useState("");
-  const [conceptId, setconceptId] = useState(0);
+  const [conceptId, setConceptId] = useState(-1);
   const [themeList, setThemeList] = useState<Theme[]>([]);
 
   const handleClickOpen = (index: number) => {
@@ -64,7 +71,7 @@ export default function ThemeList() {
     setModalTitle(convertTheme(themeList[index].name));
     setExampleList(themeList[index].examples);
     setPath(themeList[index].path);
-    setconceptId(themeList[index].id);
+    setConceptId(themeList[index].id);
   };
 
   const handleClose = () => {
@@ -75,7 +82,7 @@ export default function ThemeList() {
     try {
       const response = await axios.get(
         // process.env.NEXT_PUBLIC_API_URL + `concept/list`,
-        `concept/list`,
+        `/concept/realphoto/list`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("access-token")}`,
@@ -108,6 +115,29 @@ export default function ThemeList() {
     }
   };
 
+  const sendSetting = async () => {
+    const settingData = { conceptId, modelId };
+    setIsLoading(true);
+    try {
+      const response = await axios.post(
+        // process.env.NEXT_PUBLIC_API_URL + `ai/create`,
+        "/ai/create/realPhoto",
+        settingData,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log("이미지 업로드 성공", response);
+      localStorage.setItem("sse-token", response.data);
+      router.push("generating");
+    } catch (error) {
+      console.error("이미지 업로드 실패", error);
+    }
+  };
+
   useEffect(() => {
     getThemeList();
   }, []);
@@ -125,6 +155,7 @@ export default function ThemeList() {
           padding: "1rem",
         }}
       >
+        <BackButton goPrev={goPrev} />
         <Grid container spacing={2}>
           {themeList.map((item, index) => {
             return (
@@ -238,7 +269,11 @@ export default function ThemeList() {
           >
             취소
           </Button>
-          <Button sx={{ width: "50%" }} variant="contained">
+          <Button
+            sx={{ width: "50%" }}
+            variant="contained"
+            onClick={sendSetting}
+          >
             확인
           </Button>
         </DialogActions>

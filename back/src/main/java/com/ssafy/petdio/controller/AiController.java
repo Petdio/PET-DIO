@@ -66,7 +66,6 @@ public class AiController {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
 
         }
-
     }
 
 

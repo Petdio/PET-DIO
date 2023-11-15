@@ -38,4 +38,17 @@ public class ModelController {
 
     }
 
+    @GetMapping("/list")
+    public ResponseEntity getModelList(Authentication authentication)
+    {
+        try {
+            log.info("모델 리스트 반환 !" + authentication.getName());
+            return ResponseEntity.status(HttpStatus.OK).body(modelService.getModelList(
+                    Long.valueOf(authentication.getName())));
+        } catch (Exception e) {
+            log.error("모델 리스트 반환 에러"+e.getMessage());
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
+    }
+
 }

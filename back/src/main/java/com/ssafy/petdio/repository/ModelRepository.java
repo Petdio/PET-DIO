@@ -11,6 +11,8 @@ public interface ModelRepository extends JpaRepository<Model, Long> {
 
     Model findByUserUserIdAndModelId(Long userId, int modelId);
 
+    List<Model> findByUserUserId(Long userId);
+
     void deleteModelByModelId(Long model_id);
 
 }

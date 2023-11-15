@@ -8,6 +8,7 @@ import { useFormData } from "@/components/provider/FormDataProvider";
 import { useMultiFormData } from "@/components/provider/MultiFormdataProvider";
 import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2
 import LoadingButton from "@mui/lab/LoadingButton";
+import convertAnimal from "@/utils/convertAnimal";
 
 // import Image from "next/image";
 
@@ -87,6 +88,9 @@ function ModelCreate() {
                             type: "image/jpg",
                           }
                         );
+                        const animalType = convertAnimal(
+                          animalItems[animalIdx]
+                        );
                         setMultiFormData({
                           ...multiFormData,
                           imageFiles: [
@@ -94,7 +98,7 @@ function ModelCreate() {
                             newFile,
                           ],
                           datasetName: modelName,
-                          animalType: animalItems[animalIdx],
+                          breed: animalType,
                         });
                         console.log(multiFormData);
                       }

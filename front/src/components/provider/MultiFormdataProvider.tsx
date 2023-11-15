@@ -4,7 +4,7 @@ import { createContext, useContext, useState, ReactNode } from "react";
 type MultiFormData = {
   imageFiles: File[] | null;
   datasetName: string;
-  animalType: string;
+  breed: string;
 };
 
 interface MultiFormDataContextType {
@@ -24,7 +24,7 @@ export const MultiFormDataProvider = ({ children }: Props) => {
   const [multiFormData, setMultiFormData] = useState<MultiFormData>({
     imageFiles: null,
     datasetName: "",
-    animalType: "",
+    breed: "",
   });
 
   return (

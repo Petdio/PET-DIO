@@ -39,6 +39,14 @@ module.exports = withPWA({
         source: "/album/:path*",
         destination: `${process.env.NEXT_PUBLIC_API_URL}album/:path*`,
       },
+      {
+        source: "/concept/realphoto/list",
+        destination: `${process.env.NEXT_PUBLIC_API_URL}concept/realphoto/list`,
+      },
+      {
+        source: "/model/list",
+        destination: `${process.env.NEXT_PUBLIC_API_URL}model/list`,
+      },
     ];
   },
   images: {

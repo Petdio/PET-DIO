@@ -11,7 +11,7 @@ import ModelCreateButton from "../model-create/model-create-button/ModelCreateBu
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { theme } from "@/styles/ThemeRegistry";
 import NoModel from "./no-model/NoModel";
-import ThemeList from "../theme-list/ThemeList";
+import AiStudioThemeList from "../ai-studio-theme-list/AiStudioThemeList";
 
 interface ModelProps {
   modelId: number;
@@ -109,7 +109,7 @@ function ModelList() {
       ) : (
         <>
           <Subtitle content="뒤로가기 어떡하냐 / 임시 api호출" />
-          <ThemeList
+          <AiStudioThemeList
             modelId={modelId}
             goPrev={goPrev}
           />

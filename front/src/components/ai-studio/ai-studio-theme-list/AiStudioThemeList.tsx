@@ -34,7 +34,7 @@ interface Props {
   goPrev: () => void;
 }
 
-export default function ThemeList({ modelId, goPrev }: Props) {
+export default function AiStudioThemeList({ modelId, goPrev }: Props) {
   const router = useRouter();
   const scrollRef = useRef<HTMLDivElement>(null);
   const { fcmToken } = useFcmToken();

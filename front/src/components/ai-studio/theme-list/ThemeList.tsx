@@ -19,6 +19,7 @@ import axios from "axios";
 import convertTheme from "@/utils/convertTheme";
 import { useFcmToken } from "@/app/FCM";
 import { SlideMUI } from "@/components/animation/SlideMUI";
+import BackButton from "../back-button/BackButton";
 
 interface Theme {
   imgURL: string;
@@ -75,7 +76,7 @@ export default function ThemeList() {
     try {
       const response = await axios.get(
         // process.env.NEXT_PUBLIC_API_URL + `concept/list`,
-        `concept/list`,
+        `/concept/realphoto/list`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("access-token")}`,

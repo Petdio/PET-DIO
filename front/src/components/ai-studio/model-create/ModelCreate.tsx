@@ -5,6 +5,9 @@ import NextImage from "next/image";
 import { useRouter } from "next/navigation";
 import { useFormData } from "@/app/FormDataProvider";
 import { useMultiFormData } from "@/app/MultiFormdataProvider";
+import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2
+import LoadingButton from "@mui/lab/LoadingButton";
+
 // import Image from "next/image";
 
 import { Box, Button } from "@mui/material";
@@ -111,30 +114,29 @@ function ModelCreate() {
   };
 
   const [isUploadDone, setIsUploadDone] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   return (
     <>
-      <Box
-        display="flex"
-        flexDirection="row"
-        flexWrap="wrap"
+      <Grid
+        container
+        sx={{ margin: "0 1rem" }}
+        spacing={1}
       >
         {images.map((image, index) => (
-          <Box
+          <Grid
             key={index}
-            m={1}
+            xs={4}
           >
             <Box
               position={"relative"}
-              width="4rem"
-              height="4rem"
+              width={"100%"}
+              sx={{ aspectRatio: 1 / 1 }}
             >
               <NextImage
                 src={image as string}
                 alt="업로드 이미지"
                 fill
-                // width={16}
-                // height={16}
                 placeholder="empty"
                 style={{
                   borderRadius: "0.5rem",
@@ -144,9 +146,9 @@ function ModelCreate() {
                 }}
               />
             </Box>
-          </Box>
+          </Grid>
         ))}
-      </Box>
+      </Grid>
       <UploadCreateButton
         isUploadDone={isUploadDone}
         uploadClick={handleFileUploadClick}

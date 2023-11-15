@@ -1,4 +1,5 @@
 import { MultiFormDataProvider } from "@/app/MultiFormdataProvider";
+import BackButton from "@/components/ai-studio/back-button/BackButton";
 
 export default function AiStudioLayout({
   children,
@@ -7,7 +8,10 @@ export default function AiStudioLayout({
 }) {
   return (
     <>
-      <MultiFormDataProvider>{children}</MultiFormDataProvider>
+      <MultiFormDataProvider>
+        <BackButton />
+        {children}
+      </MultiFormDataProvider>
     </>
   );
 }

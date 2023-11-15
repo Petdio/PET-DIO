@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import { Typography, Box } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import Subtitle from "@/components/studio/subtitle/Subtitle";
@@ -9,6 +10,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import ModelCreateButton from "../model-create/model-create-button/ModelCreateButton";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { theme } from "@/styles/ThemeRegistry";
+import NoModel from "./no-model/NoModel";
 import ThemeList from "../theme-list/ThemeList";
 
 const dummyModelList = [
@@ -38,6 +40,29 @@ function ModelList() {
   const [modelSelected, setModelSelected] = useState(false);
   const [modelID, setModelID] = useState(-1);
 
+  const [modelList, setModelList] = useState();
+  async function getModelList() {
+    try {
+      const response = await axios.get(
+        // process.env.NEXT_PUBLIC_API_URL + `concept/list`,
+        `/model/list`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+          },
+        }
+      );
+
+      console.log(response);
+      setModelList(response.data);
+    } catch (error) {
+      console.error("에러 발생:", error);
+    }
+  }
+  useEffect(() => {
+    getModelList();
+  }, []);
+
   const goToNext = (modelID: number) => {
     setModelSelected(true);
     setModelID(modelID);
@@ -60,34 +85,38 @@ function ModelList() {
       {!modelSelected ? (
         <>
           <Subtitle content="어떤 모델을 사진관에 데려갈까요?" />
-          <Grid
-            container
-            sx={{ margin: "0 1rem" }}
-            spacing={1}
-          >
-            {dummyModelList.map((model) => {
-              return (
-                <Grid
-                  key={model.modelId}
-                  xs={6}
-                >
-                  <Item
-                    sx={{
-                      border: "1px solid #18181812",
-                      borderLeft: "3px solid #A185FF",
-                    }}
-                    onClick={() => goToNext(model.modelId)}
+          {dummyModelList.length !== 0 ? (
+            <Grid
+              container
+              sx={{ margin: "0 1rem" }}
+              spacing={1}
+            >
+              {dummyModelList.map((model) => {
+                return (
+                  <Grid
+                    key={model.modelId}
+                    xs={6}
                   >
-                    {model.modelName}
-                    <PlayArrowIcon
-                      fontSize="small"
-                      htmlColor={theme.palette.grey[400]}
-                    />
-                  </Item>
-                </Grid>
-              );
-            })}
-          </Grid>
+                    <Item
+                      sx={{
+                        border: "1px solid #18181812",
+                        borderLeft: "3px solid #A185FF",
+                      }}
+                      onClick={() => goToNext(model.modelId)}
+                    >
+                      {model.modelName}
+                      <PlayArrowIcon
+                        fontSize="small"
+                        htmlColor={theme.palette.grey[400]}
+                      />
+                    </Item>
+                  </Grid>
+                );
+              })}
+            </Grid>
+          ) : (
+            <NoModel />
+          )}
 
           <ModelCreateButton />
         </>

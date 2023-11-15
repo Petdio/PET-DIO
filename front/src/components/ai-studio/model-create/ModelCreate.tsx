@@ -94,7 +94,7 @@ function ModelCreate() {
                             newFile,
                           ],
                           datasetName: modelName,
-                          animalType: animalItems[animalIdx],
+                          breed: animalItems[animalIdx],
                         });
                         console.log(multiFormData);
                       }

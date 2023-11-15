@@ -1,9 +1,11 @@
 package com.ssafy.petdio.service;
 
+import com.ssafy.petdio.model.dto.ModelDto;
 import com.ssafy.petdio.model.entity.Model;
 import com.ssafy.petdio.repository.ModelRepository;
 import com.ssafy.petdio.user.model.entity.User;
 import com.ssafy.petdio.util.Leonardo;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -41,6 +43,16 @@ public class ModelServeiceImpl implements ModelService{
                         .build()
         );
 
+    }
+
+    @Override
+    public List<ModelDto.Response> getModelList(Long userId) {
+        return modelRepository.findByUserUserId(userId).stream().map(model ->
+                ModelDto.Response.builder()
+                        .modelId(model.getModelId())
+                        .modelName(model.getModelName())
+                        .build())
+                .collect(Collectors.toList());
     }
 
 }

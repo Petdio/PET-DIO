@@ -1,6 +1,7 @@
 "use client";
 
 import { forwardRef, useState, useRef, ChangeEvent, useEffect } from "react";
+import NextImage from "next/image";
 import { useRouter } from "next/navigation";
 import { useFormData } from "@/app/FormDataProvider";
 import { useMultiFormData } from "@/app/MultiFormdataProvider";
@@ -123,14 +124,26 @@ function ModelCreate() {
             key={index}
             m={1}
           >
-            <img
-              src={image as string}
-              alt={`Uploaded ${index + 1}`}
-              style={{ maxWidth: "100px", maxHeight: "100px" }}
-            />
-            <p>
-              Width: {imageWidths[index]}, Height: {imageHeights[index]}
-            </p>
+            <Box
+              position={"relative"}
+              width="4rem"
+              height="4rem"
+            >
+              <NextImage
+                src={image as string}
+                alt="업로드 이미지"
+                fill
+                // width={16}
+                // height={16}
+                placeholder="empty"
+                style={{
+                  borderRadius: "0.5rem",
+                  cursor: "default",
+                  objectFit: "cover",
+                  objectPosition: "center center",
+                }}
+              />
+            </Box>
           </Box>
         ))}
       </Box>

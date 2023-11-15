@@ -10,7 +10,7 @@ export default async function shareImage(imgSrc: string) {
     const imageKey = imgSrc.match(/\/([^/]+)\.jpg$/);
     if (imageKey) {
       navigator.share({
-        url: `https://www.petdio.co.kr/studio/result?img=${imageKey[1]}`,
+        url: `https://petdio.co.kr/studio/result?img=${imageKey[1]}`,
         title: "Petdio: 우리집 멍냥이를 위한 이색 사진관",
       });
     }

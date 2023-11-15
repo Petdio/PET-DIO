@@ -27,6 +27,7 @@ public class AlbumServiceImpl implements AlbumService{
         List<Album> album = albumRepository.findAllByUser_UserId(user_id);
         return conceptRepository.findByConceptDeleteFalse().stream().map(
                 concept -> AlbumDto.Inventory.builder()
+                        .realPhotoType(concept.isConceptType())
                         .conceptId(concept.getConceptId())
                         .conceptName(concept.getConceptName())
                         .path(concept.getConceptPath())

@@ -6,9 +6,11 @@ import com.ssafy.petdio.model.dto.AiDto;
 import com.ssafy.petdio.model.dto.FcmDto.NotificationMessage;
 import com.ssafy.petdio.model.entity.Album;
 import com.ssafy.petdio.model.entity.Concept;
+import com.ssafy.petdio.model.entity.Model;
 import com.ssafy.petdio.model.entity.Setting;
 import com.ssafy.petdio.repository.AlbumRepository;
 import com.ssafy.petdio.repository.EmitterRepository;
+import com.ssafy.petdio.repository.ModelRepository;
 import com.ssafy.petdio.repository.SettingRepository;
 import com.ssafy.petdio.user.model.entity.User;
 import com.ssafy.petdio.user.repository.UserRepository;
@@ -50,6 +52,7 @@ public class AiServiceImpl implements AiService {
     private final FcmService fcmService;
     private final RedisTemplate<String, AiDto.Data> redisTemplate;
     private final SseService sseService;
+    private final ModelRepository modelRepository;
 
     @Override
     public String makeAiImage(Long conceptId, MultipartFile multipartFile, String breed, Long userId) throws IOException {
@@ -73,38 +76,23 @@ public class AiServiceImpl implements AiService {
     }
 
     @Override
-    public void getImage(String leonardoUrl) throws Exception {
-        String generationId = getGenerationId(leonardoUrl);
-        AiDto.Data imageData = redisTemplate.opsForValue().get(generationId);
-        redisTemplate.delete(generationId);
-        log.info("redis 에서 꺼낸 값 : " + imageData);
-        String s3Url = fileService.upload(leonardoUrl);
-        albumRepository.save(
-                Album.builder()
-                        .albumImgUrl(s3Url)
-                        .concept(Concept
-                                .builder()
-                                .conceptId(imageData.getConceptId())
-                                .build())
-                        .user(User.builder()
-                                .userId(imageData.getUserId())
-                                .build())
-                        .build());
-        log.info("만들어진 url 링크: " + defaultUrl + s3Url);
-        log.info("---------------fcm test------------");
-        User user = userRepository.findByUserIdAndUserDeleteIsNull(imageData.getUserId()).orElseThrow();
-        Map<String, String> map = new HashMap<>();
-        map.put("test", "test11");
-        userService.useCoin(user.getUserId());
-        if (user.getFcmToken() == null) throw new Exception("fcm 토큰 없음");
-        fcmService.sendMessageTo(NotificationMessage.builder()
-                        .title("사진 만들기 완료")
-                        .image(defaultUrl + s3Url)
-                        .body("확인해주세요!")
-                        .recipientToken(user.getFcmToken())
-                        .data(map)
-                        .build());
+    public String makerealPhotoImage(Long conceptId, int modelId, Long userId) throws IOException {
+
+        List<Setting> settings = settingRepository.findAllByConcept_ConceptId(conceptId);
+
+        Model model = modelRepository.findByUserUserIdAndModelId(userId, modelId);
+
+        String breed = model.getInstancePrompt();
+
+        String generationId = leonardo.generateAndFetchImages(
+                leonardo.realPhotoPutJsonPayload(settings, Prompt.findEnumById(conceptId),
+                        model.getCustomModelId(), breed));
+        redisTemplate.opsForValue().set(generationId,
+                AiDto.Data.builder().userId(userId).conceptId(conceptId).build());
+
+        return generationId;
     }
+
 
     private String getGenerationId(String leonardoUrl) throws Exception {
         String pattern = "/([^/]+)/[^/]+$";
@@ -147,55 +135,55 @@ public class AiServiceImpl implements AiService {
         System.out.println(data);
         String status = data.getString("status");
         String generationId = data.getString("id");
+        try {
+            String datasetId = data.getString("initDatasetId");
+            if (datasetId != null) {
+                log.info("datasetId : " + datasetId);
+                return;
+            }
+        } catch (Exception e) {
+            log.info("사진 만들기 요청임");
+        }
         AiDto.Data imageData = redisTemplate.opsForValue().get(generationId);
         redisTemplate.delete(generationId);
         User user = userRepository.findByUserIdAndUserDeleteIsNull(imageData.getUserId()).orElseThrow();
         if (status.equals("COMPLETE")) {
-            String leonardoUrl = data.getJSONArray("images").getJSONObject(0).getString("url");
-            String s3Url = fileService.upload(leonardoUrl);
-            albumRepository.save(
-                    Album.builder()
-                            .albumImgUrl(s3Url)
-                            .concept(Concept
-                                    .builder()
-                                    .conceptId(imageData.getConceptId())
-                                    .build())
-                            .user(User.builder()
-                                    .userId(imageData.getUserId())
-                                    .build())
-                            .build());
-            log.info("만들어진 url 링크: " + defaultUrl + s3Url);
-            log.info("---------------fcm test------------");
-            Map<String, String> map = new HashMap<>();
-            userService.useCoin(user.getUserId());
-//            if (user.getFcmToken() == null) throw new Exception("fcm 토큰 없음");
-            if (user.getFcmToken() == null) {
+                String leonardoUrl = data.getJSONArray("images").getJSONObject(0).getString("url");
+                String s3Url = fileService.upload(leonardoUrl);
+                albumRepository.save(
+                        Album.builder()
+                                .albumImgUrl(s3Url)
+                                .concept(Concept
+                                        .builder()
+                                        .conceptId(imageData.getConceptId())
+                                        .build())
+                                .user(User.builder()
+                                        .userId(imageData.getUserId())
+                                        .build())
+                                .build());
+                log.info("만들어진 url 링크: " + defaultUrl + s3Url);
+                log.info("---------------fcm test------------");
+                Map<String, String> map = new HashMap<>();
+                map.put("url", defaultUrl + s3Url);
+                userService.useCoin(user.getUserId());
                 sseService.send(generationId, defaultUrl + s3Url);
-                return;
-            }
-            fcmService.sendMessageTo(NotificationMessage.builder()
-                    .title("사진 만들기 완료")
-                    .image(defaultUrl + s3Url)
-                    .body("확인해주세요!")
-                    .recipientToken(user.getFcmToken())
-                    .data(map)
-                    .build());
+                if (user.getFcmToken() != null) {
+                    fcmService.sendMessageTo(NotificationMessage.builder()
+                            .recipientToken(user.getFcmToken())
+                            .data(map)
+                            .build());
+                }
         } else if (status.equals("FAILED")) {
             Map<String, String> map = new HashMap<>();
-            map.put("test", "test11");
+            map.put("url", "fail");
             userService.useCoin(user.getUserId());
-//            if (user.getFcmToken() == null) throw new Exception("fcm 토큰 없음");
-            if (user.getFcmToken() == null) {
-                sseService.send(generationId, "fail");
-                return;
+            sseService.send(generationId, "fail");
+            if (user.getFcmToken() != null) {
+                fcmService.sendMessageTo(NotificationMessage.builder()
+                        .recipientToken(user.getFcmToken())
+                        .data(map)
+                        .build());
             }
-            fcmService.sendMessageTo(NotificationMessage.builder()
-                    .title("사진 만들기 실패")
-                    .image(null)
-                    .body("다시 만들어볼까요?")
-                    .recipientToken(user.getFcmToken())
-                    .data(map)
-                    .build());
         }
     }
 

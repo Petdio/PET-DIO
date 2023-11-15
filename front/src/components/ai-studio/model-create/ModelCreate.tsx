@@ -93,6 +93,8 @@ function ModelCreate() {
                             ...(multiFormData.imageFiles || []),
                             newFile,
                           ],
+                          datasetName: modelName,
+                          animalType: animalItems[animalIdx],
                         });
                       }
                     },
@@ -120,14 +122,12 @@ function ModelCreate() {
   const [isLoading, setIsLoading] = useState(false);
 
   const sendModelSetting = async () => {
-    const animalType = animalItems[animalIdx];
-    const settingData = { images, modelName, animalType };
     setIsLoading(true);
     try {
       const response = await axios.post(
         // process.env.NEXT_PUBLIC_API_URL + `ai/create`,
         "/ai/create/realPhoto",
-        settingData,
+        multiFormData,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("access-token")}`,

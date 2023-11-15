@@ -22,7 +22,7 @@ function ModelList() {
   const [modelSelected, setModelSelected] = useState(false);
   const [modelId, setModelID] = useState(-1);
 
-  const [modelList, setModelList] = useState<ModelProps[]>();
+  const [modelList, setModelList] = useState<ModelProps[]>([]);
   async function getModelList() {
     try {
       const response = await axios.get(
@@ -36,7 +36,7 @@ function ModelList() {
       );
 
       console.log(response);
-      setModelList(response.data);
+      setModelList(response.data as ModelProps[]);
     } catch (error) {
       console.error("에러 발생:", error);
     }
@@ -67,7 +67,7 @@ function ModelList() {
       {!modelSelected ? (
         <>
           <Subtitle content="어떤 모델을 사진관에 데려갈까요?" />
-          {modelList ? (
+          {modelList.length !== 0 ? (
             <Grid
               container
               sx={{ margin: "0 1rem" }}

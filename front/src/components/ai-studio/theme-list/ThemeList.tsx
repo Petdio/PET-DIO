@@ -29,13 +29,18 @@ interface Theme {
   id: number;
 }
 
-export default function ThemeList() {
+interface Props {
+  modelId: number;
+}
+
+export default function ThemeList({ modelId }: Props) {
   const router = useRouter();
   const scrollRef = useRef<HTMLDivElement>(null);
   const { fcmToken } = useFcmToken();
 
   const [isDrag, setIsDrag] = useState(false);
   const [startX, setStartX] = useState<number>(0);
+  const [isLoading, setIsLoading] = useState(false);
 
   const onDragStart = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -57,7 +62,7 @@ export default function ThemeList() {
   const [modalTitle, setModalTitle] = useState("");
   const [exampleList, setExampleList] = useState<string[]>([]);
   const [path, setPath] = useState("");
-  const [conceptId, setconceptId] = useState(0);
+  const [conceptId, setConceptId] = useState(-1);
   const [themeList, setThemeList] = useState<Theme[]>([]);
 
   const handleClickOpen = (index: number) => {
@@ -65,7 +70,7 @@ export default function ThemeList() {
     setModalTitle(convertTheme(themeList[index].name));
     setExampleList(themeList[index].examples);
     setPath(themeList[index].path);
-    setconceptId(themeList[index].id);
+    setConceptId(themeList[index].id);
   };
 
   const handleClose = () => {
@@ -106,6 +111,29 @@ export default function ThemeList() {
       console.log("fcm 토큰 전송 성공", response);
     } catch (error) {
       console.error("fcm 토큰 전송 실패", error);
+    }
+  };
+
+  const sendSetting = async () => {
+    const settingData = { conceptId, modelId };
+    setIsLoading(true);
+    try {
+      const response = await axios.post(
+        // process.env.NEXT_PUBLIC_API_URL + `ai/create`,
+        "/ai/create/realPhoto",
+        settingData,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log("이미지 업로드 성공", response);
+      localStorage.setItem("sse-token", response.data);
+      router.push("generating");
+    } catch (error) {
+      console.error("이미지 업로드 실패", error);
     }
   };
 
@@ -248,6 +276,7 @@ export default function ThemeList() {
           <Button
             sx={{ width: "50%" }}
             variant="contained"
+            onClick={sendSetting}
           >
             확인
           </Button>

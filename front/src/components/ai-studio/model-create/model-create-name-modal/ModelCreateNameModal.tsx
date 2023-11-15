@@ -17,6 +17,7 @@ interface Props {
   handleClose: () => void;
   setName: (inputName: string) => void;
   sendModelSetting: () => void;
+  animalItems: string[];
 }
 
 export default function ModelCreateNameModal({
@@ -24,6 +25,7 @@ export default function ModelCreateNameModal({
   handleClose,
   setName,
   sendModelSetting,
+  animalItems,
 }: Props) {
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
@@ -43,7 +45,7 @@ export default function ModelCreateNameModal({
         <DialogTitle>모델 정보 설정</DialogTitle>
         <DialogContent>
           <AnimalSelectRadioGroup
-            animalItems={["개", "고양이"]}
+            animalItems={animalItems}
             onSelect={() => {}}
             onlySmall={true}
           />

@@ -24,6 +24,8 @@ function ModelCreate() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const { multiFormData, setMultiFormData } = useMultiFormData();
+  const [animalIdx, setAnimalIdx] = useState(-1);
+  const animalItems = ["개", "고양이"];
 
   const setName = (inputName: string) => {
     setModelName(inputName);
@@ -118,7 +120,8 @@ function ModelCreate() {
   const [isLoading, setIsLoading] = useState(false);
 
   const sendModelSetting = async () => {
-    const settingData = { images, modelName };
+    const animalType = animalItems[animalIdx];
+    const settingData = { images, modelName, animalType };
     setIsLoading(true);
     try {
       const response = await axios.post(
@@ -142,9 +145,16 @@ function ModelCreate() {
 
   return (
     <>
-      <Grid container sx={{ margin: "0 1rem" }} spacing={1}>
+      <Grid
+        container
+        sx={{ margin: "0 1rem" }}
+        spacing={1}
+      >
         {images.map((image, index) => (
-          <Grid key={index} xs={4}>
+          <Grid
+            key={index}
+            xs={4}
+          >
             <Box
               position={"relative"}
               width={"100%"}
@@ -183,6 +193,7 @@ function ModelCreate() {
         open={nameModalOpen}
         handleClose={handleModalClose}
         setName={setName}
+        animalItems={animalItems}
         sendModelSetting={sendModelSetting}
       />
     </>

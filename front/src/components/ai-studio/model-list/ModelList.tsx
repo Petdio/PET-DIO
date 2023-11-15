@@ -13,34 +13,16 @@ import { theme } from "@/styles/ThemeRegistry";
 import NoModel from "./no-model/NoModel";
 import ThemeList from "../theme-list/ThemeList";
 
-const dummyModelList = [
-  {
-    modelId: 0,
-    modelName: "멍멍이",
-  },
-  {
-    modelId: 1,
-    modelName: "망망이",
-  },
-  {
-    modelId: 2,
-    modelName: "멍뭉이",
-  },
-  {
-    modelId: 3,
-    modelName: "멈뭄미",
-  },
-  {
-    modelId: 4,
-    modelName: "멈멈미",
-  },
-];
+interface ModelProps {
+  modelId: number;
+  modelName: string;
+}
 
 function ModelList() {
   const [modelSelected, setModelSelected] = useState(false);
-  const [modelID, setModelID] = useState(-1);
+  const [modelId, setModelID] = useState(-1);
 
-  const [modelList, setModelList] = useState();
+  const [modelList, setModelList] = useState<ModelProps[]>();
   async function getModelList() {
     try {
       const response = await axios.get(
@@ -63,9 +45,9 @@ function ModelList() {
     getModelList();
   }, []);
 
-  const goToNext = (modelID: number) => {
+  const goToNext = (modelId: number) => {
     setModelSelected(true);
-    setModelID(modelID);
+    setModelID(modelId);
   };
   const Item = styled(Box)(({ theme }) => ({
     display: "flex",
@@ -85,13 +67,13 @@ function ModelList() {
       {!modelSelected ? (
         <>
           <Subtitle content="어떤 모델을 사진관에 데려갈까요?" />
-          {dummyModelList.length !== 0 ? (
+          {modelList ? (
             <Grid
               container
               sx={{ margin: "0 1rem" }}
               spacing={1}
             >
-              {dummyModelList.map((model) => {
+              {modelList.map((model) => {
                 return (
                   <Grid
                     key={model.modelId}
@@ -123,7 +105,7 @@ function ModelList() {
       ) : (
         <>
           <Subtitle content="뒤로가기 어떡하냐 / 임시 api호출" />
-          <ThemeList />
+          <ThemeList modelId={modelId} />
         </>
       )}
     </>

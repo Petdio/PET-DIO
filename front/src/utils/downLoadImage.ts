@@ -19,6 +19,7 @@ export default async function downloadImage(imgSrc: string, fileName: string) {
     a.click();
     URL.revokeObjectURL(blobUrl);
   } catch (err) {
+    alert("다운로드 중 문제가 생겼습니다.");
     return console.log(err);
   }
 }

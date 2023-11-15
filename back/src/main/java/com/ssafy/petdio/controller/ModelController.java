@@ -25,11 +25,12 @@ public class ModelController {
     @PostMapping("/train")
     public ResponseEntity createDataset(@RequestParam("datasetName") String datasetName,
                                         @RequestParam(value = "files") List<MultipartFile> files,
+                                        @RequestParam("breed") String breed,
                                         Authentication authentication)
     {
         try {
             log.info("트레이닝 요청 성공했어요!");
-//            modelService.trainModel(datasetName, files, Long.valueOf(authentication.getName()));
+//            modelService.trainModel(datasetName, files, breed, Long.valueOf(authentication.getName()));
             return ResponseEntity.status(HttpStatus.OK).body(null);
         } catch (Exception e) {
             log.error("모델 만들기 에러"+e.getMessage());

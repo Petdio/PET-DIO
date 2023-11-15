@@ -1,6 +1,7 @@
 "use client";
 
 import { forwardRef, useState, useRef, ChangeEvent, useEffect } from "react";
+import axios from "axios";
 import NextImage from "next/image";
 import { useRouter } from "next/navigation";
 import { useFormData } from "@/app/FormDataProvider";
@@ -116,6 +117,29 @@ function ModelCreate() {
   const [isUploadDone, setIsUploadDone] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+  const sendModelSetting = async () => {
+    const settingData = { images, modelName };
+    setIsLoading(true);
+    try {
+      const response = await axios.post(
+        // process.env.NEXT_PUBLIC_API_URL + `ai/create`,
+        "/ai/create/realPhoto",
+        settingData,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log("이미지 업로드 성공", response);
+      localStorage.setItem("sse-token", response.data);
+      router.push("generating");
+    } catch (error) {
+      console.error("이미지 업로드 실패", error);
+    }
+  };
+
   return (
     <>
       <Grid
@@ -166,6 +190,7 @@ function ModelCreate() {
         open={nameModalOpen}
         handleClose={handleModalClose}
         setName={setName}
+        sendModelSetting={sendModelSetting}
       />
     </>
   );

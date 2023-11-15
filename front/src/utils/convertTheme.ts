@@ -1,20 +1,24 @@
 export default function convertTheme(themeEN: string) {
-  let themeKO = '?';
+  let themeKO = "?";
   switch (themeEN) {
-    case 'Sketch':
-      themeKO = '스케치';
+    case "Sketch":
+      themeKO = "스케치";
       break;
-    case 'Halloween':
-      themeKO = '할로윈';
+    case "Halloween":
+      themeKO = "할로윈";
       break;
-    case 'Ninja':
-      themeKO = '닌자';
+    case "Ninja":
+      themeKO = "닌자";
       break;
-    case 'Mini':
-      themeKO = '미니';
+    case "Mini":
+      themeKO = "미니";
       break;
-    case 'SKYintheHeaven':
-      themeKO = '천국';
+    case "SKYintheHeaven":
+      themeKO = "하늘";
+      break;
+    case "Goggles":
+      themeKO = "고글";
+      break;
   }
   return themeKO;
 }

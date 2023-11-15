@@ -91,6 +91,10 @@ function ModelCreate() {
                         const animalType = convertAnimal(
                           animalItems[animalIdx]
                         );
+                        console.log("a");
+                        console.log(multiFormData);
+                        console.log(modelName);
+                        console.log(animalType);
                         setMultiFormData({
                           ...multiFormData,
                           imageFiles: [
@@ -101,6 +105,7 @@ function ModelCreate() {
                           breed: animalType,
                         });
                         console.log(multiFormData);
+                        console.log("b");
                       }
                     },
                     "image/jpg",

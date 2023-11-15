@@ -121,9 +121,10 @@ export default function AiStudioThemeList({ modelId, goPrev }: Props) {
     try {
       const response = await axios.post(
         // process.env.NEXT_PUBLIC_API_URL + `ai/create`,
-        "/ai/create/realPhoto",
-        settingData,
+        `/ai/create/realPhoto`,
+        null,
         {
+          params: settingData,
           headers: {
             Authorization: `Bearer ${localStorage.getItem("access-token")}`,
             "Content-Type": "application/json",

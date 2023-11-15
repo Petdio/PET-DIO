@@ -27,16 +27,14 @@ const messaging = firebase.messaging();
 self.addEventListener("push", function (e) {
   if (!e.data.json()) return;
 
-  const resultData = e.data.json().notification;
-  const notificationTitle = resultData.title;
+  const resultData = e.data.json();
+
   const notificationOptions = {
-    body: resultData.body,
-    icon: resultData.image, // 웹 푸시 이미지는 icon
-    tag: resultData.tag,
+    icon: resultData.data.url, // 웹 푸시 이미지는 icon
   };
 
   console.log("메세지:", resultData);
-  self.registration.showNotification(notificationTitle, notificationOptions);
+  self.registration.showNotification("이미지 생성 완료!", notificationOptions);
 });
 
 self.addEventListener("notificationclick", function (event) {

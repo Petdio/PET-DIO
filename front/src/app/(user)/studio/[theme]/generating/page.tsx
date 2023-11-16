@@ -34,33 +34,6 @@ export default function Generating() {
   }
 
   useEffect(() => {
-    // if (fcmToken !== "") {
-    //   const firebaseApp = initializeApp({
-    //     apiKey: process.env.NEXT_PUBLIC_FIREBASE_APIKEY,
-    //     authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-    //     projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECTID,
-    //     storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGEBUCKET,
-    //     messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGINGSENDERID,
-    //     appId: process.env.NEXT_PUBLIC_FIREBASE_APPID,
-    //     measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENTID,
-    //   });
-
-    //   const messaging = getMessaging(firebaseApp);
-
-    //   onMessage(messaging, (payload) => {
-    //     console.log("Message received. ", payload.notification?.image);
-    //     const imageKey = payload.notification?.image?.match(/\/([^/]+)\.jpg$/);
-
-    //     if (imageKey) {
-    //       setShowComponent(false);
-    //       setTimeout(() => {
-    //         router.push(`/studio/result?img=${imageKey[1]}`);
-    //       }, 2000);
-    //     } else {
-    //       console.log("No match found");
-    //     }
-    //   });
-    // } else {
     successed("업로드 성공! 조금만 기다려 주세요.");
     const eventSource = new EventSource(
       `${
@@ -71,11 +44,19 @@ export default function Generating() {
     eventSource.addEventListener("notify", (event) => {
       console.log("Received myEventName event:", event.data);
       if (event.data !== "Connection completed") {
-        const imageKey = event.data.match(/\/([^/]+)\.jpg$/);
-        setShowComponent(false);
-        setTimeout(() => {
-          router.push(`/studio/result?img=${imageKey[1]}`);
-        }, 2000);
+        if (event.data === "fail") {
+          failed("Error : 이미지 생성에 실패했어요. 개발진에 문의해주세요.");
+          eventSource.close();
+          setTimeout(() => {
+            router.push(`/studio`);
+          }, 3000);
+        } else {
+          const imageKey = event.data.match(/\/([^/]+)\.jpg$/);
+          setShowComponent(false);
+          setTimeout(() => {
+            router.push(`/studio/result?img=${imageKey[1]}`);
+          }, 2000);
+        }
       }
     });
 

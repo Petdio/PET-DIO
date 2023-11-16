@@ -8,14 +8,14 @@ import ErrorBoundary from "@/app/ErrorBoundary";
 import { useAlert } from "@/components/provider/AlertProvider";
 
 const loadingMessageArr = [
-  "이미지 생성은 30초 ~ 1분 정도 걸려요. 조금만 기다려 주세요!",
+  "커스텀 모델을 통한 이미지 생성은 10초 밖에 안 걸려요. 조금만 기다려 주세요!",
   "앱을 나가거나 다른 페이지를 보셔도 돼요. 알림이 따로 갈거예요.",
   "생성된 이미지를 저장하거나 다른 사람들과 공유해보세요!",
   "앨범 페이지에서 원하는 테마만 필터링할 수 있어요.",
   "이미지 생성 후 설문조사를 완료하시면 코인을 추가로 받을 수 있어요.",
 ];
 
-export default function Generating() {
+export default function AIImageGenerating() {
   const router = useRouter();
   const [showComponent, setShowComponent] = useState(true);
   const [loadingMessageIdx, setLoadingMessageIdx] = useState(0);
@@ -32,33 +32,6 @@ export default function Generating() {
   }
 
   useEffect(() => {
-    // if (fcmToken !== "") {
-    //   const firebaseApp = initializeApp({
-    //     apiKey: process.env.NEXT_PUBLIC_FIREBASE_APIKEY,
-    //     authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-    //     projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECTID,
-    //     storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGEBUCKET,
-    //     messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGINGSENDERID,
-    //     appId: process.env.NEXT_PUBLIC_FIREBASE_APPID,
-    //     measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENTID,
-    //   });
-
-    //   const messaging = getMessaging(firebaseApp);
-
-    //   onMessage(messaging, (payload) => {
-    //     console.log("Message received. ", payload.notification?.image);
-    //     const imageKey = payload.notification?.image?.match(/\/([^/]+)\.jpg$/);
-
-    //     if (imageKey) {
-    //       setShowComponent(false);
-    //       setTimeout(() => {
-    //         router.push(`/studio/result?img=${imageKey[1]}`);
-    //       }, 2000);
-    //     } else {
-    //       console.log("No match found");
-    //     }
-    //   });
-    // } else {
     successed("업로드 성공! 조금만 기다려 주세요.");
     const eventSource = new EventSource(
       `${
@@ -69,11 +42,19 @@ export default function Generating() {
     eventSource.addEventListener("notify", (event) => {
       console.log("Received myEventName event:", event.data);
       if (event.data !== "Connection completed") {
-        const imageKey = event.data.match(/\/([^/]+)\.jpg$/);
-        setShowComponent(false);
-        setTimeout(() => {
-          router.push(`/studio/result?img=${imageKey[1]}`);
-        }, 2000);
+        if (event.data === "fail") {
+          failed("Error : 이미지 생성에 실패했어요. 개발진에 문의해주세요.");
+          eventSource.close();
+          setTimeout(() => {
+            router.push(`/ai-studio`);
+          }, 3000);
+        } else {
+          const imageKey = event.data.match(/\/([^/]+)\.jpg$/);
+          setShowComponent(false);
+          setTimeout(() => {
+            router.push(`/ai-studio/result?img=${imageKey[1]}`);
+          }, 2000);
+        }
       }
     });
 
@@ -139,10 +120,7 @@ export default function Generating() {
               >
                 이미지 생성 완료!
               </Typography>
-              <CheckIcon
-                color="primary"
-                sx={{ width: "100%" }}
-              />
+              <CheckIcon color="primary" sx={{ width: "100%" }} />
             </>
           )}
         </Box>

@@ -34,12 +34,33 @@ self.addEventListener("push", function (e) {
   };
 
   console.log("메세지:", resultData);
-  self.registration.showNotification("이미지 생성 완료!", notificationOptions);
+  if (resultData.data.url === "image fail") {
+    self.registration.showNotification("이미지 생성 실패!");
+  } else if (resultData.data.url === "model fail") {
+    self.registration.showNotification("이미지 생성 실패!");
+  } else if (resultData.data.url === "model") {
+    self.registration.showNotification("모델 생성 완료!");
+  } else {
+    self.registration.showNotification(
+      "이미지 생성 완료!",
+      notificationOptions
+    );
+  }
 });
 
 self.addEventListener("notificationclick", function (event) {
   console.log("notification click", event.notification.icon);
-  const imageKey = event.notification.icon.match(/\/([^/]+)\.jpg$/);
   event.notification.close();
-  event.waitUntil(clients.openWindow(`/studio/result?img=${imageKey[1]}`));
+
+  if (resultData.data.url === "image fail") {
+    event.waitUntil(clients.openWindow(`/studio`));
+  } else if (
+    resultData.data.url === "model fail" ||
+    resultData.data.url === "model"
+  ) {
+    event.waitUntil(clients.openWindow(`/ai-studio`));
+  } else {
+    const imageKey = event.notification.icon.match(/\/([^/]+)\.jpg$/);
+    event.waitUntil(clients.openWindow(`/studio/result?img=${imageKey[1]}`));
+  }
 });

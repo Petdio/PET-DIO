@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { Box, Typography } from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
 
-function Requested() {
+export default function ModelGenerating() {
   const router = useRouter();
   useEffect(() => {
     const timeoutMove = setTimeout(() => {
@@ -21,10 +21,7 @@ function Requested() {
         alignItems={"center"}
         height={"100%"}
       >
-        <CheckIcon
-          color="primary"
-          sx={{ width: "100%" }}
-        />
+        <CheckIcon color="primary" sx={{ width: "100%" }} />
         <Typography
           variant="body1"
           color="black"
@@ -50,5 +47,3 @@ function Requested() {
     </>
   );
 }
-
-export default Requested;

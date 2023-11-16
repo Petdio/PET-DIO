@@ -1,4 +1,4 @@
-import { MultiFormDataProvider } from "@/components/provider/MultiFormdataProvider";
+import { MultiFormDataProvider } from "@/components/provider/AIFormdataProvider";
 
 export default function AiStudioLayout({
   children,

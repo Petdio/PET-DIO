@@ -17,12 +17,12 @@ import { Container } from "@mui/material";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import convertTheme from "@/utils/convertTheme";
-import { useFcmToken } from "@/components/provider/FCM";
 import { SlideMUI } from "@/components/animation/SlideMUI";
 import BackButton from "../back-button/BackButton";
-import { LoadingButton } from "@mui/lab";
 import { price } from "@/constants/price";
 import PriceChip from "@/components/common/price-chip/PriceChip";
+import { useAIFormData } from "@/components/provider/AIFormdataProvider";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 interface Theme {
   imgURL: string;
@@ -32,15 +32,10 @@ interface Theme {
   id: number;
 }
 
-interface Props {
-  modelId: number;
-  goPrev: () => void;
-}
-
-export default function AiStudioThemeList({ modelId, goPrev }: Props) {
+export default function AiStudioThemeList() {
   const router = useRouter();
   const scrollRef = useRef<HTMLDivElement>(null);
-  const { fcmToken } = useFcmToken();
+  const { data, setConceptId } = useAIFormData();
 
   const [isDrag, setIsDrag] = useState(false);
   const [startX, setStartX] = useState<number>(0);
@@ -65,15 +60,12 @@ export default function AiStudioThemeList({ modelId, goPrev }: Props) {
   const [open, setOpen] = useState(false);
   const [modalTitle, setModalTitle] = useState("");
   const [exampleList, setExampleList] = useState<string[]>([]);
-  const [path, setPath] = useState("");
-  const [conceptId, setConceptId] = useState(-1);
   const [themeList, setThemeList] = useState<Theme[]>([]);
 
   const handleClickOpen = (index: number) => {
     setOpen(true);
     setModalTitle(convertTheme(themeList[index].name));
     setExampleList(themeList[index].examples);
-    setPath(themeList[index].path);
     setConceptId(themeList[index].id);
   };
 
@@ -100,57 +92,31 @@ export default function AiStudioThemeList({ modelId, goPrev }: Props) {
     }
   }
 
-  const sendFcmToken = async () => {
-    try {
-      const response = await axios.post(
-        // process.env.NEXT_PUBLIC_API_URL + `user/fcm`,
-        "/user/fcm",
-        { fcmToken },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access-token")}`,
-          },
-        }
-      );
-      console.log("fcm 토큰 전송 성공", response);
-    } catch (error) {
-      console.error("fcm 토큰 전송 실패", error);
-    }
-  };
-
-  const sendSetting = async () => {
-    const settingData = { conceptId: conceptId, modelId: modelId };
+  const sendAIForm = async () => {
     setIsLoading(true);
     try {
       const response = await axios.post(
         // process.env.NEXT_PUBLIC_API_URL + `ai/create`,
         `/ai/create/realPhoto`,
-        null,
+        data,
         {
-          params: settingData,
           headers: {
             Authorization: `Bearer ${localStorage.getItem("access-token")}`,
-            "Content-Type": "application/json",
+            "Content-Type": "multipart/form-data",
           },
         }
       );
-      console.log("이미지 업로드 성공", response);
+      console.log("모델 및 테마 전송 성공", response);
       localStorage.setItem("sse-token", response.data);
       router.push("generating");
     } catch (error) {
-      console.error("이미지 업로드 실패", error);
+      console.error("모델 및 테마 전송 실패", error);
     }
   };
 
   useEffect(() => {
     getThemeList();
   }, []);
-
-  useEffect(() => {
-    sendFcmToken();
-    console.log("fcmToken:", fcmToken);
-    getThemeList();
-  }, [fcmToken]);
 
   return (
     <>
@@ -159,7 +125,6 @@ export default function AiStudioThemeList({ modelId, goPrev }: Props) {
           padding: "1rem",
         }}
       >
-        <BackButton goPrev={goPrev} />
         <Grid
           container
           spacing={2}
@@ -293,7 +258,7 @@ export default function AiStudioThemeList({ modelId, goPrev }: Props) {
               sx={{ width: "100%" }}
               loading={isLoading ? true : false}
               variant="contained"
-              onClick={sendSetting}
+              onClick={sendAIForm}
             >
               확인
             </LoadingButton>

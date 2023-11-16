@@ -18,7 +18,6 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import convertTheme from "@/utils/convertTheme";
 import { SlideMUI } from "@/components/animation/SlideMUI";
-import BackButton from "../back-button/BackButton";
 import { price } from "@/constants/price";
 import PriceChip from "@/components/common/price-chip/PriceChip";
 import { useAIFormData } from "@/components/provider/AIFormdataProvider";
@@ -125,10 +124,7 @@ export default function AiStudioThemeList() {
           padding: "1rem",
         }}
       >
-        <Grid
-          container
-          spacing={2}
-        >
+        <Grid container spacing={2}>
           {themeList.map((item, index) => {
             return (
               <Grid
@@ -154,10 +150,7 @@ export default function AiStudioThemeList() {
         aria-describedby="select-theme"
         maxWidth="xs"
       >
-        <DialogTitle
-          textAlign="center"
-          fontWeight="bold"
-        >
+        <DialogTitle textAlign="center" fontWeight="bold">
           {modalTitle}
         </DialogTitle>
         <DialogContent sx={{ padding: 0 }}>
@@ -250,10 +243,7 @@ export default function AiStudioThemeList() {
             display={"flex"}
             justifyContent={"center"}
           >
-            <PriceChip
-              price={price.generateImage}
-              outside
-            />
+            <PriceChip price={price.generateImage} outside />
             <LoadingButton
               sx={{ width: "100%" }}
               loading={isLoading ? true : false}

@@ -17,6 +17,11 @@ import { Box, Button } from "@mui/material";
 import UploadCreateButton from "./upload-create-button-set/UploadCreateButtonSet";
 import ModelCreateNameModal from "./model-create-name-modal/ModelCreateNameModal";
 
+interface ModelDataProps {
+  modelId: number;
+  conceptId: number;
+}
+
 function ModelCreate() {
   const [modelName, setModelName] = useState("");
   const [images, setImages] = useState<(string | ArrayBuffer | null)[]>([]);
@@ -27,6 +32,7 @@ function ModelCreate() {
   const { multiFormData, setMultiFormData } = useMultiFormData();
   const [animalIdx, setAnimalIdx] = useState(-1);
   const animalItems = ["개", "고양이"];
+  const [modelData, setModelData] = useState();
 
   const setName = (inputName: string) => {
     setModelName(inputName);
@@ -97,8 +103,8 @@ function ModelCreate() {
                         console.log(animalType);
                         setMultiFormData({
                           ...multiFormData,
-                          imageFiles: [
-                            ...(multiFormData.imageFiles || []),
+                          imageFile: [
+                            ...(multiFormData.imageFile || []),
                             newFile,
                           ],
                           datasetName: modelName,
@@ -129,10 +135,10 @@ function ModelCreate() {
   };
 
   const [isUploadDone, setIsUploadDone] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isDone, setIsDone] = useState(false);
 
   const sendModelSetting = async () => {
-    setIsLoading(true);
+    setIsDone(true);
     try {
       const response = await axios.post(
         // process.env.NEXT_PUBLIC_API_URL + `ai/create`,

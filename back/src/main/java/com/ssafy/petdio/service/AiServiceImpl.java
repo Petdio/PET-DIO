@@ -146,7 +146,8 @@ public class AiServiceImpl implements AiService {
                 if (status.equals("FAILED")) {
                     returnData = "fail";
                 }
-                sseService.send(datasetId, returnData);
+                //model은 sse안함
+//                sseService.send(datasetId, returnData);
                 User user = userRepository.findByUserIdAndUserDeleteIsNull(imageData.getUserId()).orElseThrow();
                 if (user.getFcmToken() != null) {
                     Map<String, String> map = new HashMap<>();

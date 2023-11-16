@@ -142,7 +142,7 @@ function ModelCreate() {
         }
       );
       console.log("모델 학습용 데이터 업로드 성공", response);
-      router.push("requested");
+      router.push("/ai-studio/model-create/requesting");
     } catch (error) {
       console.error("모델 학습용 데이터 업로드 실패", error);
     }
@@ -150,9 +150,16 @@ function ModelCreate() {
 
   return (
     <>
-      <Grid container sx={{ margin: "0 1rem" }} spacing={1}>
+      <Grid
+        container
+        sx={{ margin: "0 1rem" }}
+        spacing={1}
+      >
         {images.map((image, index) => (
-          <Grid key={index} xs={4}>
+          <Grid
+            key={index}
+            xs={4}
+          >
             <Box
               position={"relative"}
               width={"100%"}

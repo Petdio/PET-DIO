@@ -58,7 +58,7 @@ function ModelList() {
 
   const handleSelectModel = (modelId: number) => {
     setModelId(modelId);
-    router.push("image-create");
+    router.push("/ai-studio/image-create");
   };
 
   useEffect(() => {
@@ -68,10 +68,17 @@ function ModelList() {
   return (
     <>
       {modelList.length !== 0 ? (
-        <Grid container sx={{ margin: "0 1rem" }} spacing={1}>
+        <Grid
+          container
+          sx={{ margin: "0 1rem" }}
+          spacing={1}
+        >
           {modelList.map((model) => {
             return (
-              <Grid key={model.modelId} xs={6}>
+              <Grid
+                key={model.modelId}
+                xs={6}
+              >
                 <Item
                   sx={{
                     border: "1px solid #18181812",

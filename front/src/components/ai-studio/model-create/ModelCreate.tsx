@@ -142,7 +142,7 @@ function ModelCreate() {
         }
       );
       console.log("모델 학습용 데이터 업로드 성공", response);
-      router.push("/ai-studio/model-create/requesting");
+      router.push("/ai-studio/model-create/generating");
     } catch (error) {
       console.error("모델 학습용 데이터 업로드 실패", error);
     }

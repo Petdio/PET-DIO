@@ -5,10 +5,8 @@ import axios from "axios";
 import NextImage from "next/image";
 import { useRouter } from "next/navigation";
 import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2
-import LoadingButton from "@mui/lab/LoadingButton";
 import convertAnimal from "@/utils/convertAnimal";
 import { Box } from "@mui/material";
-
 import UploadCreateButton from "./upload-create-button-set/UploadCreateButtonSet";
 import ModelCreateNameModal from "./model-create-name-modal/ModelCreateNameModal";
 
@@ -40,6 +38,7 @@ function ModelCreate() {
   const [nameModalOpen, setNameModalOpen] = useState(false);
   const handleModalOpen = () => {
     setNameModalOpen(true);
+    console.log(modelData);
   };
 
   const handleModalClose = () => {
@@ -52,79 +51,89 @@ function ModelCreate() {
     }
   };
 
-  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
       const files = event.target.files;
       const newImages: (string | ArrayBuffer | null)[] = [];
+      const updatedFiles: File[] = [];
 
-      // 각 이미지 파일들 처리
-      Array.from(files).forEach((file, index) => {
+      for (let index = 0; index < files.length; index++) {
+        const file = files[index];
         const reader = new FileReader();
 
         reader.readAsDataURL(file);
 
-        reader.onloadend = () => {
-          const img = new Image();
-          img.src = reader.result as string;
-          img.onload = () => {
-            if (img.width && img.height) {
-              newImages.push(reader.result);
+        await new Promise((resolve) => {
+          reader.onloadend = () => {
+            const img = new Image();
+            img.src = reader.result as string;
+            img.onload = () => {
+              if (img.width && img.height) {
+                newImages.push(reader.result);
 
-              const mimeType = file.type;
+                const mimeType = file.type;
 
-              if (mimeType !== "image/jpg") {
-                const canvas = document.createElement("canvas");
-                const ctx = canvas.getContext("2d");
-                if (ctx) {
-                  canvas.width = img.width;
-                  canvas.height = img.height;
-                  ctx.drawImage(img, 0, 0);
-                  canvas.toBlob(
-                    (blob) => {
-                      if (blob) {
-                        const newFile = new File(
-                          [blob],
-                          `image_${index + 1}.jpg`,
-                          {
-                            type: "image/jpg",
-                          }
-                        );
-                        const animalType = convertAnimal(
-                          animalItems[animalIdx]
-                        );
-                        setModelData({
-                          files: [...modelData.files, newFile],
-                          datasetName: modelName,
-                          breed: animalType,
-                        });
-                        console.log(modelData);
-                      }
-                    },
-                    "image/jpg",
-                    1.0
-                  );
+                if (mimeType !== "image/jpg") {
+                  const canvas = document.createElement("canvas");
+                  const ctx = canvas.getContext("2d");
+                  if (ctx) {
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    ctx.drawImage(img, 0, 0);
+                    canvas.toBlob(
+                      (blob) => {
+                        if (blob) {
+                          const newFile = new File(
+                            [blob],
+                            `image_${index + 1}.jpg`,
+                            {
+                              type: "image/jpg",
+                            }
+                          );
+                          updatedFiles.push(newFile);
+                        }
+                        resolve(null);
+                      },
+                      "image/jpg",
+                      1.0
+                    );
+                  }
+                }
+
+                if (index === files.length - 1) {
+                  // Set isUploadDone to true
+                  setIsUploadDone(true);
                 }
               }
-              if (index === files.length - 1) {
-                // Set isUploadDone to true
-                setIsUploadDone(true);
-              }
-            }
+            };
           };
-        };
-      });
+        });
+      }
 
       setImages(newImages);
+      const animalType = convertAnimal(animalItems[animalIdx]);
+      setModelData({
+        files: [...modelData.files, ...updatedFiles],
+        datasetName: modelName,
+        breed: animalType,
+      });
     }
   };
 
   const sendModelSetting = async () => {
     setIsDone(true);
+    const formData = new FormData();
+    modelData.files.forEach((file, index) => {
+      formData.append(`files`, file);
+    });
+    formData.append(`datasetName`, modelData.datasetName);
+    formData.append(`breed`, modelData.breed);
+
     try {
       const response = await axios.post(
         // process.env.NEXT_PUBLIC_API_URL + `ai/create`,
         `/model/train`,
-        modelData,
+        formData,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("access-token")}`,
@@ -132,26 +141,18 @@ function ModelCreate() {
           },
         }
       );
-      console.log("이미지 업로드 성공", response);
-      localStorage.setItem("sse-token", response.data);
+      console.log("모델 학습용 데이터 업로드 성공", response);
       router.push("requested");
     } catch (error) {
-      console.error("이미지 업로드 실패", error);
+      console.error("모델 학습용 데이터 업로드 실패", error);
     }
   };
 
   return (
     <>
-      <Grid
-        container
-        sx={{ margin: "0 1rem" }}
-        spacing={1}
-      >
+      <Grid container sx={{ margin: "0 1rem" }} spacing={1}>
         {images.map((image, index) => (
-          <Grid
-            key={index}
-            xs={4}
-          >
+          <Grid key={index} xs={4}>
             <Box
               position={"relative"}
               width={"100%"}

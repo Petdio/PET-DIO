@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ModelService {
 
-    void trainModel(String datasetName, List<MultipartFile> multipartFiles, String breed, Long userId) throws IOException;
+    String trainModel(String datasetName, List<MultipartFile> multipartFiles, String breed, Long userId) throws IOException;
 
     List<ModelDto.Response> getModelList(Long userId);
 }

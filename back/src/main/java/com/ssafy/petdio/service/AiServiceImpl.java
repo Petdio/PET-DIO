@@ -139,6 +139,23 @@ public class AiServiceImpl implements AiService {
             String datasetId = data.getString("initDatasetId");
             if (datasetId != null) {
                 log.info("datasetId : " + datasetId);
+                AiDto.Data imageData = redisTemplate.opsForValue().get(datasetId);
+                //모델학습 성공시 코인쓰는거 추가
+//                userService.useCoin(user.getUserId());
+                String returnData = "model";
+                if (status.equals("FAILED")) {
+                    returnData = "fail";
+                }
+                sseService.send(datasetId, returnData);
+                User user = userRepository.findByUserIdAndUserDeleteIsNull(imageData.getUserId()).orElseThrow();
+                if (user.getFcmToken() != null) {
+                    Map<String, String> map = new HashMap<>();
+                    map.put("url", returnData);
+                    fcmService.sendMessageTo(NotificationMessage.builder()
+                            .recipientToken(user.getFcmToken())
+                            .data(map)
+                            .build());
+                }
                 return;
             }
         } catch (Exception e) {

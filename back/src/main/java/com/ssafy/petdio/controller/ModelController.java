@@ -24,7 +24,7 @@ public class ModelController {
 
     @PostMapping("/train")
     public ResponseEntity createDataset(@RequestParam("datasetName") String datasetName,
-                                        @RequestParam(value = "files") List<MultipartFile> files,
+                                        @RequestParam("files") List<MultipartFile> files,
                                         @RequestParam("breed") String breed,
                                         Authentication authentication)
     {

@@ -1,38 +1,37 @@
 "use client";
 
-import { forwardRef, useState, useRef, ChangeEvent, useEffect } from "react";
+import { useState, useRef, ChangeEvent } from "react";
 import axios from "axios";
 import NextImage from "next/image";
 import { useRouter } from "next/navigation";
-import { useFormData } from "@/components/provider/FormDataProvider";
-import { useMultiFormData } from "@/components/provider/MultiFormdataProvider";
 import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2
 import LoadingButton from "@mui/lab/LoadingButton";
 import convertAnimal from "@/utils/convertAnimal";
-
-// import Image from "next/image";
-
-import { Box, Button } from "@mui/material";
+import { Box } from "@mui/material";
 
 import UploadCreateButton from "./upload-create-button-set/UploadCreateButtonSet";
 import ModelCreateNameModal from "./model-create-name-modal/ModelCreateNameModal";
 
-interface ModelDataProps {
-  modelId: number;
-  conceptId: number;
+interface ModelFormData {
+  files: File[];
+  datasetName: string;
+  breed: string;
 }
 
 function ModelCreate() {
-  const [modelName, setModelName] = useState("");
-  const [images, setImages] = useState<(string | ArrayBuffer | null)[]>([]);
-  const [imageWidths, setImageWidths] = useState<number[]>([]);
-  const [imageHeights, setImageHeights] = useState<number[]>([]);
-  const fileInputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
-  const { multiFormData, setMultiFormData } = useMultiFormData();
-  const [animalIdx, setAnimalIdx] = useState(-1);
+  const [modelName, setModelName] = useState(""); // 모델 이름
+  const [images, setImages] = useState<(string | ArrayBuffer | null)[]>([]); // 화면에 표시할 이미지들
+  const fileInputRef = useRef<HTMLInputElement>(null); // 파일 업로드
+  const [animalIdx, setAnimalIdx] = useState(-1); // 동물 타입
   const animalItems = ["개", "고양이"];
-  const [modelData, setModelData] = useState();
+  const [isUploadDone, setIsUploadDone] = useState(false);
+  const [isDone, setIsDone] = useState(false);
+  const [modelData, setModelData] = useState<ModelFormData>({
+    files: [],
+    datasetName: "",
+    breed: "",
+  });
 
   const setName = (inputName: string) => {
     setModelName(inputName);
@@ -57,10 +56,8 @@ function ModelCreate() {
     if (event.target.files && event.target.files.length > 0) {
       const files = event.target.files;
       const newImages: (string | ArrayBuffer | null)[] = [];
-      const newWidths: number[] = [];
-      const newHeights: number[] = [];
 
-      // Process each file
+      // 각 이미지 파일들 처리
       Array.from(files).forEach((file, index) => {
         const reader = new FileReader();
 
@@ -72,8 +69,6 @@ function ModelCreate() {
           img.onload = () => {
             if (img.width && img.height) {
               newImages.push(reader.result);
-              newWidths.push(img.width);
-              newHeights.push(img.height);
 
               const mimeType = file.type;
 
@@ -97,21 +92,12 @@ function ModelCreate() {
                         const animalType = convertAnimal(
                           animalItems[animalIdx]
                         );
-                        console.log("a");
-                        console.log(multiFormData);
-                        console.log(modelName);
-                        console.log(animalType);
-                        setMultiFormData({
-                          ...multiFormData,
-                          imageFile: [
-                            ...(multiFormData.imageFile || []),
-                            newFile,
-                          ],
+                        setModelData({
+                          files: [...modelData.files, newFile],
                           datasetName: modelName,
                           breed: animalType,
                         });
-                        console.log(multiFormData);
-                        console.log("b");
+                        console.log(modelData);
                       }
                     },
                     "image/jpg",
@@ -129,13 +115,8 @@ function ModelCreate() {
       });
 
       setImages(newImages);
-      setImageWidths(newWidths);
-      setImageHeights(newHeights);
     }
   };
-
-  const [isUploadDone, setIsUploadDone] = useState(false);
-  const [isDone, setIsDone] = useState(false);
 
   const sendModelSetting = async () => {
     setIsDone(true);
@@ -143,9 +124,8 @@ function ModelCreate() {
       const response = await axios.post(
         // process.env.NEXT_PUBLIC_API_URL + `ai/create`,
         `/model/train`,
-        null,
+        modelData,
         {
-          params: multiFormData,
           headers: {
             Authorization: `Bearer ${localStorage.getItem("access-token")}`,
             "Content-Type": "multipart/form-data",
@@ -162,16 +142,9 @@ function ModelCreate() {
 
   return (
     <>
-      <Grid
-        container
-        sx={{ margin: "0 1rem" }}
-        spacing={1}
-      >
+      <Grid container sx={{ margin: "0 1rem" }} spacing={1}>
         {images.map((image, index) => (
-          <Grid
-            key={index}
-            xs={4}
-          >
+          <Grid key={index} xs={4}>
             <Box
               position={"relative"}
               width={"100%"}

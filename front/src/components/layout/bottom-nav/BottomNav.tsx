@@ -16,55 +16,55 @@ function BottomNav(props: BottomNavProps) {
   const [activeNum, setActiveNum] = useState<number>(0);
 
   const handleNavigationChange = (event: ChangeEvent<{}>, newValue: number) => {
-    switch (newValue) {
-      case 0:
-        router.push("/studio");
-        break;
-      case 1:
-        router.push("/album");
-        break;
-      default:
-        break;
-    }
     // switch (newValue) {
     //   case 0:
     //     router.push("/studio");
     //     break;
     //   case 1:
-    //     router.push("/ai-studio");
-    //     break;
-    //   case 2:
     //     router.push("/album");
     //     break;
     //   default:
     //     break;
     // }
-  };
-  useEffect(() => {
-    switch (pathname) {
-      case "/studio":
-        setActiveNum(0);
+    switch (newValue) {
+      case 0:
+        router.push("/studio");
         break;
-
-      case "/album":
-        setActiveNum(1);
+      case 1:
+        router.push("/ai-studio");
+        break;
+      case 2:
+        router.push("/album");
         break;
       default:
         break;
     }
+  };
+  useEffect(() => {
     // switch (pathname) {
     //   case "/studio":
     //     setActiveNum(0);
     //     break;
-    //   case "/ai-studio":
-    //     setActiveNum(1);
-    //     break;
+
     //   case "/album":
-    //     setActiveNum(2);
+    //     setActiveNum(1);
     //     break;
     //   default:
     //     break;
     // }
+    switch (pathname) {
+      case "/studio":
+        setActiveNum(0);
+        break;
+      case "/ai-studio":
+        setActiveNum(1);
+        break;
+      case "/album":
+        setActiveNum(2);
+        break;
+      default:
+        break;
+    }
   }, [usePathname()]);
 
   return (
@@ -83,19 +83,13 @@ function BottomNav(props: BottomNavProps) {
       onChange={handleNavigationChange}
       showLabels
     >
+      <BottomNavigationAction label="캐주얼" icon={<PaletteIcon />} />
       <BottomNavigationAction
-        label="캐주얼"
-        icon={<PaletteIcon />}
-      />
-      {/* <BottomNavigationAction
         label="스튜디오"
-        disabled
+        // disabled
         icon={<CameraIcon />}
-      /> */}
-      <BottomNavigationAction
-        label="앨범"
-        icon={<CollectionsIcon />}
       />
+      <BottomNavigationAction label="앨범" icon={<CollectionsIcon />} />
     </BottomNavigation>
   );
 }

@@ -142,9 +142,16 @@ function ModelCreate() {
 
   return (
     <>
-      <Grid container sx={{ margin: "0 1rem" }} spacing={1}>
+      <Grid
+        container
+        sx={{ margin: "0 1rem" }}
+        spacing={1}
+      >
         {images.map((image, index) => (
-          <Grid key={index} xs={4}>
+          <Grid
+            key={index}
+            xs={4}
+          >
             <Box
               position={"relative"}
               width={"100%"}
@@ -168,6 +175,7 @@ function ModelCreate() {
       </Grid>
       <UploadCreateButton
         isUploadDone={isUploadDone}
+        isDone={isDone}
         uploadClick={handleFileUploadClick}
         openNameModal={handleModalOpen}
       >

@@ -144,7 +144,7 @@ public class AiServiceImpl implements AiService {
 //                userService.useCoin(user.getUserId());
                 String returnData = "model";
                 if (status.equals("FAILED")) {
-                    returnData = "fail";
+                    returnData = "model fail";
                 }
                 //model은 sse안함
 //                sseService.send(datasetId, returnData);
@@ -193,9 +193,9 @@ public class AiServiceImpl implements AiService {
                 }
         } else if (status.equals("FAILED")) {
             Map<String, String> map = new HashMap<>();
-            map.put("url", "fail");
+            map.put("url", "image fail");
             userService.useCoin(user.getUserId());
-            sseService.send(generationId, "fail");
+            sseService.send(generationId, "image fail");
             if (user.getFcmToken() != null) {
                 fcmService.sendMessageTo(NotificationMessage.builder()
                         .recipientToken(user.getFcmToken())

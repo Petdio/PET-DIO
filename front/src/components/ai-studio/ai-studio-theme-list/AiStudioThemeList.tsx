@@ -1,5 +1,5 @@
 "use client";
-import { forwardRef, useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   Grid,
   Box,
@@ -20,6 +20,9 @@ import convertTheme from "@/utils/convertTheme";
 import { useFcmToken } from "@/components/provider/FCM";
 import { SlideMUI } from "@/components/animation/SlideMUI";
 import BackButton from "../back-button/BackButton";
+import { LoadingButton } from "@mui/lab";
+import { price } from "@/constants/price";
+import PriceChip from "@/components/common/price-chip/PriceChip";
 
 interface Theme {
   imgURL: string;
@@ -276,13 +279,25 @@ export default function AiStudioThemeList({ modelId, goPrev }: Props) {
           >
             취소
           </Button>
-          <Button
-            sx={{ width: "50%" }}
-            variant="contained"
-            onClick={sendSetting}
+          <Box
+            width={"50%"}
+            position={"relative"}
+            display={"flex"}
+            justifyContent={"center"}
           >
-            확인
-          </Button>
+            <PriceChip
+              price={price.generateImage}
+              outside
+            />
+            <LoadingButton
+              sx={{ width: "100%" }}
+              loading={isLoading ? true : false}
+              variant="contained"
+              onClick={sendSetting}
+            >
+              확인
+            </LoadingButton>
+          </Box>
         </DialogActions>
       </Dialog>
     </>

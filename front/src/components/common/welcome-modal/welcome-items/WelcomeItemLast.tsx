@@ -1,11 +1,11 @@
-import Image from 'next/image';
-import { Box, Typography, Button } from '@mui/material';
+import Image from "next/image";
+import { Box, Typography, Button } from "@mui/material";
 
 interface Props {
   onClose: () => void;
 }
 
-function WelcomeItem4({ onClose }: Props) {
+function WelcomeItemLast({ onClose }: Props) {
   return (
     <Box
       display="flex"
@@ -16,7 +16,6 @@ function WelcomeItem4({ onClose }: Props) {
       height="100%"
     >
       <Image
-        // src="/assets/Logo_notypo_primary.svg"
         src="/assets/vari.svg"
         alt="logo"
         width={48}
@@ -28,13 +27,7 @@ function WelcomeItem4({ onClose }: Props) {
       <Box height="1.5rem" />
 
       <Button
-        variant="text"
-        // endIcon={<ArrowForwardIcon />}
-        sx={{
-          // position: 'absolute',
-          // bottom: '1.5rem',
-          borderRadius: 100,
-        }}
+        variant="outlined"
         onClick={() => onClose()}
       >
         PETDIO 시작!
@@ -44,4 +37,4 @@ function WelcomeItem4({ onClose }: Props) {
   );
 }
 
-export default WelcomeItem4;
+export default WelcomeItemLast;

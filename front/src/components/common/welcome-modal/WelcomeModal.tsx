@@ -1,21 +1,21 @@
-'use client';
+"use client";
 
-import { useState, useRef, useEffect } from 'react';
-import { Dialog, Box, Typography, Button } from '@mui/material';
-import { SlideMUI } from '@/components/animation/SlideMUI';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination } from 'swiper/modules';
-import WelcomeItem1 from './welcome-items/WelcomeItem1';
-import WelcomeItem2 from './welcome-items/WelcomeItem2';
-import WelcomeItem3 from './welcome-items/WelcomeItem3';
-import WelcomeItem4 from './welcome-items/WelcomeItem4';
-import { SwiperClass } from 'swiper/react';
-import SwiperNextButton from '../swiper-next-button/SwiperNextButton';
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
-import './styles.css';
-import { theme } from '@/styles/ThemeRegistry';
+import { useState, useRef, useEffect } from "react";
+import { Dialog, Button } from "@mui/material";
+import { SlideMUI } from "@/components/animation/SlideMUI";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from "swiper/modules";
+import WelcomeItemStart from "./welcome-items/WelcomeItemStart";
+import WelcomeItemLast from "./welcome-items/WelcomeItemLast";
+import WelcomeItem1 from "./welcome-items/WelcomeItem1";
+import WelcomeItem2 from "./welcome-items/WelcomeItem2";
+import WelcomeItem3 from "./welcome-items/WelcomeItem3";
+import { SwiperClass } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import "./styles.css";
+import { theme } from "@/styles/ThemeRegistry";
 
 function WelcomeModal() {
   const [open, setOpen] = useState(false);
@@ -23,12 +23,12 @@ function WelcomeModal() {
   const swiperRef = useRef<SwiperClass>();
 
   useEffect(() => {
-    const newMemBool = localStorage.getItem('new-member');
-    if (newMemBool === 'true') setOpen(true);
+    const newMemBool = localStorage.getItem("new-member");
+    if (newMemBool === "true") setOpen(true);
   }, []);
 
   const handleClose = () => {
-    localStorage.setItem('new-member', 'false');
+    localStorage.setItem("new-member", "false");
     setOpen(false);
   };
 
@@ -47,19 +47,19 @@ function WelcomeModal() {
       TransitionComponent={SlideMUI}
       onClose={handleClose}
       sx={{
-        paddingLeft: '1rem',
-        paddingRight: '1rem',
+        paddingLeft: "1rem",
+        paddingRight: "1rem",
       }}
     >
       <Button
         variant="text"
         color="inherit"
         sx={{
-          alignSelf: 'end',
+          alignSelf: "end",
           borderRadius: 100,
           color: theme.palette.grey[400],
-          top: '0.5rem',
-          right: '1rem',
+          top: "0.5rem",
+          right: "1rem",
         }}
         onClick={handleClose}
       >
@@ -68,7 +68,6 @@ function WelcomeModal() {
       <Swiper
         className="welcome-swiper"
         navigation
-        // pagination={!isInit}
         pagination={true}
         modules={[Pagination, Navigation]}
         onSwiper={(swiper) => {
@@ -76,7 +75,10 @@ function WelcomeModal() {
         }}
       >
         <SwiperSlide>
-          <WelcomeItem1 startTutorial={startTutorialFn} />
+          <WelcomeItemStart startTutorial={startTutorialFn} />
+        </SwiperSlide>
+        <SwiperSlide>
+          <WelcomeItem1 />
         </SwiperSlide>
         <SwiperSlide>
           <WelcomeItem2 />
@@ -85,7 +87,7 @@ function WelcomeModal() {
           <WelcomeItem3 />
         </SwiperSlide>
         <SwiperSlide>
-          <WelcomeItem4 onClose={handleClose} />
+          <WelcomeItemLast onClose={handleClose} />
         </SwiperSlide>
       </Swiper>
       {/* <SwiperNextButton

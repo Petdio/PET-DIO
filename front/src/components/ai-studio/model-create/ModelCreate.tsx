@@ -154,7 +154,7 @@ function ModelCreate() {
       );
       console.log("이미지 업로드 성공", response);
       localStorage.setItem("sse-token", response.data);
-      router.push("generating");
+      router.push("requested");
     } catch (error) {
       console.error("이미지 업로드 실패", error);
     }

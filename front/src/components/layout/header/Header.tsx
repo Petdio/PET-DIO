@@ -44,6 +44,7 @@ export default function Header() {
     "/generating",
     "/result",
     "/ai-studio",
+    "/requested",
   ];
 
   async function getUserInfo() {

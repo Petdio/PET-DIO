@@ -1,43 +1,72 @@
 "use client";
 import { createContext, useContext, useState, ReactNode } from "react";
 
-type MultiFormData = {
-  imageFile: File[] | null;
-  datasetName: string;
-  breed: string;
+interface AIFormData {
+  modelId: number;
+  conceptId: number;
+}
+
+interface AIFormDataContextType {
+  data: AIFormData;
+  setModelId: (id: number) => void;
+  setConceptId: (id: number) => void;
+}
+
+const defaultContext: AIFormDataContextType = {
+  data: {
+    modelId: -1,
+    conceptId: -1,
+  },
+  setModelId: (id: number) => {},
+  setConceptId: (id: number) => {},
 };
 
-interface MultiFormDataContextType {
-  multiFormData: MultiFormData;
-  setMultiFormData: React.Dispatch<React.SetStateAction<MultiFormData>>;
-}
+const AIFormDataContext = createContext(defaultContext);
 
-const MultiFormDataContext = createContext<
-  MultiFormDataContextType | undefined
->(undefined);
-
-interface Props {
+export default function AIFormDataProvider({
+  children,
+}: {
   children: ReactNode;
-}
+}) {
+  const [state, setState] = useState<AIFormDataContextType>(defaultContext);
 
-export const MultiFormDataProvider = ({ children }: Props) => {
-  const [multiFormData, setMultiFormData] = useState<MultiFormData>({
-    imageFile: null,
-    datasetName: "",
-    breed: "",
-  });
+  const setModelId = (id: number) => {
+    setState((prev) => ({
+      ...prev,
+      data: {
+        ...prev.data,
+        modelId: id,
+      },
+    }));
+  };
+
+  const setConceptId = (id: number) => {
+    setState((prev) => ({
+      ...prev,
+      data: {
+        ...prev.data,
+        conceptId: id,
+      },
+    }));
+  };
+
+  const aiCtx: AIFormDataContextType = {
+    data: state.data,
+    setModelId,
+    setConceptId,
+  };
 
   return (
-    <MultiFormDataContext.Provider value={{ multiFormData, setMultiFormData }}>
+    <AIFormDataContext.Provider value={aiCtx}>
       {children}
-    </MultiFormDataContext.Provider>
+    </AIFormDataContext.Provider>
   );
-};
+}
 
-export const useMultiFormData = () => {
-  const context = useContext(MultiFormDataContext);
+export const useAIFormData = () => {
+  const context = useContext(AIFormDataContext);
   if (!context) {
-    throw new Error("useFormData must be used within a FormDataProvider");
+    throw new Error("useAIFormData must be used within a AIFormDataProvider");
   }
   return context;
 };

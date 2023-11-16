@@ -1,8 +1,9 @@
 import PageTitle from "@/components/common/page-title/PageTitle";
 import Subtitle from "@/components/studio/subtitle/Subtitle";
 import ModelCreate from "@/components/ai-studio/model-create/ModelCreate";
+import AiStudioThemeList from "@/components/ai-studio/ai-studio-theme-list/AiStudioThemeList";
 
-function Create() {
+export default function ImageCreatePage() {
   return (
     <>
       <PageTitle pageTitleContent="모델 만들기" />
@@ -11,5 +12,3 @@ function Create() {
     </>
   );
 }
-
-export default Create;

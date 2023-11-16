@@ -26,7 +26,7 @@ function ModelCreateButton() {
   const rightPosition =
     windowWidth >= 480 ? `calc((100vw - 480px) / 2 + 1rem)` : "1rem";
   const moveToCreate = () => {
-    router.push("/ai-studio/create");
+    router.push("/ai-studio/model-create");
   };
   return (
     <>

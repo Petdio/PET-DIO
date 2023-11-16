@@ -18,6 +18,9 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import convertTheme from "@/utils/convertTheme";
 import { SlideMUI } from "@/components/animation/SlideMUI";
+import BackButton from "../back-button/BackButton";
+import { price } from "@/constants/price";
+import PriceChip from "@/components/common/price-chip/PriceChip";
 import { useAIFormData } from "@/components/provider/AIFormdataProvider";
 import LoadingButton from "@mui/lab/LoadingButton";
 
@@ -122,7 +125,10 @@ export default function AiStudioThemeList() {
           padding: "1rem",
         }}
       >
-        <Grid container spacing={2}>
+        <Grid
+          container
+          spacing={2}
+        >
           {themeList.map((item, index) => {
             return (
               <Grid
@@ -148,7 +154,10 @@ export default function AiStudioThemeList() {
         aria-describedby="select-theme"
         maxWidth="xs"
       >
-        <DialogTitle textAlign="center" fontWeight="bold">
+        <DialogTitle
+          textAlign="center"
+          fontWeight="bold"
+        >
           {modalTitle}
         </DialogTitle>
         <DialogContent sx={{ padding: 0 }}>
@@ -227,29 +236,33 @@ export default function AiStudioThemeList() {
             padding: "0rem 1rem 3.5rem 1rem",
           }}
         >
-          {!isLoading ? (
-            <>
-              <Button
-                sx={{ width: "50%" }}
-                variant="contained"
-                color="inherit"
-                onClick={handleClose}
-              >
-                취소
-              </Button>
-              <Button
-                sx={{ width: "50%" }}
-                variant="contained"
-                onClick={sendAIForm}
-              >
-                확인
-              </Button>
-            </>
-          ) : (
-            <LoadingButton loading sx={{ width: "100%" }} variant="contained">
-              요청중...
+          <Button
+            sx={{ width: "50%" }}
+            variant="contained"
+            color="inherit"
+            onClick={handleClose}
+          >
+            취소
+          </Button>
+          <Box
+            width={"50%"}
+            position={"relative"}
+            display={"flex"}
+            justifyContent={"center"}
+          >
+            <PriceChip
+              price={price.generateImage}
+              outside
+            />
+            <LoadingButton
+              sx={{ width: "100%" }}
+              loading={isLoading ? true : false}
+              variant="contained"
+              onClick={sendAIForm}
+            >
+              확인
             </LoadingButton>
-          )}
+          </Box>
         </DialogActions>
       </Dialog>
     </>

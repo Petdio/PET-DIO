@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Box } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import Subtitle from "@/components/studio/subtitle/Subtitle";
 import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2
 import DeleteIcon from "@mui/icons-material/Delete";
 import ModelCreateButton from "../model-create/model-create-button/ModelCreateButton";
@@ -68,7 +67,6 @@ function ModelList() {
 
   return (
     <>
-      <Subtitle content="어떤 모델을 사진관에 데려갈까요?" />
       {modelList.length !== 0 ? (
         <Grid container sx={{ margin: "0 1rem" }} spacing={1}>
           {modelList.map((model) => {

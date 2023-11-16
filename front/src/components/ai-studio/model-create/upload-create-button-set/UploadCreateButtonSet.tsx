@@ -3,8 +3,7 @@
 import { useState, useEffect } from "react";
 import { Button, Box } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
-
-// 아이콘 넣어야 함
+import "./UploadCreateButton.css";
 
 interface Props {
   isUploadDone: boolean;

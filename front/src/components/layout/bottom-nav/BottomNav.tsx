@@ -1,11 +1,11 @@
 "use client";
 // Import necessary types from Next.js and Material-UI
 import { usePathname, useRouter } from "next/navigation";
+import { MouseEvent, ChangeEvent, useState, useEffect } from "react";
 import { BottomNavigation, BottomNavigationAction } from "@mui/material";
 import PaletteIcon from "@mui/icons-material/Palette";
 import CameraIcon from "@mui/icons-material/Camera";
 import CollectionsIcon from "@mui/icons-material/Collections";
-import { MouseEvent, ChangeEvent, useState, useEffect } from "react";
 
 interface BottomNavProps {}
 
@@ -21,30 +21,50 @@ function BottomNav(props: BottomNavProps) {
         router.push("/studio");
         break;
       case 1:
-        router.push("/ai-studio");
-        break;
-      case 2:
         router.push("/album");
         break;
       default:
         break;
     }
+    // switch (newValue) {
+    //   case 0:
+    //     router.push("/studio");
+    //     break;
+    //   case 1:
+    //     router.push("/ai-studio");
+    //     break;
+    //   case 2:
+    //     router.push("/album");
+    //     break;
+    //   default:
+    //     break;
+    // }
   };
   useEffect(() => {
-    // Update the active state based on the current route
     switch (pathname) {
       case "/studio":
         setActiveNum(0);
         break;
-      case "/ai-studio":
-        setActiveNum(1);
-        break;
+
       case "/album":
-        setActiveNum(2);
+        setActiveNum(1);
         break;
       default:
         break;
     }
+    // switch (pathname) {
+    //   case "/studio":
+    //     setActiveNum(0);
+    //     break;
+    //   case "/ai-studio":
+    //     setActiveNum(1);
+    //     break;
+    //   case "/album":
+    //     setActiveNum(2);
+    //     break;
+    //   default:
+    //     break;
+    // }
   }, [usePathname()]);
 
   return (
@@ -67,10 +87,11 @@ function BottomNav(props: BottomNavProps) {
         label="캐주얼"
         icon={<PaletteIcon />}
       />
-      <BottomNavigationAction
+      {/* <BottomNavigationAction
         label="스튜디오"
+        disabled
         icon={<CameraIcon />}
-      />
+      /> */}
       <BottomNavigationAction
         label="앨범"
         icon={<CollectionsIcon />}

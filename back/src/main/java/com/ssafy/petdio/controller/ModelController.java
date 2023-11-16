@@ -30,6 +30,7 @@ public class ModelController {
     {
         try {
             log.info("트레이닝 요청 성공했어요!");
+            log.info(files.toString());
 //            modelService.trainModel(datasetName, files, breed, Long.valueOf(authentication.getName()));
             return ResponseEntity.status(HttpStatus.OK).body(null);
         } catch (Exception e) {

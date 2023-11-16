@@ -1,5 +1,6 @@
 package com.ssafy.petdio.service;
 
+import com.ssafy.petdio.model.dto.AiDto;
 import com.ssafy.petdio.model.dto.ModelDto;
 import com.ssafy.petdio.model.entity.Model;
 import com.ssafy.petdio.repository.ModelRepository;
@@ -8,6 +9,7 @@ import com.ssafy.petdio.util.Leonardo;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 

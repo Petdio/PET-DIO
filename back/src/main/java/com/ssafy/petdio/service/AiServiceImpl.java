@@ -9,7 +9,6 @@ import com.ssafy.petdio.model.entity.Concept;
 import com.ssafy.petdio.model.entity.Model;
 import com.ssafy.petdio.model.entity.Setting;
 import com.ssafy.petdio.repository.AlbumRepository;
-import com.ssafy.petdio.repository.EmitterRepository;
 import com.ssafy.petdio.repository.ModelRepository;
 import com.ssafy.petdio.repository.SettingRepository;
 import com.ssafy.petdio.user.model.entity.User;
@@ -139,6 +138,24 @@ public class AiServiceImpl implements AiService {
             String datasetId = data.getString("initDatasetId");
             if (datasetId != null) {
                 log.info("datasetId : " + datasetId);
+                AiDto.Data imageData = redisTemplate.opsForValue().get(datasetId);
+                //모델학습 성공시 코인쓰는거 추가
+//                userService.useCoin(user.getUserId());
+                String returnData = "model";
+                if (status.equals("FAILED")) {
+                    returnData = "model fail";
+                }
+                //model은 sse안함
+//                sseService.send(datasetId, returnData);
+                User user = userRepository.findByUserIdAndUserDeleteIsNull(imageData.getUserId()).orElseThrow();
+                if (user.getFcmToken() != null) {
+                    Map<String, String> map = new HashMap<>();
+                    map.put("url", returnData);
+                    fcmService.sendMessageTo(NotificationMessage.builder()
+                            .recipientToken(user.getFcmToken())
+                            .data(map)
+                            .build());
+                }
                 return;
             }
         } catch (Exception e) {
@@ -175,9 +192,9 @@ public class AiServiceImpl implements AiService {
                 }
         } else if (status.equals("FAILED")) {
             Map<String, String> map = new HashMap<>();
-            map.put("url", "fail");
+            map.put("url", "image fail");
             userService.useCoin(user.getUserId());
-            sseService.send(generationId, "fail");
+            sseService.send(generationId, "image fail");
             if (user.getFcmToken() != null) {
                 fcmService.sendMessageTo(NotificationMessage.builder()
                         .recipientToken(user.getFcmToken())

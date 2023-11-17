@@ -30,8 +30,8 @@ public class ModelController {
     {
         try {
             log.info("트레이닝 요청 성공했어요!");
-//            return ResponseEntity.status(HttpStatus.OK).body("sse-token-test");
-            return ResponseEntity.status(HttpStatus.OK).body(modelService.trainModel(datasetName, files, breed, Long.valueOf(authentication.getName())));
+            return ResponseEntity.status(HttpStatus.OK).body("sse-token-test");
+//            return ResponseEntity.status(HttpStatus.OK).body(modelService.trainModel(datasetName, files, breed, Long.valueOf(authentication.getName())));
         } catch (Exception e) {
             log.error("모델 만들기 에러"+e.getMessage());
             return ResponseEntity.status(HttpStatus.CONFLICT).build();

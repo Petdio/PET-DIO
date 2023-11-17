@@ -37,7 +37,7 @@ self.addEventListener("push", function (e) {
   if (resultData.data.url === "image fail") {
     self.registration.showNotification("이미지 생성 실패!");
   } else if (resultData.data.url === "model fail") {
-    self.registration.showNotification("이미지 생성 실패!");
+    self.registration.showNotification("모델 생성 실패!");
   } else if (resultData.data.url === "model") {
     self.registration.showNotification("모델 생성 완료!");
   } else {

@@ -9,7 +9,6 @@ import com.ssafy.petdio.model.entity.Concept;
 import com.ssafy.petdio.model.entity.Model;
 import com.ssafy.petdio.model.entity.Setting;
 import com.ssafy.petdio.repository.AlbumRepository;
-import com.ssafy.petdio.repository.EmitterRepository;
 import com.ssafy.petdio.repository.ModelRepository;
 import com.ssafy.petdio.repository.SettingRepository;
 import com.ssafy.petdio.user.model.entity.User;

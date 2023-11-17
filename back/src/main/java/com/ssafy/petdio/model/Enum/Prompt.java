@@ -107,6 +107,7 @@ public enum Prompt {
                 "missing limb, cut-off, over satured, grain, lowères, bad anatomy, poorly drawn face, mutation, mutated," +
                 " floating limbs, disconnected limbs, out of focus, long body, disgusting, extra fingers, groos proportions," +
                 " missing arms, mutated hands, cloned face, missing legs");
+    //
 
 
 

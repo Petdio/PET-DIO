@@ -1,13 +1,12 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 function useAccessToken() {
   const [accessToken, setAccessToken] = useState<string | null>(null);
 
   useEffect(() => {
-    console.log('ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ');
-    const storedAccessToken = localStorage.getItem('access-token');
+    const storedAccessToken = localStorage.getItem("access-token");
 
     setAccessToken(storedAccessToken);
   }, []);

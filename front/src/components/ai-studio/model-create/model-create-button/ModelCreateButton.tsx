@@ -8,6 +8,9 @@ import { useRouter } from "next/navigation";
 function ModelCreateButton() {
   const router = useRouter();
   const [windowWidth, setWindowWidth] = useState(0);
+  const [showButton, setShowButton] = useState(false);
+  const rightPosition =
+    windowWidth >= 480 ? `calc((100vw - 480px) / 2 + 1rem)` : "1rem";
 
   useEffect(() => {
     const handleResize = () => {
@@ -15,7 +18,7 @@ function ModelCreateButton() {
     };
 
     handleResize();
-
+    setShowButton(true);
     window.addEventListener("resize", handleResize);
 
     return () => {
@@ -23,18 +26,17 @@ function ModelCreateButton() {
     };
   }, []);
 
-  const rightPosition =
-    windowWidth >= 480 ? `calc((100vw - 480px) / 2 + 1rem)` : "1rem";
-  const moveToCreate = () => {
-    router.push("/ai-studio/create");
-  };
+  if (!showButton) {
+    return <></>;
+  }
+
   return (
     <>
       <Fab
         variant="circular"
         size="large"
         color="primary"
-        onClick={() => moveToCreate()}
+        onClick={() => router.push("/ai-studio/model-create")}
         sx={{
           position: "fixed",
           bottom: 88,

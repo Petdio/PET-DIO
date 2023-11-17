@@ -2,9 +2,11 @@
 import { useEffect } from "react";
 import axios from "axios";
 import { useAlert } from "@/components/provider/AlertProvider";
+import { useRouter } from "next/navigation";
 
 export default function KakaoLogInPage() {
   const { failed } = useAlert();
+  const router = useRouter();
 
   async function loginReq(code: string) {
     try {
@@ -19,6 +21,9 @@ export default function KakaoLogInPage() {
       window.location.href = "/studio";
     } catch (error) {
       failed(`Error : ${error}`);
+      setTimeout(() => {
+        router.push(`/login`);
+      }, 3000);
       console.error("에러 발생:", error);
     }
   }

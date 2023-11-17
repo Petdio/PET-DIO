@@ -8,16 +8,14 @@ import ErrorBoundary from "@/app/ErrorBoundary";
 import { useAlert } from "@/components/provider/AlertProvider";
 
 const loadingMessageArr = [
-  "이미지 생성은 30초 ~ 1분 정도 걸려요. 조금만 기다려 주세요!",
+  "커스텀 모델을 통한 이미지 생성은 10초 밖에 안 걸려요. 조금만 기다려 주세요!",
   "앱을 나가거나 다른 페이지를 보셔도 돼요. 알림이 따로 갈거예요.",
-  "사진과 일치하는 품종을 입력해야 원하는 이미지를 얻을 수 있어요.",
   "생성된 이미지를 저장하거나 다른 사람들과 공유해보세요!",
   "앨범 페이지에서 원하는 테마만 필터링할 수 있어요.",
-  "반려동물 사진은 정방향으로, 흔들리지 않게, 얼굴이 잘 나오도록 찍어주세요.",
   "이미지 생성 후 설문조사를 완료하시면 코인을 추가로 받을 수 있어요.",
 ];
 
-export default function Generating() {
+export default function AIImageGenerating() {
   const router = useRouter();
   const [showComponent, setShowComponent] = useState(true);
   const [loadingMessageIdx, setLoadingMessageIdx] = useState(0);
@@ -48,13 +46,13 @@ export default function Generating() {
           failed("Error : 이미지 생성에 실패했어요. 개발진에 문의해주세요.");
           eventSource.close();
           setTimeout(() => {
-            router.push(`/studio`);
+            router.push(`/ai-studio`);
           }, 3000);
         } else {
           const imageKey = event.data.match(/\/([^/]+)\.jpg$/);
           setShowComponent(false);
           setTimeout(() => {
-            router.push(`/studio/result?img=${imageKey[1]}`);
+            router.push(`/ai-studio/result?img=${imageKey[1]}`);
           }, 2000);
         }
       }

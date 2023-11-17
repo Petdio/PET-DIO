@@ -1,5 +1,5 @@
 export default function convertTheme(themeEN: string) {
-  let themeKO = "?";
+  let themeKO = "이름없음";
   switch (themeEN) {
     case "Sketch":
       themeKO = "스케치";

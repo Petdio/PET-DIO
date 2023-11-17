@@ -16,6 +16,7 @@ interface Props {
   open: boolean;
   handleClose: () => void;
   setName: (inputName: string) => void;
+  setBreed: (inputNumber: number) => void;
   sendModelSetting: () => void;
   animalItems: string[];
 }
@@ -24,16 +25,19 @@ export default function ModelCreateNameModal({
   open,
   handleClose,
   setName,
+  setBreed,
   sendModelSetting,
   animalItems,
 }: Props) {
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
   };
+
   const handleCreateClick = () => {
     sendModelSetting();
     handleClose();
   };
+
   return (
     <Fragment>
       <Dialog
@@ -46,7 +50,7 @@ export default function ModelCreateNameModal({
         <DialogContent>
           <AnimalSelectRadioGroup
             animalItems={animalItems}
-            onSelect={() => {}}
+            onSelect={setBreed}
             onlySmall={true}
           />
           <DialogContentText>
@@ -65,10 +69,7 @@ export default function ModelCreateNameModal({
           />
         </DialogContent>
         <DialogActions>
-          <Button
-            sx={{ color: theme.palette.grey[400] }}
-            onClick={handleClose}
-          >
+          <Button sx={{ color: theme.palette.grey[400] }} onClick={handleClose}>
             취소
           </Button>
           <Button onClick={handleCreateClick}>만들기</Button>

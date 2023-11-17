@@ -2,11 +2,12 @@
 
 import { useState, useEffect } from "react";
 import { Button, Box } from "@mui/material";
-
-// 아이콘 넣어야 함
+import { LoadingButton } from "@mui/lab";
+import "./UploadCreateButton.css";
 
 interface Props {
   isUploadDone: boolean;
+  isDone: boolean;
   uploadClick: () => void;
   openNameModal: () => void;
   children: React.ReactElement<any, any>;
@@ -14,6 +15,7 @@ interface Props {
 
 function UploadCreateButton({
   isUploadDone,
+  isDone,
   uploadClick,
   children,
   openNameModal,
@@ -31,7 +33,7 @@ function UploadCreateButton({
         padding: "0 1rem",
       }}
     >
-      {isUploadDone ? (
+      {isUploadDone && !isDone ? (
         <Box
           display={"flex"}
           width={"100%"}
@@ -54,7 +56,7 @@ function UploadCreateButton({
             모델 만들기
           </Button>
         </Box>
-      ) : (
+      ) : !isDone ? (
         <Button
           variant="contained"
           color="secondary"
@@ -64,6 +66,14 @@ function UploadCreateButton({
           사진 올리기
           {children}
         </Button>
+      ) : (
+        <LoadingButton
+          loading
+          sx={{ width: "100%" }}
+          variant="contained"
+        >
+          요청중...
+        </LoadingButton>
       )}
     </Box>
   );

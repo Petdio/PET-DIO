@@ -1,24 +1,9 @@
-import { Box, Typography, Button } from '@mui/material';
-import { styled } from '@mui/material/styles';
-import { theme } from '@/styles/ThemeRegistry';
-import { amber } from '@mui/material/colors';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import TollTwoToneIcon from '@mui/icons-material/TollTwoTone';
-import CardGiftcardTwoToneIcon from '@mui/icons-material/CardGiftcardTwoTone';
-import { member } from '@/constants/member';
+import { Box, Typography } from "@mui/material";
+import PaletteIcon from "@mui/icons-material/Palette";
+import { theme } from "@/styles/ThemeRegistry";
+import { TextBox } from "./WelcomeItemStart";
 
-export const TextBox = styled(Box)(() => ({
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  margin: '2px 2px 2px 2px',
-}));
-
-interface Props {
-  startTutorial: () => void;
-}
-
-function WelcomeItem1({ startTutorial }: Props) {
+function WelcomeItem1() {
   return (
     <Box
       display="flex"
@@ -28,47 +13,24 @@ function WelcomeItem1({ startTutorial }: Props) {
       alignItems="center"
       height="100%"
     >
-      <CardGiftcardTwoToneIcon
-        htmlColor={theme.palette.primary.main}
-        sx={{ fontSize: 32 }}
-      />
+      <TextBox>
+        <PaletteIcon htmlColor={theme.palette.primary.main} />
+        <Typography color={theme.palette.primary.main}>&nbsp;캐주얼</Typography>
+      </TextBox>
       <Box height="0.5rem" />
       <TextBox>
+        <Typography fontSize={16}>반려동물의&nbsp;</Typography>
         <Typography
           color={theme.palette.primary.main}
+          fontSize={16}
           fontWeight={700}
         >
-          PETDIO&nbsp;
+          특별한 이미지
         </Typography>
-        <Typography>가입을 축하합니다!</Typography>
+        <Typography fontSize={16}>를</Typography>
       </TextBox>
-      <TextBox>
-        <Typography fontSize={14}>가입 기념으로&nbsp;</Typography>
-        <TollTwoToneIcon
-          sx={{ fontSize: 16 }}
-          htmlColor={amber[500]}
-        />
-        <Typography fontSize={14}>{member.initCoin}을 드렸어요.</Typography>
-      </TextBox>
-      <Box height="2rem" />
-      {/* <Button
-        variant="text"
-        endIcon={<ArrowForwardIcon />}
-        sx={{
-          // position: 'absolute',
-          // bottom: '1.5rem',
-          borderRadius: 100,
-        }}
-        onClick={() => startTutorial()}
-      >
-        시작하기
-      </Button> */}
-      <TextBox>
-        <Typography color={theme.palette.primary.main}>
-          슬라이드로 시작
-        </Typography>
-        <ArrowForwardIcon htmlColor={theme.palette.primary.main} />
-      </TextBox>
+      <Typography fontSize={16}>간편하게 만들어 보세요.</Typography>
+      <Box height="1.5rem" />
     </Box>
   );
 }

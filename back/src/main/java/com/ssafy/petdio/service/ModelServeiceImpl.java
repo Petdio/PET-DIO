@@ -1,5 +1,6 @@
 package com.ssafy.petdio.service;
 
+import com.ssafy.petdio.model.dto.AiDto;
 import com.ssafy.petdio.model.dto.ModelDto;
 import com.ssafy.petdio.model.entity.Model;
 import com.ssafy.petdio.repository.ModelRepository;
@@ -8,6 +9,7 @@ import com.ssafy.petdio.util.Leonardo;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,8 +24,10 @@ public class ModelServeiceImpl implements ModelService{
     private final Leonardo leonardo;
     private final ModelRepository modelRepository;
 
+    private final RedisTemplate<String, AiDto.Data> redisTemplate;
+
     @Override
-    public void trainModel(String datasetName, List<MultipartFile> multipartFiles, String breed, Long userId) throws IOException {
+    public String trainModel(String datasetName, List<MultipartFile> multipartFiles, String breed, Long userId) throws IOException {
         // 모델 트레이닝 변수 설정
         String datasetId = leonardo.createDataset(datasetName);
         leonardo.dataSetInit(datasetId, multipartFiles);
@@ -47,6 +51,12 @@ public class ModelServeiceImpl implements ModelService{
                         .user(User.builder().userId(userId).build())
                         .build()
         );
+
+        //레디스 저장
+        redisTemplate.opsForValue().set(datasetId,
+                AiDto.Data.builder().userId(userId).conceptId(null).build());
+
+        return datasetId;
 
     }
 

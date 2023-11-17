@@ -7,11 +7,13 @@ import CheckIcon from "@mui/icons-material/Check";
 
 export default function ModelGenerating() {
   const router = useRouter();
+
   useEffect(() => {
-    const timeoutMove = setTimeout(() => {
+    setTimeout(() => {
       router.push("/ai-studio");
     }, 4000);
   }, []);
+
   return (
     <>
       <Box

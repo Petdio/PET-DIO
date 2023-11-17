@@ -9,6 +9,7 @@ import convertAnimal from "@/utils/convertAnimal";
 import { Box } from "@mui/material";
 import UploadCreateButton from "./upload-create-button-set/UploadCreateButtonSet";
 import ModelCreateNameModal from "./model-create-name-modal/ModelCreateNameModal";
+import { useAlert } from "@/components/provider/AlertProvider";
 
 interface ModelFormData {
   files: File[];
@@ -18,10 +19,8 @@ interface ModelFormData {
 
 function ModelCreate() {
   const router = useRouter();
-  const [modelName, setModelName] = useState(""); // 모델 이름
   const [images, setImages] = useState<(string | ArrayBuffer | null)[]>([]); // 화면에 표시할 이미지들
   const fileInputRef = useRef<HTMLInputElement>(null); // 파일 업로드
-  const [animalIdx, setAnimalIdx] = useState(-1); // 동물 타입
   const animalItems = ["개", "고양이"];
   const [isUploadDone, setIsUploadDone] = useState(false);
   const [isDone, setIsDone] = useState(false);
@@ -30,9 +29,21 @@ function ModelCreate() {
     datasetName: "",
     breed: "",
   });
+  const { failed } = useAlert();
 
   const setName = (inputName: string) => {
-    setModelName(inputName);
+    setModelData((prev) => ({
+      ...prev,
+      datasetName: inputName,
+    }));
+  };
+
+  const setBreed = (inputNumber: number) => {
+    const animalType = convertAnimal(animalItems[inputNumber]);
+    setModelData((prev) => ({
+      ...prev,
+      breed: animalType,
+    }));
   };
 
   const [nameModalOpen, setNameModalOpen] = useState(false);
@@ -111,12 +122,10 @@ function ModelCreate() {
       }
 
       setImages(newImages);
-      const animalType = convertAnimal(animalItems[animalIdx]);
-      setModelData({
-        files: [...modelData.files, ...updatedFiles],
-        datasetName: modelName,
-        breed: animalType,
-      });
+      setModelData((prev) => ({
+        ...prev,
+        files: [...updatedFiles],
+      }));
     }
   };
 
@@ -145,21 +154,15 @@ function ModelCreate() {
       router.push("/ai-studio/model-create/generating");
     } catch (error) {
       console.error("모델 학습용 데이터 업로드 실패", error);
+      failed("Error : 모델 학습용 데이터 업로드 실패!");
     }
   };
 
   return (
     <>
-      <Grid
-        container
-        sx={{ margin: "0 1rem" }}
-        spacing={1}
-      >
+      <Grid container sx={{ margin: "0 1rem" }} spacing={1}>
         {images.map((image, index) => (
-          <Grid
-            key={index}
-            xs={4}
-          >
+          <Grid key={index} xs={4}>
             <Box
               position={"relative"}
               width={"100%"}
@@ -200,6 +203,7 @@ function ModelCreate() {
         open={nameModalOpen}
         handleClose={handleModalClose}
         setName={setName}
+        setBreed={setBreed}
         animalItems={animalItems}
         sendModelSetting={sendModelSetting}
       />

@@ -24,6 +24,7 @@ function ModelList() {
   const { setModelId } = useAIFormData();
   const [modelList, setModelList] = useState<ModelProps[]>([]);
   const { failed } = useAlert();
+  const [isModelLimit, setIsModelLimit] = useState(false);
 
   const Item = styled(Box)(({ theme }) => ({
     display: "flex",
@@ -53,6 +54,7 @@ function ModelList() {
 
       console.log(response);
       setModelList(response.data as ModelProps[]);
+      modelList.length >= 1 ? setIsModelLimit(false) : setIsModelLimit(true);
     } catch (error) {
       console.error("에러 발생:", error);
       failed("Error : 모델을 가져오는 도중 에러가 발생했습니다.");
@@ -71,10 +73,17 @@ function ModelList() {
   return (
     <>
       {modelList.length !== 0 ? (
-        <Grid container sx={{ margin: "0 1rem" }} spacing={1}>
+        <Grid
+          container
+          sx={{ margin: "0 1rem" }}
+          spacing={1}
+        >
           {modelList.map((model) => {
             return (
-              <Grid key={model.modelId} xs={6}>
+              <Grid
+                key={model.modelId}
+                xs={6}
+              >
                 <Item
                   sx={{
                     border: "1px solid #18181812",
@@ -96,7 +105,7 @@ function ModelList() {
         <NoModel />
       )}
 
-      <ModelCreateButton />
+      <ModelCreateButton isModelLimit={isModelLimit} />
     </>
   );
 }

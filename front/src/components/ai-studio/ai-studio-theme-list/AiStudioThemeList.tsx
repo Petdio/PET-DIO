@@ -22,6 +22,7 @@ import { price } from "@/constants/price";
 import PriceChip from "@/components/common/price-chip/PriceChip";
 import { useAIFormData } from "@/components/provider/AIFormdataProvider";
 import LoadingButton from "@mui/lab/LoadingButton";
+import { useAlert } from "@/components/provider/AlertProvider";
 
 interface Theme {
   imgURL: string;
@@ -35,6 +36,7 @@ export default function AiStudioThemeList() {
   const router = useRouter();
   const scrollRef = useRef<HTMLDivElement>(null);
   const { data, setConceptId } = useAIFormData();
+  const { failed } = useAlert();
 
   const [isDrag, setIsDrag] = useState(false);
   const [startX, setStartX] = useState<number>(0);
@@ -88,6 +90,7 @@ export default function AiStudioThemeList() {
       setThemeList(response.data);
     } catch (error) {
       console.error("에러 발생:", error);
+      failed("Error : 테마를 가져오는 도중 에러가 발생했습니다.");
     }
   }
 
@@ -110,6 +113,10 @@ export default function AiStudioThemeList() {
       router.push("/ai-studio/model-create/generating");
     } catch (error) {
       console.error("모델 및 테마 전송 실패", error);
+      failed("Error : 모델 및 테마 전송에 실패했습니다.");
+      setTimeout(() => {
+        router.push(`/ai-studio`);
+      }, 3000);
     }
   };
 

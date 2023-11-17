@@ -124,8 +124,11 @@ export default function Setting() {
       localStorage.setItem("sse-token", response.data);
       router.push("generating");
     } catch (error) {
-      failed("Error : 업로드 실패!");
+      failed("Error : 이미지 업로드 실패!");
       console.error("이미지 업로드 실패", error);
+      setTimeout(() => {
+        router.push(`/studio`);
+      }, 3000);
     }
   };
 

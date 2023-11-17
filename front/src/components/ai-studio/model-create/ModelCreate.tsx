@@ -157,21 +157,17 @@ function ModelCreate() {
     } catch (error) {
       console.error("모델 학습용 데이터 업로드 실패", error);
       failed("Error : 모델 학습용 데이터 업로드 실패!");
+      setTimeout(() => {
+        router.push(`/ai-studio`);
+      }, 3000);
     }
   };
 
   return (
     <>
-      <Grid
-        container
-        sx={{ margin: "0 1rem" }}
-        spacing={1}
-      >
+      <Grid container sx={{ margin: "0 1rem" }} spacing={1}>
         {images.map((image, index) => (
-          <Grid
-            key={index}
-            xs={4}
-          >
+          <Grid key={index} xs={4}>
             <Box
               position={"relative"}
               width={"100%"}

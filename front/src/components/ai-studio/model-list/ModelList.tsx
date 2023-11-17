@@ -12,6 +12,7 @@ import { theme } from "@/styles/ThemeRegistry";
 import NoModel from "./no-model/NoModel";
 import { useAIFormData } from "@/components/provider/AIFormdataProvider";
 import { useRouter } from "next/navigation";
+import { useAlert } from "@/components/provider/AlertProvider";
 
 interface ModelProps {
   modelId: number;
@@ -22,6 +23,7 @@ function ModelList() {
   const router = useRouter();
   const { setModelId } = useAIFormData();
   const [modelList, setModelList] = useState<ModelProps[]>([]);
+  const { failed } = useAlert();
 
   const Item = styled(Box)(({ theme }) => ({
     display: "flex",
@@ -53,6 +55,7 @@ function ModelList() {
       setModelList(response.data as ModelProps[]);
     } catch (error) {
       console.error("에러 발생:", error);
+      failed("Error : 모델을 가져오는 도중 에러가 발생했습니다.");
     }
   }
 
@@ -68,17 +71,10 @@ function ModelList() {
   return (
     <>
       {modelList.length !== 0 ? (
-        <Grid
-          container
-          sx={{ margin: "0 1rem" }}
-          spacing={1}
-        >
+        <Grid container sx={{ margin: "0 1rem" }} spacing={1}>
           {modelList.map((model) => {
             return (
-              <Grid
-                key={model.modelId}
-                xs={6}
-              >
+              <Grid key={model.modelId} xs={6}>
                 <Item
                   sx={{
                     border: "1px solid #18181812",

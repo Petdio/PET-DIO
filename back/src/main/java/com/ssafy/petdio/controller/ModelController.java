@@ -30,6 +30,9 @@ public class ModelController {
     {
         try {
             log.info("트레이닝 요청 성공했어요!");
+            log.info("datasetName: " + datasetName);
+            log.info("파일개수: " + files.size());
+            log.info("w종류" + breed);
             return ResponseEntity.status(HttpStatus.OK).body("sse-token-test");
 //            return ResponseEntity.status(HttpStatus.OK).body(modelService.trainModel(datasetName, files, breed, Long.valueOf(authentication.getName())));
         } catch (Exception e) {

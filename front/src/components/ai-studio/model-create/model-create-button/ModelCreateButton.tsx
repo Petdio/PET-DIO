@@ -1,11 +1,15 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Fab } from "@mui/material";
+import { Fab, Tooltip } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useRouter } from "next/navigation";
 
-function ModelCreateButton() {
+interface Props {
+  isModelLimit: boolean;
+}
+
+function ModelCreateButton({ isModelLimit }: Props) {
   const router = useRouter();
   const [windowWidth, setWindowWidth] = useState(0);
   const [showButton, setShowButton] = useState(false);
@@ -36,6 +40,7 @@ function ModelCreateButton() {
         variant="circular"
         size="large"
         color="primary"
+        disabled={isModelLimit}
         onClick={() => router.push("/ai-studio/model-create")}
         sx={{
           position: "fixed",

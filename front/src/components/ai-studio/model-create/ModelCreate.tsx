@@ -22,6 +22,7 @@ function ModelCreate() {
   const [images, setImages] = useState<(string | ArrayBuffer | null)[]>([]); // 화면에 표시할 이미지들
   const fileInputRef = useRef<HTMLInputElement>(null); // 파일 업로드
   const animalItems = ["개", "고양이"];
+  const [isUploading, setIsUploading] = useState(false);
   const [isUploadDone, setIsUploadDone] = useState(false);
   const [isDone, setIsDone] = useState(false);
   const [modelData, setModelData] = useState<ModelFormData>({
@@ -64,6 +65,7 @@ function ModelCreate() {
 
   const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
+      setIsUploading(true);
       const files = event.target.files;
       const newImages: (string | ArrayBuffer | null)[] = [];
       const updatedFiles: File[] = [];
@@ -112,7 +114,7 @@ function ModelCreate() {
                 }
 
                 if (index === files.length - 1) {
-                  // Set isUploadDone to true
+                  setIsUploading(false);
                   setIsUploadDone(true);
                 }
               }
@@ -160,9 +162,16 @@ function ModelCreate() {
 
   return (
     <>
-      <Grid container sx={{ margin: "0 1rem" }} spacing={1}>
+      <Grid
+        container
+        sx={{ margin: "0 1rem" }}
+        spacing={1}
+      >
         {images.map((image, index) => (
-          <Grid key={index} xs={4}>
+          <Grid
+            key={index}
+            xs={4}
+          >
             <Box
               position={"relative"}
               width={"100%"}
@@ -186,6 +195,7 @@ function ModelCreate() {
       </Grid>
       <Box height={"5rem"} />
       <UploadCreateButton
+        isUploading={isUploading}
         isUploadDone={isUploadDone}
         isDone={isDone}
         uploadClick={handleFileUploadClick}

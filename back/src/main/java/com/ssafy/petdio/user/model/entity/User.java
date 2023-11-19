@@ -1,5 +1,6 @@
 package com.ssafy.petdio.user.model.entity;
 
+import com.ssafy.petdio.model.Enum.Coin;
 import com.ssafy.petdio.model.Enum.Role;
 import com.ssafy.petdio.model.Enum.SocialType;
 import com.ssafy.petdio.user.model.dto.UserProfileUpdateDto;
@@ -69,10 +70,9 @@ public class User {
     }
 
     // 코인 사용
-    public void useCoin(){
-        // 1회 이미지 생성 시 소비되는 코인
-        int coinPerImage = 50;
-        this.userCoin -= coinPerImage;
+    public void useCoin(Coin coin){
+        int cost = coin.getCost();
+        this.userCoin -= cost;
     }
 
     public User updateUser(UserProfileUpdateDto userProfileUpdateDto) {

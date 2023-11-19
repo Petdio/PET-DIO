@@ -1,5 +1,6 @@
 package com.ssafy.petdio.user.service;
 
+import com.ssafy.petdio.model.Enum.Coin;
 import com.ssafy.petdio.user.model.dto.UserDto;
 import com.ssafy.petdio.user.model.dto.UserProfileUpdateDto;
 import com.ssafy.petdio.user.model.dto.UserResponseDto;
@@ -51,9 +52,9 @@ public class UserServiceImpl implements UserService {
      * @return void
      */
     @Override
-    public void useCoin(Long id) {
+    public void useCoin(Long id, Coin coin) {
         User user = findUserById(id);
-        user.useCoin();
+        user.useCoin(coin);
         userRepository.save(user);
     }
 

@@ -142,7 +142,7 @@ public class AiServiceImpl implements AiService {
                 AiDto.Data imageData = redisTemplate.opsForValue().get(datasetId);
                 User user = userRepository.findByUserIdAndUserDeleteIsNull(imageData.getUserId()).orElseThrow();
                 //모델학습 성공시 코인 소비
-                userService.useCoin(user.getUserId(), Coin.TRAIN_MODEL);
+//                userService.useCoin(user.getUserId(), Coin.TRAIN_MODEL);
                 String returnData = "model";
                 if (status.equals("FAILED")) {
                     returnData = "model fail";

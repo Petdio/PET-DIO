@@ -110,7 +110,7 @@ export default function AiStudioThemeList() {
       );
       console.log("모델 및 테마 전송 성공", response);
       localStorage.setItem("sse-token", response.data);
-      router.push("/ai-studio/model-create/generating");
+      router.push("/ai-studio/image-create/generating");
     } catch (error) {
       console.error("모델 및 테마 전송 실패", error);
       failed("Error : 모델 및 테마 전송에 실패했습니다.");

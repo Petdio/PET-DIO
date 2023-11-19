@@ -33,8 +33,8 @@ public class ModelController {
             log.info("datasetName: " + datasetName);
             log.info("파일개수: " + files.size());
             log.info("w종류" + breed);
-            return ResponseEntity.status(HttpStatus.OK).body("sse-token-test");
-//            return ResponseEntity.status(HttpStatus.OK).body(modelService.trainModel(datasetName, files, breed, Long.valueOf(authentication.getName())));
+//            return ResponseEntity.status(HttpStatus.OK).body("sse-token-test");
+            return ResponseEntity.status(HttpStatus.OK).body(modelService.trainModel(datasetName, files, breed, Long.valueOf(authentication.getName())));
         } catch (Exception e) {
             log.error("모델 만들기 에러"+e.getMessage());
             return ResponseEntity.status(HttpStatus.CONFLICT).build();

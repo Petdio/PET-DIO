@@ -2,6 +2,7 @@ package com.ssafy.petdio.service;
 
 import com.ssafy.petdio.model.Enum.ConceptModel;
 import com.ssafy.petdio.model.Enum.Prompt;
+import com.ssafy.petdio.model.Enum.Coin;
 import com.ssafy.petdio.model.dto.AiDto;
 import com.ssafy.petdio.model.dto.FcmDto.NotificationMessage;
 import com.ssafy.petdio.model.entity.Album;
@@ -139,15 +140,15 @@ public class AiServiceImpl implements AiService {
             if (datasetId != null) {
                 log.info("datasetId : " + datasetId);
                 AiDto.Data imageData = redisTemplate.opsForValue().get(datasetId);
-                //모델학습 성공시 코인쓰는거 추가
-//                userService.useCoin(user.getUserId());
+                User user = userRepository.findByUserIdAndUserDeleteIsNull(imageData.getUserId()).orElseThrow();
+                //모델학습 성공시 코인 소비
+//                userService.useCoin(user.getUserId(), Coin.TRAIN_MODEL);
                 String returnData = "model";
                 if (status.equals("FAILED")) {
                     returnData = "model fail";
                 }
                 //model은 sse안함
 //                sseService.send(datasetId, returnData);
-                User user = userRepository.findByUserIdAndUserDeleteIsNull(imageData.getUserId()).orElseThrow();
                 if (user.getFcmToken() != null) {
                     Map<String, String> map = new HashMap<>();
                     map.put("url", returnData);
@@ -182,7 +183,7 @@ public class AiServiceImpl implements AiService {
                 log.info("---------------fcm test------------");
                 Map<String, String> map = new HashMap<>();
                 map.put("url", defaultUrl + s3Url);
-                userService.useCoin(user.getUserId());
+                userService.useCoin(user.getUserId(), Coin.CREATE_IMAGE);
                 sseService.send(generationId, defaultUrl + s3Url);
                 if (user.getFcmToken() != null) {
                     fcmService.sendMessageTo(NotificationMessage.builder()
@@ -193,7 +194,7 @@ public class AiServiceImpl implements AiService {
         } else if (status.equals("FAILED")) {
             Map<String, String> map = new HashMap<>();
             map.put("url", "image fail");
-            userService.useCoin(user.getUserId());
+//            userService.useCoin(user.getUserId(), Coin.CREATE_IMAGE);
             sseService.send(generationId, "image fail");
             if (user.getFcmToken() != null) {
                 fcmService.sendMessageTo(NotificationMessage.builder()

@@ -106,7 +106,36 @@ public enum Prompt {
                 "twisted fingers, double image, malformed hands, multiple heads, extra limb, ugly, poorly drawn hands, " +
                 "missing limb, cut-off, over satured, grain, lowères, bad anatomy, poorly drawn face, mutation, mutated," +
                 " floating limbs, disconnected limbs, out of focus, long body, disgusting, extra fingers, groos proportions," +
-                " missing arms, mutated hands, cloned face, missing legs");
+                " missing arms, mutated hands, cloned face, missing legs"),
+
+    CHRISTMAS_STICKER (7L,"breed, high quality, 8K Ultra HD, cute stickers, style cartoon, white border, " +
+            "Detailed illustration of a cute terry spitz wearing a Santa hat, Bags of many Christmas gifts on the background, " +
+            " colorful, pink, orange, blue, yellow, highly detailed, awesome full color, clean eyes",
+
+            "multiple arrows, nude, nsfw, too many feet, too many fingers, long neck, 2 heads, duplicate, disfigured, deformed," +
+                    "toy, disfigured, bad art, deformed, poorly drawn, extra limbs, weird colors, 2 heads, elongated body, cropped image, out of frame, deformed hands, twisted fingers,  " +
+                    " malformed hands, multiple heads, extra limb, ugly, poorly drawn hands, missing limb, cut-off, lowères, bad anatomy," +
+                    "poorly drawn face, mutation, mutated, floating limbs, disconnected limbs, out of focus, long body, " +
+                    "disgusting, extra fingers, groos proportions, missing arms, mutated hands, cloned face, missing legs,"),
+
+    CHRISTMAS_REALITY (8L,"Generate imaginative Christmas-themed animals: Picture a breed with gift box and santa hat.",
+
+            "multiple arrows, nude, nsfw, too many feet, too many fingers, long neck, 2 heads, duplicate, disfigured, deformed," +
+                    "toy, disfigured, bad art, deformed, poorly drawn, extra limbs, weird colors, 2 heads, elongated body, cropped image, out of frame, deformed hands, twisted fingers,  " +
+                    " malformed hands, multiple heads, extra limb, ugly, poorly drawn hands, missing limb, cut-off, lowères, bad anatomy," +
+                    "poorly drawn face, mutation, mutated, floating limbs, disconnected limbs, out of focus, long body, " +
+                    "disgusting, extra fingers, groos proportions, missing arms, mutated hands, cloned face, missing legs,"),
+
+    MODEL_SKETCH (9L,"realistic pencil drawing of a breed, portrait view, face portrait, black and white, animal," +
+            "white background, sketch, pencil strokes, pencil lines",
+
+            "multiple arrows, nude, nsfw, too many feet, too many fingers, long neck, 2 heads, duplicate, disfigured, deformed," +
+                    "toy, disfigured, bad art, deformed, poorly drawn, extra limbs, weird colors, 2 heads, elongated body, cropped image, out of frame, deformed hands, twisted fingers,  " +
+                    " malformed hands, multiple heads, extra limb, ugly, poorly drawn hands, missing limb, cut-off, lowères, bad anatomy," +
+                    "poorly drawn face, mutation, mutated, floating limbs, disconnected limbs, out of focus, long body, " +
+                    "disgusting, extra fingers, groos proportions, missing arms, mutated hands, cloned face, missing legs,");
+
+
     //
 
 

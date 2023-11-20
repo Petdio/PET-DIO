@@ -16,8 +16,20 @@ export default function convertTheme(themeEN: string) {
     case "SKYintheHeaven":
       themeKO = "하늘";
       break;
+    case "SKY":
+      themeKO = "하늘";
+      break;
     case "Goggles":
       themeKO = "고글";
+      break;
+    case "Christmas_sticker":
+      themeKO = "크리스마스 스티커";
+      break;
+    case "Christmas_reality":
+      themeKO = "크리스마스";
+      break;
+    case "model_sketch":
+      themeKO = "스케치";
       break;
   }
   return themeKO;

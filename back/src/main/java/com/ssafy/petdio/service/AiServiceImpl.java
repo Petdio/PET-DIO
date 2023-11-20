@@ -32,7 +32,6 @@ import java.util.Map;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 @Service
 @RequiredArgsConstructor
@@ -80,7 +79,7 @@ public class AiServiceImpl implements AiService {
 
         List<Setting> settings = settingRepository.findAllByConcept_ConceptId(conceptId);
 
-        Model model = modelRepository.findByUserUserIdAndModelId(userId, modelId);
+        Model model = modelRepository.findByUserUserIdAndModelIdAndSuccessTrue(userId, modelId);
 
         String breed = model.getInstancePrompt();
 
@@ -146,6 +145,8 @@ public class AiServiceImpl implements AiService {
                 String returnData = "model";
                 if (status.equals("FAILED")) {
                     returnData = "model fail";
+                } else {
+                    modelRepository.findByDatasetId(datasetId).ifPresent(model -> model.updateSuccess());
                 }
                 //model은 sse안함
 //                sseService.send(datasetId, returnData);

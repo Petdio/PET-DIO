@@ -39,4 +39,11 @@ public class Model {
 
     @Column(name = "model_instance_prompt")
     private String instancePrompt;
+
+    @Column(name = "model_success")
+    private boolean success;
+
+    public void updateSuccess() {
+        this.success = true;
+    }
 }

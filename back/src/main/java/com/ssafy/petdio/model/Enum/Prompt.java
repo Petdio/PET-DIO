@@ -109,7 +109,7 @@ public enum Prompt {
                 " missing arms, mutated hands, cloned face, missing legs"),
 
     CHRISTMAS_STICKER (7L,"breed, high quality, 8K Ultra HD, cute stickers, style cartoon, white border, " +
-            "Detailed illustration of a cute terry spitz wearing a Santa hat, Bags of many Christmas gifts on the background, " +
+            "Detailed illustration of a cute breed wearing a Santa hat, Bags of many Christmas gifts on the background, " +
             " colorful, pink, orange, blue, yellow, highly detailed, awesome full color, clean eyes",
 
             "multiple arrows, nude, nsfw, too many feet, too many fingers, long neck, 2 heads, duplicate, disfigured, deformed," +

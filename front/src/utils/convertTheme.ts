@@ -16,6 +16,9 @@ export default function convertTheme(themeEN: string) {
     case "SKYintheHeaven":
       themeKO = "하늘";
       break;
+    case "SKY":
+      themeKO = "하늘";
+      break;
     case "Goggles":
       themeKO = "고글";
       break;

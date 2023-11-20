@@ -95,7 +95,8 @@ public enum Prompt {
                     " floating limbs, disconnected limbs, out of focus, long body, disgusting, extra fingers, groos proportions," +
                     " missing arms, mutated hands, cloned face, missing legs"),
 
-    GOGGLES (6L,"One breed, Illustration,cartoon a breed head, with ski goggles in which mountains are reflected,without breed eye",
+    GOGGLES (6L,"One breed, Illustration, cartoon a breed head with ski goggles, without breed eye",
+                //One breed, Illustration,cartoon a breed head, with ski goggles in which mountains are reflected,without breed eye
 
                 "out of frame, cropped, bad proportions, out of frame, bad anatomy, poorly drawn face, morbid, mutilated," +
                 "((extra eyes)), ((extra arms)), ((extra legs)), ((extra fingers)), ((extra headphones))," +
@@ -133,7 +134,7 @@ public enum Prompt {
                     "poorly drawn face, mutation, mutated, floating limbs, disconnected limbs, out of focus, long body, " +
                     "disgusting, extra fingers, groos proportions, missing arms, mutated hands, cloned face, missing legs,"),
 
-    MODEL_SKETCH (9L,"realistic pencil drawing of a breed, portrait view, breed face portrait, black and white, animal," +
+    MODEL_SKETCH (9L,"realistic pencil drawing of a breed, portrait view, face portrait, black and white, animal," +
             "white background, clean eyes, sketch, pencil strokes, pencil lines",
 
             "multiple arrows, nude, nsfw, too many feet, too many fingers, long neck, 2 heads, duplicate, disfigured, deformed," +

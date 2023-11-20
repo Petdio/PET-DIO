@@ -40,7 +40,8 @@ function ModelCreateButton({ isModelLimit }: Props) {
         variant="circular"
         size="large"
         color="primary"
-        disabled={isModelLimit}
+        // disabled 해제
+        disabled={false}
         onClick={() => router.push("/ai-studio/model-create")}
         sx={{
           position: "fixed",

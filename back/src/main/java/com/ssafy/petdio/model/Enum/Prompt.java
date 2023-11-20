@@ -95,7 +95,7 @@ public enum Prompt {
                     " floating limbs, disconnected limbs, out of focus, long body, disgusting, extra fingers, groos proportions," +
                     " missing arms, mutated hands, cloned face, missing legs"),
 
-    GOGGLES (6L,"A breed, Illustration,cartoon a breed head, with ski goggles in which mountains are reflected,without breed eye",
+    GOGGLES (6L,"One breed, Illustration,cartoon a breed head, with ski goggles in which mountains are reflected,without breed eye",
 
                 "out of frame, cropped, bad proportions, out of frame, bad anatomy, poorly drawn face, morbid, mutilated," +
                 "((extra eyes)), ((extra arms)), ((extra legs)), ((extra fingers)), ((extra headphones))," +
@@ -110,13 +110,20 @@ public enum Prompt {
 
     CHRISTMAS_STICKER (7L,"breed, high quality, 8K Ultra HD, cute stickers, style cartoon, white border, " +
             "Detailed illustration of a cute breed wearing a Santa hat, Bags of many Christmas gifts on the background, " +
-            " colorful, pink, orange, blue, yellow, highly detailed, awesome full color, clean eyes",
+            " colorful, pink, orange, blue, yellow, highly detailed, awesome full color, clean eyes, clean nose",
 
-            "multiple arrows, nude, nsfw, too many feet, too many fingers, long neck, 2 heads, duplicate, disfigured, deformed," +
-                    "toy, disfigured, bad art, deformed, poorly drawn, extra limbs, weird colors, 2 heads, elongated body, cropped image, out of frame, deformed hands, twisted fingers,  " +
-                    " malformed hands, multiple heads, extra limb, ugly, poorly drawn hands, missing limb, cut-off, lowères, bad anatomy," +
-                    "poorly drawn face, mutation, mutated, floating limbs, disconnected limbs, out of focus, long body, " +
-                    "disgusting, extra fingers, groos proportions, missing arms, mutated hands, cloned face, missing legs,"),
+            "multiple arrows, nude, nsfw, too many feet, too many fingers, long neck, 2 heads, duplicate, "
+                    + "disfigured, deformed, toy, disfigured, bad art, deformed, poorly drawn, extra limbs, weird colors, "
+                    + "2 heads, elongated body, cropped image, out of frame, deformed hands, twisted fingers, malformed hands, "
+                    + "multiple heads, extra limb, ugly, poorly drawn hands, missing limb, cut-off, lowères, bad anatomy, "
+                    + "poorly drawn face, mutation, mutated, floating limbs, disconnected limbs, out of focus, long body, disgusting, "
+                    + "extra fingers, groos proportions, missing arms, mutated hands, cloned face, missing legs,"),
+
+//            "multiple arrows, nude, nsfw, too many feet, too many fingers, long neck, 2 heads, duplicate, disfigured, deformed," +
+//                    "toy, disfigured, bad art, deformed, poorly drawn, extra limbs, weird colors, 2 heads, elongated body, cropped image, out of frame, deformed hands, twisted fingers,  " +
+//                    " malformed hands, multiple heads, extra limb, ugly, poorly drawn hands, missing limb, cut-off, lowères, bad anatomy," +
+//                    "poorly drawn face, mutation, mutated, floating limbs, disconnected limbs, out of focus, long body, " +
+//                    "disgusting, extra fingers, groos proportions, missing arms, mutated hands, cloned face, missing legs,"),
 
     CHRISTMAS_REALITY (8L,"breed, Generate imaginative Christmas-themed animals: Picture a breed with gift box and santa hat, clean eyes.",
 
@@ -126,7 +133,7 @@ public enum Prompt {
                     "poorly drawn face, mutation, mutated, floating limbs, disconnected limbs, out of focus, long body, " +
                     "disgusting, extra fingers, groos proportions, missing arms, mutated hands, cloned face, missing legs,"),
 
-    MODEL_SKETCH (9L,"realistic pencil drawing of a breed, portrait view, face portrait, black and white, animal," +
+    MODEL_SKETCH (9L,"realistic pencil drawing of a breed, portrait view, breed face portrait, black and white, animal," +
             "white background, clean eyes, sketch, pencil strokes, pencil lines",
 
             "multiple arrows, nude, nsfw, too many feet, too many fingers, long neck, 2 heads, duplicate, disfigured, deformed," +

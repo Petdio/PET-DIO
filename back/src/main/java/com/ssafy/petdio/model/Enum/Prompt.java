@@ -118,7 +118,7 @@ public enum Prompt {
                     "poorly drawn face, mutation, mutated, floating limbs, disconnected limbs, out of focus, long body, " +
                     "disgusting, extra fingers, groos proportions, missing arms, mutated hands, cloned face, missing legs,"),
 
-    CHRISTMAS_REALITY (8L,"breed, Generate imaginative Christmas-themed animals: Picture a breed with gift box and santa hat.",
+    CHRISTMAS_REALITY (8L,"breed, Generate imaginative Christmas-themed animals: Picture a breed with gift box and santa hat, clean eyes.",
 
             "multiple arrows, nude, nsfw, too many feet, too many fingers, long neck, 2 heads, duplicate, disfigured, deformed," +
                     "toy, disfigured, bad art, deformed, poorly drawn, extra limbs, weird colors, 2 heads, elongated body, cropped image, out of frame, deformed hands, twisted fingers,  " +
@@ -127,7 +127,7 @@ public enum Prompt {
                     "disgusting, extra fingers, groos proportions, missing arms, mutated hands, cloned face, missing legs,"),
 
     MODEL_SKETCH (9L,"realistic pencil drawing of a breed, portrait view, face portrait, black and white, animal," +
-            "white background, sketch, pencil strokes, pencil lines",
+            "white background, clean eyes, sketch, pencil strokes, pencil lines",
 
             "multiple arrows, nude, nsfw, too many feet, too many fingers, long neck, 2 heads, duplicate, disfigured, deformed," +
                     "toy, disfigured, bad art, deformed, poorly drawn, extra limbs, weird colors, 2 heads, elongated body, cropped image, out of frame, deformed hands, twisted fingers,  " +

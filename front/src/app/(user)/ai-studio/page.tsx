@@ -14,10 +14,10 @@ function AiStudio() {
         flexDirection={"column"}
         margin={"0 1rem 1rem 1rem"}
       >
-        <Typography variant="caption">
+        {/* <Typography variant="caption">
           모델은 현재 계정당 1개씩만 생성할 수 있어요.
         </Typography>
-        <Typography variant="caption">업데이트를 기다려주세요!</Typography>
+        <Typography variant="caption">업데이트를 기다려주세요!</Typography> */}
       </Box>
       <ModelList />
     </>

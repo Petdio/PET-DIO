@@ -2,6 +2,7 @@ package com.ssafy.petdio.model.entity;
 
 import com.ssafy.petdio.user.model.entity.User;
 import jakarta.persistence.*;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -43,6 +44,7 @@ public class Model {
     @Column(name = "model_success")
     private boolean success;
 
+    @Transactional
     public void updateSuccess() {
         this.success = true;
     }

@@ -42,6 +42,8 @@ public class ModelServeiceImpl implements ModelService{
         sb.append(" ");
         sb.append(breed);
 
+        instancePrompt = sb.toString();
+
         modelRepository.save(
                 Model.builder()
                         .modelName(datasetName)

@@ -47,6 +47,7 @@ public class ModelServeiceImpl implements ModelService{
                         .modelName(datasetName)
                         .datasetId(datasetId)
                         .instancePrompt(instancePrompt)
+                        .success(false)
                         .customModelId(customModelId)
                         .user(User.builder().userId(userId).build())
                         .build()
@@ -62,7 +63,7 @@ public class ModelServeiceImpl implements ModelService{
 
     @Override
     public List<ModelDto.Response> getModelList(Long userId) {
-        return modelRepository.findByUserUserId(userId).stream().map(model ->
+        return modelRepository.findByUserUserIdAndSuccessTrue(userId).stream().map(model ->
                 ModelDto.Response.builder()
                         .modelId(model.getModelId())
                         .modelName(model.getModelName())

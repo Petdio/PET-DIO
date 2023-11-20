@@ -43,8 +43,7 @@ public class Model {
 
     @Column(name = "model_success")
     private boolean success;
-
-    @Transactional
+    
     public void updateSuccess() {
         this.success = true;
     }

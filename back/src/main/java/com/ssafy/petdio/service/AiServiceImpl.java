@@ -23,6 +23,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -127,6 +128,7 @@ public class AiServiceImpl implements AiService {
         return modelIds[randomIndex];
     }
 
+    @Transactional
     @Override
     public void webhookUrlCheck(String url) throws Exception {
         JSONObject data = new JSONObject(url);

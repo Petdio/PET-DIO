@@ -104,6 +104,8 @@ Spring Security, JWT, OAuth2를 사용한 카카오 소셜 로그인을 구현�
 
 <img src="https://user-images.githubusercontent.com/108192878/284829953-e16ca4dd-5b6d-4a1f-a014-c35097bd6473.gif" width="360" height="639">
 
+<img src="https://user-images.githubusercontent.com/108192878/284829981-085d43c8-7808-4a1a-9efc-e384f50cb960.gif" width="360" height="639">
+
 **앨범**
 
 지금까지 생성한 이미지들을 볼 수 있는 곳입니다. 컨셉 테마에 따라 이미지들을 필터링해서 조회할 수도 있습니다.

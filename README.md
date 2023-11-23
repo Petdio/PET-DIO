@@ -1,6 +1,6 @@
 <!-- 대문 이미지 넣기  -->
 
-![대문사진](https://github.com/Modoo-s-Seoul/ModooSeoul/assets/87963766/79e26981-50ed-4850-8d1b-3faf847a933e)
+![petdio-head-image](https://github.com/Petdio/PET-DIO/assets/87963766/80950bcf-e5c2-454b-87f2-af93ba37770a)
 
 # 🐶 PET:DIO 🐱
 

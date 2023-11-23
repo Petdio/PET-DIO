@@ -1,7 +1,7 @@
 package com.ssafy.petdio.config;
 
-import com.ssafy.petdio.auth.jwt.JwtAuthenticationProcessingFilter;
-import com.ssafy.petdio.auth.jwt.service.JwtService;
+import com.ssafy.petdio.domain.auth.jwt.JwtAuthenticationProcessingFilter;
+import com.ssafy.petdio.domain.auth.jwt.service.JwtService;
 import jakarta.servlet.Filter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -37,6 +37,7 @@ public class SecurityConfig {
                         .requestMatchers("/user/**").authenticated()
                         .requestMatchers("/ai/create").authenticated()
                         .requestMatchers("/model/**").authenticated()
+                        .requestMatchers("/ai/**").authenticated()
                         .requestMatchers(new AntPathRequestMatcher("/ai/webhook")).permitAll()
                         .anyRequest().permitAll())
                 .headers(headers -> headers.frameOptions(FrameOptionsConfig::disable));

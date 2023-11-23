@@ -80,11 +80,21 @@
 
 ## 📌 주요 기능
 
+**로그인, 로그아웃**
+
+Spring Security, JWT, OAuth2를 사용한 카카오 소셜 로그인을 구현했습니다.
+
+<img src="https://user-images.githubusercontent.com/108192878/284829992-3b9fbab1-d7fb-4214-9bbb-a06ae926e832.gif" width="360" height="639">
+
+<img src="https://user-images.githubusercontent.com/108192878/284829999-25570c9c-f442-47a5-8f5b-60fdb3822c3c.gif" width="360" height="639">
+
 **캐주얼 사진관**
 
 미리 만들어진 테마에 반려동물의 사진 1장을 넣어 해당 테마가 적용된 이미지를 생성해주는 기능입니다.
 
 ![image](https://github.com/Baejw0111/ArtLink/assets/87963766/44e009fb-cbd8-453c-87cd-1376dff01ee3)
+
+<img src="https://user-images.githubusercontent.com/108192878/284830005-58f159c3-97f7-44f0-ad3d-12161647dbb3.gif" width="360" height="639">
 
 **AI 스튜디오**
 
@@ -92,8 +102,14 @@
 
 ![image](https://github.com/Baejw0111/ArtLink/assets/87963766/fbe8780d-9420-4410-b372-dac027052f7b)
 
+<img src="https://user-images.githubusercontent.com/108192878/284829953-e16ca4dd-5b6d-4a1f-a014-c35097bd6473.gif" width="360" height="639">
+
+<img src="https://user-images.githubusercontent.com/108192878/284829981-085d43c8-7808-4a1a-9efc-e384f50cb960.gif" width="360" height="639">
+
 **앨범**
 
 지금까지 생성한 이미지들을 볼 수 있는 곳입니다. 컨셉 테마에 따라 이미지들을 필터링해서 조회할 수도 있습니다.
 
 ![image](https://github.com/Baejw0111/ArtLink/assets/87963766/d71cd109-b7bd-4998-af3b-530ad5a9f384)
+
+<img src="https://user-images.githubusercontent.com/108192878/284830033-daecee08-ce7f-41a1-8809-2ff34809f3c8.gif" width="360" height="639">

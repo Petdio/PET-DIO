@@ -1,6 +1,6 @@
 package com.ssafy.petdio.config;
 
-import com.ssafy.petdio.model.dto.AiDto;
+import com.ssafy.petdio.domain.ai.dto.AiDto;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
